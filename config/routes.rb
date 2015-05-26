@@ -55,8 +55,8 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  get 'login' => 'users#login'
-  post 'post_login' => 'users#post_login'
+  get 'login' => 'teacher_users#login'
+  post 'post_login' => 'teacher_users#post_login'
 
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')

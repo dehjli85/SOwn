@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class TeacherUser < ActiveRecord::Base
 
 	def self.from_omniauth(auth)
 		
