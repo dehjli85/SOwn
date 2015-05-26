@@ -1,0 +1,2 @@
+module TeacherAccountHelper
+end

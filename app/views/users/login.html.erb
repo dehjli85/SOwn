@@ -1,16 +1,16 @@
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+<!--<script src="https://apis.google.com/js/platform.js" async defer></script>
 <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
-  </script>
+  </script>-->
 
 <div>
   <% if current_user %>
     Signed in as <strong><%= current_user.display_name %></strong>!
     <%= link_to "Sign out", signout_path, id: "sign_out" %>
   <% else %>
-    <%= link_to "Sign in with Google", "/auth/google_oauth2", id: "sign_in" %>
+    <%= link_to "Sign in with Google", "/auth/google_oauth2?redirect_path=teacher_home", id: "sign_in" %>
   <% end %>
 </div>
-<div>
+
 
 <!--
 <div class="g-signin2" data-onsuccess="onSignIn"></div>

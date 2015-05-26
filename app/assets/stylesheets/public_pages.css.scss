@@ -1,3 +1,22 @@
 // Place all the styles related to the public_pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.role_select_div {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form_select_div .role_select_heading{
+  margin-bottom: 10px;
+  text-align:center;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+
