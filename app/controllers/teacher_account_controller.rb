@@ -1,7 +1,7 @@
 class TeacherAccountController < ApplicationController
 
 	def home
-		puts 'TEACHER HOME'
+		@classrooms = Classroom.where({teacher_user_id: session[:user_id]}).to_a
 	end
 
 end

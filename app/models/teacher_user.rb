@@ -1,8 +1,16 @@
 class TeacherUser < ActiveRecord::Base
 
-	def self.from_omniauth(auth)
+  has_many :classrooms
+
+
+	def self.from_omniauth_sign_up(auth)
     
     puts 'AUTH_HASH:\n' + auth.to_s
+
+    #check to see if the user already exists in the db.  If so, return null.
+    if !where(auth.slice(:provider, :uid).to_hash).first.nil?
+      return nil
+    end
 
     #initialize the user if necessary
     where(auth.slice(:provider, :uid).to_hash).first_or_initialize do |user|
@@ -23,6 +31,13 @@ class TeacherUser < ActiveRecord::Base
     retrieved_user.save!
 
     retrieved_user
+
+  end
+
+  def self.from_omniauth_log_in(auth)
+
+    #check if the user exists in the db.  If so, return the user, else return nil
+    where(auth.slice(:provider, :uid).to_hash).first      
 
   end
 end

@@ -63,8 +63,12 @@ Rails.application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
   get 'teacher_home' => 'teacher_account#home'
+  get 'sign_up_teacher' => 'public_pages#sign_up_teacher'
+  get 'sign_up_student' => 'public_pages#sign_up_student'
+  get 'sign_up_error' => 'public_pages#sign_up_error'
   root to: "public_pages#home"
 
   resources :sessions, only: [:create, :destroy]
+  resources :classroom
 
 end

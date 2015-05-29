@@ -1,10 +1,37 @@
 <div>
-  <% if current_user %>
     Signed in as <strong><%= current_user.display_name %></strong>!
-    <%= link_to "Sign out", signout_path, id: "sign_out" %>
-  <% else %>
-    <%= link_to "Sign in with Google", "/auth/google_oauth2?redirect_path=teacher_home", id: "sign_in" %>
-  <% end %>
+    <div>
+    	<%= link_to "Sign out", signout_path, id: "sign_out" %>
+  	</div> 	
+  	
+  	<table>
+  		
+  			<% for i in 0..@classrooms.length-1 %>
+  				<% if i%4 == 0 %>
+  					<tr>
+  				<% end %>
+  				<td>
+  					<div class='class_selector'>
+				  		<a href="/classroom/<%=@classrooms[i].id%>">20 Students</a>
+				  		<div class='class_selector_text'><h4><a href="/classroom/<%=@classrooms[i].id%>"><%= @classrooms[i].name %></a></h4></div>  		
+				  	</div>
+  					
+  				</td>
 
-  test
+  				<% if i%4 == 3 %>
+  					</tr>
+  				<% end %>
+  			<% end %>
+  			<% if @classrooms.length%4 != 3 %>
+					</tr>
+				<% end %>
+  		</tr>
+  	</table>
+	  	<div class='class_selector'>
+	  		<a href="/classroom/new"><img src="<%= image_url('icon_add_new_plus.png')%>" style=""></a>
+	  		<div class='class_selector_text'><h4>Add Class</h4></div>  		
+	  	</div>
+  	
+  	
+
 </div>

@@ -1,3 +1,17 @@
 // Place all the styles related to the teacher_account controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.class_selector{
+	width:205px;
+	height:270px;
+	border:1px dashed #BABECC;
+	padding-top:40px;	
+	background-color:#FBFBFB;
+	text-align:center;
+	margin: 5px 5px 5px 5px;
+}
+
+.class_selector div{
+	text-align:center;
+}

@@ -3,12 +3,8 @@
   </script>-->
 
 <div>
-  <% if current_user %>
-    Signed in as <strong><%= current_user.display_name %></strong>!
-    <%= link_to "Sign out", signout_path, id: "sign_out" %>
-  <% else %>
-    <%= link_to "Sign in with Google", "/auth/google_oauth2?redirect_path=teacher_home", id: "sign_in" %>
-  <% end %>
+    <a href="/auth/google_oauth2?redirect_path=teacher_home&amp;login=true", id="sign_in", class= 'btn btn-lg btn-primary btn-google-plus'><i class="fa fa-google-plus"></i>  Log In with Google</a>
+
 </div>
 
 
