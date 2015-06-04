@@ -1,7 +1,8 @@
-<a href="/teacher_home">Back to Home</a>
+<a href="/student_home">Back to Home</a>
 
-<%= form_for :classroom, url: {action: "create"}, html: {class: "form-horizontal",  method: "post'"} do |f| %>
-
+<h3>Confirm this is the classroom you want to join:</h3>
+<%= form_for :classroom, url: '/student/joinClassroomConfirmPost', html: {class: "form-horizontal",  method: "post"} do |f| %>
+  <%= f.hidden_field(:id) %>
   
   <div class="form-group">
   
@@ -30,22 +31,8 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <a href="/classroom/<%= @classroom.id%>/edit" class="btn btn-default">Edit</a>
+      <%= f.submit 'Join Classroom', :class=> 'btn btn-primary'%>      
     </div>
   </div>
-<% end %>
-
-<% if !@classroom.student_users.empty? %>
-  <table class="table">
-    <th>
-      <td>Name</td>
-      <td></td>
-    </th>
-    <% @classroom.student_users.each do |s| %>
-      <tr>
-        <td><%= s.display_name %></td>        
-      </tr>
-    <% end %>
-  </table>
 <% end %>
 

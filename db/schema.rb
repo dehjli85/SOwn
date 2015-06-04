@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527030025) do
+ActiveRecord::Schema.define(version: 20150603052552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,53 @@ ActiveRecord::Schema.define(version: 20150527030025) do
     t.string   "name"
     t.string   "description"
     t.string   "classroom_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "classrooms_student_users", force: true do |t|
+    t.integer  "student_user_id"
+    t.integer  "classroom_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "common_core_ela_standards", force: true do |t|
+    t.string   "common_core_ela_strand_id"
+    t.string   "grade_level"
+    t.string   "standard_code"
+    t.string   "full_code"
+    t.string   "strand_description",        limit: 1000
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "common_core_ela_strands", force: true do |t|
+    t.string   "code"
+    t.string   "strand_description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "common_core_math_domains", force: true do |t|
+    t.string   "code"
+    t.string   "domain_description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "student_users", force: true do |t|
+    t.string   "username",         limit: 64
+    t.string   "display_name"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "password"
+    t.string   "password_hash"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

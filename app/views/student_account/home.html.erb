@@ -1,0 +1,20 @@
+<h1>Student Homepage</h1>
+
+<h3>Join a class</h3>
+<%= form_tag('student/joinClassroomConfirm', method: 'post', :class => 'form-inline') do %>
+	<div class="form-group">
+    <label class="sr-only" for="classroom_code">Classroom Code</label>
+    <%= text_field_tag 'classroom_code', '',  placeholder: 'smith-1-math', :class => 'form-control'%>
+    
+  </div>
+	
+	<%= submit_tag 'Join Classroom', :class=> 'btn btn-primary'%>
+<% end %>
+
+<div>
+	<h3>My Classes</h3>
+	<% @student_user.classrooms.each do |c| %>
+		<%= c.name %>
+	<% end %>
+
+</div>

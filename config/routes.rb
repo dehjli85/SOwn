@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'student_account/home'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -55,17 +57,23 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  get 'login' => 'teacher_users#login'
+  get 'login' => 'public_pages#login'
   post 'post_login' => 'teacher_users#post_login'
+
+  get 'sign_up_teacher' => 'public_pages#sign_up_teacher'
+  get 'sign_up_student' => 'public_pages#sign_up_student'
+  get 'sign_up_error' => 'public_pages#sign_up_error'
 
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
   get 'teacher_home' => 'teacher_account#home'
-  get 'sign_up_teacher' => 'public_pages#sign_up_teacher'
-  get 'sign_up_student' => 'public_pages#sign_up_student'
-  get 'sign_up_error' => 'public_pages#sign_up_error'
+
+  get 'student_home' => 'student_account#home'
+  post 'student/joinClassroomConfirm' => 'student_account#join_classroom_confirm'
+  post 'student/joinClassroomConfirmPost' => 'student_account#join_classroom_confirm_post'
+
   root to: "public_pages#home"
 
   resources :sessions, only: [:create, :destroy]
