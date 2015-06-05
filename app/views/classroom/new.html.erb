@@ -1,60 +1,70 @@
-<%= form_for :classroom, url: {action: "create"}, html: {class: "form-horizontal",  method: "post'"} do |f| %>
+<%= render '/shared/top_nav' %>
 
-  <% if !@classroom.errors[:name].empty? %>
-    <div class="form-group has-error">
-  <% else %>
-    <div class="form-group">
-  <% end %>
-    <label for="inputName" class="col-sm-2 control-label">Name</label>
-    <div class="col-sm-10">
-      <%= f.text_field :name, {:class=>'form-control', placeholder: '1st Period History', id: 'inputName' }%>
-      <% if @classroom.errors[:name] %>
-        <% @classroom.errors[:name].each do |error| %>
-          <label class="control-label" for="inputClassroomCode">Name <%= error %></label><br/>      
+<div class="container-fluid">
+  <div class="row">  
+    <%= render partial: '/shared/left_nav', locals: { active: '' }%>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <%= form_for :classroom, url: {action: "create"}, html: {class: "form-horizontal",  method: "post'"} do |f| %>
+
+        <% if !@classroom.errors[:name].empty? %>
+          <div class="form-group has-error">
+        <% else %>
+          <div class="form-group">
         <% end %>
+          <label for="inputName" class="col-sm-2 control-label">Name</label>
+          <div class="col-sm-10">
+            <%= f.text_field :name, {:class=>'form-control', placeholder: '1st Period History', id: 'inputName' }%>
+            <% if @classroom.errors[:name] %>
+              <% @classroom.errors[:name].each do |error| %>
+                <label class="control-label" for="inputClassroomCode">Name <%= error %></label><br/>      
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+
+        <% if !@classroom.errors[:description].empty? %>
+          <div class="form-group has-error">
+        <% else %>
+          <div class="form-group">
+        <% end %>
+          <label for="inputDescription" class="col-sm-2 control-label">Description</label>
+          <div class="col-sm-10">
+            <%= f.text_area :description, {:class=>'form-control', placeholder: 'Mr. Smith\'s 1st period history class', id: 'inputDescription' }%>
+            <% if @classroom.errors[:description] %>
+              <% @classroom.errors[:description].each do |error| %>
+                <label class="control-label" for="inputClassroomCode">Description <%= error %></label><br/>      
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        
+        
+        <% if !@classroom.errors[:classroom_code].empty? %>
+          <div class="form-group has-error">
+        <% else %>
+          <div class="form-group">
+        <% end %>
+          <label for="inputClassroomCode" class="col-sm-2 control-label">Classroom Code</label>    
+          <div class="col-sm-10">      
+            <%= f.text_field :classroom_code, {:class=>'form-control', placeholder: 'smith-1-history', id: 'inputClassroomCode' }%>
+            <% if @classroom.errors[:classroom_code] %>
+              <% @classroom.errors[:classroom_code].each do |error| %>
+                <label class="control-label" for="inputClassroomCode">Classroom Code <%= error %></label><br/>      
+              <% end %>
+            <% end %>
+          </div>
+        </div>    
+
+
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <%= f.submit "Create", {class: 'btn btn-default'}%>
+          </div>
+        </div>
       <% end %>
+
+
     </div>
   </div>
-
-
-  <% if !@classroom.errors[:description].empty? %>
-    <div class="form-group has-error">
-  <% else %>
-    <div class="form-group">
-  <% end %>
-    <label for="inputDescription" class="col-sm-2 control-label">Description</label>
-    <div class="col-sm-10">
-      <%= f.text_area :description, {:class=>'form-control', placeholder: 'Mr. Smith\'s 1st period history class', id: 'inputDescription' }%>
-      <% if @classroom.errors[:description] %>
-        <% @classroom.errors[:description].each do |error| %>
-          <label class="control-label" for="inputClassroomCode">Description <%= error %></label><br/>      
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-  
-  
-  <% if !@classroom.errors[:classroom_code].empty? %>
-    <div class="form-group has-error">
-  <% else %>
-    <div class="form-group">
-  <% end %>
-    <label for="inputClassroomCode" class="col-sm-2 control-label">Classroom Code</label>    
-    <div class="col-sm-10">      
-      <%= f.text_field :classroom_code, {:class=>'form-control', placeholder: 'smith-1-history', id: 'inputClassroomCode' }%>
-      <% if @classroom.errors[:classroom_code] %>
-        <% @classroom.errors[:classroom_code].each do |error| %>
-          <label class="control-label" for="inputClassroomCode">Classroom Code <%= error %></label><br/>      
-        <% end %>
-      <% end %>
-    </div>
-  </div>    
-
-
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit "Create", {class: 'btn btn-default'}%>
-    </div>
-  </div>
-<% end %>
-
+</div>

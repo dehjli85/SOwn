@@ -1,4 +1,7 @@
 class StudentAccountController < ApplicationController
+
+  skip_before_action :require_teacher_login
+
   def home
   	@student_user = StudentUser.find(session[:student_user_id])
 

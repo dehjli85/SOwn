@@ -1,6 +1,7 @@
 class TeacherUser < ActiveRecord::Base
 
   has_many :classrooms
+  has_many :activities
 
 
 	def self.from_omniauth_sign_up(auth)

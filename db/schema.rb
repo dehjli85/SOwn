@@ -11,10 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150603052552) do
+ActiveRecord::Schema.define(version: 20150604232204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: true do |t|
+    t.string   "name"
+    t.string   "description",     limit: 1000
+    t.string   "instructions",    limit: 1000
+    t.integer  "teacher_user_id"
+    t.string   "activity_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "classroom_activities", force: true do |t|
+    t.integer  "activity_id"
+    t.integer  "classroom_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "classrooms", force: true do |t|
     t.integer  "teacher_user_id"
@@ -52,6 +69,16 @@ ActiveRecord::Schema.define(version: 20150603052552) do
   create_table "common_core_math_domains", force: true do |t|
     t.string   "code"
     t.string   "domain_description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "common_core_math_standards", force: true do |t|
+    t.string   "common_core_math_domain_id"
+    t.string   "grade_level"
+    t.string   "standard_code"
+    t.string   "full_code"
+    t.string   "standard_description",       limit: 1500
     t.datetime "created_at"
     t.datetime "updated_at"
   end

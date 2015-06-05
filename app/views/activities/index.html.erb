@@ -1,0 +1,35 @@
+<%= render '/shared/top_nav' %>
+
+<div class="container-fluid">
+  <div class="row">  
+    <%= render partial: '/shared/left_nav', locals: { active: 'activities' }%>
+
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <h3 class="sub-header">My Activities</h3>
+      <a href="/activities/new" class="btn btn-primary" style="margin:10px 0px 10px 0px;">Create Activity</a>
+      <% if @activities.empty? %>
+        <div class='alert alert-danger' style='text-align:center; margin-top:20px;'> You have no activities</div>
+      <% else %>
+        <table class='table table-condensed table-hover'>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Instructions</th>
+            <th>Activity Type</th>
+            <th></th>
+          </tr>
+          <% @activities.each do |a| %>
+            <tr>
+              <td><%= a.name %></td>
+              <td><%= a.description_abbreviated %></td>
+              <td><%= a.instructions_abbreviated %></td>
+              <td><%= a.activity_type_description %></td>
+              <td><a href="/activities/<%= a.id %>/edit">Edit</a></td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>
+

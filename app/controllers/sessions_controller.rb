@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  
+  skip_before_action :require_teacher_login
 
   def create
 

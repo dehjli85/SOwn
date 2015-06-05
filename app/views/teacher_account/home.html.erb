@@ -1,37 +1,59 @@
-<div>
-    Signed in as <strong><%= current_user.display_name %></strong>!
-    <div>
-    	<%= link_to "Sign out", signout_path, id: "sign_out" %>
-  	</div> 	
-  	
-  	<table>
-  		
-  			<% for i in 0..@classrooms.length-1 %>
-  				<% if i%4 == 0 %>
-  					<tr>
-  				<% end %>
-  				<td>
-  					<div class='class_selector'>
-				  		<a href="/classroom/<%=@classrooms[i].id%>"><%=@classrooms[i].student_users.length%> Students</a>
-				  		<div class='class_selector_text'><h4><a href="/classroom/<%=@classrooms[i].id%>"><%= @classrooms[i].name %></a></h4></div>  		
-				  	</div>
-  					
-  				</td>
+<%= render '/shared/top_nav' %>
 
-  				<% if i%4 == 3 %>
-  					</tr>
-  				<% end %>
-  			<% end %>
-  			<% if @classrooms.length%4 != 3 %>
-					</tr>
-				<% end %>
-  		</tr>
-  	</table>
-	  	<div class='class_selector'>
-	  		<a href="/classroom/new"><img src="<%= image_url('icon_add_new_plus.png')%>" style=""></a>
-	  		<div class='class_selector_text'><h4>Add Class</h4></div>  		
-	  	</div>
-  	
-  	
 
+<div class="container-fluid">
+  <div class="row">  
+    <%= render partial: '/shared/left_nav', locals: { active: 'home' }%>
+  
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <h2 class="sub-header">Classrooms</h2>
+
+      <% for i in 0..@classrooms.length-1 %>
+        <% if i%4 == 0 %>
+          <div class="row placeholders">
+        <% end %>
+        <div class="col-xs-6 col-sm-3 placeholder">
+          
+          <a class="thumbnail" href="/classroom/<%=@classrooms[i].id%>"><img src="<%= image_url('placeholder_image.svg')%>" /></a>       
+          
+          <h4><%= @classrooms[i].name %></h4>
+          <span class="text-muted"><%=@classrooms[i].student_users.length%> Students</span>
+        </div>
+
+        
+        <% if i == @classrooms.length-1%>
+          <% if i%4 == 3 %>
+            <div class="row placeholders">
+              <div class="col-xs-6 col-sm-3 placeholder">          
+                <a class="thumbnail" href="/classroom/<%=@classrooms[i].id%>"><img src="<%= image_url('icon_add_new_plus.png')%>" style="height:180px;"/></a>      
+                
+                <h4>Add Class</h4>
+                <span class="text-muted"></span>
+              </div>
+            </div>            
+          <% else %>
+            <div class="col-xs-6 col-sm-3 placeholder">          
+              <a class="thumbnail" href="/classroom/new"><img src="<%= image_url('icon_add_new_plus.png')%>" style="height:180px;"/></a>      
+              
+              <h4>Add Class</h4>
+              <span class="text-muted"></span>
+            </div>            
+          <% end %>
+        <% end %>
+        <% if i%4 == 3 || (i == @classrooms.length-1 && i%4 != 3)#close off the row after 4%>
+            </div>
+        <% end %>
+        
+      <% end %>
+      
+
+      
+
+      <h2 class="sub-header">More Stuff Down Here</h2>
+      
+    </div>
+  </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
