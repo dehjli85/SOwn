@@ -25,8 +25,8 @@ class TeacherUser < ActiveRecord::Base
     #create update the users profile info
     retrieved_user = where(auth.slice(:provider, :uid).to_hash).first
     retrieved_user.display_name = auth.info.name
-    retrieved_user.first_name = auth.info.given_name
-    retrieved_user.last_name = auth.info.family_name
+    retrieved_user.first_name = auth.info.first_name
+    retrieved_user.last_name = auth.info.last_name
     retrieved_user.email = auth.info.email
     retrieved_user.username = auth.info.email
     retrieved_user.save!

@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :require_teacher_login
 
   def current_user
-    @current_user ||= TeacherUser.find(session[:user_id]) if session[:user_id]
+    @current_teacher_user ||= TeacherUser.find(session[:teacher_user_id]) if session[:teacher_user_id]
   end
 
   def require_teacher_login

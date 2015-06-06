@@ -1,7 +1,14 @@
-<% if flash[:notice].eql?('user exists') %>
-	<div>
-		<div class="alert alert-danger" role="alert">The Google account you tried to sign up with already has an account with SOwn.  Please try logging in instead.</div>
-    <a href="/auth/google_oauth2?redirect_path=teacher_home&amp;login=true", id="sign_in", class= 'btn btn-lg btn-primary btn-google-plus'><i class="fa fa-google-plus"></i>  Log In with Google</a>
+<div class="container">
 
-	</div>
-<% end %>
+  <div class="form-signin">
+		<% if flash[:notice].eql?('user exists') %>
+			<div>
+				<div class="alert alert-danger" role="alert">The Google account you tried to sign up with already has an account with SOwn.  Please try logging in instead.</div>
+		    <a href="/auth/google_oauth2?redirect_path=teacher_home&amp;login=true", id="sign_in", class= 'btn btn-lg btn-primary btn-google-plus'><i class="fa fa-google-plus"></i>  Log In with Google</a>
+
+			</div>
+		<% end %>
+
+   </div>
+
+</div>
