@@ -1,0 +1,2 @@
+module ClassroomActivitiesHelper
+end

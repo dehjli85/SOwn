@@ -41,6 +41,20 @@
         </div>
       <% end %>
 
+      <% if !@classroom.activities.empty? %>      
+        <table class="table">
+          <tr>
+            <th>Activity</th>
+            <th></th>
+          </tr>
+          <% @classroom.activities.each do |a| %>
+            <tr>
+              <td><%= a.name %></td>        
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+
       <% if !@classroom.student_users.empty? %>
         <table class="table">
           <tr>

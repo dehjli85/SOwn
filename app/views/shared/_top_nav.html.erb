@@ -11,7 +11,7 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><%= current_user.display_name %></a></li>
+        <li><a href="#"><%= @current_teacher_user.display_name %></a></li>
         <li><a href="#">Settings</a></li>
         <li><a href="#">Profile</a></li>
         <li><%= link_to "Sign out", signout_path, id: "sign_out" %></li>

@@ -26,9 +26,9 @@ ActiveRecord::Schema.define(version: 20150604232204) do
     t.datetime "updated_at"
   end
 
-  create_table "classroom_activities", force: true do |t|
-    t.integer  "activity_id"
+  create_table "activities_classrooms", force: true do |t|
     t.integer  "classroom_id"
+    t.integer  "activity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

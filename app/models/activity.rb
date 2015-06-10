@@ -1,5 +1,5 @@
 class Activity < ActiveRecord::Base
-	has_and_belongs_to_many :classrooms
+	has_and_belongs_to_many :classrooms, :through => :classrooms_activities
 	belongs_to :teacher_user
 
 	validates :activity_type, inclusion: { in: %w(completion scored),

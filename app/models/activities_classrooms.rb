@@ -1,4 +1,4 @@
-class ClassroomActivities < ActiveRecord::Base
+class ActivitiesClassrooms < ActiveRecord::Base
 	belongs_to :classroom
 	belongs_to :activity
 

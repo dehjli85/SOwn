@@ -23,7 +23,8 @@ class ActivitiesController < ApplicationController
 
 		#return html form for editing a classroom
 	def edit
-		@activity = Activity.find(params[:id])		
+		@activity = Activity.find(params[:id])	
+		@classrooms = @current_teacher_user.classrooms	
 	end
 
 	#update a specific activity

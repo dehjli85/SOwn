@@ -74,6 +74,8 @@ Rails.application.routes.draw do
   post 'student/joinClassroomConfirm' => 'student_account#join_classroom_confirm'
   post 'student/joinClassroomConfirmPost' => 'student_account#join_classroom_confirm_post'
 
+  post '/assign_activities' => 'activities_classrooms#assign'
+
   root to: "public_pages#home"
 
   resources :sessions, only: [:create, :destroy]
