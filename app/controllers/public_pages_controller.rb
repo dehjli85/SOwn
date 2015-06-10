@@ -22,5 +22,36 @@ class PublicPagesController < ApplicationController
 		
 	end
 
+	def login_post
+
+		#check for teacher first
+		@teacher_user = (!params[:user].nil? && !params[:user][:email].nil?) ? TeacherUser.find_by_email(params[:user][:email]) : nil
+		puts @teacher_user
+		if !@teacher_user.nil? 
+			if @teacher_user.password_valid?(params[:user][:password])
+				session[:teacher_user_id] = @teacher_user.id
+				redirect_to('/teacher_home')
+			else
+				reset_session
+				flash[:error] = "Invalid Login Credentials"
+				render "login"
+			end
+		else
+			#check student user second
+			@student_user = (!params[:user].nil? && !params[:user][:email].nil?) ? StudentUser.find_by_email(params[:user][:email]) : nil
+			if(!@student_user.nil?)
+				if @student_user.password_valid?(params[:user][:password])
+					session[:student_user_id] = @student_user.id
+					redirect_to('/student_home')				
+				end
+			end
+
+			reset_session
+			flash[:error] = "Invalid Login Credentials"
+			render "login"
+		end
+		
+	end
+
 
 end

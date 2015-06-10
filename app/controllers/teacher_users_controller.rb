@@ -1,8 +1,6 @@
 class TeacherUsersController < ApplicationController
 
-	def login
-
-	end
+	
 
 
 

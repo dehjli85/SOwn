@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
 	def index
-		@activities = current_user.activities
+		@activities = current_teacher_user.activities
 	end
 
 	#return and html form for creating a new activity

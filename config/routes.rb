@@ -58,8 +58,7 @@ Rails.application.routes.draw do
   #   end
 
   get 'login' => 'public_pages#login'
-  post 'post_login' => 'teacher_users#post_login'
-
+  post 'login_post' => 'public_pages#login_post'
   get 'sign_up_teacher' => 'public_pages#sign_up_teacher'
   get 'sign_up_student' => 'public_pages#sign_up_student'
   get 'sign_up_error' => 'public_pages#sign_up_error'
