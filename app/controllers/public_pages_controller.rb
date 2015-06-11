@@ -43,12 +43,18 @@ class PublicPagesController < ApplicationController
 				if @student_user.password_valid?(params[:user][:password])
 					session[:student_user_id] = @student_user.id
 					redirect_to('/student_home')				
+				else
+					reset_session
+					flash[:error] = "Invalid Login Credentials"
+					render "login"
 				end
+			else
+				reset_session
+				flash[:error] = "Invalid Login Credentials"
+				render "login"	
 			end
 
-			reset_session
-			flash[:error] = "Invalid Login Credentials"
-			render "login"
+			
 		end
 		
 	end

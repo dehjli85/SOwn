@@ -44,30 +44,25 @@
       <% if !@classroom.activities.empty? %>      
         <table class="table">
           <tr>
-            <th>Activity</th>
-            <th></th>
+            <th colspan="<%= @classroom.activities.length+1%>" style="text-align:center">Activities</th>
+            
           </tr>
-          <% @classroom.activities.each do |a| %>
-            <tr>
-              <td><%= a.name %></td>        
-            </tr>
-          <% end %>
-        </table>
-      <% end %>
-
-      <% if !@classroom.student_users.empty? %>
-        <table class="table">
           <tr>
-            <th>Name</th>
-            <th></th>
+            <th>Student</th>
+            <% @classroom.activities.each do |a| %>              
+                <td><%= a.name %></td>                      
+            <% end %>
           </tr>
           <% @classroom.student_users.each do |s| %>
             <tr>
               <td><%= s.display_name %></td>        
+              <% @classroom.activities.each do |a| %>              
+                <td></td>                      
+              <% end %>
             </tr>
           <% end %>
         </table>
-      <% end %>
+      <% end %>     
     </div>
   </div>
 </div>
