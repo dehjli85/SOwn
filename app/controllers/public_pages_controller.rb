@@ -30,6 +30,7 @@ class PublicPagesController < ApplicationController
 		if !@teacher_user.nil? 
 			if @teacher_user.password_valid?(params[:user][:password])
 				session[:teacher_user_id] = @teacher_user.id
+				flash[:error] = nil
 				redirect_to('/teacher_home')
 			else
 				reset_session
@@ -42,6 +43,7 @@ class PublicPagesController < ApplicationController
 			if(!@student_user.nil?)
 				if @student_user.password_valid?(params[:user][:password])
 					session[:student_user_id] = @student_user.id
+					flash[:error] = nil
 					redirect_to('/student_home')				
 				else
 					reset_session
