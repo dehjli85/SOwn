@@ -1,6 +1,8 @@
 class StudentUser < ActiveRecord::Base
 
     has_and_belongs_to_many :classrooms
+    has_many :student_performances
+    
 
 		def self.from_omniauth_sign_up(auth)
     
@@ -56,6 +58,21 @@ class StudentUser < ActiveRecord::Base
 
   def user_params
       params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+
+  def classroom_activities_performance(classroom_id)
+    sps = StudentPerformance.where({student_user_id: self.id})
+    matched_performances = Array.new
+    if !sps.nil?
+      sps.each do |sp|
+        if sp.activities_classrooms.classroom.id = classroom_id
+          matched_performances.push(sp)
+        end
+        return matched_performances
+      end
+    else
+      return nil
+    end
   end
   
 end

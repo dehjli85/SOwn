@@ -159,58 +159,7 @@ namespace :app do
   Classroom.new({id: 3, teacher_user_id: 100,name: "3rd Period Math", classroom_code: "li-3-math"}).save
   Classroom.new({id: 4, teacher_user_id: 100,name: "4th Period Math", classroom_code: "li-4-math"}).save
 
-  puts 'deleting classroom activities'
-  ActivitiesClassrooms.delete_all
-
-  puts 'adding classroom activities'
-  ActivitiesClassrooms.new({activity_id: 1, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 2, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 3, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 4, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 5, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 6, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 7, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 8, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 9, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 10, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 11, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 12, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 13, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 14, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 15, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 16, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 17, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 18, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 19, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 20, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 21, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 22, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 23, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 24, classroom_id: 1}).save
-  ActivitiesClassrooms.new({activity_id: 1, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 2, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 3, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 4, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 5, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 6, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 7, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 8, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 9, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 10, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 11, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 12, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 13, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 14, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 15, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 16, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 17, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 18, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 19, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 20, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 21, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 22, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 23, classroom_id: 2}).save
-  ActivitiesClassrooms.new({activity_id: 24, classroom_id: 2}).save
+ 
 
   puts 'deleting students in classrooms'
   ClassroomsStudentUsers.delete_all
@@ -357,6 +306,60 @@ namespace :app do
   ClassroomsStudentUsers.new({student_user_id: 66, classroom_id: 2}).save
   ClassroomsStudentUsers.new({student_user_id: 49, classroom_id: 1}).save
   ClassroomsStudentUsers.new({student_user_id: 97, classroom_id: 1}).save
+
+
+  puts 'deleting classroom activities'
+  ClassroomActivityPairing.delete_all
+
+  puts 'adding classroom activities'
+  ClassroomActivityPairing.new({activity_id: 1, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 2, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 3, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 4, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 5, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 6, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 7, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 8, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 9, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 10, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 11, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 12, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 13, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 14, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 15, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 16, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 17, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 18, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 19, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 20, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 21, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 22, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 23, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 24, classroom_id: 1}).save
+  ClassroomActivityPairing.new({activity_id: 1, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 2, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 3, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 4, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 5, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 6, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 7, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 8, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 9, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 10, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 11, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 12, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 13, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 14, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 15, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 16, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 17, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 18, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 19, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 20, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 21, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 22, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 23, classroom_id: 2}).save
+  ClassroomActivityPairing.new({activity_id: 24, classroom_id: 2}).save
 
   # Other test data should be added here...
 

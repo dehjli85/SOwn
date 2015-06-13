@@ -1,4 +1,4 @@
-class ActivitiesClassroomsController < ApplicationController
+class ClassroomActivityPairingController < ApplicationController
 
 	def assign
 		#get the activity
@@ -11,15 +11,15 @@ class ActivitiesClassroomsController < ApplicationController
 				puts "looking for classroom #{c.id}"
 				if classroom_hash.has_value?(c.id.to_s)
 					puts "classroom #{c.id} checked"
-					if ActivitiesClassrooms.where({activity_id: activity.id, classroom_id: c.id}).empty?
-						ca = ActivitiesClassrooms.new
+					if ClassroomActivityPairing.where({activity_id: activity.id, classroom_id: c.id}).empty?
+						ca = ClassroomActivityPairing.new
 						ca.classroom_id = c.id
 						ca.activity_id = activity.id
 						ca.save
 					end
 				else
 					puts "classroom #{c.id} not checked"
-					ActivitiesClassrooms.delete_all({activity_id: activity.id, classroom_id: c.id})					
+					ClassroomActivityPairing.delete_all({activity_id: activity.id, classroom_id: c.id})					
 				end
 			end
 		end

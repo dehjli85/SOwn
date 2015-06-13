@@ -1,6 +1,9 @@
 class Activity < ActiveRecord::Base
-	has_and_belongs_to_many :classrooms, :through => :classrooms_activities
+	#has_and_belongs_to_many :classrooms
 	belongs_to :teacher_user
+  #has_many :activities_classrooms
+  has_many :classroom_activity_pairings
+  has_many :classrooms, :through => :classroom_activity_pairings
 
 	validates :activity_type, inclusion: { in: %w(completion scored),
     message: "%{value} is not a valid activity type" }

@@ -88,7 +88,7 @@
         <% @classrooms.each_with_index do |c, index| %>
           <div class="checkbox">
             <label>
-              <%= check_box_tag 'classroom_hash[' + index.to_s + ']', c.id, !ActivitiesClassrooms.where({activity_id: @activity.id, classroom_id: c.id }).empty? %> 
+              <%= check_box_tag 'classroom_hash[' + index.to_s + ']', c.id, !ClassroomActivityPairing.where({activity_id: @activity.id, classroom_id: c.id }).empty? %> 
               <%= c.name %>             
             </label>
           </div>

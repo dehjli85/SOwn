@@ -1,8 +1,12 @@
-class ActivitiesClassrooms < ActiveRecord::Base
+class ClassroomActivityPairing < ActiveRecord::Base
+
 	belongs_to :classroom
 	belongs_to :activity
+	has_many :student_performances
+	
 
 	validates :classroom_id, :activity_id, presence: true
 	validates_uniqueness_of :classroom_id, :scope => :activity_id
+
 
 end

@@ -6,7 +6,7 @@
 
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-      <%= form_for :classroom, url: {action: "create"}, html: {class: "form-horizontal",  method: "post'"} do |f| %>
+      <form class="form-horizontal">
 
         
         <div class="form-group">
@@ -33,17 +33,12 @@
                 <label class="control-label" for="inputClassroomCode"><%= @classroom.classroom_code %></label>            
           </div>
         </div>
-
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <a href="/classroom/<%= @classroom.id%>/edit" class="btn btn-default">Edit</a>
-          </div>
-        </div>
-      <% end %>
+      </form>
 
       <% if !@classroom.activities.empty? %>  
-      <a href="/student_performance/edit_all?classroom_id=<%= @classroom.id %>">Edit Data</a>
-      <%= form_tag '/' do |f| %>    
+      <%= form_tag '/student_performance/save_all', {method: 'post'} do |f| %>   
+          <%= submit_tag 'Save', {:class=>'btn btn-primary'} %> 
+          <%= hidden_field_tag 'classroom_id',  @classroom.id %> 
           <table class="table-condensed table-bordered small" style="table-layout:fixed">
             <tr>
               <td colspan="<%= @classroom.activities.length+1%>" style="text-align:center">Activities</th>            
@@ -56,14 +51,13 @@
             </tr>
             <% @activites_and_student_performance[:student_performances].each do |sp| %>
               <tr>
-                <td class=''><%= sp[:student].display_name %></td>        
+                <td class='score_cell'><%= sp[:student].display_name %></td>        
                 <% sp[:performance_array].each_with_index do |p, index| %>
-                  <td class=''>
+                  <td class='score_cell'>
                     <% if @activites_and_student_performance[:activities][index][:activity].activity_type.eql?('scored') %>
-                      <%= !p.nil? ? p.scored_performance : '' %>
+                      <%= text_field_tag 'studentPerformance['+ @activites_and_student_performance[:activities][index][:ac_id].to_s + '][' + sp[:student].id.to_s + ']', (!p.nil? ? p.scored_performance : ''), {:class=>'score_input'} %>
                     <% elsif @activites_and_student_performance[:activities][index][:activity].activity_type.eql?('completion') %>
-                      <%= !p.nil? ? p.completed_performance_desc : 'Not Completed' %>
-                      
+                      <%= select_tag 'studentPerformance['+ @activites_and_student_performance[:activities][index][:ac_id].to_s + '][' + sp[:student].id.to_s + ']' , options_for_select([['Completed', 'true'],['Not Completed','false']], (!p.nil? && p.completed_performance ? 'true' : 'false'))%>
                     <% end %>
 
                     

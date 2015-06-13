@@ -73,7 +73,10 @@ Rails.application.routes.draw do
   post 'student/joinClassroomConfirm' => 'student_account#join_classroom_confirm'
   post 'student/joinClassroomConfirmPost' => 'student_account#join_classroom_confirm_post'
 
-  post '/assign_activities' => 'activities_classrooms#assign'
+  post '/assign_activities' => 'classroom_activity_pairing#assign'
+
+  get 'student_performance/edit_all' => 'student_performance#edit_all'
+  post 'student_performance/save_all' => 'student_performance#save_all'
 
   root to: "public_pages#home"
 
