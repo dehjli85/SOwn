@@ -1,0 +1,44 @@
+<%= render '/shared/student_top_nav' %>
+
+<div class="container-fluid">
+  <div class="row">  
+    <%= render partial: '/shared/student_left_nav', locals: { active: 'home' }%>
+
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+			<h1><%= @classroom.name%> - <%= @classroom.teacher_user.display_name%></h1>
+
+			<div class="col-sm-9">
+				<h3>My Activities &amp; Performance</h3>
+				<table class="table table-striped table-bordered table-condensed small">
+					<tr>
+						<th class="col-sm-5">Activity</th>
+						<th colspan="2" class="col-sm-3">Performance</th>
+					</tr>
+					
+					
+						<% @performance.each_with_index do |performance, index| %>
+						<tr>
+							<td><%= @activities[index][:activity].name %></td>
+							<td style="vertical-align:center">
+								<% if @activities[index][:activity].activity_type.eql?('scored') %>
+                  <%= !performance.nil? ? performance.scored_performance : '' %>
+                <% elsif @activities[index][:activity].activity_type.eql?('completion') %>
+                  <%= !performance.nil? ? performance.completed_performance_desc : 'Not Completed' %>
+                  
+                <% end %>
+								
+							</td>
+							<td><a class="btn btn-success btn-xs" href="/student_performances/new?classroom_activity_pairing_id=<%= @activities[index][:ac_id] %>">Track!</a></td>
+						</tr>
+						<% end %>
+
+					
+				</table>
+
+					
+				
+			</div>
+		</div>
+ 	</div>
+</div>

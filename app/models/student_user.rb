@@ -1,7 +1,7 @@
 class StudentUser < ActiveRecord::Base
 
     has_and_belongs_to_many :classrooms
-    has_many :student_performances
+    has_many :student_performances, -> {order 'student_performances.created_at'}
     
 
 		def self.from_omniauth_sign_up(auth)

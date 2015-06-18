@@ -1,0 +1,66 @@
+<%= render '/shared/student_top_nav' %>
+
+<div class="container-fluid">
+  <div class="row">  
+    <%= render partial: '/shared/student_left_nav', locals: { active: 'home' }%>
+
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+			<h1><%= @student_performance.classroom_activity_pairing.classroom.name %> - <%= @student_performance.classroom_activity_pairing.classroom.teacher_user.display_name%></h1>
+
+			<div class="col-sm-9">
+				<h3><%= @student_performance.classroom_activity_pairing.activity.name %></h3>
+				
+				<%= form_for :student_performance, url: {action: "create"}, html: {class: "form-horizontal",  method: "post'"} do |f| %>
+					<%= f.hidden_field :classroom_activity_pairing_id %>
+					<%= f.hidden_field :student_user_id %>
+
+					<% if @student_performance.classroom_activity_pairing.activity.activity_type.eql?('scored') %>
+		        <% if !@student_performance.errors[:scored_performance].empty? %>
+		          <div class="form-group has-error">
+		        <% else %>
+		          <div class="form-group">
+		        <% end %>
+	          <label for="inputScoredPerformance" class="col-sm-2 control-label">Score:</label>
+	          <div class="col-sm-10">
+	            <%= f.text_field :scored_performance, {:class=>'form-control', id: 'inputScoredPerformance' }%>
+	            <% if @student_performance.errors[:scored_performance] %>
+	              <% @student_performance.errors[:scored_performance].each do |error| %>
+	                <label class="control-label" for="inputScoredPerformance">Score <%= error %></label><br/>      
+	              <% end %>
+	            <% end %>
+	          </div>
+	        	</div>
+	        <% elsif @student_performance.classroom_activity_pairing.activity.activity_type.eql?('completion') %>
+	        	<% if !@student_performance.errors[:completed_performance].empty? %>
+		          <div class="form-group has-error">
+		        <% else %>
+		          <div class="form-group">
+		        <% end %>
+	          <label for="inputCompletedPerformance" class="col-sm-2 control-label">Completed:</label>
+	          <div class="col-sm-10">
+	            <%= f.select :completed_performance, [['No', 'false'], ['Yes', 'true']], {}, {:class=>'form-control', style:'width:200px;'} %>
+	            <% if @student_performance.errors[:completed_performance] %>
+	              <% @student_performance.errors[:completed_performance].each do |error| %>
+	                <label class="control-label" for="inputCompletedPerformance">Completion <%= error %></label><br/>      
+	              <% end %>
+	            <% end %>
+	          </div>
+	        	</div>
+	        <% end %>
+
+
+
+
+	        <div class="form-group">
+	          <div class="col-sm-offset-2 col-sm-10">
+	            <%= f.submit "Save", {class: 'btn btn-default'}%>
+	          </div>
+	        </div>
+	      <% end %>
+					
+				
+			</div>
+		</div>
+ 	</div>
+</div>

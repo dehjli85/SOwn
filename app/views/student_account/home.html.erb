@@ -1,20 +1,45 @@
-<h1>Student Homepage</h1>
+<%= render '/shared/student_top_nav' %>
 
-<h3>Join a class</h3>
-<%= form_tag('student/joinClassroomConfirm', method: 'post', :class => 'form-inline') do %>
-	<div class="form-group">
-    <label class="sr-only" for="classroom_code">Classroom Code</label>
-    <%= text_field_tag 'classroom_code', '',  placeholder: 'smith-1-math', :class => 'form-control'%>
-    
-  </div>
-	
-	<%= submit_tag 'Join Classroom', :class=> 'btn btn-primary'%>
-<% end %>
+<div class="container-fluid">
+  <div class="row">  
+    <%= render partial: '/shared/student_left_nav', locals: { active: 'home' }%>
 
-<div>
-	<h3>My Classes</h3>
-	<% @student_user.classrooms.each do |c| %>
-		<%= c.name %>
-	<% end %>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
+			<h1>Student Homepage</h1>
+
+			<h3>Join a class</h3>
+			<%= form_tag('student/joinClassroomConfirm', method: 'post', :class => 'form-inline') do %>
+				<div class="form-group">
+			    <label class="sr-only" for="classroom_code">Classroom Code</label>
+			    <%= text_field_tag 'classroom_code', '',  placeholder: 'smith-1-math', :class => 'form-control'%>
+			    
+			  </div>
+				
+				<%= submit_tag 'Join Classroom', :class=> 'btn btn-primary'%>
+			<% end %>
+
+			<div>
+				<h3>My Classes</h3>
+				<% @current_student_user.classrooms.each_with_index do |classroom, index| %>
+					<% if index%4 == 0 %>
+	          <div class="row placeholders">
+	        <% end %>
+	        <div class="col-xs-6 col-sm-3 placeholder">
+          
+	          <a class="thumbnail" href="/student/viewClassroom?classroom_id=<%=classroom.id%>"><img src="<%= image_url('placeholder_image.svg')%>" /></a>       
+	          
+	          <h4><%= classroom.name %></h4>
+	          <span class="text-muted"><%= classroom.teacher_user.display_name%></span>
+	        </div>
+
+          <% if index%4 == 3 || (index == @current_student_user.classrooms.length-1 && index%4 != 3)#close off the row after 4%>
+	        	</div>
+	        <% end %>
+
+					
+				<% end %>
+			</div>
+		</div>
+ 	</div>
 </div>

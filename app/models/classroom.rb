@@ -17,7 +17,7 @@ class Classroom < ActiveRecord::Base
 
 	end
 
-	def get_activities_and_student_performance_data
+	def get_activities_and_student_performance_data_all
 		
 		activities_array = Array.new(self.activities.size)
 		student_performances_array = Array.new
@@ -63,6 +63,31 @@ class Classroom < ActiveRecord::Base
 		return activities_and_student_performance_hash
 
 	end
+
+	def get_activities_and_student_performance_data(student_user_id)
+		
+		activities_array = Array.new(self.activities.size)
+		student_performance_array = Array.new
+
+		acs = ClassroomActivityPairing.where({classroom_id: self.id})
+		acs.each_with_index do |ac, index|
+			#create a sorted array of the activities
+			activities_array[index] = {activity: ac.activity, ac_id: ac.id}
+			#create a sorted array of all performances
+			student_performance_array[index] = StudentPerformance.where({classroom_activity_pairing_id: ac.id, student_user_id: student_user_id}).order("created_at DESC").first
+			#create a sorted array of all the activities_classrooms id
+
+		end		
+
+		activities_and_student_performance_hash = Hash.new
+		activities_and_student_performance_hash[:activities] = activities_array
+		activities_and_student_performance_hash[:student_performance] = student_performance_array
+
+		return activities_and_student_performance_hash
+
+	end
+
+
 
 
 end

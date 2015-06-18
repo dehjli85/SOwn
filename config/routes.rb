@@ -72,16 +72,18 @@ Rails.application.routes.draw do
   get 'student_home' => 'student_account#home'
   post 'student/joinClassroomConfirm' => 'student_account#join_classroom_confirm'
   post 'student/joinClassroomConfirmPost' => 'student_account#join_classroom_confirm_post'
+  get 'student/viewClassroom' => 'student_account#view_classroom'  
 
   post '/assign_activities' => 'classroom_activity_pairing#assign'
 
-  get 'student_performance/edit_all' => 'student_performance#edit_all'
-  post 'student_performance/save_all' => 'student_performance#save_all'
+  get 'student_performance/edit_all' => 'student_performances#edit_all'
+  post 'student_performance/save_all' => 'student_performances#save_all'
 
   root to: "public_pages#home"
 
   resources :sessions, only: [:create, :destroy]
   resources :classroom
   resources :activities
+  resources :student_performances
 
 end

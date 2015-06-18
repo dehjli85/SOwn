@@ -1,6 +1,6 @@
 class PublicPagesController < ApplicationController
 
-	skip_before_action :require_teacher_login
+	skip_before_action :require_login
 
 	def home
 

@@ -1,5 +1,7 @@
 class ClassroomController < ApplicationController
 
+	before_action :require_teacher_login
+
 	#view all classrooms (probably won't use this)
 	def index
 		
@@ -28,7 +30,7 @@ class ClassroomController < ApplicationController
 	def show
 		#TODO: Need security to prevent people from seeing classrooms that aren't theirs
 		@classroom = Classroom.find(params[:id])
-		@activites_and_student_performance = @classroom.get_activities_and_student_performance_data
+		@activites_and_student_performance = @classroom.get_activities_and_student_performance_data_all
 
 
 
