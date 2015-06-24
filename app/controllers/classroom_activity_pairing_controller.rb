@@ -7,7 +7,7 @@ class ClassroomActivityPairingController < ApplicationController
 		if !activity.nil?
 			puts "activity #{activity.id} exists"
 			classroom_hash = params[:classroom_hash].to_h
-			current_teacher_user.classrooms.each do |c|
+			@current_teacher_user.classrooms.each do |c|
 				puts "looking for classroom #{c.id}"
 				if classroom_hash.has_value?(c.id.to_s)
 					puts "classroom #{c.id} checked"

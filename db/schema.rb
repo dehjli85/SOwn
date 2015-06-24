@@ -11,17 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150612205704) do
+ActiveRecord::Schema.define(version: 20150623194505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "activities", force: true do |t|
     t.string   "name"
-    t.string   "description",     limit: 1000
-    t.string   "instructions",    limit: 1000
+    t.string   "description",      limit: 1000
+    t.string   "instructions",     limit: 1000
     t.integer  "teacher_user_id"
     t.string   "activity_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.float    "min_score"
+    t.float    "max_score"
+    t.float    "benchmark1_score"
+    t.float    "benchmark2_score"
+  end
+
+  create_table "activity_tag_pairings", force: true do |t|
+    t.integer  "activity_tag_id"
+    t.integer  "activity_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "activity_tags", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

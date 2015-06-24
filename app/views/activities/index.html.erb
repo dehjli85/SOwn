@@ -10,13 +10,14 @@
       <% if @activities.empty? %>
         <div class='alert alert-danger' style='text-align:center; margin-top:20px;'> You have no activities</div>
       <% else %>
-        <table class='table table-condensed table-hover'>
+        <table class='table table-condensed table-hover table-bordered'>
           <tr>
-            <th>Name</th>
+            <th>Activity</th>
             <th>Description</th>
             <th>Instructions</th>
             <th>Activity Type</th>
-            <th></th>
+            <th>Tags</th>
+            <th colspan="2" style="text-align:center;">Actions</th>
           </tr>
           <% @activities.each do |a| %>
             <tr>
@@ -24,7 +25,13 @@
               <td><%= a.description_abbreviated %></td>
               <td><%= a.instructions_abbreviated %></td>
               <td><%= a.activity_type_description %></td>
-              <td><a href="/activities/<%= a.id %>/edit">Edit</a></td>
+              <td>
+                <% a.activity_tags.each do |at| %>
+                  <a href="#">#<%= at.name %></a>
+                <% end %>
+              </td>
+              <td><a href="/activities/<%= a.id %>/edit">Edit</a>  </td>
+              <td><a href="/activities/assign/<%= a.id %>">Assign to Classrooms</a></td>
             </tr>
           <% end %>
         </table>

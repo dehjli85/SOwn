@@ -4,13 +4,10 @@
   <div class="row">  
     <%= render partial: '/shared/left_nav', locals: { active: 'activities' }%>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-      
-      <%= render partial: 'activity_form', locals: { button_text: 'Update', action: 'update' }%>
-
-      <h3>Assign Activity to Classrooms</h3>
+    	<h3>Assign Activity to Classrooms</h3>
       <%= form_tag '/assign_activities', {:class => 'form-horizontal'} do |f|%>
         <%= hidden_field_tag 'activity_id',  @activity.id %> 
-        <%= hidden_field_tag 'redirect_path', '/activities/' + @activity.id.to_s + '/edit' %> 
+        <%= hidden_field_tag 'redirect_path', '/activities' %> 
         <% @classrooms.each_with_index do |c, index| %>
           <div class="checkbox">
             <label>
@@ -21,10 +18,6 @@
         <% end %>
         <%= submit_tag 'Assign to Classrooms', {:class => 'btn btn-primary'} %>
       <% end %>
-
-
-
-
     </div>
   </div>
 </div>

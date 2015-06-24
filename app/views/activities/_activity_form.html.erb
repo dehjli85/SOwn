@@ -1,0 +1,156 @@
+
+<%= form_for :activity, url: {action: action}, html: {class: "form-horizontal",  method: action.eql?('create') ? 'post' : 'put'} do |f| %>
+
+  <% if !@activity.errors[:name].empty? %>
+    <div class="form-group has-error form-group-sm">
+  <% else %>
+    <div class="form-group form-group-sm">
+  <% end %>
+    <label for="inputName" class="col-sm-2 control-label">Name:</label>
+    <div class="col-sm-5">
+      <%= f.text_field :name, {:class=>'form-control', placeholder: '', id: 'inputName' }%>
+      <% if @activity.errors[:name] %>
+        <% @activity.errors[:name].each do |error| %>
+          <label class="control-label" for="inputName">Name <%= error %></label><br/>      
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+
+  <% if !@activity.errors[:description].empty? %>
+    <div class="form-group has-error form-group-sm">
+  <% else %>
+    <div class="form-group form-group-sm">
+  <% end %>
+    <label for="inputDescription" class="col-sm-2 control-label">Description:</label>
+    <div class="col-sm-5">
+      <%= f.text_area :description, {:class=>'form-control', placeholder: '', id: 'inputDescription' }%>
+      <% if @activity.errors[:description] %>
+        <% @activity.errors[:description].each do |error| %>
+          <label class="control-label" for="inputDescription">Description <%= error %></label><br/>      
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  
+  
+  <% if !@activity.errors[:instructions].empty? %>
+    <div class="form-group has-error form-group-sm">
+  <% else %>
+    <div class="form-group form-group-sm">
+  <% end %>
+    <label for="inputInstructions" class="col-sm-2 control-label">Instructions:</label>    
+    <div class="col-sm-5">      
+      <%= f.text_area :instructions, {:class=>'form-control', placeholder: '', id: 'inputInstructions' }%>
+      <% if @activity.errors[:instructions] %>
+        <% @activity.errors[:instructions].each do |error| %>
+          <label class="control-label" for="inputInstructions">Instructions <%= error %></label><br/>      
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group form-group-sm">
+    <label for="inputTags" class="col-sm-2 control-label">Tags:</label>
+    <div class="col-sm-2"><input type="text" name="newtag" class="form-control" id="newTag"/></div>
+    <div class="col-sm-2"><a id="tagAddButton" class="btn btn-sm btn-primary">Add</a></div>          
+  </div>
+
+  <div class="row">
+    <ul id="tagDisplayList" class="list-inline col-sm-10 col-sm-offset-2">            
+    </ul>
+  </div>
+
+
+  <% if !@activity.errors[:activity_type].empty? %>
+    <div class="form-group has-error">
+  <% else %>
+    <div class="form-group">
+  <% end %>
+    <label for="inputActivityType" class="col-sm-2 control-label">Activity Type:</label>    
+    <div class="col-sm-2">      
+      <%= f.select :activity_type, [['Completion', 'completion'], ['Scored', 'scored']], {}, {:class=>'form-control', id: 'activity_type_selector'} %>
+      <% if @activity.errors[:activity_type] %>
+        <% @activity.errors[:activity_type].each do |error| %>
+          <label class="control-label" for="inputActivityType">Activity Type <%= error %></label><br/>      
+        <% end %>
+      <% end %>
+    </div>
+  </div>      
+
+  <div id="scoreRangeDiv">
+    <div class="row">              
+        <div class="col-sm-2 col-sm-offset-2">
+          <label class="control-label" style="">Score Ranges</label>
+        </div>
+    </div>
+    <div class="form-group form-group-sm" style="margin-bottom:20px;">           
+      <div class="col-sm-5 col-sm-offset-2">
+        <table class="score-table">
+          <tr>
+            <td style="width:50px; background-color:green"></td>
+            <td><%= f.text_field :max_score, {:class=>'form-control', placeholder: '', id: 'inputMaxScore' }%></td>
+            <td>Maximum Score</td>
+            <% if !@activity.errors[:max_score].empty? %>
+              <td class="form-group has-error">
+                <% @activity.errors[:max_score].each do |error| %>
+                  <span class="control-label" style="text-align:left;">Max score <%= error %></span> <br />
+                <% end %> 
+              </td>
+            <% end %>
+          </tr>
+          <tr>
+            <td style="width:50px; background-color:yellow"></td>
+            <td><%= f.text_field :benchmark2_score, {:class=>'form-control', placeholder: '', id: 'inputBenchmark2Score' }%></td>
+            <td>Benchmark 2</td>
+            <% if !@activity.errors[:benchmark2_score].empty? %>
+              <td class="form-group has-error">
+                <% @activity.errors[:benchmark2_score].each do |error| %>
+                  <span class="control-label" style="text-align:left;">Benchmark 2 <%= error %></span> <br />
+                <% end %> 
+              </td>
+            <% end %>
+          </tr>
+          <tr>
+            <td style="width:50px; background-color:red"></td>
+            <td><%= f.text_field :benchmark1_score, {:class=>'form-control', placeholder: '', id: 'inputBenchmark1Score' }%></td>
+            <td>Benchmark 1</td>
+            <% if !@activity.errors[:benchmark1_score].empty? %>
+              <td class="form-group has-error">
+                <% @activity.errors[:benchmark1_score].each do |error| %>
+                  <span class="control-label" style="text-align:left;">Benchmark 1 <%= error %></span> <br />
+                <% end %> 
+              </td>
+            <% end %>
+          </tr>
+          <tr class="has-error">
+            <td style="width:50px; background-color:red"></td>
+            <td><%= f.text_field :min_score, {:class=>'form-control', placeholder: '', id: 'inputMinScore' }%></td>
+            <td class="">Minimum Score</td>
+            <% if !@activity.errors[:min_score].empty? %>
+              <td class="form-group has-error">
+                <% @activity.errors[:min_score].each do |error| %>
+                  <span class="control-label" style="text-align:left;">Min score <%= error %></span> <br />
+                <% end %> 
+              </td>
+            <% end %>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit button_text, {class: 'btn btn-primary'}%>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  var srim = new ACTIVITY_UI.ScoredRangeInputManager('activity_type_selector','scoreRangeDiv');
+  var tm = new ACTIVITY_UI.TagManager('newTag','tagAddButton','tagDisplayList');
+  <% require 'cgi' %>
+  tm.loadExistingTags(<%= @activity.activity_tags_to_js_array %>);
+</script>

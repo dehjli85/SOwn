@@ -1,7 +1,7 @@
 class TeacherUser < ActiveRecord::Base
 
   has_many :classrooms
-  has_many :activities
+  has_many :activities, -> {order 'activities.created_at'}
 
 
 	def self.from_omniauth_sign_up(auth)

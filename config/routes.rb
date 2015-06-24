@@ -74,6 +74,7 @@ Rails.application.routes.draw do
   post 'student/joinClassroomConfirmPost' => 'student_account#join_classroom_confirm_post'
   get 'student/viewClassroom' => 'student_account#view_classroom'  
 
+  get 'activities/assign/:id' => 'activities#assign'
   post '/assign_activities' => 'classroom_activity_pairing#assign'
 
   get 'student_performance/edit_all' => 'student_performances#edit_all'
@@ -85,5 +86,6 @@ Rails.application.routes.draw do
   resources :classroom
   resources :activities
   resources :student_performances
+  resources :activity_tags
 
 end

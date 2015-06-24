@@ -3,7 +3,12 @@ class PublicPagesController < ApplicationController
 	skip_before_action :require_login
 
 	def home
-
+		if !session[:teacher_user_id].nil?
+			redirect_to '/teacher_home'
+		elsif !session[:student_user_id].nil?
+			redirect_to '/student_home'
+		end
+			
 	end
 
 	def sign_up_teacher
