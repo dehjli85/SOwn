@@ -7,24 +7,6 @@
       
       <%= render partial: 'activity_form', locals: { button_text: 'Update', action: 'update' }%>
 
-      <h3>Assign Activity to Classrooms</h3>
-      <%= form_tag '/assign_activities', {:class => 'form-horizontal'} do |f|%>
-        <%= hidden_field_tag 'activity_id',  @activity.id %> 
-        <%= hidden_field_tag 'redirect_path', '/activities/' + @activity.id.to_s + '/edit' %> 
-        <% @classrooms.each_with_index do |c, index| %>
-          <div class="checkbox">
-            <label>
-              <%= check_box_tag 'classroom_hash[' + index.to_s + ']', c.id, !ClassroomActivityPairing.where({activity_id: @activity.id, classroom_id: c.id }).empty? %> 
-              <%= c.name %>             
-            </label>
-          </div>
-        <% end %>
-        <%= submit_tag 'Assign to Classrooms', {:class => 'btn btn-primary'} %>
-      <% end %>
-
-
-
-
     </div>
   </div>
 </div>

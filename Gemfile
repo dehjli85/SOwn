@@ -41,3 +41,5 @@ gem 'spring',        group: :development
 gem "omniauth-google-oauth2", "~> 0.2.1"
 
 gem "twitter-bootstrap-rails"
+
+gem 'jquery-tablesorter'

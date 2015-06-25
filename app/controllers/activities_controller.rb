@@ -1,6 +1,27 @@
 class ActivitiesController < ApplicationController
 	def index
-		@activities = @current_teacher_user.activities
+
+		if(params[:searchTerm] && params[:searchTerm][0].eql?('#'))
+			tagArray = params[:searchTerm].split(/ +/)
+			puts tagArray
+			@activities = Activity.where({teacher_user_id: @current_teacher_user.id}).reject do |act| 
+				condition = true
+				tagArray.each do |t|
+					if act.tag_match(t[1..t.length])
+						condition = false
+					end
+				end
+				condition
+			end
+		else
+
+			@activities = Activity.where({teacher_user_id: @current_teacher_user.id}).reject do |act| 
+				!act.search_match(params[:searchTerm]) || !act.tag_match(params[:tag])
+			end
+
+		end
+
+		
 	end
 
 	#return and html form for creating a new activity

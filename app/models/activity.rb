@@ -71,4 +71,28 @@ class Activity < ActiveRecord::Base
     return a.to_s.html_safe
   end
 
+  def search_match(search_term)    
+    if search_term.nil? || name.downcase.include?(search_term.downcase) || description.downcase.include?(search_term.downcase)
+      return true
+    end
+    self.activity_tags.each do |tag|
+      if tag.name.downcase.include?(search_term.downcase)
+        return true
+      end
+    end
+    return false
+  end
+
+  def tag_match(tag)
+    if tag.nil?
+      return true
+    end
+    self.activity_tags.each do |t|
+      if t.name.downcase.eql?(tag.downcase)
+        return true
+      end
+    end
+    return false
+  end
+
 end

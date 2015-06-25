@@ -6,37 +6,66 @@
 
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
       <h3 class="sub-header">My Activities</h3>
-      <a href="/activities/new" class="btn btn-primary" style="margin:10px 0px 10px 0px;">Create Activity</a>
+      <div class="row">
+        <div class="col-sm-5">
+          <form action="/activities" method="get">
+          <div class="input-group">            
+              <input type="text" class="form-control input-sm" placeholder="" name="searchTerm">
+              <span class="input-group-btn">
+                <input type="submit" class="btn btn-default btn-sm" type="button" value="Search">
+              </span>            
+          </div>
+          </form>
+        </div>
+        <div class="col-sm-2 col-sm-offset-3" style="text-align:right"><a href="/activities/new" class="btn btn-primary btn-sm" style="">Create Activity</a></div>
+      </div>
+      
       <% if @activities.empty? %>
         <div class='alert alert-danger' style='text-align:center; margin-top:20px;'> You have no activities</div>
       <% else %>
-        <table class='table table-condensed table-hover table-bordered'>
-          <tr>
-            <th>Activity</th>
-            <th>Description</th>
-            <th>Instructions</th>
-            <th>Activity Type</th>
-            <th>Tags</th>
-            <th colspan="2" style="text-align:center;">Actions</th>
-          </tr>
-          <% @activities.each do |a| %>
-            <tr>
-              <td><%= a.name %></td>
-              <td><%= a.description_abbreviated %></td>
-              <td><%= a.instructions_abbreviated %></td>
-              <td><%= a.activity_type_description %></td>
-              <td>
-                <% a.activity_tags.each do |at| %>
-                  <a href="#">#<%= at.name %></a>
+        <div class="row" style="margin-top:10px">
+          <div class="col-sm-10">
+            <table class='table table-condensed table-hover table-bordered small tablesorter' id="activities_table">
+              <thead>
+                <tr>
+                  <th>Activity</th>
+                  <th>Description</th>
+                  <th>Instructions</th>
+                  <th>Activity Type</th>
+                  <th>Tags</th>
+                  <th colspan="2" style="text-align:center;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @activities.each do |a| %>
+                  <tr>
+                    <td><%= a.name %></td>
+                    <td><%= a.description_abbreviated %></td>
+                    <td><%= a.instructions_abbreviated %></td>
+                    <td><%= a.activity_type_description %></td>
+                    <td>
+                      <ul class="list-unstyled">
+                      <% a.activity_tags.each do |at| %>
+                        <li><a class="label label-info" href="/activities?tag=<%= at.name %>">#<%= at.name %></a></li>
+                      <% end %>
+                      </ul>
+                    </td>
+                    <td><a href="/activities/<%= a.id %>/edit">Edit</a>  </td>
+                    <td><a href="/activities/assign/<%= a.id %>">Assign to Classrooms</a></td>
+                  </tr>
                 <% end %>
-              </td>
-              <td><a href="/activities/<%= a.id %>/edit">Edit</a>  </td>
-              <td><a href="/activities/assign/<%= a.id %>">Assign to Classrooms</a></td>
-            </tr>
-          <% end %>
-        </table>
+              </tbody>
+            </table>
+          </div>
+        </div>
       <% end %>
     </div>
   </div>
 </div>
-
+<script type="text/javascript">
+  $(document).ready(function() 
+    { 
+        $("#activities_table").tablesorter(); 
+    } 
+  ); 
+</script>

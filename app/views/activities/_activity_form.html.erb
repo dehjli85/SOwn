@@ -86,52 +86,52 @@
         </div>
     </div>
     <div class="form-group form-group-sm" style="margin-bottom:20px;">           
-      <div class="col-sm-5 col-sm-offset-2">
+      <div class="col-sm-8 col-sm-offset-2">
         <table class="score-table">
-          <tr>
+          <tr class="<%= !@activity.errors[:max_score].empty? ? "has-error" : ''%>">
             <td style="width:50px; background-color:green"></td>
             <td><%= f.text_field :max_score, {:class=>'form-control', placeholder: '', id: 'inputMaxScore' }%></td>
             <td>Maximum Score</td>
             <% if !@activity.errors[:max_score].empty? %>
               <td class="form-group has-error">
                 <% @activity.errors[:max_score].each do |error| %>
-                  <span class="control-label" style="text-align:left;">Max score <%= error %></span> <br />
+                  <span class="control-label" style="text-align:left;"><%= error %></span> <br />
                 <% end %> 
               </td>
             <% end %>
           </tr>
-          <tr>
+          <tr class="<%= !@activity.errors[:benchmark2_score].empty? ? "has-error" : ''%>">
             <td style="width:50px; background-color:yellow"></td>
             <td><%= f.text_field :benchmark2_score, {:class=>'form-control', placeholder: '', id: 'inputBenchmark2Score' }%></td>
             <td>Benchmark 2</td>
             <% if !@activity.errors[:benchmark2_score].empty? %>
               <td class="form-group has-error">
                 <% @activity.errors[:benchmark2_score].each do |error| %>
-                  <span class="control-label" style="text-align:left;">Benchmark 2 <%= error %></span> <br />
+                  <span class="control-label" style="text-align:left;"><%= error %></span> <br />
                 <% end %> 
               </td>
             <% end %>
           </tr>
-          <tr>
+          <tr class="<%= !@activity.errors[:benchmark1_score].empty? ? "has-error" : ''%>">
             <td style="width:50px; background-color:red"></td>
             <td><%= f.text_field :benchmark1_score, {:class=>'form-control', placeholder: '', id: 'inputBenchmark1Score' }%></td>
-            <td>Benchmark 1</td>
+            <td class="">Benchmark 1</td>
             <% if !@activity.errors[:benchmark1_score].empty? %>
               <td class="form-group has-error">
                 <% @activity.errors[:benchmark1_score].each do |error| %>
-                  <span class="control-label" style="text-align:left;">Benchmark 1 <%= error %></span> <br />
+                  <span class="control-label" style="text-align:left;"><%= error %></span> <br />
                 <% end %> 
               </td>
             <% end %>
           </tr>
-          <tr class="has-error">
+          <tr class="<%= !@activity.errors[:min_score].empty? ? "has-error" : ''%>">
             <td style="width:50px; background-color:red"></td>
             <td><%= f.text_field :min_score, {:class=>'form-control', placeholder: '', id: 'inputMinScore' }%></td>
             <td class="">Minimum Score</td>
             <% if !@activity.errors[:min_score].empty? %>
-              <td class="form-group has-error">
+              <td class="form-group">
                 <% @activity.errors[:min_score].each do |error| %>
-                  <span class="control-label" style="text-align:left;">Min score <%= error %></span> <br />
+                  <span class="control-label" style="text-align:left;"><%= error %></span> <br />
                 <% end %> 
               </td>
             <% end %>
@@ -150,7 +150,6 @@
 
 <script type="text/javascript">
   var srim = new ACTIVITY_UI.ScoredRangeInputManager('activity_type_selector','scoreRangeDiv');
-  var tm = new ACTIVITY_UI.TagManager('newTag','tagAddButton','tagDisplayList');
-  <% require 'cgi' %>
+  var tm = new ACTIVITY_UI.TagManager('newTag','tagAddButton','tagDisplayList');  
   tm.loadExistingTags(<%= @activity.activity_tags_to_js_array %>);
 </script>
