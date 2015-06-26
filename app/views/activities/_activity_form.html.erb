@@ -89,7 +89,7 @@
       <div class="col-sm-8 col-sm-offset-2">
         <table class="score-table">
           <tr class="<%= !@activity.errors[:max_score].empty? ? "has-error" : ''%>">
-            <td style="width:50px; background-color:green"></td>
+            <td class="success-sown" style="width:50px;"></td>
             <td><%= f.text_field :max_score, {:class=>'form-control', placeholder: '', id: 'inputMaxScore' }%></td>
             <td>Maximum Score</td>
             <% if !@activity.errors[:max_score].empty? %>
@@ -101,7 +101,7 @@
             <% end %>
           </tr>
           <tr class="<%= !@activity.errors[:benchmark2_score].empty? ? "has-error" : ''%>">
-            <td style="width:50px; background-color:yellow"></td>
+            <td class="warning-sown" style="width:50px;"></td>
             <td><%= f.text_field :benchmark2_score, {:class=>'form-control', placeholder: '', id: 'inputBenchmark2Score' }%></td>
             <td>Benchmark 2</td>
             <% if !@activity.errors[:benchmark2_score].empty? %>
@@ -113,7 +113,7 @@
             <% end %>
           </tr>
           <tr class="<%= !@activity.errors[:benchmark1_score].empty? ? "has-error" : ''%>">
-            <td style="width:50px; background-color:red"></td>
+            <td class="danger-sown" style="width:50px;"></td>
             <td><%= f.text_field :benchmark1_score, {:class=>'form-control', placeholder: '', id: 'inputBenchmark1Score' }%></td>
             <td class="">Benchmark 1</td>
             <% if !@activity.errors[:benchmark1_score].empty? %>
@@ -125,7 +125,7 @@
             <% end %>
           </tr>
           <tr class="<%= !@activity.errors[:min_score].empty? ? "has-error" : ''%>">
-            <td style="width:50px; background-color:red"></td>
+            <td class="danger-sown" style="width:50px;"></td>
             <td><%= f.text_field :min_score, {:class=>'form-control', placeholder: '', id: 'inputMinScore' }%></td>
             <td class="">Minimum Score</td>
             <% if !@activity.errors[:min_score].empty? %>

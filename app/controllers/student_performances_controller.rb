@@ -78,7 +78,7 @@ class StudentPerformancesController < ApplicationController
 
 				elsif activity.activity_type.eql?('completion')
 					if(stored_performance.nil? && performance.eql?('true'))	
-						StudentPerformance.new({classroom_activity_pairing_id: cap.id, student_user_id: student_user_id, scored_performance: true}).save
+						StudentPerformance.new({classroom_activity_pairing_id: cap.id, student_user_id: student_user_id, completed_performance: true}).save
 					elsif !stored_performance.nil?
 						stored_performance.completed_performance = performance
 						stored_performance.save

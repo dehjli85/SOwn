@@ -44,37 +44,55 @@
       <% if !@classroom.activities.empty? %>  
       <a href="/student_performance/edit_all?classroom_id=<%= @classroom.id %>">Edit Data</a>
       <%= form_tag '/' do |f| %>    
-          <table class="table-condensed table-bordered small" style="table-layout:fixed">
+          <table id="perf_table" class="table table-condensed table-bordered small" style="table-layout:fixed; width:inherit">
+            <thead>
             <tr>
-              <td colspan="<%= @classroom.activities.length+1%>" style="text-align:center">Activities</th>            
-            </tr>
+              <th colspan="<%= @classroom.activities.length+1%>" style="text-align:center">Activities</th>            
+            </tr>            
             <tr>
               <th style="min-width:150px; vertical-align:bottom">Student</th>
               <% @activites_and_student_performance[:activities].each do |a| %>
                   <th class="activity_header" style=""><%= a[:activity].name %></th>                      
               <% end %>
             </tr>
+            </thead>
+            <tbody>
             <% @activites_and_student_performance[:student_performances].each do |sp| %>
               <tr>
                 <td class=''><%= sp[:student].display_name %></td>        
                 <% sp[:performance_array].each_with_index do |p, index| %>
-                  <td class=''>
-                    <% if @activites_and_student_performance[:activities][index][:activity].activity_type.eql?('scored') %>
-                      <%= !p.nil? ? p.scored_performance : '' %>
-                    <% elsif @activites_and_student_performance[:activities][index][:activity].activity_type.eql?('completion') %>
-                      <%= !p.nil? ? p.completed_performance_desc : 'Not Completed' %>
-                      
-                    <% end %>
 
-                    
-                  </td>                      
+                  <% if @activites_and_student_performance[:activities][index][:activity].activity_type.eql?('scored') %>
+
+                    <td class='<%= !p.nil? ? p.performance_color : "" %>'>
+                      <%= !p.nil? ? p.scored_performance_pretty : '' %>                      
+                    </td>
+
+                  <% elsif @activites_and_student_performance[:activities][index][:activity].activity_type.eql?('completion') %>
+
+                    <td class="<%= !p.nil? ? p.performance_color : '' %>">
+                      <%= !p.nil? ? p.completed_performance_desc : '' %>
+                    </td>
+
+                  <% end %>
+                  
                 <% end %>
               </tr>
             <% end %>
+            </tbody>
           </table>
         <% end %>
       <% end %>     
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() 
+    { 
+        $("#perf_table").tablesorter(); 
+    } 
+); 
+    
+</script>
 

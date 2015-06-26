@@ -13,3 +13,16 @@
  *= require_tree .
  *= require_self
  */
+
+
+.success-sown{
+	background-color: #6BBD49;
+}
+
+.danger-sown{
+	background-color:#D56464;
+}
+
+.warning-sown{
+	background-color:#ECD76C;
+}
