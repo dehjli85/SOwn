@@ -3,6 +3,11 @@ class TeacherUser < ActiveRecord::Base
   has_many :classrooms
   has_many :activities, -> {order 'activities.created_at'}
 
+  validates :first_name, :last_name, :email, presence: true
+  validate :has_password_or_external_authentication
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
+  validates :email, uniqueness: true
+
 
 	def self.from_omniauth_sign_up(auth)
     
@@ -59,6 +64,12 @@ class TeacherUser < ActiveRecord::Base
 
   def user_params
       params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+
+  def has_password_or_external_authentication
+    if self.password_digest.nil? && self.provider.nil?
+      errors.add(:password, 'cannot be blank, or you must sign up with Google Authentication')
+    end
   end
   
 end

@@ -12,7 +12,7 @@ class PublicPagesController < ApplicationController
 	end
 
 	def sign_up_teacher
-
+		@teacher_user ||= TeacherUser.new
 	end
 
 	def sign_up_student

@@ -17,6 +17,35 @@ class Classroom < ActiveRecord::Base
 
 	end
 
+	def student_performances
+
+		#create/populate array with classroom activity pairing ids
+		pairing_array = Array.new
+		self.classroom_activity_pairings.each do |pairing|
+			pairing_array.push(pairing.id)
+		end
+
+		#store the performances into a hash, where the student is the key
+		# the values are another hash, where the key is the activity, and the value is the pairing
+		performances_hash = Hash.new
+		performances = StudentPerformance.where({classroom_activity_pairing_id: pairing_array})
+		performances.each do |p|
+			if !performances_hash[p.student_user]
+				performances_hash[p.student_user] = Hash.new
+			end
+			performances_hash[p.student_user][p.activity] = p
+		end
+
+		# student_hash = Hash.new
+		# self.student_users.each do |student|
+		# 	student_hash[student] = performances_hash[student]
+		# end
+
+		return performances_hash
+
+		
+	end
+
 	def get_activities_and_student_performance_data_all
 		
 		activities_array = Array.new(self.activities.size)

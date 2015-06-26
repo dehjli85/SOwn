@@ -55,7 +55,8 @@ class StudentPerformancesController < ApplicationController
 
 	def edit_all
 		@classroom = Classroom.find(params[:classroom_id])
-		@activites_and_student_performance = @classroom.get_activities_and_student_performance_data_all
+		@student_performances = @classroom.student_performances
+		#@activites_and_student_performance = @classroom.get_activities_and_student_performance_data_all
 	end
 
 	def save_all

@@ -4,7 +4,7 @@
   <div class="row">  
     <%= render partial: '/shared/left_nav', locals: { active: '' }%>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-      <%= form_for :classroom, url: {action: "create"}, html: {class: "form-horizontal",  method: "post'"} do |f| %>
+      <%= form_for :classroom, url: {action: "create"}, html: {class: "form-horizontal",  method: "post"} do |f| %>
 
         <% if !@classroom.errors[:name].empty? %>
           <div class="form-group has-error">

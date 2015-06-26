@@ -3,6 +3,9 @@
 	<% if !flash[:error].nil? %>
 		<div class='alert alert-danger'><%= flash[:error]%></div>
 	<% end %>
+  <% if !flash[:notice].nil? %>
+    <div class='alert alert-success'><%= flash[:notice]%></div>
+  <% end %>
 
 	<%= form_tag '/login_post', {:class=>'form-signin'} do |f| %>
   

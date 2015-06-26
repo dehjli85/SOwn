@@ -87,5 +87,6 @@ Rails.application.routes.draw do
   resources :activities
   resources :student_performances
   resources :activity_tags
+  resources :teacher_users
 
 end

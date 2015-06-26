@@ -40,31 +40,35 @@
           <%= submit_tag 'Save', {:class=>'btn btn-primary'} %> 
           <%= hidden_field_tag 'classroom_id',  @classroom.id %> 
           <table class="table-condensed table-bordered small" style="table-layout:fixed">
-            <tr>
-              <td colspan="<%= @classroom.activities.length+1%>" style="text-align:center">Activities</th>            
-            </tr>
-            <tr>
-              <th style="min-width:150px; vertical-align:bottom">Student</th>
-              <% @activites_and_student_performance[:activities].each do |a| %>
-                  <th class="activity_header" style=""><%= a[:activity].name %></th>                      
-              <% end %>
-            </tr>
-            <% @activites_and_student_performance[:student_performances].each do |sp| %>
+            <thead>
               <tr>
-                <td class='score_cell'><%= sp[:student].display_name %></td>        
-                <% sp[:performance_array].each_with_index do |p, index| %>
-                  <td class='score_cell'>
-                    <% if @activites_and_student_performance[:activities][index][:activity].activity_type.eql?('scored') %>
-                      <%= text_field_tag 'studentPerformance['+ @activites_and_student_performance[:activities][index][:ac_id].to_s + '][' + sp[:student].id.to_s + ']', (!p.nil? ? p.scored_performance : ''), {:class=>'score_input'} %>
-                    <% elsif @activites_and_student_performance[:activities][index][:activity].activity_type.eql?('completion') %>
-                      <%= select_tag 'studentPerformance['+ @activites_and_student_performance[:activities][index][:ac_id].to_s + '][' + sp[:student].id.to_s + ']' , options_for_select([['Completed', 'true'],['Not Completed','false']], (!p.nil? && p.completed_performance ? 'true' : 'false'))%>
-                    <% end %>
-
-                    
-                  </td>                      
+                <th colspan="<%= @classroom.activities.length+1%>" style="text-align:center">Activities</th>            
+              </tr>
+              <tr>
+                <th style="min-width:150px; vertical-align:bottom">Student</th>
+                <% @classroom.activities.each do |activity| %>
+                    <th class="activity_header" style=""><%= activity.name %></th>
                 <% end %>
               </tr>
-            <% end %>
+            </thead>
+            <tbody>
+              <% @classroom.student_users.each do |student| %>
+                <tr>
+                  <td class='score_cell'><%= student.display_name %></td>
+                  <% @classroom.activities.each do |activity| %>
+                    <td class="score_cell">
+                      <% if activity.activity_type.eql?('scored') %>
+                        <%= text_field_tag 'studentPerformance['+ activity.id.to_s + '][' + student.id.to_s + ']', (!@student_performances[student].nil? && !@student_performances[student][activity].nil? ? @student_performances[student][activity].scored_performance_pretty : ''), {:class=>'score_input'} %>
+
+                        
+                      <% elsif activity.activity_type.eql?('completion') %>
+                        <%= select_tag 'studentPerformance['+ activity.id.to_s + '][' + student.id.to_s + ']' , options_for_select([['Completed', 'true'],['Not Completed','false']], (!@student_performances[student].nil? && !@student_performances[student][activity].nil? && @student_performances[student][activity].completed_performance ? 'true' : 'false'))%>                      
+                      <% end %>
+                    </td> 
+                  <% end %>
+                </tr>
+              <% end %>   
+            </tbody>         
           </table>
         <% end %>
       <% end %>     
