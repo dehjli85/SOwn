@@ -1,0 +1,16 @@
+<h3><%= @classroom.name %></h3>
+<ul class="nav nav-tabs">
+  <li role="presentation" class="<%= active.eql?('view') ? 'active' : ""%>" ><a href="#">View Data</a></li>
+  <li role="presentation"><a href="#">Edit Activites</a></li>
+  <li role="presentation"><a href="#">Add Students</a></li>
+  <li role="presentation"><a href="#">Edit Data</a></li>
+  <li role="presentation"><a href="#">Export Data</a></li>
+  <li role="presentation"><a href="/classroom/<%= @classroom.id%>/edit">Edit Classroom Details</a></li>
+  <li role="presentation"><a href="#">Show Classroom Code</a></li>
+</ul>
+
+<div class="well" style="display:none">
+  Classroom Code: <%= @classroom.classroom_code %>
+</div>
+
+      

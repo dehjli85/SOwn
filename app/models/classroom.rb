@@ -2,7 +2,7 @@ class Classroom < ActiveRecord::Base
 	belongs_to :teacher_user
 	has_and_belongs_to_many :student_users, -> {order 'student_users.last_name, student_users.first_name'}
 	#has_and_belongs_to_many :activities
-	has_many :classroom_activity_pairings
+	has_many :classroom_activity_pairings, -> {order 'created_at ASC'}
 	has_many :activities, :through => :classroom_activity_pairings
 
 	validates :classroom_code, :name, :teacher_user_id, presence: true

@@ -4,7 +4,7 @@ class ActivitiesController < ApplicationController
 		if(params[:searchTerm] && params[:searchTerm][0].eql?('#'))
 			tagArray = params[:searchTerm].split(/ +/)
 			puts tagArray
-			@activities = Activity.where({teacher_user_id: @current_teacher_user.id}).reject do |act| 
+			@activities = Activity.where({teacher_user_id: @current_teacher_user.id}).order('created_at DESC').reject do |act| 
 				condition = true
 				tagArray.each do |t|
 					if act.tag_match(t[1..t.length])
@@ -15,7 +15,7 @@ class ActivitiesController < ApplicationController
 			end
 		else
 
-			@activities = Activity.where({teacher_user_id: @current_teacher_user.id}).reject do |act| 
+			@activities = Activity.where({teacher_user_id: @current_teacher_user.id}).order('created_at DESC').reject do |act| 
 				!act.search_match(params[:searchTerm]) || !act.tag_match(params[:tag])
 			end
 
