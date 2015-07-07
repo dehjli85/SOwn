@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Classroom activity pairing:</strong>
+  <%= @student_performance_verification.classroom_activity_pairing_id %>
+</p>
+
+<p>
+  <strong>Student user:</strong>
+  <%= @student_performance_verification.student_user_id %>
+</p>
+
+<%= link_to 'Edit', edit_student_performance_verification_path(@student_performance_verification) %> |
+<%= link_to 'Back', student_performance_verifications_path %>

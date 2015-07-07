@@ -4,41 +4,49 @@
   <div class="row">  
     <%= render partial: '/shared/student_left_nav', locals: { active: 'home' }%>
 
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="col-sm-offset-2 inline-block">
 
 			<h1><%= @classroom.name%> - <%= @classroom.teacher_user.display_name%></h1>
 
-			<div class="col-sm-9">
+			
 				<h3>My Activities &amp; Performance</h3>
 				<table class="table table-striped table-bordered table-condensed small">
 					<tr>
-						<th class="col-sm-5">Activity</th>
-						<th colspan="2" class="col-sm-3">Performance</th>
+						<th class="col-sm-3">Activity</th>
+						<th class="col-sm-1 center">Most Recent Attempt</th>
+						<th class="col-sm-1 center">Prev. Attempt (2)</th>
+						<th class="col-sm-1 center">Prev. Attempt (3)</th>
+						<th colspan="2" class="col-sm-1 center">Actions</th>
 					</tr>
 					
-					
-						<% @performance.each_with_index do |performance, index| %>
+					<% @activities.each_with_index do |activity_and_id, index| %>
 						<tr>
-							<td><%= @activities[index][:activity].name %></td>
-							<td style="vertical-align:center">
-								<% if @activities[index][:activity].activity_type.eql?('scored') %>
-                  <%= !performance.nil? ? performance.scored_performance : '' %>
-                <% elsif @activities[index][:activity].activity_type.eql?('completion') %>
-                  <%= !performance.nil? ? performance.completed_performance_desc : 'Not Completed' %>
-                  
-                <% end %>
-								
+							<td><%= activity_and_id[:activity].name %></td>
+							<td class="center">
+								<%= @performances[index][0] ? @performances[index][0].performance_pretty : '' %>
+								<% if @performances[index][0] && @performances[index][0].requires_verification? && !@performances[index][0].verified %>
+									<br />Unverified
+								<% end %>
 							</td>
-							<td><a class="btn btn-success btn-xs" href="/student_performances/new?classroom_activity_pairing_id=<%= @activities[index][:ac_id] %>">Track!</a></td>
-						</tr>
-						<% end %>
-
+							<td class="center">
+								<%= @performances[index][1] ? @performances[index][1].performance_pretty : '' %>
+								<% if @performances[index][1] && @performances[index][1].requires_verification? && !@performances[index][1].verified %>
+									<br />Unverified
+								<% end %>
+							</td>
+							<td class="center">
+								<%= @performances[index][2] ? @performances[index][2].performance_pretty : '' %>
+								<% if @performances[index][2] && @performances[index][2].requires_verification? && !@performances[index][2].verified %>
+									<br />Unverified
+								<% end %>
+							</td>
+							<td><a class="btn btn-success btn-xs" href="/student_performances/new?classroom_activity_pairing_id=<%= @activities[index][:cap_id] %>">Track!</a></td>
+							<td><a href="#">See All</a></td>
+						</tr>	
+					<% end %>
 					
 				</table>
-
-					
-				
-			</div>
+			
 		</div>
  	</div>
 </div>

@@ -38,9 +38,9 @@ class StudentAccountController < ApplicationController
     csu = ClassroomsStudentUsers.where({student_user_id: @current_student_user.id, classroom_id: params[:classroom_id]}).first
     @classroom = !csu.nil? && Classroom.exists?(params[:classroom_id]) ? Classroom.find(params[:classroom_id]) : nil
     
-    activities_performance = @classroom.get_activities_and_student_performance_data(@current_student_user.id)
-    @activities = activities_performance[:activities]
-    @performance = activities_performance[:student_performance]
+    activities_performances = @classroom.get_activities_and_student_performance_data(@current_student_user.id)
+    @activities = activities_performances[:activities]
+    @performances = activities_performances[:student_performances]
   end
 
 

@@ -1,0 +1,143 @@
+<%= render '/shared/top_nav' %>
+
+<div class="container-fluid">
+  <div class="row">  
+    <%= render partial: '/shared/left_nav', locals: { active: '' }%>
+
+    <div class="col-sm-offset-2 inline-block" >
+
+      <%= render partial: 'classroom_nav_header', locals: { active: 'edit_activities' }%>
+
+      <div class="classroom-tab-content">
+
+        <% if flash[:notice] %>
+          <div class="alert alert-success"><%= flash[:notice] %></div>
+        <% end %>         
+
+        <% if flash[:error] %>
+          <div class="alert alert-danger"><%= flash[:error] %></div>
+        <% end %>
+
+        <%= form_tag '/classroom/save_activities', {:class => 'form-horizontal', method: 'post'} do |f| %>
+          <%= hidden_field_tag 'classroom_id', @classroom.id %>
+          <%= hidden_field_tag 'activity_id', @activity.id %>
+
+          <div class="form-group">
+            <label for="input" class="col-sm-3 control-label">Activity:</label>
+            <div class="col-sm-6 switch">              
+              <%= select_tag "activity",  options_from_collection_for_select(@activities, "id", "name", @activity.id), {:class => 'form-control'}  %>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            
+            <label for="input" class="col-sm-3 control-label">Assigned:</label>
+            <div class="col-sm-6 switch">                       
+                <%= check_box_tag 'assigned', !@classroom_activity_pairing.nil?, !@classroom_activity_pairing.nil? %>              
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <label for="input" class="col-sm-3 control-label">Hidden:</label>
+            <div class="col-sm-6 switch">              
+                <%= check_box_tag 'hidden', true %>              
+            </div>
+          </div>          
+
+          <% if !@verifications_hash.empty? %>
+            <div class="form-group" id="verifications">
+              <label for="input" class="col-sm-3 control-label">Verifications:</label>
+              <div class="col-sm-8">              
+                <table class="table table-condensed table-bordered small">
+                  <tr>
+                    <th style="vertical-align:bottom">Name</th>
+                    <th class="center">
+                      <div>Require Verification?</div>
+                      <div><input type="checkbox" id="master_check"></div>
+                    </th>
+                  </tr>
+                  <% @verifications_hash.each do |student, verification| %>
+                  <tr>
+                    <td><%= student.display_name %></td>
+                    <td class="center"><%= check_box_tag 'student_performance_verification[' + student.id.to_s + ']', !verification.nil?, !verification.nil? , {:class => 'group_check'} %></td>
+                  </tr>
+                  <% end %>
+                </table>
+                
+              </div>
+            </div>     
+          <% end %>
+
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-4">
+              <%= submit_tag 'Save', {:class=> 'btn btn-primary center'} %>
+            </div>
+
+          </div>
+          
+        <% end %>
+        
+      </div> 
+    </div>
+
+  </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+  if(<%= @classroom_activity_pairing.nil? %>)
+    $('#verifications').attr('style','display:none');
+
+  /* SET UP THE BUTTONS*/
+  var options = {
+    onText: "Yes",
+    onColor: 'primary',    
+    offText: "No",
+    animate: true,        
+  };
+
+  var assigned_button = $("[id='assigned']").bootstrapSwitch(options);
+  var hidden_button = $("[name='hidden']").bootstrapSwitch(options);
+
+  assigned_button.bootstrapSwitch('state', <%= !@classroom_activity_pairing.nil? %>)
+
+  assigned_button.on('switchChange.bootstrapSwitch', function(event, state) {
+    this.value = assigned_button.bootstrapSwitch('state');
+    console.log(this.checked);
+    if (!this.checked){
+      $('#verifications').attr('style','display:none');
+    }
+    else{
+      $('#verifications').attr('style','display:block'); 
+    }
+  });
+
+
+  //TODO: HIDDEN BUTTON BACKEND WORK
+  hidden_button.on('switchChange.bootstrapSwitch', function(event, state) {  
+    this.value = hidden_button.bootstrapSwitch('state');
+  });
+
+  /*Set up the change event for the activity selector*/
+  $(function(){
+      // bind change event to select
+      $('#activity').on('change', function () {
+          var url = '/classroom/edit_activities?classroom_id=<%=@classroom.id%>&activity_id=' + $(this).val() // get selected value
+          if (url) { // require a URL
+              window.location = url; // redirect
+          }
+          return false;
+      });
+    });
+
+</script>
+
+<script type="text/javascript">
+  var gcb = new GROUP_CHECK_BOX.GroupCheckBox('master_check','group_check');  
+</script>
+
+
+

@@ -8,13 +8,22 @@
 }
 
 .classroom-tab-content{
+	margin-top: 10px;
 	background-color: #FFFFFF;
 	border: 1px solid #DDD;
-	border-top: none;
+	//border-top: none;
 	padding:15px;
 }
 
 .inline-block{
 	display:inline-block;
 	padding:10px;
+}
+
+.switch{
+	height:29px;
+}
+
+.center{
+	text-align:center;
 }

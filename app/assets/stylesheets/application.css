@@ -10,10 +10,10 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require bootstrap3-switch
  *= require_tree .
  *= require_self
  */
-
 
 .success-sown{
 	background-color: #6BBD49;
@@ -25,4 +25,9 @@
 
 .warning-sown{
 	background-color:#ECD76C;
+}
+
+.form-label{
+	padding: 6px 12px 6px 0px;
+	font-weight: normal;
 }

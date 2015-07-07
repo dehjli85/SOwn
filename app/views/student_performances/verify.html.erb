@@ -1,0 +1,51 @@
+<%= render '/shared/top_nav' %>
+
+<div class="container-fluid">
+  <div class="row">  
+    <%= render partial: '/shared/left_nav', locals: { active: '' }%>
+
+    <div class="col-sm-offset-2 inline-block">
+
+			<h1><%= @student_performance.classroom_activity_pairing.classroom.name %> - <%= @student_performance.classroom_activity_pairing.classroom.teacher_user.display_name%></h1>
+
+			
+				<h3><%= @student_performance.classroom_activity_pairing.activity.name %></h3>
+				
+				<%= form_for :student_performance, url: {action: "create"}, html: {class: "form-horizontal",  method: "post'"} do |f| %>
+					<%= f.hidden_field :verified, true %>
+					
+					<div class="form-group <%= !@student_performance.errors[:scored_performance].empty? ? 'has-error' : '' %>">
+						<% if @student_performance.activity_type.eql?('scored') %>
+	          	<label for="inputScoredPerformance" class="col-sm-4 control-label">Score:</label>
+	      		<% elsif @student_performance.activity_type.eql?('completion') %>
+	      			<label for="inputCompletedPerformance" class="col-sm-4 control-label">Completed:</label>
+      			<% end %>    
+	          <div class="col-sm-8">
+	          	<label class='form-label'><%= @student_performance.performance_pretty %> </label>           
+	          </div>
+        	</div>        
+	        	
+
+	        <div class="form-group <%= !@student_performance.errors[:performance_date].empty? ? 'has-error' : '' %>">
+	          <label for="inputPerformanceDate" class="col-sm-4 control-label">Date:</label>
+	          <div class="col-sm-8">
+	            <label class='form-label'><%= @student_performance.performance_date.strftime('%m-%d-%Y') %> </label>           
+	          </div>
+        	</div>
+
+
+
+
+	        <div class="form-group">
+	          <div class="col-sm-offset-4 col-sm-10">	          	
+	            	<%= f.submit "Verify", {class: 'btn btn-primary'}%>
+	            	<a class="btn btn-default" href="">Cancel</a>	            
+	          </div>
+	        </div>
+	      <% end %>
+					
+				
+			
+		</div>
+ 	</div>
+</div>

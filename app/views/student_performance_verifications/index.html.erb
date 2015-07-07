@@ -1,0 +1,27 @@
+<h1>Listing student_performance_verifications</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Classroom activity pairing</th>
+      <th>Student user</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @student_performance_verifications.each do |student_performance_verification| %>
+      <tr>
+        <td><%= student_performance_verification.classroom_activity_pairing_id %></td>
+        <td><%= student_performance_verification.student_user_id %></td>
+        <td><%= link_to 'Show', student_performance_verification %></td>
+        <td><%= link_to 'Edit', edit_student_performance_verification_path(student_performance_verification) %></td>
+        <td><%= link_to 'Destroy', student_performance_verification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Student performance verification', new_student_performance_verification_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150623194505) do
+ActiveRecord::Schema.define(version: 20150706203153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,36 +66,9 @@ ActiveRecord::Schema.define(version: 20150623194505) do
     t.datetime "updated_at"
   end
 
-  create_table "common_core_ela_standards", force: true do |t|
-    t.string   "common_core_ela_strand_id"
-    t.string   "grade_level"
-    t.string   "standard_code"
-    t.string   "full_code"
-    t.string   "strand_description",        limit: 1000
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "common_core_ela_strands", force: true do |t|
-    t.string   "code"
-    t.string   "strand_description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "common_core_math_domains", force: true do |t|
-    t.string   "code"
-    t.string   "domain_description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "common_core_math_standards", force: true do |t|
-    t.string   "common_core_math_domain_id"
-    t.string   "grade_level"
-    t.string   "standard_code"
-    t.string   "full_code"
-    t.string   "standard_description",       limit: 1500
+  create_table "student_performance_verifications", force: true do |t|
+    t.integer  "classroom_activity_pairing_id"
+    t.integer  "student_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -108,6 +81,7 @@ ActiveRecord::Schema.define(version: 20150623194505) do
     t.datetime "performance_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "verified"
   end
 
   create_table "student_users", force: true do |t|

@@ -13,7 +13,7 @@ class StudentPerformancesController < ApplicationController
 
 	#create a new student performance
 	def create
-		@student_performance = StudentPerformance.new(params.require(:student_performance).permit(:classroom_activity_pairing_id, :student_user_id, :scored_performance, :completed_performance))		
+		@student_performance = StudentPerformance.new(params.require(:student_performance).permit(:classroom_activity_pairing_id, :student_user_id, :scored_performance, :completed_performance, :performance_date))		
 		if(@student_performance.save)
 			redirect_to "/student/viewClassroom?classroom_id=#{@student_performance.classroom_activity_pairing.classroom_id}"
 		else
@@ -26,26 +26,40 @@ class StudentPerformancesController < ApplicationController
 
 	#display a specific student performance (might use this to show students)
 	def show
-		#TODO: Need security to prevent people from seeing classrooms that aren't theirs
-		@classroom = Classroom.find(params[:id])
-		@activites_and_student_performance = @classroom.get_activities_and_student_performance_data_all
+		
 	end
 
 	#return html form for editing a student performance
 	def edit
-		@classroom = Classroom.find(params[:id])		
+		
 	end
 
 	#update a specific student performance	
 	def update
-		@classroom = Classroom.find(params[:id])
-		@classroom.update(params.require(:classroom).permit(:name, :description, :classroom_code))
+		
+	end
 
-		if(@classroom.save)
-			redirect_to '/classroom/' + params[:id]
+	def verify
+		@student_performance = StudentPerformance.exists?(params[:student_performance_id]) ?  StudentPerformance.find(params[:student_performance_id]) : nil		
+	end
+
+	def verfiy_post
+		@student_performance = StudentPerformance.exists?(params[:student_performance_id]) ?  StudentPerformance.find(params[:student_performance_id]) : nil		
+
+		if @student_performance
+			@student_performance.update(params.require(:student_performance).permit(:verified))
+
+			if(@student_performance.save)
+				redirect_to '/classroom/' + @student_performance.classroom_activity_pairing.classroom_id
+			else
+				render action: 'verify'
+			end
 		else
-			render action: 'edit'
+			flash[:notice] = "Student performance doesn't exists"
+			render action: 'student_performance_error'
 		end
+		
+
 	end
 
 	#delete a specific student performance
@@ -90,6 +104,10 @@ class StudentPerformancesController < ApplicationController
 		end
 
 		redirect_to '/student_performance/edit_all?classroom_id='	+ params[:classroom_id].to_s
+	end
+
+	def student_performance_error
+		
 	end
 
 end

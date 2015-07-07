@@ -40,6 +40,11 @@ gem 'spring',        group: :development
 
 gem "omniauth-google-oauth2", "~> 0.2.1"
 
+gem 'jquery-turbolinks'
+
 gem "twitter-bootstrap-rails"
 
 gem 'jquery-tablesorter'
+
+gem 'bootstrap-switch-rails'
+

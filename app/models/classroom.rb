@@ -93,24 +93,33 @@ class Classroom < ActiveRecord::Base
 
 	end
 
+	# Returns a 2 element hash for the specified student.  
+	# First key of hash = :activities, value is an array of hashes.  For each hash in the array:
+	# => First key of hash = :activity, value is the activity model object
+	# => Second key of the hash = cap_id, value is the id of the ClassroomActivityPairing associated with that activity and this classroom
+	# Second key of the hash = :student_performance, value is an array of an array of StudentPerformances, with the most recent performances coming first
+	#
+	# The performances are sorted in the same order as the activities.
 	def get_activities_and_student_performance_data(student_user_id)
 		
 		activities_array = Array.new(self.activities.size)
 		student_performance_array = Array.new
 
-		acs = ClassroomActivityPairing.where({classroom_id: self.id})
-		acs.each_with_index do |ac, index|
+		caps = ClassroomActivityPairing.where({classroom_id: self.id})
+		caps.each_with_index do |cap, index|
+
 			#create a sorted array of the activities
-			activities_array[index] = {activity: ac.activity, ac_id: ac.id}
-			#create a sorted array of all performances
-			student_performance_array[index] = StudentPerformance.where({classroom_activity_pairing_id: ac.id, student_user_id: student_user_id}).order("created_at DESC").first
-			#create a sorted array of all the activities_classrooms id
+			activities_array[index] = {activity: cap.activity, cap_id: cap.id}
+
+			#create a sorted array of all performances			
+			student_performance_array[index] = StudentPerformance.where({classroom_activity_pairing_id: cap.id, student_user_id: student_user_id}).order("created_at DESC")
+			
 
 		end		
 
 		activities_and_student_performance_hash = Hash.new
 		activities_and_student_performance_hash[:activities] = activities_array
-		activities_and_student_performance_hash[:student_performance] = student_performance_array
+		activities_and_student_performance_hash[:student_performances] = student_performance_array
 
 		return activities_and_student_performance_hash
 

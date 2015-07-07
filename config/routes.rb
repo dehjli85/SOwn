@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :student_performance_verifications
+
   get 'student_account/home'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -79,6 +81,11 @@ Rails.application.routes.draw do
 
   get 'student_performance/edit_all' => 'student_performances#edit_all'
   post 'student_performance/save_all' => 'student_performances#save_all'
+  get 'student_performance/verify' => 'student_performances#verify'
+  post 'student_performance/verify_post' => 'student_performances#verify_post'
+
+  get 'classroom/edit_activities' => 'classroom#edit_activities'
+  post 'classroom/save_activities' => 'classroom#save_activities'
 
   root to: "public_pages#home"
 

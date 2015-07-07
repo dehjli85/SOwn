@@ -6,7 +6,7 @@
 
     <div class="col-sm-offset-2 inline-block" >
 
-      <%= render partial: 'classroom_nav_header', locals: { active: 'view' }%>
+      <%= render partial: 'classroom_nav_header', locals: { active: 'scores' }%>
 
       <div class="classroom-tab-content">         
       
@@ -30,12 +30,15 @@
                   <tr>
                     <td class=''><%= student.display_name %></td>
                     <% @classroom.activities.each do |activity| %>
-                      <td class="<%= !@student_performances[student].nil? && !@student_performances[student][activity].nil? ? @student_performances[student][activity].performance_color : '' %>">
-                        <% if activity.activity_type.eql?('scored') %>
-                          <%= !@student_performances[student].nil? && !@student_performances[student][activity].nil? ? @student_performances[student][activity].scored_performance_pretty : '' %>
-                        <% elsif activity.activity_type.eql?('completion') %>
-                          <%= !@student_performances[student].nil? && !@student_performances[student][activity].nil? ? @student_performances[student][activity].completed_performance_desc : ''%>
-                        <% end %>
+                      <td class="center <%= !@student_performances[student].nil? && !@student_performances[student][activity].nil? ? @student_performances[student][activity].performance_color : '' %>">
+
+                          <%= !@student_performances[student].nil? && !@student_performances[student][activity].nil? ? @student_performances[student][activity].performance_pretty : '' %>
+
+                          <% if !@student_performances[student].nil? && !@student_performances[student][activity].nil? && @student_performances[student][activity].requires_verification? && !@student_performances[student][activity].verified %>
+                            <br /><a href="/student_performance/verify?student_performance_id=<%= @student_performances[student][activity].id %>">Verify</a>
+
+                          <% end %>
+
                       </td> 
                     <% end %>
                   </tr>
@@ -52,11 +55,18 @@
 </div>
 
 <script type="text/javascript">
-  $(document).ready(function() 
-    { 
+  var ready;
+  ready = function() {
+
+    $("#perf_table").tablesorter(); 
+
+  };
+
+  $(document).ready(ready);
+  $(document).on('page:load', ready);
+  /*$(document).ready(function(){ 
         $("#perf_table").tablesorter(); 
-    } 
-); 
+    }); */
     
 </script>
 
