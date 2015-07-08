@@ -8,9 +8,11 @@
 
 			<h1><%= @classroom.name%> - <%= @classroom.teacher_user.display_name%></h1>
 
-			
-				<h3>My Activities &amp; Performance</h3>
-				<table class="table table-striped table-bordered table-condensed small">
+						
+			<h3>My Activities &amp; Performance</h3>
+
+			<div class="classroom-tab-content">
+				<table class="table table-condensed table-bordered small">
 					<tr>
 						<th class="col-sm-3">Activity</th>
 						<th class="col-sm-1 center">Most Recent Attempt</th>
@@ -22,19 +24,19 @@
 					<% @activities.each_with_index do |activity_and_id, index| %>
 						<tr>
 							<td><%= activity_and_id[:activity].name %></td>
-							<td class="center">
+							<td class="center <%= @performances[index][0] ? @performances[index][0].performance_color : '' %>">
 								<%= @performances[index][0] ? @performances[index][0].performance_pretty : '' %>
 								<% if @performances[index][0] && @performances[index][0].requires_verification? && !@performances[index][0].verified %>
 									<br />Unverified
 								<% end %>
 							</td>
-							<td class="center">
+							<td class="center <%= @performances[index][1] ? @performances[index][1].performance_color : '' %>">
 								<%= @performances[index][1] ? @performances[index][1].performance_pretty : '' %>
 								<% if @performances[index][1] && @performances[index][1].requires_verification? && !@performances[index][1].verified %>
 									<br />Unverified
 								<% end %>
 							</td>
-							<td class="center">
+							<td class="center <%= @performances[index][2] ? @performances[index][2].performance_color : '' %>">
 								<%= @performances[index][2] ? @performances[index][2].performance_pretty : '' %>
 								<% if @performances[index][2] && @performances[index][2].requires_verification? && !@performances[index][2].verified %>
 									<br />Unverified
@@ -46,7 +48,7 @@
 					<% end %>
 					
 				</table>
-			
+			</div>
 		</div>
  	</div>
 </div>
