@@ -11,8 +11,9 @@
 			
 				<h3><%= @student_performance.classroom_activity_pairing.activity.name %></h3>
 				
-				<%= form_for :student_performance, url: {action: "create"}, html: {class: "form-horizontal",  method: "post'"} do |f| %>
-					<%= f.hidden_field :verified, true %>
+				<%= form_for :student_performance, url: {action: "verify_post"}, html: {class: "form-horizontal",  method: "post'"} do |f| %>
+					<%= f.hidden_field :verified, {value:true} %>
+					<%= f.hidden_field :id %>
 					
 					<div class="form-group <%= !@student_performance.errors[:scored_performance].empty? ? 'has-error' : '' %>">
 						<% if @student_performance.activity_type.eql?('scored') %>

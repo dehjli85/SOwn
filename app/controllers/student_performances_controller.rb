@@ -43,14 +43,14 @@ class StudentPerformancesController < ApplicationController
 		@student_performance = StudentPerformance.exists?(params[:student_performance_id]) ?  StudentPerformance.find(params[:student_performance_id]) : nil		
 	end
 
-	def verfiy_post
-		@student_performance = StudentPerformance.exists?(params[:student_performance_id]) ?  StudentPerformance.find(params[:student_performance_id]) : nil		
+	def verify_post
+		@student_performance = StudentPerformance.exists?(params[:student_performance][:id]) ?  StudentPerformance.find(params[:student_performance][:id]) : nil		
 
 		if @student_performance
 			@student_performance.update(params.require(:student_performance).permit(:verified))
 
 			if(@student_performance.save)
-				redirect_to '/classroom/' + @student_performance.classroom_activity_pairing.classroom_id
+				redirect_to '/classroom/' + @student_performance.classroom_activity_pairing.classroom_id.to_s
 			else
 				render action: 'verify'
 			end

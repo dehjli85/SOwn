@@ -11,7 +11,7 @@
 			
 				<h3><%= @student_performance.classroom_activity_pairing.activity.name %></h3>
 				
-				<%= form_for :student_performance, url: {action: "create"}, html: {class: "form-horizontal",  method: "post'"} do |f| %>
+				<%= form_for :student_performance, url: {action: "create"}, html: {class: "form-horizontal",  method: "post"} do |f| %>
 					<%= f.hidden_field :classroom_activity_pairing_id %>
 					<%= f.hidden_field :student_user_id %>
 
