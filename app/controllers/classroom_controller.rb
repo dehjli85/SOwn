@@ -1,6 +1,7 @@
 class ClassroomController < ApplicationController
 
 	before_action :require_teacher_login
+	before_action :check_security, only: [:show, :edit, :update, :destroy, :edit_activities, :save_activities]
 
 	#view all classrooms (probably won't use this)
 	def index
@@ -8,8 +9,7 @@ class ClassroomController < ApplicationController
 	end
 
 	#return html form for creating a new classroom
-	def new
-		
+	def new		
 		if(!@classroom)
 			@classroom = Classroom.new			
 		end
@@ -54,8 +54,8 @@ class ClassroomController < ApplicationController
 				render action: 'edit'
 			end
 		else
-			flash[:notice] = "Classroom doesn't exists"
-			render action: 'classroom_error'
+			flash[:notice] = "Classroom does not exists"
+			redirect_to '/classroom/classroom_error'
 		end
 	end
 		
@@ -173,8 +173,21 @@ class ClassroomController < ApplicationController
 
 	end
 
+	def check_security
+		classroom_id = params[:classroom_id]
+		classroom_id ||= params[:id]
+
+		puts classroom_id
+
+		if !Classroom.exists?(classroom_id) || Classroom.find(classroom_id).teacher_user_id != @current_teacher_user.id
+			flash[:notice] = 'You are not authorized to view this classroom.'
+			redirect_to '/classroom/classroom_error'
+		end
+
+	end
+
 	def classroom_error
-		
+				
 	end
 
 end

@@ -86,6 +86,7 @@ Rails.application.routes.draw do
 
   get 'classroom/edit_activities' => 'classroom#edit_activities'
   post 'classroom/save_activities' => 'classroom#save_activities'
+  get 'classroom/classroom_error' => 'classroom#classroom_error'
 
   root to: "public_pages#home"
 
