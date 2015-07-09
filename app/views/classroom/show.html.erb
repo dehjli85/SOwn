@@ -8,9 +8,34 @@
 
       <%= render partial: 'classroom_nav_header', locals: { active: 'scores' }%>
 
+      <div class="row search-bar-container">
+        <div class="col-sm-3">
+          <form action="/classroom/<%= @classroom.id %>" method="get">
+            <div class="input-group">            
+                <input type="text" class="form-control input-sm" placeholder="" name="searchTerm">
+                <span class="input-group-btn">
+                  <input type="submit" class="btn btn-default btn-sm" type="button" value="Filter Activities">
+                </span>            
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row tag-list-container">
+        <div class="col-sm-12">
+          <ul id="tagDisplayList" class="list-inline ">            
+            <% @tags.values.each do |tag| %>
+              <li><a class="label label-info" href="/classroom/<%= @classroom.id %>?tag=<%= tag.name %>">#<%= tag.name %></a></li>
+            <% end %> 
+          </ul>
+      </div>
+
+      </div>
+
       <div class="classroom-tab-content">         
+
+        
       
-        <% if !@classroom.activities.empty? %>  
+        <% if !@search_matched_pairings.empty? %>  
         
         <%= form_tag '/' do |f| %>    
             <table id="perf_table" class="table table-condensed table-bordered small" style="table-layout:fixed; width:inherit; padding-top:10px;">
@@ -20,8 +45,8 @@
               </tr>    -->         
               <tr>
                 <th style="min-width:150px; vertical-align:bottom">Student</th>
-                <% @classroom.activities.each do |a| %>
-                    <th class="activity_header" style=""><%= a.name %></th>                      
+                <% @search_matched_pairings.each do |pairing| %>
+                    <th class="activity_header" style=""><%= pairing.activity.name %></th>                      
                 <% end %>
               </tr>
               </thead>
@@ -29,13 +54,13 @@
                 <% @classroom.student_users.each do |student| %>
                   <tr>
                     <td class=''><%= student.display_name %></td>
-                    <% @classroom.activities.each do |activity| %>
-                      <td class="center <%= !@student_performances[student].nil? && !@student_performances[student][activity].nil? ? @student_performances[student][activity].performance_color : '' %>">
+                    <% @search_matched_pairings.each do |pairing| %>
+                      <td class="center <%= !@student_performances[student].nil? && !@student_performances[student][pairing.activity].nil? ? @student_performances[student][pairing.activity].performance_color : '' %>">
 
-                          <%= !@student_performances[student].nil? && !@student_performances[student][activity].nil? ? @student_performances[student][activity].performance_pretty : '' %>
+                          <%= !@student_performances[student].nil? && !@student_performances[student][pairing.activity].nil? ? @student_performances[student][pairing.activity].performance_pretty : '' %>
 
-                          <% if !@student_performances[student].nil? && !@student_performances[student][activity].nil? && @student_performances[student][activity].requires_verification? && !@student_performances[student][activity].verified %>
-                            <br /><a href="/student_performance/verify?student_performance_id=<%= @student_performances[student][activity].id %>">Verify</a>
+                          <% if !@student_performances[student].nil? && !@student_performances[student][pairing.activity].nil? && @student_performances[student][pairing.activity].requires_verification? && !@student_performances[student][pairing.activity].verified %>
+                            <br /><a href="/student_performance/verify?student_performance_id=<%= @student_performances[student][pairing.activity].id %>">Verify</a>
 
                           <% end %>
 

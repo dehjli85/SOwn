@@ -17,32 +17,112 @@ class Classroom < ActiveRecord::Base
 
 	end
 
-	def student_performances
+	#return classroom pairing objects that match the search_term
+	def search_matched_pairings(search_hash={search_term: nil, search_tag: nil })
+		puts search_hash[:search_tag]
+		if search_hash.nil?
 
-		#create/populate array with classroom activity pairing ids
-		pairing_array = Array.new
+			return self.classroom_activity_pairings
+
+		else
+
+			self.classroom_activity_pairings.reject do |pairing|
+
+				#variable to determine whether pairing should be rejected
+				reject = true
+
+				#if the user has inputted a space separated list of tags		
+				if(search_hash[:search_term] && search_hash[:search_term][0].eql?('#'))
+					puts 'separated list of hashes'
+
+					#break search input into array of tags
+					tagArray = search_hash[:search_term].split(/ +/)
+					
+
+					#go through each tag until one of them matches the activity
+					tagArray.each do |tag|
+						if pairing.activity.tag_match(tag[1..tag.length])
+							reject = false
+							break
+						end
+					end					
+
+				else
+					puts 'not a separated list of hashes'
+					#if the keyword matches a tag or standard search, add the activity to teh array
+					if pairing.activity.tag_match(search_hash[:search_tag]) && pairing.activity.search_match(search_hash[:search_term])
+						puts "Activity: #{pairing.activity}"
+						puts "Tag Match: #{pairing.activity.tag_match(search_hash[:search_tag])}"
+						puts "Search Match: #{pairing.activity.search_match(search_hash[:search_term])}"
+						reject = false
+					end
+
+				end
+
+				reject
+
+			end
+
+		end
+
+	end
+
+	#return an array of the distinct tags for activities inthe classroom
+	def search_matched_tags(search_hash={search_term: nil, search_tag: nil })
+
+		pairings = self.search_matched_pairings(search_hash)		
+
+		tag_hash = Hash.new
+		pairings.each do |pairing|
+			pairing.activity.activity_tags.each do |tag|
+				tag_hash[tag.id] = tag
+			end
+		end
+
+		return tag_hash
+	end
+
+	def tags
+		
+
+		tag_hash = Hash.new
 		self.classroom_activity_pairings.each do |pairing|
+			pairing.activity.activity_tags.each do |tag|
+				tag_hash[tag.id] = tag
+			end
+		end
+
+		return tag_hash
+		
+	end
+
+	# returns a hash of hashes.  
+	# the key the first layer of the hash is the student, the value is another hash
+	# => the key for the second layer of the hash is an activity, 
+	# => the value is the student's performance (from the key of the first layer) on that activity
+	def student_performances(search_hash={search_term: nil, search_tag: nil })
+
+		pairings = self.search_matched_pairings(search_hash)
+		pairing_array = Array.new
+		search_matched_pairings.each do |pairing|
 			pairing_array.push(pairing.id)
 		end
 
 		#store the performances into a hash, where the student is the key
-		# the values are another hash, where the key is the activity, and the value is the pairing
-		performances_hash = Hash.new
+		# the values are another hash, where the key is the activity, and the value is the pairing		
 		performances = StudentPerformance.where({classroom_activity_pairing_id: pairing_array})
+		
+		performances_hash = Hash.new
 		performances.each do |p|
+		
 			if !performances_hash[p.student_user]
 				performances_hash[p.student_user] = Hash.new
 			end
 			performances_hash[p.student_user][p.activity] = p
-		end
-
-		# student_hash = Hash.new
-		# self.student_users.each do |student|
-		# 	student_hash[student] = performances_hash[student]
-		# end
+		
+		end	
 
 		return performances_hash
-
 		
 	end
 

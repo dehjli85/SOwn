@@ -35,7 +35,7 @@ class StudentPerformance < ActiveRecord::Base
 				if scored_performance <= @activity.max_score && scored_performance > @activity.benchmark2_score
 					return 'success-sown'
 				else
-					return 'yelllow-sown'
+					return 'warning-sown'
 				end
 			elsif !@activity.benchmark1_score.nil? && @activity.benchmark2_score.nil?
 				if scored_performance <= @activity.max_score && scored_performance > @activity.benchmark1_score
@@ -64,9 +64,9 @@ class StudentPerformance < ActiveRecord::Base
 	
 
 	def performance
-		if self.classroom_activity_pairing.activity.activity_type = 'scored'
+		if self.classroom_activity_pairing.activity.activity_type.eql?('scored')
 			return self.scored_performance
-		elsif self.classroom_activity_pairing.activity.activity_type = 'completion'
+		elsif self.classroom_activity_pairing.activity.activity_type.eql?('completion')
 			return self.completed_performance
 		else
 			return nil
@@ -74,11 +74,11 @@ class StudentPerformance < ActiveRecord::Base
 	end
 
 	def performance_pretty
-		if self.classroom_activity_pairing.activity.activity_type = 'scored'
+		if self.classroom_activity_pairing.activity.activity_type.eql?('scored')
 
 			return scored_performance.to_i == scored_performance ? scored_performance.to_i : scored_performance
 		
-		elsif self.classroom_activity_pairing.activity.activity_type = 'completion'
+		elsif self.classroom_activity_pairing.activity.activity_type.eql?('completion')
 			
 			case self.completed_performance
 			when true

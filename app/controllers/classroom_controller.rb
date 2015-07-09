@@ -28,12 +28,13 @@ class ClassroomController < ApplicationController
 
 	#display a specific classroom (might use this to show students)
 	def show
-		#TODO: Need security to prevent people from seeing classrooms that aren't theirs
+
+		#filter search term exists, and  it is a space separated list of tags
+
 		@classroom = Classroom.find(params[:id])
-		#@activites_and_student_performance = @classroom.get_activities_and_student_performance_data_all
-		@student_performances = @classroom.student_performances
-
-
+		@tags = @classroom.tags
+		@search_matched_pairings = @classroom.search_matched_pairings({search_term: params[:searchTerm], search_tag: params[:tag]})
+		@student_performances = @classroom.student_performances({search_term: params[:searchTerm], search_tag: params[:tag]})
 
 	end
 
