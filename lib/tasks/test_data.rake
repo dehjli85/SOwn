@@ -48,25 +48,27 @@ namespace :app do
 
   demo_teacher = TeacherUser.find_by_username("demo_teacher@sowntogrow.com")
 
-  demo_teacher.classrooms.each do |classroom|
-    
-    classroom.classroom_activity_pairings.each do |pairing|
-      pairing.delete
-    end   
+  if demo_teacher
+    demo_teacher.classrooms.each do |classroom|
+      
+      classroom.classroom_activity_pairings.each do |pairing|
+        pairing.delete
+      end   
 
-    classroom.delete
-  end
-
-  puts 'deleting demo activity tag pairings'
-  puts 'deleting demo activities'
-  puts 'deleting demo teacher'
-  demo_teacher.activities.each do |activity|
-    activity.activity_tag_pairings.each do |pairing|
-      pairing.delete  
+      classroom.delete
     end
-    activity.delete
+
+    puts 'deleting demo activity tag pairings'
+    puts 'deleting demo activities'
+    puts 'deleting demo teacher'
+    demo_teacher.activities.each do |activity|
+      activity.activity_tag_pairings.each do |pairing|
+        pairing.delete  
+      end
+      activity.delete
+    end
+    demo_teacher.delete
   end
-  demo_teacher.delete
 
   # Only data not required in production should be here.
   # If it needs to be there in production, it belongs in seeds.rb.
