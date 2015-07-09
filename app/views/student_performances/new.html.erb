@@ -58,12 +58,8 @@
 
 
 	        <div class="form-group">
-	          <div class="col-sm-offset-4 col-sm-10">
-	          	<% if !@student_performance.requires_verification? %>
+	          <div class="col-sm-offset-4 col-sm-10">	          	
 	            	<%= f.submit "Submit", {class: 'btn btn-default'}%>
-	            <% else %>
-	            	<%= f.submit "Request Verification", {class: 'btn btn-default'}%>
-	            <% end %>
 	          </div>
 	        </div>
 	      <% end %>
