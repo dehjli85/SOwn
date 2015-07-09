@@ -28,7 +28,23 @@ var GROUP_CHECK_BOX = (function(){
 		for(var i = 0; i< this.groupCheckBoxes.length; i++){
 			console.log(i);
 
-			$(this.groupCheckBoxes[i]).prop('checked', Math.random() > .5);
+			$(this.groupCheckBoxes[i]).prop('checked', Math.random() > .8);
+		}
+	};
+
+	GroupCheckBox.prototype.checkAll = function() {
+		for(var i = 0; i< this.groupCheckBoxes.length; i++){
+			console.log(i);
+
+			$(this.groupCheckBoxes[i]).prop('checked', true);
+		}
+	};
+
+	GroupCheckBox.prototype.checkNone = function() {
+		for(var i = 0; i< this.groupCheckBoxes.length; i++){
+			console.log(i);
+
+			$(this.groupCheckBoxes[i]).prop('checked', false);
 		}
 	};
 

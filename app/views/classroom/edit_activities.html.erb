@@ -48,22 +48,31 @@
           <% if !@verifications_hash.empty? %>
             <div class="form-group" id="verifications">
               <label for="input" class="col-sm-3 control-label">Verifications:</label>
-              <div class="col-sm-8">              
-                <table class="table table-condensed table-bordered small">
-                  <tr>
-                    <th style="vertical-align:bottom">Name</th>
-                    <th class="center">
-                      <div>Require Verification?</div>
-                      <div><input type="checkbox" id="master_check"></div>
-                    </th>
-                  </tr>
-                  <% @verifications_hash.each do |student, verification| %>
-                  <tr>
-                    <td><%= student.display_name %></td>
-                    <td class="center"><%= check_box_tag 'student_performance_verification[' + student.id.to_s + ']', !verification.nil?, !verification.nil? , {:class => 'group_check'} %></td>
-                  </tr>
-                  <% end %>
-                </table>
+              <div class="col-sm-8">             
+                <div style="margin-top:8px">
+                  <ul class="list-inline">
+                    <li><a href="#" onclick="gcb.checkAll();">All</a></li>
+                    <li><a href="#" onclick="gcb.checkNone();">None</a></li>
+                    <li><a href="#" onclick="gcb.randomCheck();">Random</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <table class="table table-condensed table-bordered small">
+                    <tr>
+                      <th style="vertical-align:bottom">Name</th>
+                      <th class="center">
+                        <div>Require Verification?</div>
+                        <div></div>
+                      </th>
+                    </tr>
+                    <% @verifications_hash.each do |student, verification| %>
+                    <tr>
+                      <td><%= student.display_name %></td>
+                      <td class="center"><%= check_box_tag 'student_performance_verification[' + student.id.to_s + ']', !verification.nil?, !verification.nil? , {:class => 'group_check'} %></td>
+                    </tr>
+                    <% end %>
+                  </table>
+                </div> 
                 
               </div>
             </div>     
