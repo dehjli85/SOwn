@@ -15,6 +15,7 @@
 				<table class="table table-condensed table-bordered small">
 					<tr>
 						<th class="col-sm-3">Activity</th>
+						<th class="col-sm-1">Mastery Goal</th>
 						<th class="col-sm-1 center">Most Recent Attempt</th>
 						<th class="col-sm-1 center">Prev. Attempt (2)</th>
 						<th class="col-sm-1 center">Prev. Attempt (3)</th>
@@ -23,7 +24,11 @@
 					
 					<% @activities.each_with_index do |activity_and_id, index| %>
 						<tr>
-							<td><%= activity_and_id[:activity].name %></td>
+
+							<td><a href="#" data-toggle="modal" data-target="#activityModal" onclick="adm.update(<%= index%>)"><%= activity_and_id[:activity].name %><a></td>
+
+							<td><%= activity_and_id[:activity].instructions %></td>
+
 							<td class="center <%= @performances[index][0] ? @performances[index][0].performance_color : '' %>">
 								<%= @performances[index][0] ? @performances[index][0].performance_pretty : '' %>
 								<% if @performances[index][0] && @performances[index][0].requires_verification? && !@performances[index][0].verified %>
@@ -48,7 +53,34 @@
 					<% end %>
 					
 				</table>
-			</div>
+			</div>			
 		</div>
  	</div>
 </div>
+
+
+
+<div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="activityModalTitle"></h4>
+      </div>
+      <div class="modal-body" id="activityModalBody">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Set up the modal dialog descriptions -->
+<script type="text/javascript">
+	
+	var modalData = <%= raw(@activities.to_json)%>;
+	var adm = new ACTIVITY_UI.ActivityDescriptionModal('activityModalTitle','activityModalBody', modalData);
+
+</script>

@@ -40,7 +40,7 @@
   <% else %>
     <div class="form-group form-group-sm">
   <% end %>
-    <label for="inputInstructions" class="col-sm-2 control-label">Instructions:</label>    
+    <label for="inputInstructions" class="col-sm-2 control-label">Mastery Goal:</label>    
     <div class="col-sm-5">      
       <%= f.text_area :instructions, {:class=>'form-control', placeholder: '', id: 'inputInstructions' }%>
       <% if @activity.errors[:instructions] %>

@@ -91,8 +91,22 @@ var ACTIVITY_UI = (function () {
 		this.rangeDiv.attr('style', 'display:none');	
 	};
 
+	function ActivityDescriptionModal(modal_title_id, modal_body_id, content_object){
+		this.modal_title = $('#' + modal_title_id);
+		this.modal_body = $('#' + modal_body_id);
+		this.content_object = content_object;
+	}
+
+	ActivityDescriptionModal.prototype.update = function(content_index){
+		this.modal_title.html(this.content_object[content_index].activity.name);
+		this.modal_body.html(this.content_object[content_index].activity.description);
+	}
+
 	return {
 		TagManager: TagManager,
-		ScoredRangeInputManager: ScoredRangeInputManager
+		ScoredRangeInputManager: ScoredRangeInputManager,
+		ActivityDescriptionModal: ActivityDescriptionModal
 	};
+
+
 })();
