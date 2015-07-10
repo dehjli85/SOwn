@@ -25,37 +25,39 @@
       <% else %>
         <div class="row" style="margin-top:10px">
           <div class="col-sm-10">
-            <table class='table table-condensed table-hover table-bordered small tablesorter' id="activities_table">
-              <thead>
-                <tr>
-                  <th>Activity</th>
-                  <th>Description</th>
-                  <th>Mastery Goal</th>
-                  <th>Activity Type</th>
-                  <th>Tags</th>
-                  <th colspan="2" style="text-align:center;">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @activities.each do |a| %>
+            <div class="classroom-tab-content">
+              <table class='table table-condensed table-hover table-bordered small tablesorter' id="activities_table">
+                <thead>
                   <tr>
-                    <td><%= a.name %></td>
-                    <td><%= a.description_abbreviated %></td>
-                    <td><%= a.instructions_abbreviated %></td>
-                    <td><%= a.activity_type_description %></td>
-                    <td>
-                      <ul class="list-unstyled">
-                      <% a.activity_tags.each do |at| %>
-                        <li><a class="label label-info" href="/activities?tag=<%= at.name %>">#<%= at.name %></a></li>
-                      <% end %>
-                      </ul>
-                    </td>
-                    <td><a href="/activities/<%= a.id %>/edit">Edit</a>  </td>
-                    <td><a href="/activities/assign/<%= a.id %>">Assign to Classrooms</a></td>
+                    <th>Activity</th>
+                    <th>Description</th>
+                    <th>Mastery Goal</th>
+                    <th>Activity Type</th>
+                    <th>Tags</th>
+                    <th colspan="2" style="text-align:center;">Actions</th>
                   </tr>
-                <% end %>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <% @activities.each do |a| %>
+                    <tr>
+                      <td><%= a.name %></td>
+                      <td><%= a.description_abbreviated %></td>
+                      <td><%= a.instructions_abbreviated %></td>
+                      <td><%= a.activity_type_description %></td>
+                      <td>
+                        <ul class="list-unstyled">
+                        <% a.activity_tags.each do |at| %>
+                          <li><a class="label label-info" href="/activities?tag=<%= at.name %>">#<%= at.name %></a></li>
+                        <% end %>
+                        </ul>
+                      </td>
+                      <td><a href="/activities/<%= a.id %>/edit">Edit</a>  </td>
+                      <td><a href="/activities/assign/<%= a.id %>">Assign to Classrooms</a></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       <% end %>

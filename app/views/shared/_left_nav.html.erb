@@ -2,9 +2,9 @@
 
 <div class="col-sm-3 col-md-2 sidebar">
   <ul class="nav nav-sidebar">
-    <li id="home" <%= active.eql?('home') ? "class=active" : ''%>><a href="/teacher_home">Home</a></li>        
+    <li id="home" <%= active.eql?('home') ? "class=active" : ''%>><a href="/teacher_home">Classrooms</a></li>        
     <li id="activities" <%= active.eql?('activities') ? "class=active" : ''%>><a href="/activities">Activities</a></li>
-    <li id="students" <%= active.eql?('students') ? "class=active" : ''%>><a href="#">Students</a></li>
+    <li id="students" <%= active.eql?('students') ? "class=active" : ''%>><a href="#" data-toggle="modal" data-target="#comingSoonModal">Students</a></li>
     
   </ul>      
 </div>

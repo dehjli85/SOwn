@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class ClassroomTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "tag versus tag2 timing" do
+    
+    puts 'blah'
+  end
+
+
 end

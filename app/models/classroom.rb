@@ -17,51 +17,100 @@ class Classroom < ActiveRecord::Base
 
 	end
 
-	#return classroom pairing objects that match the search_term
+
+	# return classroom pairing objects that match the search_term
+	# this method has been optimized to minimize the number of database calls made
+	# it, therefore, doesn't take advantage of all the active record features
 	def search_matched_pairings(search_hash={search_term: nil, search_tag: nil })
-		puts search_hash[:search_tag]
-		if search_hash.nil?
+
+		start_time = Time.now
+		tag_hash = Hash.new
+		
+		# if there's no search term provided, just use active record relationship
+		if search_hash[:search_term].nil? && search_hash[:search_tag].nil?
+
+			end_time = Time.now
+			puts "search_matched_pairings2 run time: #{end_time-start_time}"
 
 			return self.classroom_activity_pairings
 
 		else
+			
+			#if the user has provided a space-separated list of tags
+			if(search_hash[:search_term] && search_hash[:search_term][0].eql?('#'))
 
-			self.classroom_activity_pairings.reject do |pairing|
+				tag_array = search_hash.gsub('#','').split(/ +/)
 
-				#variable to determine whether pairing should be rejected
-				reject = true
+				activity_tag_id_array = Array.new
+				activity_tags = ActivityTag.where({name: tag_array})
+				activity_tags.each do |tag|
+					activity_tag_id_array.push(tag.id)
+				end
 
-				#if the user has inputted a space separated list of tags		
-				if(search_hash[:search_term] && search_hash[:search_term][0].eql?('#'))
-					puts 'separated list of hashes'
+				activity_tag_pairings = ActivityTagPairing.where({activity_tag_id: activity_tag_id_array})
+				activity_id_array = Array.new
+				activity_tag_pairings.each do |pairing|
+					activity_id_array.push(pairing.activity_id)
+				end
 
-					#break search input into array of tags
-					tagArray = search_hash[:search_term].split(/ +/)
+				caps = ClassroomActivityPairing.where({activity_id: activity_id_array, classroom_id: self.id})
+
+				end_time = Time.now
+				puts "search_matched_pairings2 run time: #{end_time-start_time}"
+
+				return caps
+
+			#the user has provided a general search or is searching for a particular tag	
+			else				
+
+				activity_id_array = Array.new
+
+				if search_hash[:search_term]
+					# get all the tags which have the search term present in the name		
+					activity_tag_id_array = Array.new
+					activity_tag_matches = ActivityTag.where( "name like '%?%'" , search_hash[:search_term].downcase)				
+					activity_tags.each do |tag|
+						activity_tag_id_array.push(tag.id)
+					end
+
+					#get the pairings for the tags obtained above, store the activity ids into an array
+					activity_tag_pairings = ActivityTagPairing.where({activity_tag_id: activity_tag_id_array})
 					
+					activity_tag_pairings.each do |pairing|
+						activity_id_array.push(pairing.activity_id)
+					end
 
-					#go through each tag until one of them matches the activity
-					tagArray.each do |tag|
-						if pairing.activity.tag_match(tag[1..tag.length])
-							reject = false
-							break
-						end
-					end					
-
-				else
-					puts 'not a separated list of hashes'
-					#if the keyword matches a tag or standard search, add the activity to teh array
-					if pairing.activity.tag_match(search_hash[:search_tag]) && pairing.activity.search_match(search_hash[:search_term])
-						puts "Activity: #{pairing.activity}"
-						puts "Tag Match: #{pairing.activity.tag_match(search_hash[:search_tag])}"
-						puts "Search Match: #{pairing.activity.search_match(search_hash[:search_term])}"
-						reject = false
+					#get the activities which have the search term present in the description or the name
+					#add id's of said activities into the array from above
+					activity_matches = Activity.where( "name like '%?%' or description like '%?%'" , search_hash[:search_term].downcase, search_hash[:search_term].downcase) 
+					activity_matches.each do |activity_match|
+						activity_id_array.push(activity_match.id)
 					end
 
 				end
 
-				reject
+				if search_hash[:search_tag]
+					activity_tag = ActivityTag.find_by_name(search_hash[:search_tag])
 
-			end
+					if activity_tag
+						activity_tag_pairings = ActivityTagPairing.where({activity_tag_id: activity_tag})
+
+						activity_tag_pairings.each do |pairing|
+							activity_id_array.push(pairing.activity_id)
+						end
+					end
+
+				end
+
+				#get the classroom activity pairings that match the classroom id and the activity ids from the created array
+				caps = ClassroomActivityPairing.where({activity_id: activity_id_array, classroom_id: self.id})
+
+				end_time = Time.now
+				puts "search_matched_pairings2 run time: #{end_time-start_time}"
+
+				return caps
+
+			end		
 
 		end
 
@@ -84,13 +133,35 @@ class Classroom < ActiveRecord::Base
 
 	def tags
 		
+		start_time = Time.now
 
 		tag_hash = Hash.new
-		self.classroom_activity_pairings.each do |pairing|
-			pairing.activity.activity_tags.each do |tag|
-				tag_hash[tag.id] = tag
-			end
+
+		#Get all the activities ids for the classroom and put them into an array
+		caps = self.classroom_activity_pairings
+		activity_id_array = Array.new
+		caps.each do |cap|
+			activity_id_array.push(cap.activity_id)
 		end
+
+		#query for activity tag pairings with the activity ids
+		activity_tag_pairings = ActivityTagPairing.where({activity_id: activity_id_array})
+
+		#get all the tag id's from the pairings
+		tag_id_array = Array.new
+		activity_tag_pairings.each do |tag_pairing|
+			tag_id_array.push(tag_pairing.activity_tag_id)
+		end
+
+		#query for the activity tags corresponding to the tag id's, and put them into a hash to make them unique
+		activity_tags = ActivityTag.where(id: tag_id_array)
+
+		activity_tags.each do |tag|
+			tag_hash[tag.id] = tag
+		end
+
+		end_time = Time.now
+		puts end_time-start_time
 
 		return tag_hash
 		
@@ -102,25 +173,56 @@ class Classroom < ActiveRecord::Base
 	# => the value is the student's performance (from the key of the first layer) on that activity
 	def student_performances(search_hash={search_term: nil, search_tag: nil })
 
-		pairings = self.search_matched_pairings(search_hash)
-		pairing_array = Array.new
-		search_matched_pairings.each do |pairing|
-			pairing_array.push(pairing.id)
+		start_time = Time.now
+
+		#get the pairings that match the search hash
+		#store the pairing ids and activity ids into separate arrays		
+		pairings = search_matched_pairings(search_hash)
+		pairing_id_array = Array.new
+		activity_id_array = Array.new
+		pairings.each do |pairing|
+			pairing_id_array.push(pairing.id)
+			activity_id_array.push(pairing.activity_id)
 		end
 
 		#store the performances into a hash, where the student is the key
 		# the values are another hash, where the key is the activity, and the value is the pairing		
-		performances = StudentPerformance.where({classroom_activity_pairing_id: pairing_array})
+		performances = StudentPerformance.where({classroom_activity_pairing_id: pairing_id_array})
+
+		#get the students for the classroom and store them in a hash where the key is the id
+		students = self.student_users
+		students_hash = Hash.new
+		students.each do |student|
+			students_hash[student.id] = student
+		end
+
+		#get the activities for the classroom and store them in a hash where the key is the id
+		activities = Activity.where(id: activity_id_array)
+		activities_hash = Hash.new
+		activities.each do |activity|
+			activities_hash[activity.id] = activity
+		end
+
+		#get the pairings for the classroom and store them in a hash where the key is the id and the object is the activity
+		caps = ClassroomActivityPairing.where(id: pairing_id_array)
+		cap_activities_hash = Hash.new
+		caps.each do |cap|
+			cap_activities_hash[cap.id] = activities_hash[cap.activity_id]
+		end
+		puts cap_activities_hash
 		
 		performances_hash = Hash.new
 		performances.each do |p|
 		
-			if !performances_hash[p.student_user]
-				performances_hash[p.student_user] = Hash.new
+			if !performances_hash[students_hash[p.student_user_id]]
+				performances_hash[students_hash[p.student_user_id]] = Hash.new
 			end
-			performances_hash[p.student_user][p.activity] = p
+			performances_hash[students_hash[p.student_user_id]][cap_activities_hash[p.classroom_activity_pairing_id]] = p
 		
 		end	
+
+		end_time = Time.now
+		puts "student_performances runtime: #{end_time-start_time}"
 
 		return performances_hash
 		
@@ -204,7 +306,6 @@ class Classroom < ActiveRecord::Base
 		return activities_and_student_performance_hash
 
 	end
-
 
 
 

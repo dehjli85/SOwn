@@ -2,11 +2,11 @@
 <ul class="nav nav-pills">
   <li role="presentation" class="<%= active.eql?('scores') ? 'active' : ""%>" ><a href="/classroom/<%= @classroom.id%>">Scores</a></li>
   <li role="presentation" class="<%= active.eql?('edit_activities') ? 'active' : ""%>"><a href="/classroom/edit_activities?classroom_id=<%= @classroom.id%>">Edit Activities</a></li>
-  <li role="presentation" class="<%= active.eql?('add_students') ? 'active' : ""%>"><a href="#">Add Students</a></li>
-  <li role="presentation" class="<%= active.eql?('edit_data') ? 'active' : ""%>"><a href="#">Edit Data</a></li>
-  <li role="presentation" class="<%= active.eql?('export') ? 'active' : ""%>"><a href="#">Export Data</a></li>
+  <li role="presentation" class="<%= active.eql?('add_students') ? 'active' : ""%>"><a href="#" data-toggle="modal" data-target="#comingSoonModal">Add Students</a></li>
+  <li role="presentation" class="<%= active.eql?('edit_data') ? 'active' : ""%>"><a href="#" data-toggle="modal" data-target="#comingSoonModal">Edit Data</a></li>
+  <li role="presentation" class="<%= active.eql?('export') ? 'active' : ""%>"><a href="#" data-toggle="modal" data-target="#comingSoonModal">Export Data</a></li>
   <li role="presentation" class="<%= active.eql?('edit_classroom') ? 'active' : ""%>"><a href="/classroom/<%= @classroom.id%>/edit">Edit Classroom Details</a></li>
-  <li role="presentation" class="<%= active.eql?('code') ? 'active' : ""%>"><a href="#">Show Classroom Code</a></li>
+  <li role="presentation" class="<%= active.eql?('code') ? 'active' : ""%>"><a href="#" data-toggle="modal" data-target="#comingSoonModal">Show Classroom Code</a></li>
 </ul>
 
 <div class="well" style="display:none">
