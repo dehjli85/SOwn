@@ -23,7 +23,7 @@
       <div class="row tag-list-container">
         <div class="col-sm-12">
           <ul id="tagDisplayList" class="list-inline ">            
-            <% @tags.values.each do |tag| %>
+            <% @tags.each do |tag| %>
               <li><a class="label label-info" href="/classroom/<%= @classroom.id %>?tag=<%= tag.name %>">#<%= tag.name %></a></li>
             <% end %> 
           </ul>
