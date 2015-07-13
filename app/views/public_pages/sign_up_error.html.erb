@@ -1,14 +1,30 @@
-<div class="container">
+<div class="container-fluid">
 
-  <div class="form-signin">
-		<% if flash[:notice].eql?('user exists') %>
-			<div>
-				<div class="alert alert-danger" role="alert">The Google account you tried to sign up with already has an account with SOwn.  Please try logging in instead.</div>
-		    <a href="/auth/google_oauth2?redirect_path=teacher_home&amp;login=true", id="sign_in", class= 'btn btn-lg btn-primary btn-google-plus'><i class="fa fa-google-plus"></i>  Log In with Google</a>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			
+				<% if flash[:error].eql?('user-exists') %>
+					<div class="center">
+						<div class="alert alert-danger" role="alert">The email address you tried to sign up with already has an account with SOwn.  Please try <a href="/login">logging in</a> instead.</div>
+					</div>			
 
-			</div>
-		<% end %>
+				<% elsif flash[:error].eql?('unexpected') %>
+						<div class="alert alert-danger" role="alert">Unexpected error occured when signing up.  Please try <a href="/">signing up</a> again.</div>
 
-   </div>
+				<% elsif flash[:error].eql?('unknown-oauth-signup-error') %>
+						<div class="alert alert-danger" role="alert">Unexpected error occured when signing up with Google.  Please try <a href="/">signing up</a> again.</div>
+								
+				<% end %>
+
+
+		  
+
+		</div>
+
+
+
+	</div>
+
+  
 
 </div>

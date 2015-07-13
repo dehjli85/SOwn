@@ -1,12 +1,13 @@
 <div class="container">
 
-	<% if !flash[:error].nil? %>
-		<div class='alert alert-danger'><%= flash[:error]%></div>
+	<% if flash[:error].eql?('post-login-with-oauth-credentials') %>
+		<div class='alert alert-danger'>You're account was setup through Google Sign-In.  Please try log in through your Google account.</div>
+  <% elsif flash[:error].eql?('invalid-credentials') %>
+    <div class='alert alert-danger'>Invalid credentials.  Try logging in again.</div>  
+  <% elsif flash[:error].eql?('invalid-google-account') %>
+    <div class='alert alert-danger'>The Google account you tried to log in with has not been signed up yet.  Please <a href="/">sign up</a> with Google first.</div>    
 	<% end %>
-  <% if !flash[:notice].nil? %>
-    <div class='alert alert-success'><%= flash[:notice]%></div>
-  <% end %>
-
+  
 	<%= form_tag '/login_post', {:class=>'form-signin'} do |f| %>
   
     <h2 class="form-signin-heading">Please sign in</h2>

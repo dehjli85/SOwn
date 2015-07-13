@@ -14,9 +14,9 @@ class TeacherUser < ActiveRecord::Base
     puts 'AUTH_HASH:\n' + auth.to_s
 
     #check to see if the user already exists in the db.  If so, return null.
-    if !where(auth.slice(:provider, :uid).to_hash).first.nil?
-      return nil
-    end
+    # if !where(auth.slice(:provider, :uid).to_hash).first.nil?
+    #   return nil
+    # end
 
     #initialize the user if necessary
     where(auth.slice(:provider, :uid).to_hash).first_or_initialize do |user|
@@ -24,19 +24,16 @@ class TeacherUser < ActiveRecord::Base
       user.uid = auth.uid      
       user.oauth_token = auth.credentials.token
       user.oauth_expires_at = Time.at(auth.credentials.expires_at)
-      user.save!
+      user.email = auth.info.email
+      user.first_name = auth.info.first_name
+      user.last_name = auth.info.last_name
+      user.username = auth.info.email
+      user.display_name = auth.info.name
+      
     end
 
-    #create update the users profile info
-    retrieved_user = where(auth.slice(:provider, :uid).to_hash).first
-    retrieved_user.display_name = auth.info.name
-    retrieved_user.first_name = auth.info.first_name
-    retrieved_user.last_name = auth.info.last_name
-    retrieved_user.email = auth.info.email
-    retrieved_user.username = auth.info.email
-    retrieved_user.save!
-
-    retrieved_user
+    return user
+    
 
   end
 

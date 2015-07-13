@@ -3,36 +3,36 @@ class StudentUser < ActiveRecord::Base
     has_and_belongs_to_many :classrooms
     has_many :student_performances, -> {order 'student_performances.created_at'}
     has_many :student_performance_verifications    
-    
+
+    validates :first_name, :last_name, :email, presence: true
+    validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
+    validates :email, uniqueness: true
 
 		def self.from_omniauth_sign_up(auth)
     
     puts 'AUTH_HASH:\n' + auth.to_s
 
     #check to see if the user already exists in the db.  If so, return null.
-    if !where(auth.slice(:provider, :uid).to_hash).first.nil?
-      return nil
-    end
+    # if !where(auth.slice(:provider, :uid).to_hash).first.nil?
+    #   puts "User already exists, fail to sign up"
+    #   return nil
+    # end
 
     #initialize the user if necessary
-    where(auth.slice(:provider, :uid).to_hash).first_or_initialize do |user|
-      user.provider = auth.provider
-      user.uid = auth.uid      
-      user.oauth_token = auth.credentials.token
-      user.oauth_expires_at = Time.at(auth.credentials.expires_at)
-      user.save!
-    end
+    user = StudentUser.new
+    user.provider = auth.provider
+    user.uid = auth.uid      
+    user.oauth_token = auth.credentials.token
+    user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+    user.email = auth.info.email
+    user.first_name = auth.info.first_name
+    user.last_name = auth.info.last_name
+    user.username = auth.info.email
+    user.display_name = auth.info.name
+    
+  
 
-    #create update the users profile info
-    retrieved_user = where(auth.slice(:provider, :uid).to_hash).first
-    retrieved_user.display_name = auth.info.name
-    retrieved_user.first_name = auth.info.first_name
-    retrieved_user.last_name = auth.info.last_name
-    retrieved_user.email = auth.info.email
-    retrieved_user.username = auth.info.email
-    retrieved_user.save!
-
-    retrieved_user
+    return user
 
   end
 

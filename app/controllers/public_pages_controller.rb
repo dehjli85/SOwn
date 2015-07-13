@@ -16,11 +16,12 @@ class PublicPagesController < ApplicationController
 	end
 
 	def sign_up_student
-
+		@student_user ||= StudentUser.new
 	end
 
 	def sign_up_error
-		
+		flash[:error] ||= 'unexpected'
+
 	end
 
 	def login
@@ -29,42 +30,49 @@ class PublicPagesController < ApplicationController
 
 	def login_post
 
-		#check for teacher first
+		#set teacher session variable 
 		@teacher_user = (!params[:user].nil? && !params[:user][:email].nil?) ? TeacherUser.find_by_email(params[:user][:email]) : nil
-		puts @teacher_user
-		if !@teacher_user.nil? 
-			if @teacher_user.password_valid?(params[:user][:password])
-				session[:teacher_user_id] = @teacher_user.id
-				flash[:error] = nil
-				redirect_to('/teacher_home')
-			else
-				reset_session
-				flash[:error] = "Invalid Login Credentials"
-				render "login"
-			end
-		else
-			#check student user second
-			@student_user = (!params[:user].nil? && !params[:user][:email].nil?) ? StudentUser.find_by_email(params[:user][:email]) : nil
-			if(!@student_user.nil?)
-				if @student_user.password_valid?(params[:user][:password])
-					session[:student_user_id] = @student_user.id
-					flash[:error] = nil
-					redirect_to('/student_home')				
-				else
-					reset_session
-					flash[:error] = "Invalid Login Credentials"
-					render "login"
-				end
-			else
-				reset_session
-				flash[:error] = "Invalid Login Credentials"
-				render "login"	
-			end
-
-			
+		if @teacher_user && @teacher_user.provider.nil? && @teacher_user.password_valid?(params[:user][:password])			
+			session[:teacher_user_id] = @teacher_user.id			
 		end
-		
-	end
+		puts "teacher user: #{@teacher_user}"
 
+		#set student session variable 
+		@student_user = (!params[:user].nil? && !params[:user][:email].nil?) ? StudentUser.find_by_email(params[:user][:email]) : nil
+		if @student_user && @student_user.provider.nil? && @student_user.password_valid?(params[:user][:password])
+			session[:student_user_id] = @student_user.id			
+		end
+		puts "student user: #{@student_user}"
+
+		if session[:teacher_user_id] #successful teacher login
+
+			flash[:error] = nil
+			redirect_to('/teacher_home')				
+
+		elsif session[:student_user_id] #successful student login
+
+			flash[:error] = nil
+			redirect_to('/student_home')				
+
+		elsif (@student_user && !@student_user.provider.nil?) || 
+			(@teacher_user && @teacher_user.provider.nil?) #post login with google credentials attempted
+
+			reset_session
+			flash[:error] = 'post-login-with-oauth-credentials'					
+			render 'login'
+
+		else #catch all for unsuccessful login
+
+			reset_session
+			#puts "account exists, but invalid password"
+			flash[:error] = "invalid-credentials"
+			render "login"
+
+		end		
+			
+		
+
+				
+	end
 
 end
