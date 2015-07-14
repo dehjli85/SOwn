@@ -1,6 +1,7 @@
 class StudentPerformance < ActiveRecord::Base
 	belongs_to :student_user
 	belongs_to :classroom_activity_pairing
+	has_one :activity, :through => :classroom_activity_pairing
 
 	validates :scored_performance, numericality: true, :allow_nil => true	
 	validates :completed_performance, inclusion: { in: [true, false, nil] }

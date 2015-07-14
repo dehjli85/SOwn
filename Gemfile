@@ -48,3 +48,5 @@ gem 'jquery-tablesorter'
 
 gem 'bootstrap-switch-rails'
 
+gem 'd3-rails'
+

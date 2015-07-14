@@ -5,7 +5,7 @@
   <div class="row">  
     <%= render partial: '/shared/left_nav', locals: { active: 'home' }%>
   
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="col-md-10 col-md-offset-2 main">
       <h2 class="sub-header">Classrooms</h2>
 
       <% for i in 0..@classrooms.length-1 %>
@@ -14,34 +14,42 @@
         <% end %>
         <div class="col-xs-6 col-sm-3 placeholder">
           
-          <a class="thumbnail" href="/classroom/<%=@classrooms[i].id%>"><img src="<%= image_url('placeholder_image.svg')%>" /></a>       
+          <!--<a class="thumbnail" href="/classroom/<%=@classrooms[i].id%>">-->
+          <div class="placeholder thumbnail">
+            <a href="/classroom/<%=@classrooms[i].id%>">
+              <div id="div<%= @classrooms[i].id%>"></div>
+              <div>
+                <h4><%= @classrooms[i].name %></h4>
+                <span class="text-muted"><%=@classrooms[i].student_users.length%> Students</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- </a>        -->
           
-          <h4><%= @classrooms[i].name %></h4>
-          <span class="text-muted"><%=@classrooms[i].student_users.length%> Students</span>
+          <!-- <h4><%= @classrooms[i].name %></h4>
+          <span class="text-muted"><%=@classrooms[i].student_users.length%> Students</span> -->
         </div>
 
         
         <% if i == @classrooms.length-1%>
           <% if i%4 == 3 %>
-            <div class="row placeholders">
-              <div class="col-xs-6 col-sm-3 placeholder">          
-                <a class="thumbnail" href="/classroom/new   "><img src="<%= image_url('icon_add_new_plus.png')%>" style="height:180px;"/></a>      
-                
-                <h4>Add Class</h4>
-                <span class="text-muted"></span>
-              </div>
-            </div>            
-          <% else %>
-            <div class="col-xs-6 col-sm-3 placeholder">          
-              <a class="thumbnail" href="/classroom/new"><img src="<%= image_url('icon_add_new_plus.png')%>" style="height:180px;"/></a>      
-              
-              <h4>Add Class</h4>
-              <span class="text-muted"></span>
-            </div>            
-          <% end %>
-        <% end %>
-        <% if i%4 == 3 || (i == @classrooms.length-1 && i%4 != 3)#close off the row after 4%>
             </div>
+            <div class="row placeholders">
+          <% end %>
+                       
+          <div class="col-xs-6 col-sm-3 placeholder">          
+            <a class="thumbnail" href="/classroom/new"><img src="<%= image_url('icon_add_new_plus.png')%>" style="height:180px;"/></a>      
+            
+            <h4>Add Class</h4>
+            <span class="text-muted"></span>
+          </div>            
+
+          
+        <% end %>
+
+        <% if i%4 == 3 || (i == @classrooms.length-1)#close off the row after 4%>
+          </div>            
         <% end %>
         
       <% end %>
@@ -50,6 +58,89 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+
+  <% @classrooms.each do |classroom| %>
+    var div<%= classroom.id%> =d3.select(document.getElementById('div<%= classroom.id%>'));
+
+    function onClick<%= classroom.id%>() {
+        // document.location.href = '/classroom/<%=@classrooms[i].id%>'
+    }
+
+    
+  <% end %>
+  
+    start();
+
+    
+
+    
+
+    function labelFunction(val,min,max) {
+
+    }
+
+    
+
+    function start() {
+
+      <% @classrooms.each do |classroom| %>
+        var rp<%=classroom.id%> = radialProgress(document.getElementById('div<%=classroom.id%>'))
+                  .label("% activities proficient")
+                  .onClick(onClick<%=classroom.id%>)
+                  .diameter(150)
+                  .value(<%= (classroom.percent_proficient_activities*100).to_i%>)
+                  .render();
+      <% end %>
+
+        
+    }
+</script>
+
+<style>
+
+
+        #outer {
+            background:#FFFFFF;
+            border-radius: 5px;
+            color: #000;
+        }
+
+      
+
+        <% @classrooms.each do |classroom| %>
+          #div<%= classroom.id%> .arc {
+            stroke-weight: 0.1;
+            fill: <%= if classroom.percent_proficient_activities < 0.3
+                '#b00d08'
+              elsif classroom.percent_proficient_activities < 0.7
+                '#f0a417'
+              else
+                '#1d871b'
+              end %>;
+          }
+        <% end %>
+
+
+        .selectedRadial {
+            border-radius: 3px;
+            background: #f4f4f4;
+            color: #000;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            border: 1px solid rgba(200,200,200,0.85);
+        }
+
+        .radial {
+            border-radius: 3px;
+            background: #FFFFFF;
+            color: #000;
+
+        }
+
+
+    </style>
 
 
 

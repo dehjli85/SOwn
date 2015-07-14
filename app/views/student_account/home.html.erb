@@ -26,11 +26,16 @@
 	          <div class="row placeholders">
 	        <% end %>
 	        <div class="col-xs-6 col-sm-3 placeholder">
-          
-	          <a class="thumbnail" href="/student/viewClassroom?classroom_id=<%=classroom.id%>"><img src="<%= image_url('placeholder_image.svg')%>" /></a>       
-	          
-	          <h4><%= classroom.name %></h4>
-	          <span class="text-muted"><%= classroom.teacher_user.display_name%></span>
+
+	        	<div class="placeholder thumbnail">
+	        		<a href="/student/viewClassroom?classroom_id=<%=classroom.id%>">
+	            	<div id="div<%= classroom.id%>"></div>
+	            	<div>
+	              	<h4><%= classroom.name %></h4>
+	              	<span class="text-muted"><%= classroom.teacher_user.display_name%></span>
+	            	</div>
+            	</a>
+	          </div>
 	        </div>
 
           <% if index%4 == 3 || (index == @current_student_user.classrooms.length-1 && index%4 != 3)#close off the row after 4%>
@@ -43,3 +48,86 @@
 		</div>
  	</div>
 </div>
+
+<script type="text/javascript">
+
+  <% @current_student_user.classrooms.each do |classroom| %>
+    var div<%= classroom.id%> =d3.select(document.getElementById('div<%= classroom.id%>'));
+
+    function onClick<%= classroom.id%>() {
+        
+    }
+
+    
+  <% end %>
+  
+    start();
+
+    
+
+    
+
+    function labelFunction(val,min,max) {
+
+    }
+
+    
+
+    function start() {
+
+      <% @current_student_user.classrooms.each do |classroom| %>
+        var rp<%=classroom.id%> = radialProgress(document.getElementById('div<%=classroom.id%>'))
+                  .label("% activities proficient")
+                  .onClick(onClick<%=classroom.id%>)
+                  .diameter(150)
+                  .value(<%= (classroom.percent_proficient_activities_student(@current_student_user.id)*100).to_i%>)
+                  .render();
+      <% end %>
+
+        
+    }
+</script>
+
+<style>
+
+
+        #outer {
+            background:#FFFFFF;
+            border-radius: 5px;
+            color: #000;
+        }
+
+        
+
+        <% @current_student_user.classrooms.each do |classroom| %>
+          #div<%= classroom.id%> .arc {
+            stroke-weight: 0.1;
+            fill: <%= if classroom.percent_proficient_activities_student(@current_student_user.id) < 0.3
+                '#b00d08'
+              elsif classroom.percent_proficient_activities_student(@current_student_user.id) < 0.7
+                '#f0a417'
+              else
+                '#1d871b'
+              end %>;
+          }
+        <% end %>
+
+
+        .selectedRadial {
+            border-radius: 3px;
+            background: #f4f4f4;
+            color: #000;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            border: 1px solid rgba(200,200,200,0.85);
+        }
+
+        .radial {
+            border-radius: 3px;
+            background: #FFFFFF;
+            color: #000;
+
+        }
+
+
+    </style>

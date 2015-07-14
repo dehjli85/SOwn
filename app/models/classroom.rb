@@ -2,7 +2,7 @@ class Classroom < ActiveRecord::Base
 	belongs_to :teacher_user
 	has_and_belongs_to_many :student_users, -> {order 'student_users.last_name, student_users.first_name'}
 	#has_and_belongs_to_many :activities
-	has_many :classroom_activity_pairings, -> {order 'created_at ASC'}
+	has_many :classroom_activity_pairings, -> {order 'classroom_activity_pairings.created_at ASC'}
 	has_many :activities, :through => :classroom_activity_pairings
 
 	validates :classroom_code, :name, :teacher_user_id, presence: true
@@ -269,6 +269,35 @@ class Classroom < ActiveRecord::Base
 
 	end
 
+	def percent_proficient_activities
+		
+		students = self.student_users
+		cap_ids = self.search_matched_pairings.joins(:activity).where("(activity_type = 'completion') or (activity_type = 'scored' and (benchmark1_score is not null or benchmark2_score is not null))").ids
+
+		total_activities = students.length * cap_ids.length
+		
+		
+		student_performances = StudentPerformance.joins(:activity).where({classroom_activity_pairing_id: cap_ids}).where('completed_performance= true or scored_performance > greatest(benchmark1_score, benchmark2_score)')
+		proficient_count = student_performances.length
+
+		proficient_count.to_f / total_activities.to_f
+
+	end
+
+	def percent_proficient_activities_student(student_user_id)
+		
+		
+		cap_ids = self.search_matched_pairings.joins(:activity).where("(activity_type = 'completion') or (activity_type = 'scored' and (benchmark1_score is not null or benchmark2_score is not null))").ids
+
+		total_activities = cap_ids.length
+		
+		
+		student_performances = StudentPerformance.joins(:activity).where({classroom_activity_pairing_id: cap_ids}).where('completed_performance= true or scored_performance > greatest(benchmark1_score, benchmark2_score)').where(student_user_id: student_user_id)
+		proficient_count = student_performances.length
+
+		proficient_count.to_f / total_activities.to_f
+
+	end
 
 
 end

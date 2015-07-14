@@ -17,6 +17,6 @@
 //= require bootstrap-switch
 //= require jquery-tablesorter
 //= require turbolinks
-
+//= require d3
 
 
