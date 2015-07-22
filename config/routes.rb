@@ -59,12 +59,9 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  get 'login' => 'public_pages#login'
+  
   post 'login_post' => 'public_pages#login_post'
-  get 'sign_up_teacher' => 'public_pages#sign_up_teacher'
-  get 'sign_up_student' => 'public_pages#sign_up_student'
-  get 'sign_up_error' => 'public_pages#sign_up_error'
-
+  
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'

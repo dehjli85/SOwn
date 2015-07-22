@@ -13,10 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require_tree .
 //= require bootstrap-switch
 //= require jquery-tablesorter
-//= require turbolinks
 //= require d3
-
+//= require underscore
+//= require backbone
+//= require backbone.marionette
+//= require_tree .
 

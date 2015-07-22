@@ -3,7 +3,7 @@ class TeacherUser < ActiveRecord::Base
   has_many :classrooms
   has_many :activities, -> {order 'activities.created_at'}
 
-  validates :first_name, :last_name, :email, presence: true
+  validates :first_name, :last_name, :email, :password, presence: true
   validate :has_password_or_external_authentication
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
   validates :email, uniqueness: true

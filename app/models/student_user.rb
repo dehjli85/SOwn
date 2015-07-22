@@ -4,7 +4,7 @@ class StudentUser < ActiveRecord::Base
     has_many :student_performances, -> {order 'student_performances.created_at'}
     has_many :student_performance_verifications    
 
-    validates :first_name, :last_name, :email, presence: true
+    validates :first_name, :last_name, :email, :password, presence: true
     validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
     validates :email, uniqueness: true
 
