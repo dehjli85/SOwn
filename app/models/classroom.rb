@@ -48,7 +48,7 @@ class Classroom < ActiveRecord::Base
 		else
 			
 			#if the user has provided a space-separated list of tags
-			if((search_hash[:search_term].nil? || search_hash[:search_term].eql?('')) && search_hash[:search_term][0].eql?('#'))
+			if(!(search_hash[:search_term].nil? || search_hash[:search_term].eql?('')) && search_hash[:search_term][0].eql?('#'))
 
 				puts "space separted list of hashes"
 
