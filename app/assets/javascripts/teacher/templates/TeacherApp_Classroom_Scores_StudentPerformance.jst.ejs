@@ -1,0 +1,14 @@
+  <td class=''><%= student.display_name %></td>
+  <% for( var i = 0; i < activitiesCount; i++){ %>
+    <% if (student_performance[i] == null){ %>
+      <td class="center"></td>
+    <% }else{ %>
+      <td class="center <%= student_performance[i].performance_color %>">
+        <%= student_performance[i].performance_pretty %>
+        <% if(student_performance[i].requires_verification == 't') {%>
+          <br /><a href="/student_performance/verify?student_performance_id=<%= student_performance[i].activity_id %>">Verify</a> 
+        <%}%>
+      </td>
+    <% } %>
+  <% } %>
+

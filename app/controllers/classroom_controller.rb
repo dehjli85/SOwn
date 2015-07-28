@@ -18,10 +18,13 @@ class ClassroomController < ApplicationController
 	#create a new classroom
 	def create
 		@classroom = Classroom.new(params.require(:classroom).permit(:name, :description, :classroom_code))
-		@classroom.teacher_user_id = session[:user_id]
+		@classroom.teacher_user_id = session[:teacher_user_id]
 		if(@classroom.save)
 			redirect_to '/teacher_home'
 		else
+			@classroom.errors.each do |e,m|
+				puts e.to_s + m
+			end
 			render action: 'new'
 		end
 	end

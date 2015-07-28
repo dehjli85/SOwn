@@ -29,32 +29,42 @@ class StudentPerformance < ActiveRecord::Base
 
 	def performance_color
 		@activity = self.activity
-		if @activity.activity_type.eql?('scored')
-			if (@activity.benchmark1_score.nil? && @activity.benchmark2_score.nil?) || @activity.min_score.nil? || @activity.max_score.nil?
+		StudentPerformance.performance_color_no_active_record(@activity.activity_type, @activity.benchmark1_score, @activity.benchmark2_score, @activity.min_score, @activity.max_score, self.scored_performance, self.completed_performance)
+	end
+
+	def self.performance_color_no_active_record(activity_type, benchmark1_score, benchmark2_score, min_score, max_score, scored_performance, completed_performance)
+		benchmark1_score = benchmark1_score ? benchmark1_score.to_f : nil
+		benchmark2_score = benchmark2_score ? benchmark2_score.to_f : nil
+		min_score = min_score ? min_score.to_f : nil
+		max_score = max_score ? max_score.to_f : nil
+		scored_performance = scored_performance ? scored_performance.to_f : nil
+
+		if activity_type.eql?('scored')
+			if (benchmark1_score.nil? && benchmark2_score.nil?) || min_score.nil? || max_score.nil?
 				return 'none'
-			elsif !@activity.benchmark2_score.nil? && @activity.benchmark1_score.nil?
-				if scored_performance <= @activity.max_score && scored_performance > @activity.benchmark2_score
+			elsif !benchmark2_score.nil? && benchmark1_score.nil?
+				if scored_performance <= max_score && scored_performance > benchmark2_score
 					return 'success-sown'
 				else
 					return 'warning-sown'
 				end
-			elsif !@activity.benchmark1_score.nil? && @activity.benchmark2_score.nil?
-				if scored_performance <= @activity.max_score && scored_performance > @activity.benchmark1_score
+			elsif !benchmark1_score.nil? && benchmark2_score.nil?
+				if scored_performance <= max_score && scored_performance > benchmark1_score
 					return 'success-sown'
 				else
 					return 'danger-sown'
 				end
-			elsif !@activity.benchmark1_score.nil? && !@activity.benchmark2_score.nil?
-				if scored_performance <= @activity.max_score && scored_performance > @activity.benchmark2_score
+			elsif !benchmark1_score.nil? && !benchmark2_score.nil?
+				if scored_performance <= max_score && scored_performance > benchmark2_score
 					return 'success-sown'
-				elsif scored_performance <= @activity.benchmark2_score && scored_performance > @activity.benchmark1_score
+				elsif scored_performance <= benchmark2_score && scored_performance > benchmark1_score
 					return 'warning-sown'
 				else					
 					return 'danger-sown'
 				end
 			end
-		elsif @activity.activity_type.eql?('completion')
-			if completed_performance
+		elsif activity_type.eql?('completion')
+			if completed_performance == true || completed_performance.eql?('t')
 				return 'success-sown'
 			else
 				return 'danger-sown'
@@ -62,7 +72,9 @@ class StudentPerformance < ActiveRecord::Base
 		end
 	end
 
-	
+	def performance_color=(p)
+		@performance_color = p
+	end
 
 	def performance
 		if self.classroom_activity_pairing.activity.activity_type.eql?('scored')
@@ -75,16 +87,23 @@ class StudentPerformance < ActiveRecord::Base
 	end
 
 	def performance_pretty
-		if self.classroom_activity_pairing.activity.activity_type.eql?('scored')
+		
+		return StudentPerformance.performance_pretty_no_active_record(self.classroom_activity_pairing.activity.activity_type, self.scored_performance, self.completed_performance)
+		
+	end
+
+	def self.performance_pretty_no_active_record(activity_type, scored_performance, completed_performance)
+
+		if activity_type.eql?('scored')
 
 			return scored_performance.to_i == scored_performance ? scored_performance.to_i : scored_performance
 		
-		elsif self.classroom_activity_pairing.activity.activity_type.eql?('completion')
+		elsif activity_type.eql?('completion')
 			
-			case self.completed_performance
-			when true
+			case 
+			when completed_performance == true || completed_performance.eql?('t')
 				return 'Completed'
-			when false 			
+			when completed_performance == false || completed_performance.eql?('f')
 				return 'Not Completed'
 			when nil
 				return 'Not Attempted'
@@ -93,7 +112,14 @@ class StudentPerformance < ActiveRecord::Base
 		else
 			return nil
 		end				
+		
 	end
+
+	def performance_pretty=(p)
+		@performance_pretty = p
+	end
+
+
 
 	def activity_type
 		self.classroom_activity_pairing.activity.activity_type

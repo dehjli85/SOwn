@@ -66,7 +66,13 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
-  get 'teacher_home' => 'teacher_account#home'
+  get 'teacher_home' => 'teacher_account#index'
+  get 'current_teacher_user' => 'teacher_account#current_teacher_user'
+  get 'classrooms_summary' => 'teacher_account#classrooms_summary'
+  get 'teacher/classroom' => 'teacher_account#classroom'
+  get 'teacher/classroom_tags' => 'teacher_account#classroom_tags'
+  get 'teacher/classroom_activities_and_performances' => 'teacher_account#classroom_activities_and_performances'
+  get 'teacher_home_old' => 'teacher_account#home'
 
   get 'student_home' => 'student_account#home'
   post 'student/joinClassroomConfirm' => 'student_account#join_classroom_confirm'
