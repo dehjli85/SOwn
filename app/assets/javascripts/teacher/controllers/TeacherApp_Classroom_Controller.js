@@ -4,18 +4,27 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 
 	Classroom.Controller = {
 
-		showClassroomHeader: function(layoutView, id, activeNavPill){
+		showClassroomLayout: function(classroomId){
+			var layoutView = new TeacherAccount.TeacherApp.Classroom.LayoutView();			
+			TeacherAccount.rootView.mainRegion.show(layoutView);
+
+			return layoutView;
+		},
+
+		showClassroomHeader: function(classroomLayoutView, id, subapp){
 
 			var jqxhr = $.get("/teacher/classroom?id=" + id, function(){
-				console.log('get request made');
+				console.log('get request for classroom model');
 			})
-			.done(function(data) {
-
+			.done(function(classroomAPIModelData) {
 	     	
-				var classroomModel = new TeacherAccount.TeacherApp.Classroom.Models.Classroom(data);
+	     	classroomAPIModelData.subapp = subapp;
+
+				var classroomModel = new TeacherAccount.TeacherApp.Classroom.Models.Classroom(classroomAPIModelData);
+				console.log(classroomModel);
 				
 	     	var headerView = new TeacherAccount.TeacherApp.Classroom.HeaderView({model:classroomModel});			
-				layoutView.headerRegion.show(headerView);
+				classroomLayoutView.headerRegion.show(headerView);
 	     	
 		  })
 		  .fail(function() {
@@ -25,9 +34,20 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 		   
 			});
 			
+		},
+
+		showClassroomScores: function(classroomLayoutView, classroomId){			
+
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomScores(classroomLayoutView, classroomId);
+		
+		},
+
+		showClassroomEditActivities: function(classroomLayoutView, classroomId){
+
+			TeacherAccount.TeacherApp.Classroom.EditActivities.Controller.showClassroomEditActivities(classroomLayoutView, classroomId);
 			
-			//create the view for the header and show it
 		}
+
 	}
 
 })

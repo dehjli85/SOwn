@@ -45,9 +45,12 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			mainRegion: "#main_region"
 		},
 
-		onChildviewShowClassroomView: function(view){
+		onChildviewTeacherappShowClassroomScores: function(view){
 			console.log("LayoutView: heard show:classroom:view");			
-			TeacherAccount.TeacherApp.Main.Controller.showClassroomScores(view.model.id);
+			
+			//start the classroom app in the main region, have it display the scores
+
+			TeacherAccount.TeacherApp.Main.Controller.startClassroomApp(view.model.id, 'scores');
 
 
 		}

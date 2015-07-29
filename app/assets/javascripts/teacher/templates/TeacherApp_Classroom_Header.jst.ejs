@@ -1,11 +1,11 @@
 <h3><%= name %></h3>
-<ul class="nav nav-pills">
-  <li role="presentation" class="active"><a href="#classroom/<%= id%>">Scores</a></li>
-  <li role="presentation" class=""><a href="/classroom/edit_activities?classroom_id=<%= id%>">Edit Activities</a></li>
-  <li role="presentation" class=""><a href="#" data-toggle="modal" data-target="#comingSoonModal">Add Students</a></li>
-  <li role="presentation" class=""><a href="#" data-toggle="modal" data-target="#comingSoonModal">Edit Data</a></li>
-  <li role="presentation" class=""><a href="#" data-toggle="modal" data-target="#comingSoonModal">Export Data</a></li>
-  <li role="presentation" class=""><a href="#classroom/<%= id%>/edit">Edit Classroom Details</a></li>
-  <li role="presentation" class=""><a href="#" data-toggle="modal" data-target="#comingSoonModal">Show Classroom Code</a></li>
+<ul class="nav nav-pills" ui-ul>
+  <li role="presentation" <% if(subapp === 'scores') {%>class="active" <%}%>><a href="#classroom/scores/<%= id%>" ui-scores-a>Scores</a></li>
+  <li role="presentation" <% if(subapp === 'edit_activities') {%>class="active" <%}%>><a href="#classroom/edit_activities/<%= id%>"> Edit Activities</a></li>
+  <li role="presentation" <% if(subapp === 'add_students') {%>class="active" <%}%>><a href="#" data-toggle="modal" data-target="#comingSoonModal">Add Students</a></li>
+  <li role="presentation" <% if(subapp === 'edit_data') {%>class="active" <%}%>><a href="#" data-toggle="modal" data-target="#comingSoonModal">Edit Data</a></li>
+  <li role="presentation" <% if(subapp === 'export_data') {%>class="active" <%}%>><a href="#" data-toggle="modal" data-target="#comingSoonModal">Export Data</a></li>
+  <li role="presentation" <% if(subapp === 'edit_classroom_details') {%>class="active" <%}%>><a href="#classroom/<%= id%>/edit">Edit Classroom Details</a></li>
+  <li role="presentation" <% if(subapp === 'show_classroom_code') {%>class="active" <%}%>><a href="#" data-toggle="modal" data-target="#comingSoonModal">Show Classroom Code</a></li>
 </ul>
 

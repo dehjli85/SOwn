@@ -5,7 +5,7 @@
     <% }else{ %>
       <td class="center <%= student_performance[i].performance_color %>">
         <%= student_performance[i].performance_pretty %>
-        <% if(student_performance[i].requires_verification == 't') {%>
+        <% if(student_performance[i].requires_verification == 't' && student_performance[i].verified != 't') {%>
           <br /><a href="/student_performance/verify?student_performance_id=<%= student_performance[i].activity_id %>">Verify</a> 
         <%}%>
       </td>

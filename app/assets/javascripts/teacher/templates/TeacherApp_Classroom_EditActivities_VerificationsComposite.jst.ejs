@@ -1,0 +1,31 @@
+<form class="form-horizontal" ui-verifications-form>
+  <div class="form-group" id="verifications">
+    <label for="input" class="col-sm-3 control-label">Verifications:</label>
+    <div class="col-sm-8">             
+      <div style="margin-top:8px">
+        <ul class="list-inline">
+          <li><a href="#classroom/edit_activities/<%= classroomId%>" ui-all-a>All</a></li>
+          <li><a href="#classroom/edit_activities/<%= classroomId%>" ui-none-a>None</a></li>
+          <li><a href="#classroom/edit_activities/<%= classroomId%>" ui-random-a>Random</a></li>
+        </ul>
+      </div>
+      <div>
+        <table class="table table-condensed table-bordered small">
+          <thead>
+          <tr>
+            <th style="vertical-align:bottom">Name</th>
+            <th class="center">
+              <div>Require Verification?</div>
+              <div></div>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+
+          </tbody>        
+        </table>
+      </div> 
+      
+    </div>
+  </div>   
+</form>

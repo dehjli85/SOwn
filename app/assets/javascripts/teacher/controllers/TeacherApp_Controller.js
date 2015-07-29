@@ -8,7 +8,7 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 
 			//get user model data and create the header
 			var jqxhr = $.get("/current_teacher_user", function(){
-				console.log('get request made');
+				console.log('get request made for teacher user data');
 			})
 			.done(function(data) {
 	     	
@@ -31,20 +31,32 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 			
 		},
 
-		showClassroomScores: function(classroomId){
+		startClassroomApp: function(classroomId, subapp){
+
+			//THIS LINE IS NECESSARY BECAUSE THE D3 WIDGET IS BREAKING NORMAL <A> HREF BEHAVIOR
+			//DO NOT DELETE
+			TeacherAccount.navigate('classroom/' + subapp + '/' + classroomId);
+
+			var classroomLayout = TeacherAccount.TeacherApp.Classroom.Controller.showClassroomLayout();
+
+			TeacherAccount.TeacherApp.Classroom.Controller.showClassroomHeader(classroomLayout,classroomId, subapp);
+
+			if (subapp === 'scores'){				
+
+				TeacherAccount.TeacherApp.Classroom.Controller.showClassroomScores(classroomLayout,classroomId);	
+
+			}
+			else if (subapp === 'edit_activities'){
+
+				TeacherAccount.TeacherApp.Classroom.Controller.showClassroomEditActivities(classroomLayout,classroomId);	
+
+			}
+
 			
-			TeacherAccount.navigate("classroom/" + classroomId);
-
-			//create the layout for the classroom sub-app
-			var layoutView = new TeacherAccount.TeacherApp.Classroom.LayoutView();			
-			TeacherAccount.rootView.mainRegion.show(layoutView);
-
-			//show the header for the sub-app
-			TeacherAccount.TeacherApp.Classroom.Controller.showClassroomHeader(layoutView, classroomId, 'scores');
-
-			//show the other parts of the classroom scores page
-			TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomScores(layoutView, classroomId)
 		}
+		
+
+		
 	}
 
 });

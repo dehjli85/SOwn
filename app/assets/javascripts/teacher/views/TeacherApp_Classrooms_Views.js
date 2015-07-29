@@ -3,12 +3,12 @@
 TeacherAccount.module("TeacherApp.Classrooms", function(Classrooms, TeacherAccount, Backbone, Marionette, $, _){
 	
 	Classrooms.ClassroomWidgetView = Marionette.ItemView.extend({				
-		template: JST["teacher/templates/TeacherApp_Classrooms_ClassroomWidgetView"],			
+		template: JST["teacher/templates/TeacherApp_Classrooms_ClassroomWidget"],			
 		className: "col-xs-6 col-sm-3 placeholder",
 		model: Classrooms.Models.ClassroomWidgetModel,
 
 		triggers: {
-			"click .placeholder.thumbnail":"show:classroom:view"			
+			"click .placeholder.thumbnail":"teacherapp:show:classroom:scores"			
 		},
 
 		ui:{
@@ -47,7 +47,7 @@ TeacherAccount.module("TeacherApp.Classrooms", function(Classrooms, TeacherAccou
 	Classrooms.ClassroomWidgetRowView = Marionette.CompositeView.extend({
 		tagName: "div",
 		className: "row placeholders",
-		template: JST["teacher/templates/TeacherApp_Classrooms_ClassroomWidgetRowView"],							
+		template: JST["teacher/templates/TeacherApp_Classrooms_ClassroomWidgetRow"],							
 		childView: Classrooms.ClassroomWidgetView,
 		childViewContainer: "#widget-container-div",
 

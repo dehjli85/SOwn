@@ -1,0 +1,29 @@
+<form class="form-horizontal" method="post">
+
+	<div class="form-group">
+    <label for="input" class="col-sm-3 control-label">Activity:</label>
+    <div class="col-sm-6 switch">              
+    	<select class="form-control" ui-select>
+
+    	</select>	      
+    </div>
+  </div>
+
+  <div class="form-group">            
+    <label for="input" class="col-sm-3 control-label">Assigned:</label>
+    <div class="col-sm-6 switch">              
+    	<input <% if(pairing != null) {%> checked="checked" <%}%> id="assigned" name="assigned" type="checkbox" value="<%= pairing != null %>" ui-assigned-button>               
+    </div>
+  </div>
+
+  <div class="form-group">            
+    <label for="input" class="col-sm-3 control-label">Hidden:</label>
+    <div class="col-sm-6 switch">              
+      <input id="hidden" name="hidden" type="checkbox" value="false" ui-hidden-button>               
+    </div>
+  </div>
+
+
+
+
+</form>

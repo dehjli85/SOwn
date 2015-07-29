@@ -4,7 +4,8 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 	TeacherApp.Router = Marionette.AppRouter.extend({
 		appRoutes:{
 			"classrooms": "showClassroomOverviews",
-			"classroom/:id": "showClassroomScores"
+			"classroom/scores/:id": "showClassroomScores",
+			"classroom/edit_activities/:id": "showClassroomEditActivities"
 		}
 	});
 
@@ -17,11 +18,15 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			TeacherApp.Classrooms.Controller.showClassroomOverviews();			
 		},
 
-		showClassroomScores: function(id){
-			
-			TeacherApp.Main.Controller.showClassroomScores(id);
-			
+		showClassroomScores: function(id){			
+			// var layoutView = TeacherApp.Main.Controller.showClassroomLayout(id);
+			TeacherApp.Main.Controller.startClassroomApp(id, 'scores');			
+		},
+
+		showClassroomEditActivities: function(id){
+			TeacherApp.Main.Controller.startClassroomApp(id, 'edit_activities');	
 		}
+
 	};
 
 	TeacherAccount.on("classrooms", function(){
