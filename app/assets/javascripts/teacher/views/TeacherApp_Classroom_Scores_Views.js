@@ -50,6 +50,46 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		childViewContainer: "tbody",
 		childViewOptions: function(model, index){			
 			return {activitiesCount: this.model.attributes.activities.length}
+		},
+
+		events: {
+			"click .activity_header": "sortActivityHeader"
+		},
+
+		sortActivityHeader: function(e){
+
+			index = parseInt($(e.target).attr("id").replace("header_",""));
+			console.log(index);
+			
+			this.collection.comparator = function(item){
+				
+				
+				if(item.attributes.student_performance[index]){
+					
+					if(item.attributes.student_performance[index].activity_type == 'scored'){
+						return -item.attributes.student_performance[index].performance_pretty;
+					}				
+					else if (item.attributes.student_performance[index].activity_type == 'completion'){
+						if(item.attributes.student_performance[index].completed_performance == 't'){
+							console.log('completed!');
+							return 0;
+						}							
+						else{
+							return 1;							
+						}
+					}
+					else{
+						return Number.MAX_VALUE;
+					}
+
+				}
+				else
+					return Number.MAX_VALUE;
+
+			};
+
+			this.collection.sort();
+			// console.log(this.collection);	
 		}
 
 	});
@@ -64,8 +104,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		onChildviewFilterSearchClassroomScoresView: function(view){
 			console.log("search form submitted");
-			console.log(view.ui.searchInput.val());
-			console.log(this.model.attributes.classroomId);
 
 			var scoresLayoutView = this;
 

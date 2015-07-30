@@ -54,6 +54,30 @@ class TeacherAccountController < ApplicationController
 		
 	end
 
+	#return a json object with 2 attributes:
+	# => activities: list of activities for the classrooms
+	# => student_performances: array of student performances for activities in the classroom 
+	# the activities and performances will be sorted the same
+	def classroom_activities_and_performances
+		
+		@classroom = Classroom.where({teacher_user_id: session[:teacher_user_id], id: params[:id]}).first
+		
+		@search_matched_pairings_and_activities = @classroom.search_matched_pairings_and_activities({search_term: params[:search_term], tag_id: params[:tag_id]})
+
+		performance_array = @search_matched_pairings_and_activities[:student_performances].to_a
+		performance_array.each do |sp|
+
+			sp["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(sp["activity_type"], sp["scored_performance"], sp["completed_performance"])			
+			sp["performance_color"] = StudentPerformance.performance_color_no_active_record(sp["activity_type"], sp["benchmark1_score"], sp["benchmark2_score"], sp["min_score"], sp["max_score"], sp["scored_performance"], sp["completed_performance"])
+			
+		end
+
+		@students = @classroom.student_users		
+		
+		render json: {students: @students, activities: @search_matched_pairings_and_activities[:activities], student_performances: performance_array}
+
+	end
+
 	def teacher_activities_and_classroom_assignment
 
 		@classroom = Classroom.where({teacher_user_id: session[:teacher_user_id], id: params[:id]}).first
@@ -91,29 +115,7 @@ class TeacherAccountController < ApplicationController
 		
 	end
 
-	#return a json object with 2 attributes:
-	# => activities: list of activities for the classrooms
-	# => student_performances: array of student performances for activities in the classroom 
-	# the activities and performances will be sorted the same
-	def classroom_activities_and_performances
-		
-		@classroom = Classroom.where({teacher_user_id: session[:teacher_user_id], id: params[:id]}).first
-		
-		@search_matched_pairings_and_activities = @classroom.search_matched_pairings_and_activities({search_term: params[:search_term], tag_id: params[:tag_id]})
 
-		performance_array = @search_matched_pairings_and_activities[:student_performances].to_a
-		performance_array.each do |sp|
-
-			sp["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(sp["activity_type"], sp["scored_performance"], sp["completed_performance"])			
-			sp["performance_color"] = StudentPerformance.performance_color_no_active_record(sp["activity_type"], sp["benchmark1_score"], sp["benchmark2_score"], sp["min_score"], sp["max_score"], sp["scored_performance"], sp["completed_performance"])
-			
-		end
-
-		@students = @classroom.student_users		
-		
-		render json: {students: @students, activities: @search_matched_pairings_and_activities[:activities], student_performances: performance_array}
-
-	end
 
 	def save_teacher_activity_assignment_and_verifications
 		
