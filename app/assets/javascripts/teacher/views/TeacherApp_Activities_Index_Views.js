@@ -22,7 +22,44 @@ TeacherAccount.module("TeacherApp.Activities.Index", function(Index, TeacherAcco
 		tagName: "div",
 		className: "classroom-tab-content",
 		childView: Index.ActivityView,
-		childViewContainer: "tbody"
+		childViewContainer: "tbody",
+		ui:{
+			headerActivity: "[ui-header-activity]",
+			headerDescription: "[ui-header-description]",
+			headerMasteryGoal: "[ui-header-mastery-goal]",
+			headerActivityType: "[ui-header-activity-type]"
+		},
+
+		events:{
+			"click @ui.headerActivity": "sortByName",
+			"click @ui.headerDescription": "sortByDescription",
+			"click @ui.headerMasteryGoal": "sortByMasteryGoal",
+			"click @ui.headerActivityType": "sortByActivityType"
+		},
+
+		sortByDescription: function(){
+			this.collection.comparator = "description";
+			this.collection.sort();
+		},
+
+		sortByName: function(){
+			this.collection.comparator = "name";
+			this.collection.sort();
+		},
+
+		sortByMasteryGoal: function(){
+			this.collection.comparator = "instructions";
+			this.collection.sort();
+		},
+
+		sortByActivityType: function(){
+			this.collection.comparator = "activity_type";
+			this.collection.sort();
+		}
+
+		
+
+
 	});	
 
 	Index.HeaderView = Marionette.ItemView.extend({
