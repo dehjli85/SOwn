@@ -75,6 +75,7 @@ Rails.application.routes.draw do
   get 'teacher/teacher_activities_and_classroom_assignment' => 'teacher_account#teacher_activities_and_classroom_assignment'
   get 'teacher/teacher_activities_verifications' => 'teacher_account#teacher_activities_verifications'
   post 'teacher/save_teacher_activity_assignment_and_verifications' => 'teacher_account#save_teacher_activity_assignment_and_verifications'
+  get 'teacher/teacher_activities_and_tags' => 'teacher_account#teacher_activities_and_tags'
   get 'teacher_home_old' => 'teacher_account#home'
 
   get 'student_home' => 'student_account#home'

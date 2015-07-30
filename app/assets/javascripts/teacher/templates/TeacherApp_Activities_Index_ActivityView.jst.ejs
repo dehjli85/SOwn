@@ -1,0 +1,13 @@
+<td><%= name %></td>
+<td><%= description %></td>
+<td><%= instructions %></td>
+<td><%= activity_type %></td>
+<td>
+  <ul class="list-unstyled">
+    <% for(var i=0; i < tags.length; i++){%>
+      <li><a class="label label-info tag" href="#activities/index" name="<%= tags[i].id%>">#<%= tags[i].name %></a>
+    <% } %>
+  </ul>
+</td>
+<td><a href="/activities/<%= id %>/edit">Edit</a>  </td>
+<td><a href="/activities/assign/<%= id %>">Assign to Classrooms</a></td>

@@ -1,5 +1,5 @@
 class ActivityTag < ActiveRecord::Base
-	has_many :activity_tag_parings
+	has_many :activity_tag_pairings
 	has_many :activities, :through => :activity_tag_pairings
 
 	validates :name, presence: true

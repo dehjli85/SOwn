@@ -196,4 +196,79 @@ class TeacherAccountController < ApplicationController
 
 	end
 
+	# return json array of objects that represent different activities, each with the following properties
+	# => activityId, activityName, description, instructions, activityType, tags
+	# each of the properties is a string, except tags, which is an array of tag json objects with the following properties
+	# => tagId, name
+	def teacher_activities_and_tags
+
+		if(params[:searchTerm].nil? && params[:tagId].nil?)
+			
+			activities = Activity.where({teacher_user_id: session[:teacher_user_id]}).as_json
+
+			activity_ids = Activity.joins(:activity_tags)
+				.where({teacher_user_id: session[:teacher_user_id]})
+				.pluck(:id).as_json
+
+
+		elsif params[:tagId]
+
+			activities = Activity.joins(:activity_tags)
+				.where({teacher_user_id: session[:teacher_user_id]})
+				.where("activity_tags.id = ?", params[:tagId])
+				.as_json
+
+			activity_ids = Activity.joins(:activity_tags)
+				.where({teacher_user_id: session[:teacher_user_id]})
+				.where("activity_tags.id = ?", params[:tagId])
+				.pluck(:id)
+				.as_json
+
+			
+
+		elsif params[:searchTerm]
+			
+			puts "search term"
+			activities = Activity.joins(:activity_tags)
+				.where({teacher_user_id: session[:teacher_user_id]})
+				.where("lower(activity_tags.name) like ? or lower(activities.name) like ? or lower(activities.description) like ?", "%#{params[:searchTerm].downcase}%", "%#{params[:searchTerm].downcase}%", "%#{params[:searchTerm].downcase}%")
+				.distinct
+				.as_json			
+
+			activity_ids = Activity.joins(:activity_tags)
+				.where({teacher_user_id: session[:teacher_user_id]})
+				.where("lower(activity_tags.name) like ? or lower(activities.name) like ? or lower(activities.description) like ?", "%#{params[:searchTerm].downcase}%", "%#{params[:searchTerm].downcase}%", "%#{params[:searchTerm].downcase}%")				
+				.pluck(:id)
+				.as_json
+
+		end
+		
+		tags = ActivityTag.joins(:activity_tag_pairings)
+			.where("activity_tag_pairings.activity_id" => activity_ids)
+			.select("activity_tags.*, activity_tag_pairings.activity_id")
+			.as_json		
+
+		puts "activities"
+		puts activities
+
+
+		activities_indices = Hash.new
+		activities.each_with_index do |activity, index|
+			activities_indices[activity["id"]] = index
+			activity["tags"] = Array.new
+		end
+
+		puts "activities indices"
+		puts activities_indices
+		tags.each do |tag|
+			index = activities_indices[tag["activity_id"]]			
+			activities[index]["tags"].push(tag)
+		end
+
+		puts activities
+
+		render json: activities
+
+	end
+
 end

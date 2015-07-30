@@ -18,6 +18,10 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			"click li" : "makeNavActive"
 		},
 
+		triggers:{
+			"click @ui.navActivities": "start:activities:app"
+		},
+
 		ui:{
 			navClassroom: "[ui-nav-classroom]",
 			navActivities: "[ui-nav-activities]",
@@ -53,6 +57,10 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			TeacherAccount.TeacherApp.Main.Controller.startClassroomApp(view.model.id, 'scores');
 
 
+		},
+
+		onChildviewStartActivitiesApp: function(view){
+			TeacherAccount.TeacherApp.Main.Controller.startActivitiesApp("index");
 		}
 	})
 

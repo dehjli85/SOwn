@@ -53,6 +53,16 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 			}
 
 			
+		},
+
+		startActivitiesApp: function(subapp){
+
+			TeacherAccount.navigate('activities/' + subapp);
+			if( subapp === 'index'){
+
+				TeacherAccount.TeacherApp.Activities.Controller.showActivitiesIndex();
+
+			}
 		}
 		
 
