@@ -3,6 +3,9 @@ TeacherAccount = new Marionette.Application();
 TeacherAccount.navigate = function(route, options){
 	options || (options = {});
 	Backbone.history.navigate(route, options);
+	if(TeacherAccount.rootView){
+		TeacherAccount.rootView.alertRegion.empty();
+	}
 };
 
 TeacherAccount.getCurrentRoute = function(){

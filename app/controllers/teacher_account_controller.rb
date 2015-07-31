@@ -224,8 +224,6 @@ class TeacherAccountController < ApplicationController
 				.pluck(:id)
 				.as_json
 
-			
-
 		elsif params[:searchTerm]
 			
 			puts "search term"
@@ -269,6 +267,110 @@ class TeacherAccountController < ApplicationController
 
 		render json: activities
 
+	end
+
+	def save_new_activity
+		@activity = Activity.new(params.require(:activity).permit(:name, :description, :instructions, :activity_type, :min_score, :max_score, :benchmark1_score, :benchmark2_score))
+		@activity.teacher_user_id = session[:teacher_user_id]
+
+		if(@activity.save)
+
+			#save the tags
+			params[:tags] = params[:tags].nil? ? {} : params[:tags]
+			params[:tags].each do |index, value| 
+				#check if the tag exists, if it doesn't create it
+				puts "index: #{index}, value: #{value}"
+				tag = ActivityTag.where({name: value}).first_or_initialize({name: value})
+				if(!tag.save)
+					tag.errors.each do |k,v|
+						puts "ERROR - #{k}: #{v}"
+					end
+				end
+
+				#save the activity tag pair
+				atp = ActivityTagPairing.new({activity_id: @activity.id, activity_tag_id: tag.id})
+				if !atp.save
+					atp.errors.each do |k, v|
+						puts "ERROR - #{k}: #{v}"
+					end
+				end
+			end
+
+			activity_hash = @activity.serializable_hash
+			activity_hash["tags"] = @activity.activity_tags.to_a.map(&:serializable_hash)
+
+			render json: {status: "success", activity: activity_hash}
+		else
+			@activity.errors.each do |k,v|
+				puts "#{k}: #{v}"
+			end
+
+
+			render json: {status: "fail", errors: @activity.errors}
+		end
+	end
+
+	def activity
+		activity_hash = Activity.exists?(params[:activity_id]) ? Activity.where(teacher_user_id: session[:teacher_user_id]).find(params[:activity_id]).serializable_hash : {}
+		if activity_hash["id"]
+			activity_hash["tags"] = Activity.find(params[:activity_id]).activity_tags.to_a.map(&:serializable_hash)
+			status = "success";
+		else
+			activity_hash["error"] = "activity-not-found"
+			status="fail";
+		end
+
+		render json: {status: status, activity: activity_hash}
+
+	end
+
+	def update_activity
+		@activity = Activity.exists?(params[:id]) ? Activity.find(params[:id]) : nil
+		if !@activity.nil?
+			@activity.update(params.require(:activity).permit(:name, :description, :instructions, :activity_type, :min_score, :max_score, :benchmark1_score, :benchmark2_score))
+
+			if(@activity.save)
+
+				#go through all the submitted tags and add/delete as necessary				
+				params[:tags] = params[:tags].nil? ? {} : params[:tags]
+				params[:tags].each do |index, value| 
+					#check if the tag exists, if it doesn't create it
+					puts "index: #{index}, value: #{value}"
+					tag = ActivityTag.where({name: value}).first_or_initialize({name: value})
+					if(!tag.save)
+						tag.errors.each do |k,v|
+							puts "ERROR - #{k}: #{v}"
+						end
+					end
+
+					#create a new activity tag pair if it doesn't exist
+					atp = ActivityTagPairing.where({activity_id: @activity.id, activity_tag_id: tag.id}).first_or_initialize					
+					if !atp.save
+						atp.errors.each do |k, v|
+							puts "ERROR - #{k}: #{v}"
+						end
+					end
+				end
+
+				#delete all tag pairings from the database if they aren't in the submitted list
+				@activity.activity_tag_pairings.each do |existing_atp|
+					if !params[:tags].has_value?(existing_atp.activity_tag.name)
+						existing_atp.destroy
+					end
+				end
+
+				activity_hash = @activity.serializable_hash
+				activity_hash["tags"] = @activity.activity_tags.to_a.map(&:serializable_hash)
+
+				render json: {status: "success", activity: activity_hash}
+				
+			else				
+				@classrooms = @current_teacher_user.classrooms	
+				render json: {status: "fail", errors: @activity.errors}
+			end
+		else
+			render json: {status: "fail", errors: @activity.errors}
+		end
 	end
 
 end

@@ -55,14 +55,27 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 			
 		},
 
-		startActivitiesApp: function(subapp){
-
-			TeacherAccount.navigate('activities/' + subapp);
-			if( subapp === 'index'){
-
-				TeacherAccount.TeacherApp.Activities.Controller.showActivitiesIndex();
-
+		startActivitiesApp: function(subapp, id){
+			url = 'activities';
+			if(id){
+				url += "/" + id;
 			}
+			url += "/" + subapp;
+
+			TeacherAccount.navigate(url);
+			
+			if( subapp === 'index'){
+				TeacherAccount.TeacherApp.Activities.Controller.showActivitiesIndex();
+			}
+			else if(subapp === 'new'){
+				TeacherAccount.TeacherApp.Activities.Controller.showNewActivity();
+			}
+			else if(subapp === 'edit'){
+				TeacherAccount.TeacherApp.Activities.Controller.showEditActivity(id);	
+			}
+
+
+
 		}
 		
 

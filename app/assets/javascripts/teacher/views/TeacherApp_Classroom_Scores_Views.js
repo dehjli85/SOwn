@@ -52,8 +52,22 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			return {activitiesCount: this.model.attributes.activities.length}
 		},
 
+		ui:{
+			studentHeader: "[ui-student-header]"
+		},
+
 		events: {
-			"click .activity_header": "sortActivityHeader"
+			"click .activity_header": "sortActivityHeader",
+			"click @ui.studentHeader": "sortByName"
+		},
+
+		sortByName: function(){
+			console.log(this.collection);
+			this.collection.comparator = function(item){
+				return [item.get("student").last_name, item.get("student").first_name];
+				
+			}
+			this.collection.sort();
 		},
 
 		sortActivityHeader: function(e){

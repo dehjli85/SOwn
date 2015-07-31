@@ -3,4 +3,6 @@ TeacherAccount.module("Models", function(Models, TeacherAccount, Backbone, Mario
 
 	Models.TeacherUser = Backbone.Model.extend({});
 
+	Models.Alert = Backbone.Model.extend({});
+
 });

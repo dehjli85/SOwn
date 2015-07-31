@@ -46,7 +46,8 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 		regions:{
 			headerRegion: "#header_region",
 			leftNavRegion: "#left_nav_region",
-			mainRegion: "#main_region"
+			mainRegion: "#main_region",
+			alertRegion: "#alert_region"
 		},
 
 		onChildviewTeacherappShowClassroomScores: function(view){
@@ -61,6 +62,15 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 
 		onChildviewStartActivitiesApp: function(view){
 			TeacherAccount.TeacherApp.Main.Controller.startActivitiesApp("index");
+		}
+	}),
+
+	TeacherApp.AlertView = Marionette.ItemView.extend({
+		template: JST["teacher/templates/TeacherApp_Alert"],
+		className: "alert center",
+
+		initialize: function(){
+			this.$el.addClass(this.model.attributes.alertClass);
 		}
 	})
 

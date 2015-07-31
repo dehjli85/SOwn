@@ -1,0 +1,127 @@
+<h2><%= activity_status %> Activity</h2>
+<form class="form-horizontal" method="post" ui-activity-form>	
+
+    <div class="form-group form-group-sm <% if(errors.name != null){%>has-error<%}%>">
+    <label for="inputName" class="col-sm-2 control-label">Name:</label>
+    <div class="col-sm-5">
+    	<% if(errors.name != null){%><div class="field_with_errors"><%}%>
+      <input class="form-control" id="inputName" name="activity[name]" placeholder="" type="text" value="<%= name %>" ui-name-input>
+      <% if(errors.name != null){%>
+      	<label class="control-label" for="inputName">Name <%= errors.name[0] %></label>
+    		</div>
+  		<%}%>
+    </div>
+  </div>
+
+
+    <div class="form-group form-group-sm">
+    <label for="inputDescription" class="col-sm-2 control-label">Description:</label>
+    <div class="col-sm-5">
+      <textarea class="form-control" id="inputDescription" name="activity[description]" placeholder="" value="<%= description %>" ui-description-input></textarea>
+    </div>
+  </div>
+  
+  
+    <div class="form-group form-group-sm">
+    <label for="inputInstructions" class="col-sm-2 control-label">Mastery Goal:</label>    
+    <div class="col-sm-5">      
+      <textarea class="form-control" id="inputInstructions" name="activity[instructions]" placeholder="" value="<%= instructions %>" ui-instructions-input></textarea>
+    </div>
+  </div>
+
+  <div class="form-group form-group-sm">
+    <label for="inputTags" class="col-sm-2 control-label">Tags:</label>
+    <div class="col-sm-2"><input type="text" name="newtag" class="form-control" id="newTag" ui-tag-input></div>
+    <div class="col-sm-2"><a id="tagAddButton" class="btn btn-sm btn-primary" ui-add-tags-button>Add</a></div>          
+  </div>
+
+  <div class="row">
+    <ul id="tagDisplayList" class="list-inline col-sm-10 col-sm-offset-2">
+  </div>
+
+
+    <div class="form-group">
+    <label for="inputActivityType" class="col-sm-2 control-label">Activity Type:</label>    
+    <div class="col-sm-2">      
+      <select class="form-control" id="activity_type_selector" name="activity[activity_type]" ui-activity-type-select>
+      	<option value="completion" <% if(activity_type == 'completion') {%> selected="true" <%}%> >Completion</option>
+				<option value="scored" <% if(activity_type == 'scored') {%> selected="true" <%}%>>Scored</option>
+			</select>
+    </div>
+  </div>      
+
+  <div id="scoreRangeDiv" <% if(activity_type != 'scored'){ %>style="display:none" <%}%> ui-score-range-div>
+    <div class="row">              
+        <div class="col-sm-2 col-sm-offset-2">
+          <label class="control-label" style="">Score Ranges</label>
+        </div>
+    </div>
+    <div class="form-group form-group-sm" style="margin-bottom:20px;">           
+      <div class="col-sm-8 col-sm-offset-2">
+        <table class="score-table">
+          <tbody><tr class="">
+            <td class="success-sown" style="width:50px;"></td>
+            <td>
+            	<% if(errors.max_score != null){%><div class="field_with_errors"><%}%>
+            	<input class="form-control" id="inputMaxScore" name="activity[max_score]" placeholder="" type="text" value="<%= max_score %>" ui-max-score-input></div></td>
+            	<% if(errors.max_score != null){%></div><%}%>
+            <td>Maximum Score</td>
+            <td class="form-group has-error">
+            	<% if(errors.max_score != null){%>
+            		<span class="control-label" style="text-align:left;"><%= errors.max_score[0]%></span>
+            	<%}%>
+            </td>
+          </tr>
+          <tr class="">
+            <td class="warning-sown" style="width:50px;"></td>
+            <td>
+            	<% if(errors.benchmark2_score != null){%><div class="field_with_errors"><%}%>
+            	<input class="form-control" id="inputBenchmark2Score" name="activity[benchmark2_score]" placeholder="" type="text" value="<%= benchmark2_score %>" ui-benchmark-two-score-input>
+            	<% if(errors.benchmark2_score != null){%></div><%}%>
+          	</td>
+            <td>Benchmark 2</td>
+            <td class="form-group has-error">
+            	<% if(errors.benchmark2_score != null){%>
+            		<span class="control-label" style="text-align:left;"><%= errors.benchmark2_score[0]%></span>
+            	<%}%>
+            </td>
+          </tr>
+          <tr class="">
+            <td class="danger-sown" style="width:50px;"></td>
+            <td>
+            	<% if(errors.benchmark1_score != null){%><div class="field_with_errors"><%}%>
+            	<input class="form-control" id="inputBenchmark1Score" name="activity[benchmark1_score]" placeholder="" type="text" value="<%= benchmark1_score %>" ui-benchmark-one-score-input>
+            	<% if(errors.benchmark1_score != null){%></div><%}%>
+            </td>
+            <td class="">Benchmark 1</td>
+            <td class="form-group has-error">
+            	<% if(errors.benchmark1_score != null){%>
+            		<span class="control-label" style="text-align:left;"><%= errors.benchmark1_score[0]%></span>
+            	<%}%>
+            </td>
+          </tr>
+          <tr class="">
+            <td class="danger-sown" style="width:50px;"></td>
+            <td>
+            	<% if(errors.min_score != null){%><div class="field_with_errors"><%}%>
+            	<input class="form-control" id="inputMinScore" name="activity[min_score]" placeholder="" type="text" value="<%= min_score %>" ui-min-score-input>
+            		<% if(errors.min_score != null){%></div><%}%>
+            </td>
+            <td class="">Minimum Score</td>
+            <td class="form-group has-error">
+            	<% if(errors.min_score != null){%>
+            		<span class="control-label" style="text-align:left;"><%= errors.min_score[0]%></span>
+            	<%}%>
+            </td>
+          </tr>
+        </tbody></table>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input class="btn btn-primary" name="commit" type="submit" value="Save">
+    </div>
+  </div>
+</form>
