@@ -22,6 +22,12 @@ class TeacherAccountController < ApplicationController
 		
 	end
 
+	#################################################################################
+	#
+	# Classrooms App Methods
+	#
+	#################################################################################
+
 	#return an array with json objects representing classrooms and the data needed for the teacher_home page
 	def classrooms_summary
 
@@ -37,6 +43,28 @@ class TeacherAccountController < ApplicationController
 		render json: a.to_json
 		
 	end
+
+	def save_new_classroom
+		@classroom = Classroom.new(params.require(:classroom).permit(:name, :description, :classroom_code))
+		@classroom.teacher_user_id = session[:teacher_user_id]
+		if(@classroom.save)
+			render json: {status: "success"}
+		else
+			@classroom.errors.each do |e,m|
+				puts e.to_s + m
+			end
+
+			classroom_hash = @classroom.serializable_hash
+
+			render json: {status: "fail", errors: @classroom.errors}
+		end
+	end
+
+	#################################################################################
+	#
+	# Classroom App Methods
+	#
+	#################################################################################
 
 	#return the json object representing a classroom with the specified id for the logged in user
 	def classroom
@@ -77,6 +105,12 @@ class TeacherAccountController < ApplicationController
 		render json: {students: @students, activities: @search_matched_pairings_and_activities[:activities], student_performances: performance_array}
 
 	end
+
+	#################################################################################
+	#
+	# Activities App Methods
+	#
+	#################################################################################
 
 	def teacher_activities_and_classroom_assignment
 

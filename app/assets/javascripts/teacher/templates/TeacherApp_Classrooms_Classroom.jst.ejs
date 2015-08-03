@@ -1,0 +1,48 @@
+<form class="form-horizontal" method="post" ui-classroom-form>
+
+  <div class="form-group <% if(errors.name != null){%>has-error<%}%>">
+  <label for="inputName" class="col-sm-2 control-label">Name</label>
+  <div class="col-sm-10">
+    <% if(errors.name != null){%><div class="field_with_errors"><%}%>
+    <input class="form-control" id="inputName" name="classroom[name]" placeholder="1st Period History" type="text"  value="<%= name %>" ui-name-input>
+    <% if(errors.name != null){%>
+      <label class="control-label" for="inputName">Name <%= errors.name[0] %></label>
+      </div>
+    <%}%>
+  </div>
+</div>
+
+
+  <div class="form-group <% if(errors.description != null){%>has-error<%}%>">
+  <label for="inputDescription" class="col-sm-2 control-label">Description</label>
+  <div class="col-sm-10">
+    <% if(errors.description != null){%><div class="field_with_errors"><%}%>
+    <textarea class="form-control" id="inputDescription" name="classroom[description]" placeholder="Mr. Smith's 1st period history class" ui-description-input><%= description %></textarea>
+    <% if(errors.description != null){%>
+      <label class="control-label" for="inputName">Description <%= errors.description[0] %></label>
+      </div>
+    <%}%>
+  </div>
+</div>
+
+
+  <div class="form-group <% if(errors.classroom_code != null){%>has-error<%}%>">
+  <label for="inputClassroomCode" class="col-sm-2 control-label">Classroom Code</label>    
+  <div class="col-sm-10">  
+  <% if(errors.classroom_code != null){%><div class="field_with_errors"><%}%>    
+    <input class="form-control" id="inputClassroomCode" name="classroom[classroom_code]" placeholder="smith-1-history" type="text"  value="<%= classroom_code %>" ui-classroom-code-input>
+    <% if(errors.classroom_code != null){%>
+      <label class="control-label" for="inputName">Classroom Code <%= errors.classroom_code[0] %></label>
+      </div>
+    <%}%>
+  </div>
+</div>    
+
+
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+    <input class="btn btn-primary" name="commit" type="submit" value="Create" ui-create-button>
+    <a class="btn btn-default" name="commit" ui-cancel-button>Cancel</a>
+  </div>
+  </div>
+</form>

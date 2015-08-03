@@ -118,7 +118,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		saveNewActivity: function(editActivityCompositeView){
 
-			var postUrl = "/teacher/save_new_activity"
+			var postUrl = "/teacher/save_new_activity";
 			var jqxhr = $.post(postUrl, editActivityCompositeView.ui.activityForm.serialize(), function(){
 				console.log('post request to save new activity');
 			})
