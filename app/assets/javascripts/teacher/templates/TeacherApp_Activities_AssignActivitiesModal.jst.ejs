@@ -1,0 +1,24 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title" id="myModalLabel" ui-title>Choose classrooms to assign <b><%= activity.name %></b> to:</h5>
+  </div>
+  <div class="modal-body" ui-body-div>
+    
+    <form class="form-horizontal" ui-assignment-form>
+      <input id="activity_id" name="activity_id" type="hidden" value="<%= activity.id%>">      
+      <% for(var i=0; i< classrooms.length; i++){%>
+        <div class="checkbox">
+          <label>
+            <input <% if(classrooms[i].classroom_activity_pairing_id){ %>checked="checked" <%}%> id="classroom_hash_<%= i %>" name="classroom_hash[<%= i %>]" type="checkbox" value="<%= classrooms[i].id %>"> 
+            <%= classrooms[i].name %>             
+          </label>
+        </div>
+      <%}%>
+    </form>
+  </div>
+  <div class="modal-footer" ui-footer-div>
+    <button type="button" class="btn btn-primary" data-dismiss="modal" ui-save-button>Save</button>          
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>	        
+  </div>
+</div>

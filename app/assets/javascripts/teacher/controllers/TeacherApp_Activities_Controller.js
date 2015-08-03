@@ -186,8 +186,72 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		  .always(function() {
 		   
 			});	
-		}
+		},
 
+
+		openAssignActivitiesModal: function(indexLayoutView, activityId){
+
+			// create activity assignment view and add it to the layout
+			var getUrl = "/teacher/classroom_assignments?activity_id=" + activityId;			
+			
+			var jqxhr = $.get(getUrl, function(){
+				console.log('get request for teacher activity');
+			})
+			.done(function(data) {
+
+				if(data.status == "success"){
+
+					var classroomAssignment = new TeacherAccount.TeacherApp.Activities.Models.ClassroomAssignment({classrooms: data.classrooms, activity:data.activity});
+
+					var assignActivitiesModal = new TeacherAccount.TeacherApp.Activities.AssignActivitiesModalView({model: classroomAssignment});
+					indexLayoutView.modalRegion.show(assignActivitiesModal);
+				}	
+
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});			
+
+		},
+
+		saveActivityAssignments: function(indexLayoutView, assignmentForm){
+			
+			TeacherAccount.rootView.alertRegion.empty();
+
+			var postUrl = "/teacher/assign_activities"
+			var jqxhr = $.post(postUrl, assignmentForm.serialize(), function(){
+				console.log('post request to assign activities');
+			})
+			.done(function(data) {
+
+				console.log(data);
+				if(data.status == "success"){
+
+					var alertModel = new TeacherAccount.Models.Alert({alertClass: "alert-success", message: "Assignments successfully saved!"});
+					var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
+					
+					TeacherAccount.rootView.alertRegion.show(alertView);
+				}
+				else{
+					//show an error message
+					
+				}
+
+				indexLayoutView.ui.modalRegion.modal("hide");
+				indexLayoutView.modalRegion.empty();
+				
+				
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});	
+		}
 		
 
 	}

@@ -373,4 +373,52 @@ class TeacherAccountController < ApplicationController
 		end
 	end
 
+	def classroom_assignments
+		activity = Activity.exists?(params[:activity_id]) ? Activity.where(teacher_user_id: session[:teacher_user_id]).find(params[:activity_id]).serializable_hash : {}
+		classrooms = Classroom.where(teacher_user_id: session[:teacher_user_id]).as_json
+		classroom_ids = Classroom.where(teacher_user_id: session[:teacher_user_id]).pluck(:id)
+		pairings_hash = ClassroomActivityPairing.where("classroom_id" => classroom_ids).where("activity_id" => params[:activity_id]).as_json
+
+		classroom_indices = Hash.new
+		classrooms.each_with_index do |classroom, index|
+			classroom_indices[classroom["id"]] = index
+		end
+
+		pairings_hash.each do |pairing|
+			index = classroom_indices[pairing["classroom_id"]]
+			classrooms[index]["classroom_activity_pairing_id"] = pairing["id"]
+		end
+
+		render json: {status: "success", classrooms: classrooms, activity: activity}
+	end
+
+	def assign_activities
+		puts params
+		#get the activity
+		activity = Activity.exists?(params[:activity_id]) ? Activity.find(params[:activity_id]) : nil
+		#if it exists, update all classrooms associated with it based on the parameters passed
+		if !activity.nil?
+			puts "activity #{activity.id} exists"
+			classroom_hash = params[:classroom_hash].to_h
+			@current_teacher_user.classrooms.each do |c|
+				puts "looking for classroom #{c.id}"
+				if classroom_hash.has_value?(c.id.to_s)
+					puts "classroom #{c.id} checked"
+					if ClassroomActivityPairing.where({activity_id: activity.id, classroom_id: c.id}).empty?
+						ca = ClassroomActivityPairing.new
+						ca.classroom_id = c.id
+						ca.activity_id = activity.id
+						ca.save
+					end
+				else
+					puts "classroom #{c.id} not checked"
+					ClassroomActivityPairing.delete_all({activity_id: activity.id, classroom_id: c.id})					
+				end
+			end
+		end
+		
+
+		render json: {status: "success"}
+	end
+
 end

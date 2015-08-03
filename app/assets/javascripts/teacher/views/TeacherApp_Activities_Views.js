@@ -6,9 +6,14 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		template: JST["teacher/templates/TeacherApp_Activities_IndexActivityView"],
 		tagName: "tr",
 
+		triggers:{
+			"click .assign_link": "open:assign:activities:modal"
+		},
+
 		events:{
 			"click .tag": "filterTag",
-			"click .edit_link": "goToEditPage"
+			"click .edit_link": "goToEditPage",
+
 		},
 
 		filterTag: function(e){
@@ -89,14 +94,15 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		template: JST["teacher/templates/TeacherApp_Activities_IndexLayout"],			
 		regions:{			
 			headerRegion: "#header_region",
-			mainRegion: "#main_region"
+			mainRegion: "#main_region",
+			modalRegion: "#activities_modal_region"
 		},
 
 		triggers:{
 		},
 
 		ui:{
-			
+			modalRegion: "#activities_modal_region"
 		},
 
 		onChildviewActivitiesIndexFilterTag: function(view){
@@ -107,9 +113,37 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		onChildviewActivitiesIndexFilterSearchTerm: function(view){
 			var searchTerm = view.ui.searchInput.val();
 			TeacherAccount.TeacherApp.Activities.Controller.showIndexActivitiesCompositeView(this, null, searchTerm);
+		},
+
+		onChildviewOpenAssignActivitiesModal: function(view){
+			TeacherAccount.TeacherApp.Activities.Controller.openAssignActivitiesModal(this, view.model.get("id"));
+			this.ui.modalRegion.modal("show");
+		},
+
+		onChildviewActivitiesSaveAssignments: function(view){
+			console.log(view.ui.assignmentForm.serialize());
+			TeacherAccount.TeacherApp.Activities.Controller.saveActivityAssignments(this,view.ui.assignmentForm);
 		}
 
 	});
+
+	Activities.AssignActivitiesModalView = Marionette.ItemView.extend({
+		template: JST ["teacher/templates/TeacherApp_Activities_AssignActivitiesModal"],
+		className: "modal-dialog",
+
+		ui:{
+			saveButton: "[ui-save-button]",
+			assignmentForm: "[ui-assignment-form]"
+		},
+
+		triggers:{
+			"click @ui.saveButton": "activities:save:assignments"
+		},
+
+		initialize: function(options){
+			this.$el.attr("role","document");
+		}
+	})
 
 	Activities.EditActivityTagView = Marionette.ItemView.extend({
 		template: JST["teacher/templates/TeacherApp_Activities_EditActivityTag"],

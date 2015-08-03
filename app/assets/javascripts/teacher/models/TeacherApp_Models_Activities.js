@@ -12,7 +12,9 @@ TeacherAccount.module("TeacherApp.Activities.Models", function(Models, TeacherAc
 
 	Models.TagCollection = Backbone.Collection.extend({
 		model: Models.Tag
-	})
+	});
+
+	Models.ClassroomAssignment = Backbone.Model.extend({});
 	
 
 });
