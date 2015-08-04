@@ -11,9 +11,9 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			return layoutView;
 		},
 
-		showClassroomHeader: function(classroomLayoutView, id, subapp){
+		showClassroomHeader: function(classroomLayoutView, classroomId, subapp){
 
-			var jqxhr = $.get("/teacher/classroom?id=" + id, function(){
+			var jqxhr = $.get("/teacher/classroom?classroom_id=" + classroomId, function(){
 				console.log('get request for classroom model');
 			})
 			.done(function(classroomAPIModelData) {

@@ -8,7 +8,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 			var scoresLayoutView = Scores.Controller.showClassroomScoresHeader(layoutView,classroomId, 'read');
 
-			var getURL = "/teacher/classroom_activities_and_performances?id=" + classroomId 
+			var getURL = "/teacher/classroom_activities_and_performances?classroom_id=" + classroomId 
 			if(searchTerm){
 				getURL +=  "&search_term=" + encodeURIComponent(searchTerm)
 			}
@@ -160,7 +160,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			scoresLayoutView.searchBarRegion.show(searchBar);
 
 			//create the tags view and add it to the layout
-			var jqxhr = $.get("/teacher/classroom_tags?id=" + classroomId, function(){
+			var jqxhr = $.get("/teacher/classroom_tags?classroom_id=" + classroomId, function(){
 				console.log('get request made');
 			})
 			.done(function(data) {

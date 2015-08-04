@@ -18,12 +18,12 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 
 		showClassroomEditActivitiesVerificationsView: function(editActivitiesLayoutView, classroomId, activityId){
 
-			var jqxhr2 = $.get("/teacher/teacher_activities_verifications?id=" + classroomId + "&activity_id=" + activityId, function(){
+			var jqxhr2 = $.get("/teacher/teacher_activities_verifications?classroom_id=" + classroomId + "&activity_id=" + activityId, function(){
 				console.log('get request for verifications data');
 			})
 			.done(function(data) {				
 
-				var verifications = new TeacherAccount.TeacherApp.Classroom.EditActivities.Models.VerificationsCollection(data);
+				var verifications = new TeacherAccount.TeacherApp.Classroom.EditActivities.Models.VerificationsCollection(data.verifications);
 														
 				var verificationsCompositeView = new TeacherAccount.TeacherApp.Classroom.EditActivities.VerificationsCompositeView({collection:verifications, model: new Backbone.Model({classroomId:classroomId})});
 				editActivitiesLayoutView.verificationsRegion.show(verificationsCompositeView);
@@ -40,7 +40,7 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 		renderActivityAssignmentView: function(editActivitiesLayoutView, classroomId, activityId){
 
 			//create activity assignment view and add it to the layout
-			var getUrl = "/teacher/teacher_activities_and_classroom_assignment?id=" + classroomId;
+			var getUrl = "/teacher/teacher_activities_and_classroom_assignment?classroom_id=" + classroomId;
 			if(activityId != null)
 				getUrl += "&activity_id=" + activityId
 			var jqxhr = $.get(getUrl, function(){
@@ -73,14 +73,18 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 			var postUrl = "/teacher/save_teacher_activity_assignment_and_verifications"
 			var postParams = "classroom_id=" + classroomId + "&activity_id=" + activityId + "&assigned=" + activityAssigned;
 			if (verificationsForm != null)
-				postParams +=  "&" + verificationsForm.serialize()
+				postParams +=  "&" + verificationsForm.serialize();
+
+			console.log(postParams);
 
 			var jqxhr = $.post(postUrl, postParams, function(){
 				console.log('get request for classroom activities made');
 			})
 			.done(function(data) {
 
-				if(data.activity == 'no-change' || data.activity == 'success-assign' || data.activity == 'success-unassign'){
+				console.log(data);
+
+				if(data.activity_status == 'no-change' || data.activity_status == 'success-assign' || data.activity_status == 'success-unassign'){
 					var alertModel = new TeacherAccount.TeacherApp.Classroom.EditActivities.Models.Alert({message: "Successfully Saved!", alertClass: "alert-success"});
 					var alertView = new TeacherAccount.TeacherApp.Classroom.EditActivities.AlertView({model: alertModel});
 					editActivitiesLayoutView.alertRegion.show(alertView);

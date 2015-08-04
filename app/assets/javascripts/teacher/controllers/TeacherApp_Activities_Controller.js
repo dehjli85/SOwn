@@ -39,9 +39,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			})
 			.done(function(data) {
 
-				console.log(data);
-
-				var activitiesCollection = new TeacherAccount.TeacherApp.Activities.Models.IndexActivitiesCollection(data);
+				var activitiesCollection = new TeacherAccount.TeacherApp.Activities.Models.IndexActivitiesCollection(data.activities);
 
 				var indexCompositeView = new TeacherAccount.TeacherApp.Activities.IndexCompositeView({collection: activitiesCollection});
 				indexLayoutView.mainRegion.show(indexCompositeView);
@@ -100,8 +98,10 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 					activity.attributes.errors = {};
 					activity.attributes.activity_status = "Edit";
 
-					var collection = new TeacherAccount.TeacherApp.Activities.Models.TagCollection(data.tags);
+					var collection = new TeacherAccount.TeacherApp.Activities.Models.TagCollection(data.activity.tags);
 					var editActivityCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityCompositeView({model:activity, collection: collection});
+					console.log(collection);
+					console.log(editActivityCompositeView);
 					TeacherAccount.rootView.mainRegion.show(editActivityCompositeView);	
 				}
 

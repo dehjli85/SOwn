@@ -153,8 +153,14 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		},
 		removeTag: function(){
 			console.log(this.model);
-			this.model.destroy();
-		}
+			this.triggerMethod("remove:tag:from:collection");
+			// this.model.destroy();
+		},
+
+		initialize : function (options) {
+	    this.model.attributes.index = options.index;
+	  }
+
 	});
 
 
@@ -233,6 +239,14 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			this.model.attributes.errors = errors;
 			this.render();
 
+		},
+
+		childViewOptions: function(model, index){			
+			return {index: index}
+		},
+
+		onChildviewRemoveTagFromCollection: function(view){
+			this.collection.remove(view.model);
 		}
 
 	});	

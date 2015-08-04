@@ -27,6 +27,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_teacher_login_json
+    @current_teacher_user = (!session[:teacher_user_id].nil? && TeacherUser.exists?(session[:teacher_user_id])) ? TeacherUser.find(session[:teacher_user_id]) : nil
+    unless !@current_teacher_user.nil?
+      render json: {status: "error", message: "user-not-logged-in"}
+    end
+  end
+
   def require_student_login
     @current_student_user = (!session[:student_user_id].nil? && StudentUser.exists?(session[:student_user_id])) ? StudentUser.find(session[:student_user_id]) : nil
     unless !@current_student_user.nil?
