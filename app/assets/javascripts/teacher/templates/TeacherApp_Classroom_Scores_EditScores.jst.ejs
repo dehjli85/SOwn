@@ -1,0 +1,21 @@
+<form ui-scores-form>
+
+  <button class="btn btn-primary" style="margin-bottom:10px">Save Changes</button>
+
+  <input type="hidden" name="classroom_id" value="<%= classroomId %>">
+
+  <table id="perf_table" class="table table-condensed table-bordered small" style="table-layout:fixed; width:inherit; padding-top:10px;">
+    <thead>        
+    <tr>
+      <th style="min-width:150px; vertical-align:bottom" ui-student-header>Student</th>
+      <% for(var i = 0; i < activities.length; i++){ %>
+          <th class="activity_header" style="" id="header_<%= i %>"><%= activities[i].name %></th>             
+      <% } %>
+    </tr>
+    </thead>
+    <tbody>    
+
+    </tbody>
+  </table>
+
+</form>

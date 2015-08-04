@@ -1,0 +1,24 @@
+  <td class="score_cell"><%= student.display_name %></td>
+  <% for( var i = 0; i < parentActivities.length; i++){ %>
+
+
+    <td class="score_cell">
+      <% if (parentActivities[i].activity_type == 'scored' ){ %>
+        <input class="score_input" id="studentPerformance_<%= parentActivities[i].id %>_<%= student.id %>" name="studentPerformance[<%= parentActivities[i].id %>][<%= student.id %>]" type="text" value="<% if(student_performance[i]){ %> <%= student_performance[i].performance_pretty %> <% }else{''} %>">
+        
+        
+      <% }else if(parentActivities[i].activity_type === 'completion' ){ %>
+        <select id="studentPerformance_<%= parentActivities[i].id %>_<%= student.id %>" name="studentPerformance[<%= parentActivities[i].id %>][<%= student.id %>]">
+          <option></option>
+          <option value="true" <% if(student_performance[i] && student_performance[i].completed_performance=='t'){ %> selected="selected" <%}%> >Completed</option>
+          <option value="false" <% if(student_performance[i] && student_performance[i].completed_performance =='f'){ %> selected="selected" <%}%> >Not Completed</option>
+        </select>
+        
+      <% } %>
+    </td>
+
+
+
+<% } %>
+
+

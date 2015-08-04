@@ -33,14 +33,19 @@ class TeacherAccountController < ApplicationController
 
 		current_user
 
-		@classrooms = @current_teacher_user.classrooms
+		if(!@current_teacher_user.nil?)
+			@classrooms = @current_teacher_user.classrooms
 
-		a = Array.new
-		@classrooms.each do |classroom|
-			a.push({id: classroom.id, name: classroom.name, student_count: classroom.student_users.length, percent_proficient: (classroom.percent_proficient_activities*100).to_i})
+			a = Array.new
+			@classrooms.each do |classroom|
+				a.push({id: classroom.id, name: classroom.name, student_count: classroom.student_users.length, percent_proficient: (classroom.percent_proficient_activities*100).to_i})
+			end
+
+			render json: {status: "success", classrooms: a}
+		else
+			render json: {status: "error", message: "user-not-logged-in"}
+
 		end
-
-		render json: a.to_json
 		
 	end
 
@@ -103,6 +108,51 @@ class TeacherAccountController < ApplicationController
 		@students = @classroom.student_users		
 		
 		render json: {students: @students, activities: @search_matched_pairings_and_activities[:activities], student_performances: performance_array}
+
+	end
+
+	def save_student_performances
+		
+		@classroom = Classroom.find(params[:classroom_id])
+		student_performance_hash = params[:studentPerformance]
+
+		errors = Array.new
+
+		student_performance_hash.each do |activity_id, student_activity_performances|
+			puts "activity_id: #{activity_id}, classroom_id: #{params[:classroom_id]}"
+			cap = ClassroomActivityPairing.where({activity_id: activity_id, classroom_id: @classroom.id}).first
+			activity = cap.activity
+			student_activity_performances.each do |student_user_id, performance| 
+				stored_performance = StudentPerformance.where({student_user_id: student_user_id, classroom_activity_pairing_id: cap.id}).first
+				if activity.activity_type.eql?('scored')
+					if(stored_performance.nil? && !performance.strip.eql?(''))	
+
+						newStudentPerformance = StudentPerformance.new({classroom_activity_pairing_id: cap.id, student_user_id: student_user_id, scored_performance: performance, performance_date: Time.now})
+						if(!newStudentPerformance.save)
+							errors.push(newStudentPerformance.errors)
+							puts "error saving new performance"
+						end
+					elsif !stored_performance.nil?
+						stored_performance.scored_performance = performance.to_f
+						if !stored_performance.save
+							errors.push(stored_performance.errors)
+							puts "error saving existing performance"
+						end
+					end
+
+				elsif activity.activity_type.eql?('completion')
+					if(stored_performance.nil? && performance.eql?('true'))	
+						StudentPerformance.new({classroom_activity_pairing_id: cap.id, student_user_id: student_user_id, completed_performance: true}).save
+					elsif !stored_performance.nil?
+						stored_performance.completed_performance = performance
+						stored_performance.save
+					end
+				end			
+					
+			end
+		end
+
+		render json: {status: "success", classroomId: @classroom.id, errors: errors}
 
 	end
 
@@ -427,7 +477,7 @@ class TeacherAccountController < ApplicationController
 	end
 
 	def assign_activities
-		puts params
+		
 		#get the activity
 		activity = Activity.exists?(params[:activity_id]) ? Activity.find(params[:activity_id]) : nil
 		#if it exists, update all classrooms associated with it based on the parameters passed

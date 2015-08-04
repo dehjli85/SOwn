@@ -64,7 +64,6 @@ class StudentPerformance < ActiveRecord::Base
 				end
 			end
 		elsif activity_type.eql?('completion')
-			puts completed_performance
 			if completed_performance.nil? || completed_performance.eql?('')
 				return 'none'
 			elsif completed_performance == true || completed_performance.eql?('t')

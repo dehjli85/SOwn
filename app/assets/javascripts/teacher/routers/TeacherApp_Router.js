@@ -6,6 +6,7 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			"classrooms": "showClassroomOverviews",
 			"classrooms/new": "showClassroomNew",
 			"classroom/scores/:id": "showClassroomScores",
+			"classroom/edit_scores/:id": "showClassroomEditScores",
 			"classroom/edit_activities/:id": "showClassroomEditActivities",
 			"activities/index": "showActivitiesIndex",
 			"activities/new": "showActivitiesNew",
@@ -40,6 +41,10 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 
 		showClassroomEditActivities: function(id){
 			TeacherApp.Main.Controller.startClassroomApp(id, 'edit_activities');	
+		},
+
+		showClassroomEditScores: function(id){			
+			TeacherApp.Main.Controller.startClassroomApp(id, 'edit_scores');			
 		},
 
 

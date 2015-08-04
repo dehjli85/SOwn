@@ -46,7 +46,13 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 
 			TeacherAccount.TeacherApp.Classroom.EditActivities.Controller.showClassroomEditActivities(classroomLayoutView, classroomId);
 			
-		}
+		},
+
+		showClassroomEditScores: function(classroomLayoutView, classroomId){			
+
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomEditScores(classroomLayoutView, classroomId);
+		
+		},
 
 	}
 

@@ -8,7 +8,8 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 		// model: TeacherAccount.TeacherApp.Classroom.Models.Classroom,
 
 		triggers: {
-			"click [ui-scores-a]": "classroom:show:scores"
+			"click @ui.scoresLink": "classroom:show:scores",
+			"click @ui.editDataLink": "classroom:show:edit:scores"
 		},
 
 		events:{
@@ -17,6 +18,7 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 
 		ui:{
 			scoresLink: "[ui-scores-a]",			
+			editDataLink: "[ui-edit-data-a]",
 			lis: "li"
 		},
 
@@ -45,11 +47,15 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 
 		},
 
-		onDoSomething: function(view){
-			//re-render both regions with the new activity
-			// console.log(view.ui.select.val());
-			console.log("heard selection");
+		onChildviewClassroomShowEditScores: function(view){
+			
+			TeacherAccount.navigate('classroom/edit_scores/' + view.model.attributes.id);
+
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomEditScores(this, view.model.attributes.id);
+
 		}
+
+		
 	})
 	
 

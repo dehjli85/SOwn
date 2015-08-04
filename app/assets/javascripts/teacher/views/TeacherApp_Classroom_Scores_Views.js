@@ -26,12 +26,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	Scores.TagCollectionView = Marionette.CollectionView.extend({
 		childView: Scores.TagView,
 		tagName: "ul",
-		className: "list-inline col-sm-12",
-		onChildviewFilterTagClassroomScoresView: function(){
-			console.log("heard filter tag click");
-		},
-		
-		
+		className: "list-inline col-sm-12",		
 	});
 
 	Scores.StudentPerformanceView = Marionette.ItemView.extend({
@@ -41,6 +36,44 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	    this.model.attributes.activitiesCount = options.activitiesCount;	    
 	  }
 	});
+
+	Scores.StudentPerformanceEditView = Marionette.ItemView.extend({
+		tagName: "tr",
+		template: JST["teacher/templates/TeacherApp_Classroom_Scores_StudentPerformanceEdit"],
+
+		initialize : function (options) {
+	    this.model.attributes.parentActivities = options.activities;
+	    console.log(this.model);	    
+
+	  }
+	});
+
+	Scores.EditScoresView = Marionette.CompositeView.extend({
+		tagName: "div",
+		className: "classroom-tab-content",
+		template: JST["teacher/templates/TeacherApp_Classroom_Scores_EditScores"],																		 
+		childView: Scores.StudentPerformanceEditView,
+		childViewContainer: "tbody",
+		childViewOptions: function(model, index){			
+			return {activities: this.model.attributes.activities}
+		},
+
+		ui:{
+			studentHeader: "[ui-student-header]",
+			studentPerformanceForm: "[ui-scores-form]"
+		},
+
+		events:{
+			"submit @ui.studentPerformanceForm": "saveClassroomScores"
+		},
+
+		saveClassroomScores: function(e){
+			e.preventDefault();
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveClassroomScores(this.ui.studentPerformanceForm);
+		}
+
+		
+	})
 
 	Scores.ScoresView = Marionette.CompositeView.extend({
 		tagName: "div",
@@ -117,104 +150,18 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		onChildviewFilterSearchClassroomScoresView: function(view){
-			console.log("search form submitted");
-
-			var scoresLayoutView = this;
-
-			var jqxhr = $.get("/teacher/classroom_activities_and_performances?id=" + this.model.attributes.classroomId + "&search_term=" + encodeURIComponent(view.ui.searchInput.val()), function(){
-				console.log('get request made: ' + scoresLayoutView.model.attributes.classroomId);
-			})
-			.done(function(data) {
-
-				console.log(data);
-
-				var activity_indices = {};				
-				for(var i=0; i < data.activities.length; i++){					
-					activity_indices[data.activities[i].id] = i;
-				}
-
-				var students = [];								
-				var student_indices = {};
-				for(var i=0; i < data.students.length; i++){												
-					student_indices[data.students[i].id] = i;
-					students[i] = {student: data.students[i], student_performance: []};
-				}
-
-				for(var i=0; i < data.student_performances.length; i++){	
-					var activities_index = activity_indices[data.student_performances[i].activity_id];					
-					var student_index = student_indices[data.student_performances[i].student_user_id];					
-					
-					if(!students[student_index].student_performance[activities_index] || ((new Date(students[student_index].student_performance[activities_index].performance_date.replace(/T|Z/g, " "))) < (new Date(data.student_performances[i].performance_date.replace(/T|Z/g, " ")))))
-						students[student_index].student_performance[activities_index] = data.student_performances[i];
-				}
-
-				// //create a new composite view for the table
-				var activitiesModel = new TeacherAccount.TeacherApp.Classroom.Scores.Models.Activities({activities:data.activities});
-				var studentPerformancesCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.StudentPerformanceCollection(students);
-
-				var scoresView = new TeacherAccount.TeacherApp.Classroom.Scores.ScoresView({collection: studentPerformancesCollection, model:activitiesModel});
-				console.log(scoresLayoutView);
-				scoresLayoutView.scoresRegion.show(scoresView);
-	     	
-		  })
-		  .fail(function() {
-		  	console.log("error");
-		  })
-		  .always(function() {
-		   
-			});
-
+			
+			if(this.model.get("readOrEdit") == "read")
+				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomScores(TeacherAccount.rootView.mainRegion.currentView, this.model.attributes.classroomId, view.ui.searchInput.val(), null);
+			else if(this.model.get("readOrEdit") == "edit")
+				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomEditScores(TeacherAccount.rootView.mainRegion.currentView, this.model.attributes.classroomId, view.ui.searchInput.val(), null);
 		},
 
 		onChildviewFilterTagClassroomScoresView: function(view){
-			console.log("layout heard filter tag click");
-			console.log(view.model.attributes.classroomId);
-
-			//re-render scores with just the data for the respective tag
-			var scoresLayoutView = this;
-
-			var jqxhr = $.get("/teacher/classroom_activities_and_performances?id=" + this.model.attributes.classroomId + "&tag_id=" + view.model.id, function(){
-				console.log('get request made: ' + scoresLayoutView.model.attributes.classroomId);
-			})
-			.done(function(data) {
-
-				console.log(data);
-
-				var activity_indices = {};				
-				for(var i=0; i < data.activities.length; i++){					
-					activity_indices[data.activities[i].id] = i;
-				}
-
-				var students = [];								
-				var student_indices = {};
-				for(var i=0; i < data.students.length; i++){												
-					student_indices[data.students[i].id] = i;
-					students[i] = {student: data.students[i], student_performance: []};
-				}
-
-				for(var i=0; i < data.student_performances.length; i++){	
-					var activities_index = activity_indices[data.student_performances[i].activity_id];					
-					var student_index = student_indices[data.student_performances[i].student_user_id];					
-					
-					if(!students[student_index].student_performance[activities_index] || ((new Date(students[student_index].student_performance[activities_index].performance_date.replace(/T|Z/g, " "))) < (new Date(data.student_performances[i].performance_date.replace(/T|Z/g, " ")))))
-						students[student_index].student_performance[activities_index] = data.student_performances[i];
-				}
-
-				// //create a new composite view for the table
-				var activitiesModel = new TeacherAccount.TeacherApp.Classroom.Scores.Models.Activities({activities:data.activities});
-				var studentPerformancesCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.StudentPerformanceCollection(students);
-
-				var scoresView = new TeacherAccount.TeacherApp.Classroom.Scores.ScoresView({collection: studentPerformancesCollection, model:activitiesModel});
-				console.log(scoresLayoutView);
-				scoresLayoutView.scoresRegion.show(scoresView);
-	     	
-		  })
-		  .fail(function() {
-		  	console.log("error");
-		  })
-		  .always(function() {
-		   
-			});
+			if(this.model.get("readOrEdit") == "read")
+				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomScores(TeacherAccount.rootView.mainRegion.currentView, this.model.attributes.classroomId, null, view.model.id);
+			else if(this.model.get("readOrEdit") == "edit")
+				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomEditScores(TeacherAccount.rootView.mainRegion.currentView, this.model.attributes.classroomId, null, view.model.id);
 		}
 
 	})

@@ -78,6 +78,7 @@ Rails.application.routes.draw do
   get 'teacher/classroom' => 'teacher_account#classroom'
   get 'teacher/classroom_tags' => 'teacher_account#classroom_tags'
   get 'teacher/classroom_activities_and_performances' => 'teacher_account#classroom_activities_and_performances'
+  post 'teacher/save_student_performances' => 'teacher_account#save_student_performances'
 
   # teacher/activities app routes
   get 'teacher/teacher_activities_and_classroom_assignment' => 'teacher_account#teacher_activities_and_classroom_assignment'
