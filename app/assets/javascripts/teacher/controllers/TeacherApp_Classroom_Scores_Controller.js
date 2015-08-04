@@ -68,7 +68,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 			var scoresLayoutView = Scores.Controller.showClassroomScoresHeader(layoutView,classroomId, "edit");
 			
-			var getURL = "/teacher/classroom_activities_and_performances?id=" + classroomId 
+			var getURL = "/teacher/classroom_activities_and_performances?classroom_id=" + classroomId 
 			if(searchTerm){
 				getURL +=  "&search_term=" + encodeURIComponent(searchTerm)
 			}
