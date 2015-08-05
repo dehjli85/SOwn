@@ -180,6 +180,77 @@ class TeacherAccountController < ApplicationController
 
 	end
 
+	def student_performance
+
+		student_performance = StudentPerformance.where(id: params[:student_performance_id]).first
+
+		if student_performance 
+			
+			classroom = Classroom.joins(:classroom_activity_pairings).where("classroom_activity_pairings.id = ?", student_performance.classroom_activity_pairing_id).where(teacher_user_id: @current_teacher_user.id).first
+
+			if classroom
+
+				student = StudentUser.where(id: student_performance.student_user_id)
+					.select("display_name").first
+
+				activity = Activity.joins(:classroom_activity_pairings).where("classroom_activity_pairings.id = ?", student_performance.classroom_activity_pairing_id).first
+
+				student_performance_hash = student_performance.serializable_hash
+				#fix the performance_date field
+				student_performance_hash["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activity.activity_type, student_performance_hash["scored_performance"], student_performance_hash["completed_performance"])
+
+				render json: {status: "success", activity: activity, student: student, student_performance: student_performance_hash}
+
+			else
+
+				render json: {status: "error", message: "invalid-classroom-activity-pairing"}
+
+			end
+
+		else
+
+			render json: {status: "error", message: "invalid-classroom-activity-pairing"}
+
+		end
+		
+	end
+
+	def save_verify
+		
+		student_performance = StudentPerformance.where(id: params[:student_performance_id]).first
+
+		if student_performance 
+			
+			classroom = Classroom.joins(:classroom_activity_pairings).where("classroom_activity_pairings.id = ?", student_performance.classroom_activity_pairing_id).where(teacher_user_id: @current_teacher_user.id).first
+
+			if classroom
+
+				student_performance.verified = true
+
+				if student_performance.save
+
+					render json: {status: "success"}
+
+				else
+
+					render json: {status: "error", student_performance_errors: student_performance.errors}
+
+				end
+
+			else
+
+				render json: {status: "error", message: "invalid-classroom-activity-pairing"}
+
+			end
+
+		else
+
+			render json: {status: "error", message: "invalid-classroom-activity-pairing"}
+
+		end
+
+	end
+
 	#################################################################################
 	#
 	# Activities App Methods

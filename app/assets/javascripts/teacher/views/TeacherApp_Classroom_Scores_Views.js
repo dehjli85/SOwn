@@ -34,6 +34,20 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		template: JST["teacher/templates/TeacherApp_Classroom_Scores_StudentPerformance"],
 		initialize : function (options) {
 	    this.model.attributes.activitiesCount = options.activitiesCount;	    
+	  },
+
+	  ui:{
+	  	verifyLink: "[ui-verify-a]"
+	  },
+
+	  events:{
+	  	"click @ui.verifyLink": "triggerOpenVerifyModal"
+	  },
+
+	  triggerOpenVerifyModal: function(e){
+	  	e.preventDefault();
+	  	this.model.attributes.studentPerformanceId = $(e.target).attr("name");
+	  	this.triggerMethod("scores:layout:open:verify:modal");
 	  }
 	});
 
@@ -63,14 +77,11 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			studentPerformanceForm: "[ui-scores-form]"
 		},
 
-		events:{
+		triggers:{
 			"submit @ui.studentPerformanceForm": "saveClassroomScores"
 		},
 
-		saveClassroomScores: function(e){
-			e.preventDefault();
-			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveClassroomScores(this.ui.studentPerformanceForm);
-		}
+		
 
 		
 	})
@@ -146,25 +157,77 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		regions:{			
 			searchBarRegion: "#search_bar_region",
 			tagsRegion: "#tags_region",
-			scoresRegion: '#scores_region'
+			scoresRegion: '#scores_region',
+			modalRegion: '#modal_region'
+		},
+
+		ui: {
+			modalRegion: "#modal_region"
 		},
 
 		onChildviewFilterSearchClassroomScoresView: function(view){
 			
 			if(this.model.get("readOrEdit") == "read")
-				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomScores(TeacherAccount.rootView.mainRegion.currentView, this.model.attributes.classroomId, view.ui.searchInput.val(), null);
+				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomScores(this, this.model.attributes.classroomId, view.ui.searchInput.val(), null);
 			else if(this.model.get("readOrEdit") == "edit")
-				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomEditScores(TeacherAccount.rootView.mainRegion.currentView, this.model.attributes.classroomId, view.ui.searchInput.val(), null);
+				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomEditScores(this, this.model.attributes.classroomId, view.ui.searchInput.val(), null);
 		},
 
 		onChildviewFilterTagClassroomScoresView: function(view){
 			if(this.model.get("readOrEdit") == "read")
-				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomScores(TeacherAccount.rootView.mainRegion.currentView, this.model.attributes.classroomId, null, view.model.id);
+				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomScores(this, this.model.attributes.classroomId, null, view.model.id);
 			else if(this.model.get("readOrEdit") == "edit")
-				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomEditScores(TeacherAccount.rootView.mainRegion.currentView, this.model.attributes.classroomId, null, view.model.id);
+				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomEditScores(this, this.model.attributes.classroomId, null, view.model.id);
+		},
+
+		onChildviewScoresLayoutOpenVerifyModal: function(view){
+			console.log(view);
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.showVerifyModal(this, view.model.get("studentPerformanceId"));
+		},
+
+		onChildviewScoresLayoutSaveVerify: function(view){
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveVerify(this, view.ui.verifyForm);
+		},
+
+		onChildviewSaveClassroomScores: function(view){			
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveClassroomScores(this, view.ui.studentPerformanceForm);
 		}
 
-	})
+	});
+
+Scores.VerifyModalView = Marionette.ItemView.extend({
+	template: JST["teacher/templates/TeacherApp_Classroom_Scores_VerifyModal"],
+	className: "modal-dialog",
+
+	ui:{
+		verifyButton: "[ui-verify-button]",
+		verifyForm: "[ui-verify-form]"
+	},
+
+	triggers: {
+		"click @ui.verifyButton": "scores:layout:save:verify"
+	},
+
+	initialize: function(options){
+		this.$el.attr("role","document");
+
+		if(this.model.attributes.student_performance.performance_date){
+
+			Number.prototype.padLeft = function(base,chr){
+			   var  len = (String(base || 10).length - String(this).length)+1;
+			   return len > 0? new Array(len).join(chr || '0')+this : this;
+			}
+
+			var d = new Date(this.model.attributes.student_performance.performance_date);
+      this.model.attributes.student_performance.performance_date 
+      	= [ (d.getMonth()+1).padLeft(),
+          d.getDate().padLeft(),
+          d.getFullYear()].join('/');
+ 
+		}
+	},
+
+});
 
 	
 

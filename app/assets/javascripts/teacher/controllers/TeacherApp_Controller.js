@@ -37,23 +37,26 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 			//DO NOT DELETE
 			TeacherAccount.navigate('classroom/' + subapp + '/' + classroomId);
 
-			var classroomLayout = TeacherAccount.TeacherApp.Classroom.Controller.showClassroomLayout();
+			var classroomLayoutView = TeacherAccount.TeacherApp.Classroom.Controller.showClassroomLayout(classroomId);
+			console.log(classroomLayoutView);
 
-			TeacherAccount.TeacherApp.Classroom.Controller.showClassroomHeader(classroomLayout,classroomId, subapp);
+			TeacherAccount.TeacherApp.Classroom.Controller.showClassroomHeader(classroomLayoutView,classroomId, subapp);
 
 			if (subapp === 'scores'){				
 
-				TeacherAccount.TeacherApp.Classroom.Controller.showClassroomScores(classroomLayout,classroomId);	
+				TeacherAccount.TeacherApp.Classroom.Controller.startScoresApp(classroomLayoutView,"read");	
 
 			}
 			else if (subapp === 'edit_activities'){
 
-				TeacherAccount.TeacherApp.Classroom.Controller.showClassroomEditActivities(classroomLayout,classroomId);	
+				TeacherAccount.TeacherApp.Classroom.Controller.showClassroomEditActivities(classroomLayoutView,classroomId);	
 
 			}
 			else if (subapp === 'edit_scores'){
 
-				TeacherAccount.TeacherApp.Classroom.Controller.showClassroomEditScores(classroomLayout,classroomId);	
+				console.log("subapp edit");
+
+				TeacherAccount.TeacherApp.Classroom.Controller.startScoresApp(classroomLayoutView,"edit");	
 
 			}
 

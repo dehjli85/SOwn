@@ -79,6 +79,8 @@ Rails.application.routes.draw do
   get 'teacher/classroom_tags' => 'teacher_account#classroom_tags'
   get 'teacher/classroom_activities_and_performances' => 'teacher_account#classroom_activities_and_performances'
   post 'teacher/save_student_performances' => 'teacher_account#save_student_performances'
+  get 'teacher/student_performance' => 'teacher_account#student_performance'
+  post 'teacher/save_verify' => 'teacher_account#save_verify'
 
   # teacher/activities app routes
   get 'teacher/teacher_activities_and_classroom_assignment' => 'teacher_account#teacher_activities_and_classroom_assignment'
@@ -107,15 +109,8 @@ Rails.application.routes.draw do
 
   #old routes
   get 'student_home_old' => 'student_account#home'
-  post 'student/joinClassroomConfirm' => 'student_account#join_classroom_confirm'
-  post 'student/joinClassroomConfirmPost' => 'student_account#join_classroom_confirm_post'
-  get 'student/viewClassroom' => 'student_account#view_classroom'  
-
-
   get 'teacher_home_old' => 'teacher_account#home'
 
-  get 'student_performance/verify' => 'student_performances#verify'
-  post 'student_performance/verify_post' => 'student_performances#verify_post'
 
   root to: "public_pages#home"
 

@@ -50,7 +50,7 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			alertRegion: "#alert_region"
 		},
 
-		onChildviewTeacherappShowClassroomScores: function(view){
+		onChildviewTeacherappStartClassroomAppScores: function(view){
 			console.log("LayoutView: heard show:classroom:view");			
 			
 			//start the classroom app in the main region, have it display the scores

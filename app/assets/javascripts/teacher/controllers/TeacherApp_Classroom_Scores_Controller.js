@@ -4,19 +4,48 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 	Scores.Controller = {
 
-		showClassroomScores: function(layoutView, classroomId, searchTerm, tagId){			
+		startScoresApp: function(classroomLayoutView, readOrEdit){
+			console.log(readOrEdit);
+			if(!readOrEdit == null)
+				readOrEdit = "read";
 
-			var scoresLayoutView = Scores.Controller.showClassroomScoresHeader(layoutView,classroomId, 'read');
+			var classroomId = classroomLayoutView.model.attributes.classroomId
+
+			var scoresLayoutView = Scores.Controller.showClassroomScoresLayout(classroomLayoutView, classroomId, readOrEdit);
+
+			Scores.Controller.showClassroomScoresHeader(scoresLayoutView, classroomId);
+
+			if (scoresLayoutView.model.attributes.readOrEdit == "read"){
+				Scores.Controller.showClassroomScores(scoresLayoutView, classroomId, null, null);
+			}
+			else if(scoresLayoutView.model.attributes.readOrEdit == "edit"){
+				Scores.Controller.showClassroomEditScores(scoresLayoutView, classroomId, null, null);
+			}
+
+		},
+
+		showClassroomScoresLayout: function(classroomLayoutView, classroomId, readOrEdit){
+
+			var scoresLayoutView = new TeacherAccount.TeacherApp.Classroom.Scores.LayoutView();
+			scoresLayoutView.model =  new Backbone.Model({classroomId: classroomId, readOrEdit: readOrEdit});
+			classroomLayoutView.mainRegion.show(scoresLayoutView);
+
+			return scoresLayoutView;
+		},
+
+		showClassroomScores: function(scoresLayoutView, classroomId, searchTerm, tagId){			
 
 			var getURL = "/teacher/classroom_activities_and_performances?classroom_id=" + classroomId 
 			if(searchTerm){
+				scoresLayoutView.model.attributes.searchTerm = searchTerm;
+				scoresLayoutView.model.attributes.tagId = null;
 				getURL +=  "&search_term=" + encodeURIComponent(searchTerm)
 			}
 			if(tagId){
+				scoresLayoutView.model.attributes.searchTerm = null;
+				scoresLayoutView.model.attributes.tagId = tagId;
 				getURL +=  "&tag_id=" + tagId
 			}
-
-			console.log(getURL);
 
 			var jqxhr = $.get(getURL, function(){
 				console.log('get request made: ' + scoresLayoutView.model.attributes.classroomId);
@@ -47,8 +76,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				var activitiesModel = new TeacherAccount.TeacherApp.Classroom.Scores.Models.Activities({activities:data.activities});
 				var studentPerformancesCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.StudentPerformanceCollection(students);
 
-				console.log(studentPerformancesCollection);
-
 				var scoresView = new TeacherAccount.TeacherApp.Classroom.Scores.ScoresView({collection: studentPerformancesCollection, model:activitiesModel});
 				scoresLayoutView.scoresRegion.show(scoresView);
 
@@ -64,17 +91,21 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			
 		},
 
-		showClassroomEditScores: function(layoutView, classroomId, searchTerm, tagId){
-
-			var scoresLayoutView = Scores.Controller.showClassroomScoresHeader(layoutView,classroomId, "edit");
+		showClassroomEditScores: function(scoresLayoutView, classroomId, searchTerm, tagId){
 			
 			var getURL = "/teacher/classroom_activities_and_performances?classroom_id=" + classroomId 
+			
 			if(searchTerm){
+				scoresLayoutView.model.attributes.searchTerm = searchTerm;
+				scoresLayoutView.model.attributes.tagId = null;
 				getURL +=  "&search_term=" + encodeURIComponent(searchTerm)
 			}
 			if(tagId){
+				scoresLayoutView.model.attributes.searchTerm = null;
+				scoresLayoutView.model.attributes.tagId = tagId;
 				getURL +=  "&tag_id=" + tagId
 			}
+
 			var jqxhr = $.get(getURL, function(){
 				console.log('get request made: ' + scoresLayoutView.model.attributes.classroomId);
 			})
@@ -104,8 +135,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				var activitiesModel = new TeacherAccount.TeacherApp.Classroom.Scores.Models.Activities({activities:data.activities, classroomId: classroomId});
 				var studentPerformancesCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.StudentPerformanceCollection(students);
 
-				
-
 				var editScoresView = new TeacherAccount.TeacherApp.Classroom.Scores.EditScoresView({collection: studentPerformancesCollection, model:activitiesModel});
 				scoresLayoutView.scoresRegion.show(editScoresView);
 
@@ -121,7 +150,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		},
 
-		saveClassroomScores: function(studentPerformanceForm){
+		saveClassroomScores: function(scoresLayoutView, studentPerformanceForm){
 
 			var postUrl = "/teacher/save_student_performances"
 
@@ -130,11 +159,10 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			})
 			.done(function(data) {
 				
-				console.log(data);
 				
 				if(data.status == "success"){
-
-					Scores.Controller.showClassroomScores(TeacherAccount.rootView.mainRegion.currentView, data.classroomId);	
+					
+					Scores.Controller.showClassroomScores(scoresLayoutView, scoresLayoutView.model.get("classroomId"), scoresLayoutView.model.attributes.searchTerm, scoresLayoutView.model.attributes.tagId);
 
 				}
 				
@@ -147,13 +175,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			});
 		},
 
-		showClassroomScoresHeader: function(layoutView, classroomId, readOrEdit){
-
-			//Create the Layout View
-			var scoresLayoutView = new TeacherAccount.TeacherApp.Classroom.Scores.LayoutView({model: new Backbone.Model({classroomId: classroomId, readOrEdit: readOrEdit})});
-			layoutView.mainRegion.show(scoresLayoutView);
-
-			console.log(classroomId);
+		showClassroomScoresHeader: function(scoresLayoutView, classroomId){
 
 			//create the search bar view and add it to the layout
 			var searchBar = new TeacherAccount.TeacherApp.Classroom.Scores.SearchBarView();
@@ -167,8 +189,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				
 				var tagCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.TagCollection(data);
 
-				console.log("tag Collection:");
-				console.log(tagCollection);
 				var tags = new TeacherAccount.TeacherApp.Classroom.Scores.TagCollectionView({collection: tagCollection});	     	
 				scoresLayoutView.tagsRegion.show(tags);
 				
@@ -180,7 +200,62 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		   
 			});
 
-			return scoresLayoutView;
+		},
+
+		showVerifyModal: function(scoresLayoutView, studentPerformanceId){
+
+			var getUrl = "/teacher/student_performance?student_performance_id=" + studentPerformanceId;
+			var jqxhr = $.get(getUrl, function(){
+				console.log('get request made');
+			})
+			.done(function(data) {
+
+				if(data.status == "success"){
+					
+					var student_performance_verification = new Backbone.Model({activity:data.activity, student: data.student, student_performance: data.student_performance})
+					var verifyModalView = new TeacherAccount.TeacherApp.Classroom.Scores.VerifyModalView({model: student_performance_verification});
+
+					scoresLayoutView.modalRegion.show(verifyModalView);
+					scoresLayoutView.ui.modalRegion.modal("show");
+						
+				}
+				
+				
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});			
+
+		},
+
+		saveVerify: function(scoresLayoutView, verifyForm){
+
+			var postUrl = "/teacher/save_verify";
+			var jqxhr = $.post(postUrl, verifyForm.serialize(), function(){
+				console.log('post request made');
+			})
+			.done(function(data) {
+				
+				if(data.status == "success"){
+
+					//close the modal
+					scoresLayoutView.ui.modalRegion.modal("hide");
+
+					//re-render the scores 
+					Scores.Controller.showClassroomScores(scoresLayoutView, scoresLayoutView.model.get("classroomId"), scoresLayoutView.model.attributes.searchTerm, scoresLayoutView.model.attributes.tagId);
+
+				}
+				
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
 
 		}
 	}

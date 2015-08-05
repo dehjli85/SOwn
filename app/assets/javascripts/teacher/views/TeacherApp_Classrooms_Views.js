@@ -8,7 +8,7 @@ TeacherAccount.module("TeacherApp.Classrooms", function(Classrooms, TeacherAccou
 		model: Classrooms.Models.ClassroomWidgetModel,
 
 		triggers: {
-			"click .placeholder.thumbnail":"teacherapp:show:classroom:scores"			
+			"click .placeholder.thumbnail":"teacherapp:start:classroom:app:scores"			
 		},
 
 		ui:{

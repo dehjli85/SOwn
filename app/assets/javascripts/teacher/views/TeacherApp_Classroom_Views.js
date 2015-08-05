@@ -43,7 +43,7 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 
 			TeacherAccount.navigate('classroom/scores/' + view.model.attributes.id);
 
-			TeacherAccount.TeacherApp.Classroom.Controller.showClassroomScores(this, view.model.attributes.id);
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.startScoresApp(this, "read");
 
 		},
 
@@ -51,7 +51,7 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			
 			TeacherAccount.navigate('classroom/edit_scores/' + view.model.attributes.id);
 
-			TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomEditScores(this, view.model.attributes.id);
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.startScoresApp(this, "edit");
 
 		}
 

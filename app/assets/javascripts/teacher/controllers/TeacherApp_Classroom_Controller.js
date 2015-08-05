@@ -5,10 +5,14 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 	Classroom.Controller = {
 
 		showClassroomLayout: function(classroomId){
-			var layoutView = new TeacherAccount.TeacherApp.Classroom.LayoutView();			
-			TeacherAccount.rootView.mainRegion.show(layoutView);
 
-			return layoutView;
+
+			var classroomLayoutView = new TeacherAccount.TeacherApp.Classroom.LayoutView();			
+			classroomLayoutView.model = new Backbone.Model({classroomId:classroomId})
+
+			TeacherAccount.rootView.mainRegion.show(classroomLayoutView);
+
+			return classroomLayoutView;
 		},
 
 		showClassroomHeader: function(classroomLayoutView, classroomId, subapp){
@@ -36,9 +40,9 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			
 		},
 
-		showClassroomScores: function(classroomLayoutView, classroomId){			
+		startScoresApp: function(classroomLayoutView, readOrEdit){			
 
-			TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomScores(classroomLayoutView, classroomId);
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.startScoresApp(classroomLayoutView, readOrEdit);
 		
 		},
 
