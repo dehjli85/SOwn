@@ -16,7 +16,17 @@ class TeacherAccountController < ApplicationController
 	#return a json object representing the currently logged in teacher user
 	def current_teacher_user		
 
-		render json: @current_teacher_user.to_json		
+		teacher = @current_teacher_user.serializable_hash
+    teacher.delete("salt")
+    teacher.delete("password_digest")
+    teacher.delete("oauth_expires_at")
+    teacher.delete("oauth_token")
+    teacher.delete("provider")
+    teacher.delete("uid")
+    teacher.delete("updated_at")
+    teacher.delete("create_at")
+
+		render json: {status: "success", teacher: teacher}
 		
 	end
 

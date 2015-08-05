@@ -6,7 +6,7 @@ class StudentPerformance < ActiveRecord::Base
 	validates :scored_performance, numericality: true, :allow_nil => true	
 	validates :completed_performance, inclusion: { in: [true, false, nil] }
 	validate :scored_performance_within_range
-	validates :performance_date, presence: true
+	validates :performance_date, :student_user_id, :classroom_activity_pairing_id, presence: true
 
 	def requires_verification?
 		return !StudentPerformanceVerification.where({student_user_id: student_user_id, classroom_activity_pairing_id: classroom_activity_pairing_id}).empty?
@@ -14,6 +14,10 @@ class StudentPerformance < ActiveRecord::Base
 
 	def scored_performance_within_range
 		if self.classroom_activity_pairing.activity.activity_type.eql?('scored')
+			if scored_performance.nil?
+				errors.add(:scored_performance, 'cannot be blank')
+				return
+			end
 			if !self.classroom_activity_pairing.activity.min_score.nil? && scored_performance < self.classroom_activity_pairing.activity.min_score
 				errors.add(:scored_performance, 'is less than allowable minimum score')
 			end			

@@ -91,19 +91,31 @@ Rails.application.routes.draw do
   get 'teacher/classroom_assignments' => 'teacher_account#classroom_assignments'
   post 'teacher/assign_activities' => 'teacher_account#assign_activities'
 
-  get 'teacher_home_old' => 'teacher_account#home'
+  # student routes
+  get 'student_home' => 'student_account#index'
+  get 'current_student_user' => 'student_account#current_student_user'
 
-  get 'student_performance/verify' => 'student_performances#verify'
-  post 'student_performance/verify_post' => 'student_performances#verify_post'
+  # student/classrooms app routes
+  get 'student/classrooms_summary' => 'student_account#classrooms_summary'
+
+  # student/classroom app routes
+  get 'student/classroom' => 'student_account#classroom'
+  get 'student/classroom_activities_and_performances' => 'student_account#classroom_activities_and_performances'
+  get 'student/activity' => 'student_account#activity'
+  post 'student/save_student_performance' => 'student_account#save_student_performance'
 
 
-
-  get 'student_home' => 'student_account#home'
+  #old routes
+  get 'student_home_old' => 'student_account#home'
   post 'student/joinClassroomConfirm' => 'student_account#join_classroom_confirm'
   post 'student/joinClassroomConfirmPost' => 'student_account#join_classroom_confirm_post'
   get 'student/viewClassroom' => 'student_account#view_classroom'  
 
 
+  get 'teacher_home_old' => 'teacher_account#home'
+
+  get 'student_performance/verify' => 'student_performances#verify'
+  post 'student_performance/verify_post' => 'student_performances#verify_post'
 
   root to: "public_pages#home"
 

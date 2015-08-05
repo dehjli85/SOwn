@@ -1,0 +1,62 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title" id="myModalLabel" ui-title>Enter performance for: <b><%= activity.name %></b></h5>
+  </div>
+  <div class="modal-body" ui-body-div>
+    
+    <form class="form-horizontal" ui-performance-form>
+      <input id="classroom_activity_pairing_id" name="student_performance[classroom_activity_pairing_id]" type="hidden" value="<%= classroom_activity_pairing.id%>">     
+
+      <% if(activity.activity_type == "scored"){ %>
+        <div class="form-group <%= errors.scored_performance ? 'has-error' : '' %>">
+          <label for="inputScoredPerformance" class="col-sm-4 control-label">Enter Score:</label>
+          <div class="col-sm-8">
+
+            <% if(errors.scored_performance != null){%><div class="field_with_errors"><%}%>
+              <input class="form-control" id="inputScoredPerformance" name="student_performance[scored_performance]" type="text">
+            <% if(errors.scored_performance != null){%>
+              <label class="control-label" for="inputName">Score <%= errors.scored_performance[0] %></label>
+            </div>
+            <%}%>
+
+          </div>
+        </div> 
+
+      <% }else if(activity.activity_type == "completion"){ %>
+        <div class="form-group <%= errors.completed_performance ? 'has-error' : '' %>">
+          <label for="inputCompletedPerformance" class="col-sm-4 control-label">Completed:</label>
+          <div class="col-sm-8">
+            <% if(errors.completed_performance != null){%><div class="field_with_errors"><%}%>
+            <select class="form-control" id="student_performance_completed_performance" name="student_performance[completed_performance]" style="width:200px;">
+              <option value="false">No</option>
+              <option value="true">Yes</option>
+            </select>
+            <% if(errors.complete_performance != null){%>
+              <label class="control-label" for="inputName">Selection <%= errors.completed_performance[0] %></label>
+            </div>
+            <%}%>
+          </div>
+        </div> 
+
+      <% } %>
+
+      <div class="form-group <%= errors.performance_date ? 'has-error' : '' %>">
+        <label for="inputPerformanceDate" class="col-sm-4 control-label">Date:</label>
+        <div class="col-sm-8">          
+          <% if(errors.performance_date != null){%><div class="field_with_errors"><%}%>
+          <input class="form-control" id="student_performance_performance_date" name="student_performance[performance_date]" type="date" value="<%= (new Date()).getFullYear() %>-<%= ((new Date()).getMonth()+1) < 10 ? '0' + ((new Date()).getMonth()+1).toString() : ((new Date()).getMonth()+1).toString() %>-<%= (new Date()).getDate() < 10 ? '0' + ((new Date()).getDate()).toString() : ((new Date()).getDate()).toString() %>">
+          <% if(errors.performance_date != null){%>
+              <label class="control-label" for="inputName">Date <%= errors.performance_date[0] %></label>
+            </div>
+            <%}%>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer" ui-footer-div>
+    <button type="button" class="btn btn-primary" data-dismiss="modal" ui-save-button>Save</button>          
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>	        
+  </div>
+</div>

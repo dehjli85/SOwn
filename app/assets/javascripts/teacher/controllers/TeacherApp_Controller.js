@@ -13,7 +13,7 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 			.done(function(data) {
 	     	
 	     	//fetch user model and create header
-	     	var user = new TeacherAccount.Models.TeacherUser(data);
+	     	var user = new TeacherAccount.Models.TeacherUser(data.teacher);
 				var headerView = new TeacherAccount.TeacherApp.HeaderView({model:user});				
 				TeacherAccount.rootView.headerRegion.show(headerView);
 
