@@ -1,0 +1,58 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title" id="myModalLabel" ui-title>Join a Classroom</b></h5>
+  </div>
+  <div class="modal-body" ui-body-div>
+    
+    <div ui-form-div>
+      <form class="form-inline" ui-classroom-form>
+        <div class="form-group">
+          <label class="sr-only" for="classroom_code">Classroom Code</label>
+          <input class="form-control" id="classroom_code" name="classroom_code" placeholder="smith-1-math" type="text" value="" ui-classroom-code-input>        
+        </div>
+        
+        <button class="btn btn-primary" name="commit" type="submit">Search</button>
+      </form>
+    </div>
+
+    <div ui-search-results-div style="margin-top:15px">
+      <% if(classroom){ %>
+        <table class="table table-condensed small">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Teacher</th>
+              <th>Description</th>
+              <th>Code</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= classroom.name %></td>
+              <td><%= classroom.display_name %></td>
+              <td><%= classroom.description %></td>
+              <td><%= classroom.classroom_code %></td>
+              <td><a class="btn btn-success btn-xs" ui-join-button>Join</a></td>
+            </tr>
+          </tbody>
+        </table>
+      <% } %>
+
+      <% if(error){ %>
+
+        <% if(error == "invalid-classroom-code"){ %>
+          <div class="alert alert-danger">Unable to find classroom with that code...</div>
+        <% } %>
+
+        <% if(error == "failed-to-save-classroom-student-user-pairing"){ %>
+          <div class="alert alert-danger">Error joining classroom...</div>
+        <% } %>
+
+      <% } %>
+    </div>
+
+  </div>
+  
+</div>

@@ -51,9 +51,72 @@ StudentAccount.module("StudentApp.Classrooms", function(Classrooms, StudentAccou
 
 		ui:{
 			addClassDiv: '[ui-add-class-div]'
-		}		
+		},
+
+		triggers:{
+			"click @ui.addClassDiv": "classrooms:layout:show:join:class:modal"
+		}
+
+
 		
 	});	
+
+	Classrooms.ClassroomsLayoutView = Marionette.LayoutView.extend({
+		tagName: "div",
+		template: JST["student/templates/StudentApp_Classrooms_Layout"],
+
+		regions:{
+			mainRegion: "#classrooms_main_region",
+			modalRegion: "#classrooms_modal_region"
+		},
+
+		ui:{
+			modalRegion: "#classrooms_modal_region"
+		},
+
+		onChildviewClassroomsLayoutShowJoinClassModal: function(view){
+			StudentAccount.StudentApp.Classrooms.Controller.showJoinClassModal(this);
+		},
+
+		onChildviewJoinClassroom: function(view){
+			StudentAccount.StudentApp.Classrooms.Controller.joinClassroom(this, view);
+		}
+
+	});
+
+	Classrooms.ClassroomsJoinClassModalView = Marionette.ItemView.extend({
+		template: JST ["student/templates/StudentApp_Classrooms_JoinClassModal"],
+		className: "modal-dialog",
+
+		ui:{
+			searchButton: "[ui-search-button]",
+			joinButton: "[ui-join-button]",
+			classroomForm: "[ui-classroom-form]",			
+			classroomCodeInput: "[ui-classroom-code-input]"
+		},
+
+		triggers:{
+			"click @ui.joinButton": "joinClassroom"
+		},
+
+		events:{
+			"submit @ui.classroomForm": "searchClassroomCode",
+			"click @ui.joinButton": "joinClassroom"			
+		},
+
+		initialize: function(options){
+			this.$el.attr("role","document");
+		},
+
+		searchClassroomCode: function(e){
+			e.preventDefault();
+			StudentAccount.StudentApp.Classrooms.Controller.searchClassroomCode(this);
+		},
+
+		joinClassroom: function(e){
+			e.preventDefault();
+		}
+	})
 
 
 	

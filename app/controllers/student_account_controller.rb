@@ -53,6 +53,51 @@ class StudentAccountController < ApplicationController
     
   end
 
+  def search_classroom_code
+
+    @classroom = Classroom.joins(:teacher_user).where({classroom_code: params[:classroom_code]}).select("classrooms.*", "teacher_users.display_name").first
+
+
+
+    if(@classroom)
+
+      classroom_hash = @classroom.serializable_hash
+      render json: {status: "success", classroom: classroom_hash}
+
+    else
+      render json: {status: "error", message: "invalid-classroom-code"}
+    end
+    
+  end
+
+  def join_classroom
+
+    #confirm the classroom exists
+    if Classroom.exists?(params[:classroom_id])
+
+      csu = ClassroomsStudentUsers.new
+      csu.student_user_id = @current_student_user.id
+      csu.classroom_id = params[:classroom_id]
+
+      if csu.save
+        
+        render json: {status: "success"}
+
+      else
+        
+        render json: {status: "error", message: "failed-to-save-classroom-student-user-pairing"}
+
+      end
+
+    else
+
+      render json: {status: "error", message: "invalid-classroom-id"}
+
+    end
+
+    
+  end
+
   #################################################################################
   #
   # Classroom Methods

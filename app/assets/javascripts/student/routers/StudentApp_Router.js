@@ -3,7 +3,7 @@
 StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbone, Marionette, $, _){
 	StudentApp.Router = Marionette.AppRouter.extend({
 		appRoutes:{
-			"classrooms": "showClassroomOverviews",			
+			"classrooms": "startClassroomsApp",			
 			"classroom/scores/:id": "showClassroomScores"
 		}
 	});
@@ -17,8 +17,8 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 		 *	Classrooms Subapp
 		 */
 
-		showClassroomOverviews: function(){
-			StudentApp.Classrooms.Controller.showClassroomOverviews();			
+		startClassroomsApp: function(){
+			StudentApp.Classrooms.Controller.startClassroomsApp();			
 		},
 
 		/**
@@ -33,7 +33,7 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 
 	StudentAccount.on("classrooms", function(){
 		StudentAccount.navigate("classrooms");
-		API.showClassroomOverviews();
+		API.startClassroomsApp();
 	})
 
 
