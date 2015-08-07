@@ -4,7 +4,8 @@ class StudentUser < ActiveRecord::Base
     has_many :student_performances, -> {order 'student_performances.created_at'}
     has_many :student_performance_verifications    
 
-    validates :first_name, :last_name, :email, :password, presence: true
+    validates :first_name, :last_name, :email, presence: true
+    validate :has_password_or_external_authentication
     validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
     validates :email, uniqueness: true
 
@@ -73,6 +74,12 @@ class StudentUser < ActiveRecord::Base
       end
     else
       return nil
+    end
+  end
+
+  def has_password_or_external_authentication
+    if self.password_digest.nil? && self.provider.nil?
+      errors.add(:password, 'cannot be blank, or you must sign up with Google Authentication')
     end
   end
   

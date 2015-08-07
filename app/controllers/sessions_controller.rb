@@ -16,10 +16,10 @@ class SessionsController < ApplicationController
 
           if user.errors.has_key?(:email) && user.errors[:email].include?('has already been taken')
             flash[:error] = 'user-exists'
-            redirect_to '/sign_up_error'
+            redirect_to '/#login'
           else
             flash[:error] = 'unknown-oauth-signup-error'
-            redirect_to '/sign_up_error'
+            redirect_to '/#sign_up_teacher'
           end
 
         else
@@ -38,10 +38,10 @@ class SessionsController < ApplicationController
       
           if user.errors.has_key?(:email) && user.errors[:email].include?('has already been taken')
             flash[:error] = 'user-exists'
-            redirect_to '/sign_up_error'
+            redirect_to '/#login'
           else
             flash[:error] = 'unknown-oauth-signup-error'
-            redirect_to '/sign_up_error'
+            redirect_to '/#sign_up_student'
           end
           
           
@@ -53,9 +53,10 @@ class SessionsController < ApplicationController
       end  	
 		elsif  request.env["omniauth.params"]['login'] #logging in
       student_user = StudentUser.from_omniauth_log_in(env["omniauth.auth"])
-      puts student_user
+      puts "student_user: #{student_user}"
       if student_user.nil?        
   			teacher_user = TeacherUser.from_omniauth_log_in(env["omniauth.auth"])
+        puts "teacher_user: #{teacher_user}"
         if !teacher_user.nil?
           redirect_path = '/teacher_home'
           session[:teacher_user_id] = teacher_user.id  
@@ -70,7 +71,7 @@ class SessionsController < ApplicationController
         session[:student_user_id] = student_user.id
       end
 			
-			#redirect_to redirect_path
+			redirect_to redirect_path
 		else
 			
       puts 'Omniauth error'

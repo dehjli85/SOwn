@@ -1,4 +1,16 @@
+<% if flash[:error].eql?('user-exists') %>
+<div id="alert_region" class="alert alert-danger center">
+	The Google account you tried to sign up with already exists.  Please try logging in instead.
+</div>
+<% elsif  flash[:error].eql?('unknown-oauth-signup-error') %>
+	<div id="alert_region" class="alert alert-danger center">
+		An error occured when you tried to sign up.  Try signing up again later.
+	</div>
+<% end %>
+
+
 <div id="main_region">
+
 	
 </div>
 
