@@ -10,7 +10,7 @@ StudentAccount.module("StudentApp.Classrooms", function(Classrooms, StudentAccou
 		},
 
 		ui:{
-			d3Div: "[ui-dthree-div]"
+			d3Div: "[ui-dthree-div]",
 		},
 
 		onShow: function(){
@@ -80,6 +80,11 @@ StudentAccount.module("StudentApp.Classrooms", function(Classrooms, StudentAccou
 
 		onChildviewJoinClassroom: function(view){
 			StudentAccount.StudentApp.Classrooms.Controller.joinClassroom(this, view);
+		},
+
+		onChildviewShowClassroomScores: function(view){
+			console.log(view.model);
+			StudentAccount.StudentApp.Main.Controller.startClassroomApp(view.model.get("classroom_id"), 'scores');
 		}
 
 	});
