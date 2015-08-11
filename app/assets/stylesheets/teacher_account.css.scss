@@ -1,4 +1,4 @@
-// Place all the styles related to the teacher_account controller here.
+  // Place all the styles related to the teacher_account controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
@@ -103,6 +103,7 @@ body {
 }
 .main .page-header {
   margin-top: 0;
+  display:flex;
 }
 
 
@@ -123,4 +124,12 @@ body {
 .placeholder img {
   display: inline-block;
   border-radius: 50%;
+}
+
+
+/*
+ * TeacherApp Classroom CSS
+ */
+.classroom_header_region{
+  display:flex;
 }
