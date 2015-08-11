@@ -65,8 +65,6 @@ Rails.application.routes.draw do
   post 'student_google_sign_up' => 'public_pages#student_google_sign_up'
   post 'google_login_post' => 'public_pages#google_login_post'
   
-  # get 'auth/:provider/callback', to: 'sessions#create'
-  # get 'signout', to: 'sessions#destroy', as: 'signout'
   get 'auth/:provider/callback', to: 'public_pages#google_auth_callback'
   get 'signout', to: 'public_pages#signout', as: 'signout'
   get 'auth/failure', to: redirect('/')

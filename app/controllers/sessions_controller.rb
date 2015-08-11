@@ -1,6 +1,22 @@
 class SessionsController < ApplicationController
   skip_before_action :require_login
 
+  ##############################################################################
+  #
+  #  THIS CONTROLLER SHOULDN'T BE USED. 
+  #
+  #  Originally, this handled the google authentication.  The appropriate methods 
+  #  were moved to the Public Pages controller when refactoring using Backbone &
+  #  Marionette was done.  Only keeping this in case for some reason we need to do
+  #  the old type of authentication.
+  #
+  #
+  #
+  #
+  #
+  ###############################################################################
+
+
   def create
 
   	if request.env["omniauth.params"]['signup'] #signing up
