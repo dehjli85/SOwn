@@ -59,13 +59,18 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  
+  # public pages routes  
   post 'login_post' => 'public_pages#login_post'
+  post 'teacher_google_sign_up' => 'public_pages#teacher_google_sign_up'
+  post 'student_google_sign_up' => 'public_pages#student_google_sign_up'
+  post 'google_login_post' => 'public_pages#google_login_post'
   
-  get 'auth/:provider/callback', to: 'sessions#create'
+  # get 'auth/:provider/callback', to: 'sessions#create'
+  # get 'signout', to: 'sessions#destroy', as: 'signout'
+  get 'auth/:provider/callback', to: 'public_pages#google_auth_callback'
+  get 'signout', to: 'public_pages#signout', as: 'signout'
   get 'auth/failure', to: redirect('/')
-  get 'signout', to: 'sessions#destroy', as: 'signout'
-
+  
   # teacher routes
   get 'teacher_home' => 'teacher_account#index'
   get 'current_teacher_user' => 'teacher_account#current_teacher_user'

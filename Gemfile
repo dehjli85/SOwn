@@ -56,3 +56,5 @@ gem 'marionette-rails'
 
 gem 'rails_12factor', group: :production
 
+gem 'google-api-client'
+

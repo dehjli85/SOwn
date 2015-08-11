@@ -22,12 +22,12 @@ PublicPages.module("SignUpAndLoginApp", function(SignUpAndLoginApp, PublicPages,
 		},
 
 		showTeacherSignUpForm: function(){
-			SignUpAndLoginApp.SignUp.Controller.showTeacherSignUpForm();
+			SignUpAndLoginApp.SignUp.Controller.showSignUpForm("Teacher");
 			console.log("route to teacher signup was triggered");
 		},
 
 		showStudentSignUpForm: function(){
-			SignUpAndLoginApp.SignUp.Controller.showStudentSignUpForm();
+			SignUpAndLoginApp.SignUp.Controller.showSignUpForm("Student");
 			console.log("route to student signup was triggered");
 		}
 	};
@@ -41,6 +41,10 @@ PublicPages.module("SignUpAndLoginApp", function(SignUpAndLoginApp, PublicPages,
 		new SignUpAndLoginApp.Router({
 			controller: API
 		});
+
+		PublicPages.rootView = new PublicPages.SignUpAndLoginApp.LayoutView();
+		PublicPages.rootView.render();
+
 	});
 });
 

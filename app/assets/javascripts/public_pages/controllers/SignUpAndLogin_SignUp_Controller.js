@@ -3,79 +3,127 @@
 PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Backbone, Marionette, $, _){
 	
 	SignUp.Controller = {
-		showTeacherSignUpForm: function(){			
 
-			var signUpView = new PublicPages.SignUpAndLoginApp.SignUp.TeacherSignUpView();
+		showSignUpForm: function(userType){
+			if(userType == "Teacher")
+				PublicPages.navigate("sign_up_teacher");
+			else if(userType == "Student")
+				PublicPages.navigate("sign_up_student");
 
-			signUpView.on("sign-up:sign-up", function(args){
+			var model = new Backbone.Model({user_type: userType})
+			var signUpView = new PublicPages.SignUpAndLoginApp.SignUp.SignUpView({model: model});
 
-				args.view.clearErrors();
+			PublicPages.rootView.mainRegion.show(signUpView);
 
-				var jqxhr = $.post( "/teacher_users", args.view.ui.signUpForm.serialize(), function() {
-				  console.log("post_made");
-				})
-			  .done(function(data) {
-		    	// console.log("successful response");
-		     	console.log(data);
-			    if (data.status === 'success'){			    	
-		    		//redirect to login page
-			    	PublicPages.SignUpAndLoginApp.Login.Controller.showLoginForm( new PublicPages.Models.FlashMessage({message_type: "success", success: "teacher-account-created", message: "Account successfully created.  Please Login."}));
-			    	
-			    }
-			    else{
-			    	//update the view to show errors			    	
-			    	args.view.showErrors(data.errors);
-			    }
-			  })
-			  .fail(function() {
-			  	//need to handle the connection error
-			   console.log("error");
-			  })
-			  .always(function() {
-			   
-				});
-				console.log();
+		},
+
+		signUp: function(signUpView){
+
+			signUpView.clearErrors();
+
+			var postUrl;
+			if(signUpView.model.attributes.user_type == "Teacher")
+				postUrl = "/teacher_users";
+			else if(signUpView.model.attributes.user_type == "Student")
+				postUrl = "/student_users";
+
+			var jqxhr = $.post( postUrl, signUpView.ui.signUpForm.serialize(), function() {
+			  console.log("post_made");
 			})
+		  .done(function(data) {
+	     	console.log(data);
+		    if (data.status === 'success'){			    	
 
-			 PublicPages.mainRegion.show(signUpView);
-		}, 
+		    	var object = 
+		    	{
+		    		message_type: "success", 		    	
+		    		message: "Account successfully created.  Please Login."
+		    	};
 
-		showStudentSignUpForm: function(){			
+		    	if(signUpView.model.attributes.user_type == "Teacher")
+						object.success = "teacher-account-created";
+					else if(signUpView.model.attributes.user_type == "Student")
+						object.success = "student-account-created"; 
 
-			var signUpView = new PublicPages.SignUpAndLoginApp.SignUp.StudentSignUpView();
+		    		
+	    		
+		    	PublicPages.SignUpAndLoginApp.Login.Controller.showLoginForm( 
+		    		new PublicPages.Models.FlashMessage(object)
+		    	);
+		    	
+		    }
+		    else{
+		    	//update the view to show errors			    	
+		    	signUpView.showErrors(data.errors);
+		    }
+		  })
+		  .fail(function() {
+		  	//need to handle the connection error
+		   console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+		},
 
-			signUpView.on("sign-up:sign-up", function(args){
+		signUpWithGoogle: function(userType){
 
-				args.view.clearErrors();
+			auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(function(authResult){
+				PublicPages.SignUpAndLoginApp.SignUp.Controller.signInCallback(authResult, userType);
+			});
 
-				var jqxhr = $.post( "/student_users", args.view.ui.signUpForm.serialize(), function() {
-				  console.log("post_made");
-				})
-			  .done(function(data) {
-		    	// console.log("successful response");
-		     	console.log(data);
-			    if (data.status === 'success'){			    	
-		    		//redirect to login page
-			    	PublicPages.SignUpAndLoginApp.Login.Controller.showLoginForm( new PublicPages.Models.FlashMessage({message_type: "success", success: "teacher-account-created", message: "Account successfully created.  Please Login."}));
-			    	
-			    }
-			    else{
-			    	//update the view to show errors			    	
-			    	args.view.showErrors(data.errors);
-			    }
-			  })
-			  .fail(function() {
-			  	//need to handle the connection error
-			   console.log("error");
-			  })
-			  .always(function() {
-			   
-				});
-				console.log();
+		},
+
+		signInCallback: function(authResult, userType) {
+			
+			var postUrl;
+			if(userType == "Teacher")
+			 postUrl = "/teacher_google_sign_up";
+			else if(userType == "Student")
+				postUrl = "/student_google_sign_up"
+
+			var postData = "authorization_code=" + authResult.code;
+
+			var jqxhr = $.post(postUrl, postData, function(){
+				console.log('post request made with authorization code');
 			})
+			.done(function(data) {
 
-			 PublicPages.mainRegion.show(signUpView);
-		}		
+				console.log(data);
+	     	if(data.status == "success"){
+					if(userType == "Teacher")
+	     			window.location.replace("teacher_home");
+	     		else if (userType == "Student") 
+	     			window.location.replace("student_home");;
+
+	     	}
+	     	else if(data.status == "error"){
+
+	     		if(data.message == "unable-to-save-user" && data.errors.email){
+
+	     			var alertModel = new Backbone.Model({
+	     				message: "An account already exists for the email address associated with this Google account.  Please trying logging in instead.",
+	     				message_type: "error"
+	     			});
+	     			
+	     			var alertView = new PublicPages.SignUpAndLoginApp.AlertView({model: alertModel});
+	     			console.log(PublicPages.rootView.alertRegion);
+	     			PublicPages.rootView.alertRegion.show(alertView);
+
+	     		}
+
+	     	}
+	     	
+	     	
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+
+		},		
 
 	}
 

@@ -6,24 +6,18 @@ PublicPages.module("SignUpAndLoginApp.Home", function(SignUpAndLoginApp, PublicP
 			template: JST["public_pages/templates/SignUpAndLogin_Home"],
 			className: "container",
 
-			events: {
-				"click a.js-login": "login",
-				"click a.js-teacher-sign-up": "teacherSignUp",
-				"click a.js-student-sign-up": "studentSignUp"
+			triggers: {
+				"click @ui.loginButton" : "home:login",
+				"click @ui.teacherSignUpButton" : "home:teacher:sign:up",
+				"click @ui.studentSignUpButton" : "home:student:sign:up",
 			},
 
-			login: function(e){				
-				this.trigger("home:login");				
-			},
-
-			teacherSignUp: function(e){
-				console.log("teacher sign up clicked, trying to trigger...")
-				this.trigger("home:teacher-sign-up");
-			},
-
-			studentSignUp: function(e){
-				this.trigger("home:student-sign-up");
+			ui:{
+				loginButton: "[ui-login-button]",
+				teacherSignUpButton: "[ui-teacher-sign-up-button]",
+				studentSignUpButton: "[ui-student-sign-up-button]",
 			}
+			
 	});
 
 });

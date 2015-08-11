@@ -1,12 +1,12 @@
 PublicPages = new Marionette.Application()
 
-PublicPages.addRegions({
-	mainRegion: "#main_region"
-});
-
 PublicPages.navigate = function(route, options){
 	options || (options = {});
 	Backbone.history.navigate(route, options);
+
+	if(PublicPages.rootView.alertRegion){
+		PublicPages.rootView.alertRegion.empty();
+	}
 };
 
 PublicPages.getCurrentRoute = function(){
@@ -15,18 +15,21 @@ PublicPages.getCurrentRoute = function(){
 
 PublicPages.on("start", function(){		
 
-	// console.log("starting app...")
 	if(!Backbone.History.started){
-		// console.log("starting history...")
 		Backbone.history.start();
 
 		if(this.getCurrentRoute() === ""){
-			// console.log("empty fragment: triggering index:home");
 			PublicPages.trigger("index:home");			
 		}
-	}
-
-
+	};
 
 });
 
+
+function start() {
+  gapi.load('auth2', function() {
+    auth2 = gapi.auth2.init({
+      client_id: '916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com',
+    });
+  });
+};

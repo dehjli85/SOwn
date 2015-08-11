@@ -5,67 +5,115 @@ PublicPages.module("SignUpAndLoginApp.Login", function(Login, PublicPages, Backb
 	Login.Controller = {
 
 		showLoginForm: function(flashMessageModel){
-			console.log("show login form");
-			var layoutView = new PublicPages.SignUpAndLoginApp.Login.Layout();			
+
+			PublicPages.navigate("login");
 			
+			var loginLayoutView = new PublicPages.SignUpAndLoginApp.Login.Layout();			
+			PublicPages.rootView.mainRegion.show(loginLayoutView);		
 
 			var flashMessageView = new PublicPages.SignUpAndLoginApp.Login.FlashMessageRegion({model: flashMessageModel});
 			var loginForm = new PublicPages.SignUpAndLoginApp.Login.LoginFormRegion();
 
-			layoutView.on("show", function(){
-				layoutView.loginFormRegion.show(loginForm);	
-				if(flashMessageModel)
-					layoutView.flashMessageRegion.show(flashMessageView);
-			});
-
-
-
-			PublicPages.mainRegion.show(layoutView);		
-
-			loginForm.on("login:sign-in", function(args){
-				console.log("posting ajax request");
-				// PublicPages.SignUpAndLoginApp.Login.Controller.postLoginCredentials();
-				var jqxhr = $.post( "/login_post", args.view.ui.credentialsForm.serialize(), function() {
-				  console.log("login post made");
-				})
-			  .done(function(data) {
-		    	// console.log("successful response");
-		     	console.log(data);
-			    if (data.login_response === 'success'){
-			    	if (data.user_type === 'teacher') {
-			    		//redirect to teacher homepage
-			    		window.location.replace("teacher_home");
-			    	}
-			    	else if (data.user_type === 'student') {
-			    		//redirect to the student homepage
-			    		window.location.replace("student_home");
-			    	}
-			    }
-			    else{
-			    	if (data.error === 'invalid-credentials') {
-			    		layoutView.flashErrorMessage({message_type: "error", error: "invalid-credentials", message: "Invalid Credentials. Try logging in again."});
-			    		
-
-			    	}
-			    	else if (data.error === 'post-login-with-oauth-credentials') {
-			    		layoutView.flashErrorMessage({message_type: "error",error: "post-login-with-oauth-credentials", message: "You're account was setup through Google Sign-In.  Please try log in through your Google account."});			    		
-			    		
-			    		
-			    	}
-			    }
-			  })
-			  .fail(function() {
-			  	console.log('failure occured');
-			  	
-			  	layoutView.flashErrorMessage({message_type: "error", error: "unexpected-error", message: "An unexpected error occurred when trying to login."});			  				  	
-			  	
-			  })
-			  .always(function() {
-			    //don't need to do anything here
-				});
-			});
-			
+			loginLayoutView.loginFormRegion.show(loginForm);	
+			if(flashMessageModel)
+				loginLayoutView.flashMessageRegion.show(flashMessageView);
+		
 		},
+
+		postLogin: function(loginFormView, loginLayoutView){
+
+			loginLayoutView.clearMessages();
+			PublicPages.rootView.alertRegion.empty();
+
+
+			var jqxhr = $.post( "/login_post", loginFormView.ui.credentialsForm.serialize(), function() {
+			  console.log("login post made");
+			})
+		  .done(function(data) {
+		    if (data.login_response === 'success'){
+		    	if (data.user_type === 'teacher') {
+		    		//redirect to teacher homepage
+		    		window.location.replace("teacher_home");
+		    	}
+		    	else if (data.user_type === 'student') {
+		    		//redirect to the student homepage
+		    		window.location.replace("student_home");
+		    	}
+		    }
+		    else{
+		    	if (data.error === 'invalid-credentials') {
+		    		loginLayoutView.flashErrorMessage({message_type: "error", error: "invalid-credentials", message: "Invalid Credentials. Try logging in again."});
+		    		
+
+		    	}
+		    	else if (data.error === 'post-login-with-oauth-credentials') {
+		    		loginLayoutView.flashErrorMessage({message_type: "error",error: "post-login-with-oauth-credentials", message: "You're account was setup through Google Sign-In.  Please try log in through your Google account."});			    		
+		    		
+		    		
+		    	}
+		    }
+		  })
+		  .fail(function() {
+		  	console.log('failure occured');
+		  	
+		  	loginLayoutView.flashErrorMessage({message_type: "error", error: "unexpected-error", message: "An unexpected error occurred when trying to login."});			  				  	
+		  	
+		  })
+		  .always(function() {
+		    //don't need to do anything here
+			});
+		},
+
+		logInWithGoogle: function(loginLayoutView){
+			auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(function(authResult){
+				PublicPages.SignUpAndLoginApp.Login.Controller.logInCallback(authResult, loginLayoutView);
+			});
+		},
+
+		logInCallback: function(authResult, loginLayoutView){
+
+			var postUrl = "/google_login_post"
+			
+
+			var postData = "authorization_code=" + authResult.code;
+
+			var jqxhr = $.post(postUrl, postData, function(){
+				console.log('post request made with authorization code');
+			})
+			.done(function(data) {
+
+				if (data.login_response === 'success'){
+		    	if (data.user_type === 'teacher') {
+		    		//redirect to teacher homepage
+		    		window.location.replace("teacher_home");
+		    	}
+		    	else if (data.user_type === 'student') {
+		    		//redirect to the student homepage
+		    		window.location.replace("student_home");
+		    	}
+		    }
+		    else{
+		    	if (data.error === 'invalid-credentials') {
+		    		loginLayoutView.flashErrorMessage({message_type: "error", error: "invalid-credentials", message: "Invalid Credentials. Try logging in again."});
+		    		
+
+		    	}
+		    	else if (data.error === 'post-login-with-stg-credentials') {
+		    		loginLayoutView.flashErrorMessage({message_type: "error",error: "post-login-with-stg-credentials", message: "You're Google account email address was used to create a Sown To Grow acocunt.  Please try log in with the Sown To Grow account."});			    		
+		    				    		
+		    	}
+		    }
+	     	
+	     	
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+		}
+		
 
 		
 

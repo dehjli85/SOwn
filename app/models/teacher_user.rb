@@ -54,9 +54,11 @@ class TeacherUser < ActiveRecord::Base
   end
 
   def password=(pw)
-    @password = pw
-    self.salt = (Random.new.rand*10000).to_i
-    self.password_digest = Digest::SHA1.hexdigest(pw + self.salt.to_s)
+    if !pw.nil? && !pw.strip.eql?("")
+      @password = pw
+      self.salt = (Random.new.rand*10000).to_i
+      self.password_digest = Digest::SHA1.hexdigest(pw + self.salt.to_s)
+    end
   end
 
   def user_params

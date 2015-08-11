@@ -3,7 +3,7 @@
 PublicPages.module("SignUpAndLoginApp.Login", function(LoginApp, PublicPages, Backbone, Marionette, $, _){
 	
 	LoginApp.Layout = Marionette.LayoutView.extend({				
-			template: JST["public_pages/templates/SignUpAndLogin_Layout"],
+			template: JST["public_pages/templates/SignUpAndLogin_Login_Layout"],
 			className: "container",
 
 			regions:{
@@ -21,7 +21,19 @@ PublicPages.module("SignUpAndLoginApp.Login", function(LoginApp, PublicPages, Ba
 				var successModel = new PublicPages.Models.FlashMessage(successObject);
 				var successView = new LoginApp.FlashMessageRegion({model: successModel});
 				this.flashMessageRegion.show(successView);
-			}			
+			},
+
+			clearMessages: function(){
+				this.flashMessageRegion.empty();
+			},
+
+			onChildviewLoginSignIn: function(view){
+				PublicPages.SignUpAndLoginApp.Login.Controller.postLogin(view, this);
+			},		
+
+			onChildviewLogInWithGoogle: function(view){				
+				LoginApp.Controller.logInWithGoogle(this);			
+			},			
 				
 			
 	});
@@ -35,11 +47,29 @@ PublicPages.module("SignUpAndLoginApp.Login", function(LoginApp, PublicPages, Ba
 
 		
 		triggers:{
-			"click button.js-sign-in": "login:sign-in"
+			"click button.js-sign-in": "login:sign:in",
+			"click @ui.googleLogInButton": "log:in:with:google"
+		},
+
+		events:{
+			"click @ui.signInAccountButton": "revealLoginForm",
+			"click @ui.googleLogInButton": "logInWithGoogle"
 		},
 
 		ui:{
-			credentialsForm: '[credentials-form]'
+			credentialsForm: '[ui-credentials-form]',
+			signInAccountButton: '[ui-sign-in-account-button]',
+			standardFormDiv: "[ui-standard-form-div]",
+			googleLogInButton: "[ui-google-log-in-button]"
+		},
+
+		revealLoginForm: function(){
+			this.ui.standardFormDiv.attr("style", "display:block");			
+			this.ui.signInAccountButton.attr("style", "display:none");
+		},
+
+		logInWithGoogle: function(e){
+			e.preventDefault();
 		}
 
 		
