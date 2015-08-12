@@ -72,10 +72,11 @@ Rails.application.routes.draw do
   # teacher routes
   get 'teacher_home' => 'teacher_account#index'
   get 'current_teacher_user' => 'teacher_account#current_teacher_user'
-
+  post 'teacher/update_classroom' => 'teacher_account#update_classroom'
+  post 'teacher/save_new_classroom' => 'teacher_account#save_new_classroom'
+  
   # teacher/classrooms app routes
   get 'classrooms_summary' => 'teacher_account#classrooms_summary'
-  post 'teacher/save_new_classroom' => 'teacher_account#save_new_classroom'
 
   # teacher/classroom app routes
   get 'teacher/classroom' => 'teacher_account#classroom'

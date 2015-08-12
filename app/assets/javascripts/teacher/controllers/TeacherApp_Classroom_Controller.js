@@ -20,15 +20,20 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			var jqxhr = $.get("/teacher/classroom?classroom_id=" + classroomId, function(){
 				console.log('get request for classroom model');
 			})
-			.done(function(classroomAPIModelData) {
-	     	
-	     	classroomAPIModelData.subapp = subapp;
+			.done(function(data) {
 
-				var classroomModel = new TeacherAccount.TeacherApp.Classroom.Models.Classroom(classroomAPIModelData);
-				console.log(classroomModel);
 				
-	     	var headerView = new TeacherAccount.TeacherApp.Classroom.HeaderView({model:classroomModel});			
-				classroomLayoutView.headerRegion.show(headerView);
+	     	
+	     	if(data.status == "success"){
+	     		
+	     		data.classroom.subapp = subapp;
+
+					var classroomModel = new TeacherAccount.TeacherApp.Classroom.Models.Classroom(data.classroom);
+					
+		     	var headerView = new TeacherAccount.TeacherApp.Classroom.HeaderView({model:classroomModel});			
+					classroomLayoutView.headerRegion.show(headerView);	
+	     	}
+	     	
 	     	
 		  })
 		  .fail(function() {
@@ -68,6 +73,43 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			else{
 				classroomLayoutView.alertRegion.empty();
 			}
+
+		},
+
+		showEditClassroom: function(classroomLayoutView, classroomCode){
+
+			var classroomView = new TeacherAccount.TeacherApp.Classrooms.ClassroomView();
+
+			var getUrl = "teacher/classroom?classroom_id=" + classroomCode;
+			var jqxhr = $.get(getUrl, function(){
+				console.log('get request to get classroom data');
+			})
+			.done(function(data) {
+
+				if(data.status == "success"){
+
+					var classroom = new Backbone.Model(data.classroom);
+					classroom.attributes.errors = {};
+					classroom.attributes.editOrNew = "edit";
+					
+					var classroomView = new TeacherAccount.TeacherApp.Classrooms.ClassroomView({model:classroom});
+					classroomLayoutView.mainRegion.show(classroomView);
+					
+				}
+				else{
+
+				}
+
+				
+				
+				
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});	
 
 		}
 

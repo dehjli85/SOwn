@@ -54,10 +54,13 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 			}
 			else if (subapp === 'edit_scores'){
 
-				console.log("subapp edit");
-
 				TeacherAccount.TeacherApp.Classroom.Controller.startScoresApp(classroomLayoutView,"edit");	
 
+			}
+			else if(subapp === 'edit_classroom'){
+
+				TeacherAccount.TeacherApp.Classroom.Controller.showEditClassroom(classroomLayoutView,classroomId);	
+					
 			}
 
 			

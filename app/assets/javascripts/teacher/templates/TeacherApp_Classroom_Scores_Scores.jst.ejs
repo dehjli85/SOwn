@@ -1,13 +1,27 @@
-<table id="perf_table" class="table table-condensed table-bordered small" style="table-layout:fixed; width:inherit; padding-top:10px;">
-  <thead>        
-  <tr>
-    <th style="min-width:150px; vertical-align:bottom" ui-student-header>Student</th>
-    <% for(var i = 0; i < activities.length; i++){ %>
-        <th class="activity_header" style="" id="header_<%= i %>"><%= activities[i].name %></th>             
-    <% } %>
-  </tr>
-  </thead>
-  <tbody>    
+<% if(activities == null || activities.length == 0){ %>
+  <div class="alert alert-warning">
+    You haven't created and activities for your students to work on yet!  Get started by clicking the "Activities" link on the left and create your first activity!
+  </div>
+<% }else{ %>
 
-  </tbody>
-</table>
+  <table id="perf_table" class="table table-condensed table-bordered small" style="table-layout:fixed; width:inherit; padding-top:10px;">
+    <thead>        
+    <tr>
+      <th style="min-width:150px; vertical-align:bottom" ui-student-header>Student</th>
+      <% for(var i = 0; i < activities.length; i++){ %>
+          <th class="activity_header" style="" id="header_<%= i %>"><%= activities[i].name %></th>             
+      <% } %>
+    </tr>
+    </thead>
+    <tbody>    
+
+    </tbody>
+  </table>
+
+  <% if(this.collection == null || this.collection.length == 0){ %> 
+    <div class="alert alert-warning">
+      No students have joined your classroom yet.  When they log in, have them use classroom code &quot;<b><%= classroom.classroom_code %></b>&quot; to join this class!
+    </div>
+  <% } %>
+
+<% } %>

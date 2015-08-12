@@ -64,11 +64,12 @@ TeacherAccount.module("TeacherApp.Classrooms", function(Classrooms, TeacherAccou
 
 	Classrooms.ClassroomView = Marionette.ItemView.extend({
 		tagName: "div",
-		className: "",
+		className: "classroom_edit_div",
 		template: JST["teacher/templates/TeacherApp_Classrooms_Classroom"],
 
 		ui:{
 			createButton: "[ui-create-button]",
+			saveButton: "[ui-save-button]",
 			cancelButton: "[ui-cancel-button]",
 			classroomForm: "[ui-classroom-form]",
 			nameInput: "[ui-name-input]",

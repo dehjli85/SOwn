@@ -9,6 +9,12 @@ class TeacherAccountController < ApplicationController
 		@classrooms = Classroom.where({teacher_user_id: @current_teacher_user.id}).to_a
 	end	
 
+	#################################################################################
+	#
+	# TeacherAccount App Methods
+	#
+	#################################################################################
+
 	def index
 		require_teacher_login
 	end
@@ -28,6 +34,17 @@ class TeacherAccountController < ApplicationController
 
 		render json: {status: "success", teacher: teacher}
 		
+	end
+
+	#return the json object representing a classroom with the specified id for the logged in user
+	def classroom
+		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
+
+		if @classroom
+			render json: {status: "success", classroom: @classroom}
+		else
+			render json: {status: "error", message: "invalid-classroom-id"}
+		end
 	end
 
 	#################################################################################
@@ -70,18 +87,35 @@ class TeacherAccountController < ApplicationController
 		end
 	end
 
+	def update_classroom
+		
+		@classroom = Classroom.where({id: params[:classroom][:id], teacher_user_id: @current_teacher_user.id}).first
+
+		if(@classroom)
+		
+			if(@classroom.update_attributes(params.require(:classroom).permit(:name, :description, :classroom_code)))
+
+				render json: {status: "success"}
+			else
+
+				render json: {status: "error", errors: @classroom.errors}
+
+			end
+
+		else
+
+			render json: {status: "error", message: "invalid-classroom"}			
+
+		end
+	end
+
 	#################################################################################
 	#
 	# Classroom App Methods
 	#
 	#################################################################################
 
-	#return the json object representing a classroom with the specified id for the logged in user
-	def classroom
-		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
 
-		render json: @classroom.to_json
-	end
 
 	#return the json object representing the unique tags for the classroom with the specified id for the logged in user
 	def classroom_tags
@@ -112,7 +146,7 @@ class TeacherAccountController < ApplicationController
 
 		@students = @classroom.student_users		
 		
-		render json: {status: "success", students: @students, activities: @search_matched_pairings_and_activities[:activities], student_performances: performance_array}
+		render json: {status: "success", students: @students, activities: @search_matched_pairings_and_activities[:activities], student_performances: performance_array, classroom: @classroom}
 
 	end
 

@@ -1,21 +1,37 @@
-<form ui-scores-form>
+<% if(activities == null || activities.length == 0){ %>
+  <div class="alert alert-warning">
+    You haven't created and activities for your students to work on yet!  Get started by clicking the "Activities" link on the left and create your first activity!
+  </div>
+<% }else{ %>
 
-  <button class="btn btn-primary" style="margin-bottom:10px">Save Changes</button>
+  <form ui-scores-form>
 
-  <input type="hidden" name="classroom_id" value="<%= classroomId %>">
+    <% if(!this.collection == null && !this.collection.length == 0){ %> 
+      <button class="btn btn-primary" style="margin-bottom:10px">Save Changes</button>
+    <% } %> 
 
-  <table id="perf_table" class="table table-condensed table-bordered small" style="table-layout:fixed; width:inherit; padding-top:10px;">
-    <thead>        
-    <tr>
-      <th style="min-width:150px; vertical-align:bottom" ui-student-header>Student</th>
-      <% for(var i = 0; i < activities.length; i++){ %>
-          <th class="activity_header" style="" id="header_<%= i %>"><%= activities[i].name %></th>             
-      <% } %>
-    </tr>
-    </thead>
-    <tbody>    
+    <input type="hidden" name="classroom_id" value="<%= classroom.classroom_id %>">
 
-    </tbody>
-  </table>
+    <table id="perf_table" class="table table-condensed table-bordered small" style="table-layout:fixed; width:inherit; padding-top:10px;">
+      <thead>        
+      <tr>
+        <th style="min-width:150px; vertical-align:bottom" ui-student-header>Student</th>
+        <% for(var i = 0; i < activities.length; i++){ %>
+            <th class="activity_header" style="" id="header_<%= i %>"><%= activities[i].name %></th>             
+        <% } %>
+      </tr>
+      </thead>
+      <tbody>    
 
-</form>
+      </tbody>
+    </table>
+
+  </form>
+
+  <% if(this.collection == null || this.collection.length == 0){ %> 
+    <div class="alert alert-warning">
+      No students have joined your classroom yet.  When they log in, have them use classroom code &quot;<b><%= classroom.classroom_code %></b>&quot; to join this class!
+    </div>
+  <% } %>
+
+<% } %>
