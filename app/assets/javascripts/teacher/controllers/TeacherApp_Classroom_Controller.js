@@ -58,6 +58,19 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 		
 		},
 
+		toggleClassroomCode: function(classroomLayoutView, classroomCode){
+		 	if(classroomLayoutView.alertRegion.currentView == null){
+				var message = "Classroom code: " + classroomCode;
+				var alertModel = new Backbone.Model({message: message, alertClass: "alert-info"});
+				var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
+				classroomLayoutView.alertRegion.show(alertView);
+			}
+			else{
+				classroomLayoutView.alertRegion.empty();
+			}
+
+		}
+
 	}
 
 })

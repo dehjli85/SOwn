@@ -67,7 +67,7 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 
 	TeacherApp.AlertView = Marionette.ItemView.extend({
 		template: JST["teacher/templates/TeacherApp_Alert"],
-		className: "alert center",
+		className: "alert center teacher_app_alert",
 
 		initialize: function(){
 			this.$el.addClass(this.model.attributes.alertClass);
