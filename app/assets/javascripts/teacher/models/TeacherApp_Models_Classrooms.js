@@ -2,6 +2,4 @@ TeacherAccount.module("TeacherApp.Classrooms.Models", function(Models, TeacherAc
 	
 	Models.ClassroomWidgetModel = Backbone.Model.extend({});	
 
-	Models.Classroom = Backbone.Model.extend({});
-
 });

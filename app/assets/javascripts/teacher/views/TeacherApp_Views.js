@@ -62,8 +62,14 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 
 		onChildviewStartActivitiesApp: function(view){
 			TeacherAccount.TeacherApp.Main.Controller.startActivitiesApp("index");
+		},
+
+		onChildviewShowNewClassForm: function(view){
+			TeacherAccount.navigate("classroom/new");
+
+			TeacherAccount.TeacherApp.Main.Controller.showClassroomNew();
 		}
-	}),
+	});
 
 	TeacherApp.AlertView = Marionette.ItemView.extend({
 		template: JST["teacher/templates/TeacherApp_Alert"],
@@ -72,6 +78,58 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 		initialize: function(){
 			this.$el.addClass(this.model.attributes.alertClass);
 		}
-	})
+	});
+
+	TeacherApp.ClassroomView = Marionette.ItemView.extend({
+		tagName: "div",
+		className: "classroom_edit_div",
+		template: JST["teacher/templates/TeacherApp_Classroom"],
+
+		ui:{
+			createButton: "[ui-create-button]",
+			saveButton: "[ui-save-button]",
+			cancelButton: "[ui-cancel-button]",
+			classroomForm: "[ui-classroom-form]",
+			nameInput: "[ui-name-input]",
+			descriptionInput: "[ui-description-input]",
+			classroomCodeInput: "[ui-classroom-code-input]",
+
+		},
+
+		events:{
+			"submit @ui.classroomForm": "saveClassroom",
+			"click @ui.cancelButton": "showClassroomsSummary"
+		},
+
+		triggers:{
+			
+		},
+
+		saveClassroom: function(e){
+			e.preventDefault();
+			this.setModelAttributes();
+			TeacherAccount.TeacherApp.Main.Controller.saveClassroom(this);
+		},
+
+		setModelAttributes: function(){
+			this.model.attributes.name = this.ui.nameInput.val();
+			this.model.attributes.description = this.ui.descriptionInput.val();
+			this.model.attributes.classroom_code = this.ui.classroomCodeInput.val();			
+		},
+
+		showErrors: function(errors){
+			this.model.attributes.errors = errors;
+			this.render();
+		},
+
+		showClassroomsSummary: function(){
+			TeacherAccount.navigate("classrooms")
+			TeacherAccount.TeacherApp.Classrooms.Controller.showClassroomOverviews();
+		}
+
+
+
+
+	});
 
 });

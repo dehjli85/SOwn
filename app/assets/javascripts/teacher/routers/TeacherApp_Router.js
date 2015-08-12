@@ -4,7 +4,7 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 	TeacherApp.Router = Marionette.AppRouter.extend({
 		appRoutes:{
 			"classrooms": "showClassroomOverviews",
-			"classrooms/new": "showClassroomNew",
+			"classroom/new": "showClassroomNew",
 			"classroom/scores/:id": "showClassroomScores",
 			"classroom/edit_scores/:id": "showClassroomEditScores",
 			"classroom/edit_activities/:id": "showClassroomEditActivities",
@@ -29,7 +29,7 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 		},
 
 		showClassroomNew: function(){
-			TeacherApp.Classrooms.Controller.showClassroomNew();
+			TeacherApp.Main.Controller.showClassroomNew();
 		},
 
 		/**

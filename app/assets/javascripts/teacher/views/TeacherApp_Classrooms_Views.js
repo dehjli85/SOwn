@@ -55,6 +55,10 @@ TeacherAccount.module("TeacherApp.Classrooms", function(Classrooms, TeacherAccou
 			addClassDiv: '[ui-add-class-div]'
 		},
 
+		triggers:{
+			"click @ui.addClassDiv": "show:new:class:form"
+		},
+
 		onChildviewShowClassroomView: function(){
 			console.log("Row View: heard show:classroom:view");			
 		}
@@ -62,60 +66,6 @@ TeacherAccount.module("TeacherApp.Classrooms", function(Classrooms, TeacherAccou
 	});	
 
 
-	Classrooms.ClassroomView = Marionette.ItemView.extend({
-		tagName: "div",
-		className: "classroom_edit_div",
-		template: JST["teacher/templates/TeacherApp_Classrooms_Classroom"],
-
-		ui:{
-			createButton: "[ui-create-button]",
-			saveButton: "[ui-save-button]",
-			cancelButton: "[ui-cancel-button]",
-			classroomForm: "[ui-classroom-form]",
-			nameInput: "[ui-name-input]",
-			descriptionInput: "[ui-description-input]",
-			classroomCodeInput: "[ui-classroom-code-input]",
-
-		},
-
-		events:{
-			"submit @ui.classroomForm": "saveClassroom",
-			"click @ui.cancelButton": "showClassroomsSummary"
-		},
-
-		triggers:{
-			
-		},
-
-		saveClassroom: function(e){
-			e.preventDefault();
-			this.setModelAttributes();
-
-			TeacherAccount.TeacherApp.Classrooms.Controller.saveClassroom(this);
-		},
-
-		setModelAttributes: function(){
-			console.log(this);
-			this.model.attributes.name = this.ui.nameInput.val();
-			this.model.attributes.description = this.ui.descriptionInput.val();
-			this.model.attributes.classroom_code = this.ui.classroomCodeInput.val();			
-			console.log(this);
-		},
-
-		showErrors: function(errors){
-			this.model.attributes.errors = errors;
-			console.log(this.model);
-			this.render();
-		},
-
-		showClassroomsSummary: function(){
-			TeacherAccount.navigate("classrooms")
-			TeacherAccount.TeacherApp.Classrooms.Controller.showClassroomOverviews();
-		}
-
-
-
-
-	})
+	
 
 });

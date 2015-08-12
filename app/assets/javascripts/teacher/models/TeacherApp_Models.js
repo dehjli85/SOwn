@@ -5,4 +5,6 @@ TeacherAccount.module("Models", function(Models, TeacherAccount, Backbone, Mario
 
 	Models.Alert = Backbone.Model.extend({});
 
+	Models.Classroom = Backbone.Model.extend({});
+
 });

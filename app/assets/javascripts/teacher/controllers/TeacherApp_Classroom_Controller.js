@@ -78,8 +78,6 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 
 		showEditClassroom: function(classroomLayoutView, classroomCode){
 
-			var classroomView = new TeacherAccount.TeacherApp.Classrooms.ClassroomView();
-
 			var getUrl = "teacher/classroom?classroom_id=" + classroomCode;
 			var jqxhr = $.get(getUrl, function(){
 				console.log('get request to get classroom data');
@@ -92,16 +90,13 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 					classroom.attributes.errors = {};
 					classroom.attributes.editOrNew = "edit";
 					
-					var classroomView = new TeacherAccount.TeacherApp.Classrooms.ClassroomView({model:classroom});
+					var classroomView = new TeacherAccount.TeacherApp.ClassroomView({model:classroom});
 					classroomLayoutView.mainRegion.show(classroomView);
 					
 				}
 				else{
 
 				}
-
-				
-				
 				
 		  })
 		  .fail(function() {
