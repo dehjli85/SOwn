@@ -9,6 +9,19 @@
       <input id="classroom_activity_pairing_id" name="student_performance[classroom_activity_pairing_id]" type="hidden" value="<%= classroom_activity_pairing.id%>">     
 
       <% if(activity.activity_type == "scored"){ %>
+
+        <% if(showScoreBar){ %>
+          <div class="form-group"> 
+            <label for="inputScoredPerformance" class="col-sm-4 control-label">Score Range:</label>           
+            <div class="scoreBarDiv col-sm-offset-4"></div>
+            <div id="tooltip" class="hidden">
+                <p><span id="value">100</span>
+                </p>
+            </div>
+          </div>
+
+        <% } %>
+
         <div class="form-group <%= errors.scored_performance ? 'has-error' : '' %>">
           <label for="inputScoredPerformance" class="col-sm-4 control-label">Enter Score:</label>
           <div class="col-sm-8">
@@ -22,6 +35,8 @@
 
           </div>
         </div> 
+
+
 
       <% }else if(activity.activity_type == "completion"){ %>
         <div class="form-group <%= errors.completed_performance ? 'has-error' : '' %>">
