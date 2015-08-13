@@ -42,6 +42,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 				var activitiesCollection = new TeacherAccount.TeacherApp.Activities.Models.IndexActivitiesCollection(data.activities);
 
 				var indexCompositeView = new TeacherAccount.TeacherApp.Activities.IndexCompositeView({collection: activitiesCollection});
+				console.log(indexCompositeView);
 				indexLayoutView.mainRegion.show(indexCompositeView);
 				
 				

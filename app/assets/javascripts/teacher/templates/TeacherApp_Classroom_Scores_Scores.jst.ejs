@@ -18,7 +18,7 @@
     </tbody>
   </table>
 
-  <% if(this.collection == null || this.collection.length == 0){ %> 
+  <% if(collectionSize == 0){ %> 
     <div class="alert alert-warning">
       No students have joined your classroom yet.  When they log in, have them use classroom code &quot;<b><%= classroom.classroom_code %></b>&quot; to join this class!
     </div>
