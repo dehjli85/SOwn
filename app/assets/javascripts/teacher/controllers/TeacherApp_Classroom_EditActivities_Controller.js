@@ -6,12 +6,34 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 
 		showClassroomEditActivities: function(layoutView, classroomId, activityId){			
 
-			//Create the Layout View
-			var editActivitiesLayoutView = new TeacherAccount.TeacherApp.Classroom.EditActivities.LayoutView({model: new Backbone.Model({classroomId: classroomId})});
-			layoutView.mainRegion.show(editActivitiesLayoutView);
+			var getUrl = "/teacher/teacher_activities_and_tags?";			
+			
+			var jqxhr = $.get(getUrl, function(){
+				console.log('get request for teacher activities and tags made');
+			})
+			.done(function(data) {
 
-			// render the activity assignment view
-			EditActivities.Controller.renderActivityAssignmentView(editActivitiesLayoutView,classroomId,activityId);
+				if(data.status == "success"){
+
+					//Create the Layout View
+					var editActivitiesLayoutView = new TeacherAccount.TeacherApp.Classroom.EditActivities.LayoutView({model: new Backbone.Model({classroomId: classroomId, activities:data.activities})});
+					layoutView.mainRegion.show(editActivitiesLayoutView);
+
+					// render the activity assignment view
+					if(data.activities.length > 0){
+						EditActivities.Controller.renderActivityAssignmentView(editActivitiesLayoutView,classroomId,activityId);
+					}
+				}		
+				
+				
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});		
+
 			
 			
 		},

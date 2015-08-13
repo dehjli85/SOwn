@@ -5,6 +5,7 @@
 	    <div id="activity_assignment_region"></div>
 	    <div id="tags_region"></div>
 	    <div id="save_button_region">
+	    	<% if(activities.length > 0) { %>
 	    	<form class="form-horizontal">
 	    	<div class="form-group">
           <div class="col-sm-offset-3 col-sm-4">
@@ -12,5 +13,9 @@
           </div>
         </div>	    
 	    </form>
+	    <% }else{ %>
+	    	<div class="alert alert-warning">You haven't created any activites to assign to your students.  Start by clicking on the "Activities" link on the left and create your first activity!</div>
+
+	    <% } %>
     </div>
 </div>
