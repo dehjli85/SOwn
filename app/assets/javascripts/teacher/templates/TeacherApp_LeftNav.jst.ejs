@@ -1,6 +1,6 @@
   <ul class="nav nav-sidebar">
-    <li id="home" ui-nav-classroom><a href="#classrooms">Classrooms</a></li>        
-    <li id="activities" ui-nav-activities><a href="#activities">Activities</a></li>
-    <li id="students" ui-nav-students><a href="#" data-toggle="modal" data-target="#comingSoonModal">Students</a></li>
+    <li id="home" ui-nav-classroom class="<%= subapp == "classroom" ? "active" : "" %>"><a href="#classrooms">Classrooms</a></li>        
+    <li id="activities" ui-nav-activities  class="<%= subapp == "activities" ? "active" : "" %>"><a href="#activities">Activities</a></li>
+    <li id="students" ui-nav-students  class="<%= subapp == "students" ? "active" : "" %>"><a href="#" data-toggle="modal" data-target="#comingSoonModal">Students</a></li>
     
   </ul>      

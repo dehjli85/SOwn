@@ -4,7 +4,7 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 
 	Main.Controller = {
 
-		showHeaderAndLeftNavViews: function(){
+		showHeaderAndLeftNavViews: function(subapp){
 
 			//get user model data and create the header
 			var jqxhr = $.get("/current_teacher_user", function(){
@@ -18,7 +18,8 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 				TeacherAccount.rootView.headerRegion.show(headerView);
 
 				// create the left nav
-				var leftNav = new TeacherAccount.TeacherApp.LeftNavView();
+				var leftNavModel = new Backbone.Model({subapp: subapp});
+				var leftNav = new TeacherAccount.TeacherApp.LeftNavView({model:leftNavModel});
 				TeacherAccount.rootView.leftNavRegion.show(leftNav);
 				
 		  })
