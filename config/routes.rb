@@ -111,6 +111,7 @@ Rails.application.routes.draw do
   get 'student/classroom_activities_and_performances' => 'student_account#classroom_activities_and_performances'
   get 'student/activity' => 'student_account#activity'
   post 'student/save_student_performance' => 'student_account#save_student_performance'
+  get 'student/activity_and_performances' => 'student_account#activity_and_performances'
 
 
   #old routes

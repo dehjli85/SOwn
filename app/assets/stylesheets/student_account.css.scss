@@ -50,3 +50,21 @@
     font-size: 16px;
     line-height: 20px;
 }
+
+/*
+ * Classroom Styles (See All Modal Line Graph)
+ */
+
+.line_graph_path { 
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+.line_graph_axis .line_graph_path,
+.line_graph_axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}

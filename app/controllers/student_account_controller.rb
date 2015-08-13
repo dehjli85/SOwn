@@ -201,6 +201,42 @@ class StudentAccountController < ApplicationController
 
   end
 
+  def activity_and_performances
+    
+    classroom_activity_pairing = ClassroomActivityPairing.where(id: params[:classroom_activity_pairing_id]).first
+
+    if classroom_activity_pairing
+
+      classrooms_student_users = ClassroomsStudentUsers.where(classroom_id: classroom_activity_pairing.classroom_id).where(student_user_id: @current_student_user.id).first
+
+      if classrooms_student_users
+
+        activity = classroom_activity_pairing.activity
+
+        performances = StudentPerformance.where({classroom_activity_pairing_id: classroom_activity_pairing.id, student_user_id: @current_student_user.id}).order("created_at ASC").as_json
+
+        performances.each do |performance|
+          performance["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activity.activity_type, performance["scored_performance"], performance["completed_performance"])
+          performance["performance_color"] = StudentPerformance.performance_color_no_active_record(activity.activity_type, activity.benchmark1_score, activity.benchmark2_score, activity.min_score, activity.max_score, performance["scored_performance"], performance["completed_performance"])
+
+        end
+
+        render json: {status: "success", activity: activity, classroom_activity_pairing: classroom_activity_pairing, performances: performances}
+
+      else
+
+      render json: {status: "error", message: "invalid-student-for-classroom-activity-pairing"}
+
+      end
+
+    else
+
+      render json: {status: "error", message: "invalid-classroom-activity-pairing-id"}
+
+    end
+
+  end
+
   def save_student_performance
 
     @student_performance = StudentPerformance.new(params.require(:student_performance).permit(:classroom_activity_pairing_id, :scored_performance, :completed_performance, :performance_date))    

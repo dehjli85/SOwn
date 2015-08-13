@@ -65,10 +65,9 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			
 		},
 
-		openTrackModal: function(classroomLayoutView, classroomActivityPairingId, studentId){
+		openTrackModal: function(classroomLayoutView, classroomActivityPairingId){
 
 			var getURL = "/student/activity?classroom_activity_pairing_id=" + classroomActivityPairingId;
-			getURL += "&student_user_id=" + studentId
 			var jqxhr = $.get(getURL, function(){
 				console.log('get request for classroom model');
 			})
@@ -128,7 +127,35 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		   
 			});
 
-		}
+		},
+
+		openSeeAllModal: function(classroomLayoutView, classroomActivityPairingId){
+
+			var getURL = "/student/activity_and_performances?classroom_activity_pairing_id=" + classroomActivityPairingId;
+			var jqxhr = $.get(getURL, function(){
+				console.log('get request for classroom model');
+			})
+			.done(function(data) {
+	     		console.log(data);
+	     	if(data.status == "success"){
+
+	     		var activity_pairing_performances = new Backbone.Model({activity: data.activity, classroom_activity_pairing: data.classroom_activity_pairing, performances:data.performances, errors:{}});
+	     		var seeAllModal = new StudentAccount.StudentApp.Classroom.SeeAllModalView({model: activity_pairing_performances});
+	     		classroomLayoutView.modalRegion.show(seeAllModal);
+
+					
+	     	}
+	     	
+	     	
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+
+		},
 		
 	}
 
