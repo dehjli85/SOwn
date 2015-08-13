@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706203153) do
+ActiveRecord::Schema.define(version: 20150813184919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20150706203153) do
     t.float    "max_score"
     t.float    "benchmark1_score"
     t.float    "benchmark2_score"
+    t.string   "link"
   end
 
   create_table "activity_tag_pairings", force: true do |t|

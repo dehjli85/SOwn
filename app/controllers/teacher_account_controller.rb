@@ -488,7 +488,7 @@ class TeacherAccountController < ApplicationController
 
 	def save_new_activity
 
-		@activity = Activity.new(params.require(:activity).permit(:name, :description, :instructions, :activity_type, :min_score, :max_score, :benchmark1_score, :benchmark2_score))
+		@activity = Activity.new(params.require(:activity).permit(:name, :description, :instructions, :activity_type, :min_score, :max_score, :benchmark1_score, :benchmark2_score, :link))
 		@activity.teacher_user_id = @current_teacher_user.id
 
 		tag_errors = Array.new
@@ -550,7 +550,7 @@ class TeacherAccountController < ApplicationController
 		@activity = Activity.where({teacher_user_id: @current_teacher_user.id, id: params[:id]}).first
 
 		if !@activity.nil?
-			@activity.update(params.require(:activity).permit(:name, :description, :instructions, :activity_type, :min_score, :max_score, :benchmark1_score, :benchmark2_score))
+			@activity.update(params.require(:activity).permit(:name, :description, :instructions, :activity_type, :min_score, :max_score, :benchmark1_score, :benchmark2_score, :link))
 
 			if(@activity.save)
 

@@ -70,6 +70,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 				benchmark2_score: "",
 				min_score: "",
 				tagCount: 0, 
+				link: "",
 				errors: {}
 			});
 

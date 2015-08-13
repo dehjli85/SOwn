@@ -1,0 +1,40 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title" id="myModalLabel" ui-title>Activity Details</b></h5>
+  </div>
+  <div class="modal-body" ui-body-div>
+    
+    <form class="form-horizontal" ui-performance-form>
+    
+      <div class="form-group"> 
+        <label for="inputScoredPerformance" class="col-sm-4 control-label">Name:</label>           
+        <div class="col-sm-8">
+          <div class="control-label" style="text-align:left"><%= name %></div>
+        </div>
+      </div>
+
+      <% if(description != null && description != ""){ %>
+        <div class="form-group"> 
+          <label for="inputScoredPerformance" class="col-sm-4 control-label">Description:</label>           
+          <div class="col-sm-8">
+            <div class="control-label" style="text-align:left"><%= description %></div>
+          </div>
+        </div>
+      <% } %>
+
+      <% if(link != null && link != ""){ %>
+        <div class="form-group"> 
+          <label for="inputScoredPerformance" class="col-sm-4 control-label">Link:</label>           
+          <div class="col-sm-8">
+            <div class="control-label" style="text-align:left"><a href="<%= link %>" target="_blank">Go to Activity</a></div>            
+          </div>
+        </div>
+      <% } %>
+
+    </form>
+  </div>
+  <div class="modal-footer" ui-footer-div>           
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	        
+  </div>
+</div>

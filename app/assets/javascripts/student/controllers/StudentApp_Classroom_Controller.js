@@ -156,6 +156,34 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			});
 
 		},
+
+		openActivityDetailsModal: function(classroomLayoutView, classroomActivityPairingId){
+
+			var getURL = "/student/activity?classroom_activity_pairing_id=" + classroomActivityPairingId;
+			var jqxhr = $.get(getURL, function(){
+				console.log('get request for classroom model');
+			})
+			.done(function(data) {
+	     		console.log(data);
+	     	if(data.status == "success"){
+
+	     		var activityModel = new Backbone.Model(data.activity);
+	     		var activityDetailsModalView = new StudentAccount.StudentApp.Classroom.ActivityDetailsModalView({model: activityModel});
+	     		classroomLayoutView.modalRegion.show(activityDetailsModalView);
+
+					
+	     	}
+	     	
+	     	
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});			
+
+		}
 		
 	}
 
