@@ -134,6 +134,7 @@ class StudentAccountController < ApplicationController
         activities = Activity.joins("inner join classroom_activity_pairings cap on cap.activity_id = activities.id")
           .joins("inner join classrooms c on c.id = cap.classroom_id")
           .where("c.id = ?", classroom.id)
+          .where("cap.hidden = false")
           .select("activities.*, cap.id as classroom_activity_pairing_id")
           .as_json
         activity_indices = Hash.new
@@ -149,6 +150,7 @@ class StudentAccountController < ApplicationController
           .joins("left join student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id")
           .where(classroom_activity_pairing_id: cap_ids)
           .where(student_user_id: @current_student_user.id)
+          .where("classroom_activity_pairings.hidden = false")
           .order("created_at DESC")
           .select("student_performances.*, classroom_activity_pairings.activity_id", "spv.id is not null as requires_verification")
           .as_json

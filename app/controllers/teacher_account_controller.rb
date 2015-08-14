@@ -345,38 +345,61 @@ class TeacherAccountController < ApplicationController
 		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
 		@activity = Activity.where({teacher_user_id: @current_teacher_user.id, id: params[:activity_id]}).first
 
-		puts @classroom.nil?
-		puts @activity.nil?
-
 		if(!@classroom.nil? && !@activity.nil?)
 
 			@classroom_activity_pairing = ClassroomActivityPairing.where({classroom_id: @classroom.id, activity_id: @activity.id}).first
 			
-			activity_status = 'no-change'
+			assignment_status = 'no-change'
+			
+
+			# wasn't assigned assigned, needs to be assigned
 			if !params[:assigned].nil? && params[:assigned].eql?('true') && @classroom_activity_pairing.nil?
 
-				@classroom_activity_pairing = ClassroomActivityPairing.new({classroom_id:@classroom.id, activity_id: @activity.id})
+				@classroom_activity_pairing = ClassroomActivityPairing.new({classroom_id:@classroom.id, activity_id: @activity.id, hidden: false})
 				if @classroom_activity_pairing.save
-					activity_status = 'success-assign'
+					assignment_status = 'success-assign'
 				else
-					activity_status = 'fail-assign'
+					assignment_status = 'fail-assign'
 				end
 
+			# was assigned, needs to be unassigned
 			elsif (params[:assigned].nil? || params[:assigned].eql?('false')) && !@classroom_activity_pairing.nil?
 
 				#TODO: under this scenario, should we get rid of all the verifications?  They effectively go away because if it gets reassigned, it will be with a different classroom_activity_pairing_id
 				if @classroom_activity_pairing.destroy
 					@classroom_activity_pairing = nil
-					activity_status = 'success-unassign'
+					assignment_status = 'success-unassign'
 				else
-					activity_status = 'fail-unassign'
+					assignment_status = 'fail-unassign'
 				end
 
 			end
 
+			
+			hidden_status = 'no-change'
 			verifications_errors = Array.new
 
 			if @classroom_activity_pairing			
+
+				#wasn't hidden, needs to be hidden
+				if !params[:hidden].nil? && params[:hidden].eql?('true') && !@classroom_activity_pairing.hidden
+					@classroom_activity_pairing.hidden = true
+					if @classroom_activity_pairing.save
+						hidden_status = 'success-hide'
+					else
+						hidden_status = 'fail-hide'
+					end
+
+				# was hidden, needs to be unhidden
+				else
+
+					@classroom_activity_pairing.hidden = false
+					if 	@classroom_activity_pairing.save
+						hidden_status = 'success-unhide'
+					else
+						hidden_status = 'fail-unhide'
+					end
+				end
 
 				verifications_hash = params[:student_performance_verification] 
 				verifications_hash ||= Hash.new
@@ -406,11 +429,11 @@ class TeacherAccountController < ApplicationController
 
 			if verifications_errors.empty?
 				
-				render json: {status: "success", activity_status: activity_status, verifications_status: "success"} 
+				render json: {status: "success", assignment_status: assignment_status, hidden_status: hidden_status, verifications_status: "success"} 
 
 			else
 
-				render json: {status: "success", activity_status: activity_status, verifications_status: "error", verification_errors: verifications_errors} 				
+				render json: {status: "success", assignment_status: assignment_status, hidden_status: hidden_status, verifications_status: "error", verification_errors: verifications_errors} 				
 
 			end			
 
@@ -645,6 +668,7 @@ class TeacherAccountController < ApplicationController
 						ca = ClassroomActivityPairing.new
 						ca.classroom_id = c.id
 						ca.activity_id = activity.id
+						ca.hidden = false
 						ca.save
 
 					end

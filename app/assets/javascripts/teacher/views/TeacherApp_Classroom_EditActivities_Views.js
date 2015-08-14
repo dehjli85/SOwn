@@ -52,16 +52,23 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 
 		  // console.log($(this.ui.assignedButton));
 		  var assigned_button = $(this.ui.assignedButton).bootstrapSwitch(options);
-		  $(this.ui.hiddenButton).bootstrapSwitch(options);
+		  var hidden_button = $(this.ui.hiddenButton).bootstrapSwitch(options);
 
 		  assigned_button.bootstrapSwitch('state', this.model.attributes.pairing);
+		  if(this.model.attributes.pairing){
+			  hidden_button.bootstrapSwitch('state', this.model.attributes.pairing.hidden);
+		  }
   		
   		var obj = this;
   		assigned_button.on('switchChange.bootstrapSwitch', function(event, state) {
 		    this.value = assigned_button.bootstrapSwitch('state');		    
 		    obj.triggerMethod("edit:activities:toggle:verification:view");
-		    console.log(obj.model);
 		  });
+		  hidden_button.on('switchChange.bootstrapSwitch', function(event, state) {
+		    this.value = hidden_button.bootstrapSwitch('state');		    
+		  });
+
+
 		  
 		}
 
@@ -184,6 +191,7 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 				this.model.attributes.classroomId, 
 				this.activityAssignmentRegion.currentView.model.attributes.activity.id,
 				this.activityAssignmentRegion.currentView.ui.assignedButton.val(),
+				this.activityAssignmentRegion.currentView.ui.hiddenButton.val(),
 				verificationsForm
 			);
 
