@@ -159,6 +159,7 @@ class TeacherAccountController < ApplicationController
 
 		student_performance_hash.each do |activity_id, student_activity_performances|
 
+			puts "classroom id: #{@classroom.id}"
 			cap = ClassroomActivityPairing.where({activity_id: activity_id, classroom_id: @classroom.id}).first
 			activity = cap.activity
 
