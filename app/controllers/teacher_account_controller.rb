@@ -159,7 +159,6 @@ class TeacherAccountController < ApplicationController
 
 		student_performance_hash.each do |activity_id, student_activity_performances|
 
-			puts "classroom id: #{@classroom.id}"
 			cap = ClassroomActivityPairing.where({activity_id: activity_id, classroom_id: @classroom.id}).first
 			activity = cap.activity
 
@@ -186,9 +185,15 @@ class TeacherAccountController < ApplicationController
 
 				elsif activity.activity_type.eql?('completion')
 
-					if(stored_performance.nil? && performance.eql?('true'))	
+					if cap.activity_id == 10 && student_user_id == 42
+						puts "performance: #{performance}"
+					end
 
-						StudentPerformance.new({classroom_activity_pairing_id: cap.id, student_user_id: student_user_id, completed_performance: true}).save
+					if(stored_performance.nil? && performance.eql?('true'))	
+						newStudentPerformance = StudentPerformance.new({classroom_activity_pairing_id: cap.id, student_user_id: student_user_id, completed_performance: true, performance_date: Time.now})
+						if(!newStudentPerformance.save)
+							errors.push(newStudentPerformance.errors)
+						end
 
 					elsif !stored_performance.nil?
 
