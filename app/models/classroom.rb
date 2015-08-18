@@ -29,7 +29,10 @@ class Classroom < ActiveRecord::Base
 			end_time = Time.now
 			puts "search_matched_pairings run time: #{end_time-start_time}"
 
-			activities = Activity.joins(:classroom_activity_pairings).where("classroom_activity_pairings.classroom_id = ?", self.id).order('classroom_activity_pairings.created_at ASC')
+			activities = Activity.joins(:classroom_activity_pairings)
+				.where("classroom_activity_pairings.classroom_id = ?", self.id)
+				.order('classroom_activity_pairings.sort_order ASC')
+				.select("activities.*, classroom_activity_pairings.sort_order, classroom_activity_pairings.id as classroom_activity_pairing_id")
 
 			sql = 'SELECT spv.student_user_id is not null as requires_verification, student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, student_performances.* 
 			FROM "student_performances" 
@@ -59,7 +62,9 @@ class Classroom < ActiveRecord::Base
 					.joins(:activity_tags)
 					.where("activity_tags.name" => tag_array)
 					.where("classroom_activity_pairings.classroom_id = ?", self.id)
-					.order('classroom_activity_pairings.created_at ASC')
+					.select("activities.*, classroom_activity_pairings.sort_order, classroom_activity_pairings.id as classroom_activity_pairing_id")
+					.order('classroom_activity_pairings.sort_order ASC')
+
 
 				sql = 'SELECT spv.student_user_id is not null as requires_verification, student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, student_performances.* 
 					FROM "student_performances" 
@@ -84,8 +89,10 @@ class Classroom < ActiveRecord::Base
 				.joins("inner join activity_tag_pairings tag_pairings on classroom_activity_pairings.activity_id = tag_pairings.activity_id")
 				.joins("inner join activity_tags tags on tag_pairings.activity_tag_id = tags.id")
 				.where("lower(tags.name) like ? or lower(activities.name) like ? or lower(activities.description) like ?" , "%#{search_hash[:search_term].downcase}%", "%#{search_hash[:search_term].downcase}%", "%#{search_hash[:search_term].downcase}%")
-				.where("classroom_activity_pairings.classroom_id = ?", self.id).distinct
-				#.order('classroom_activity_pairings.created_at ASC')
+				.where("classroom_activity_pairings.classroom_id = ?", self.id)
+				.select("activities.*, classroom_activity_pairings.sort_order, classroom_activity_pairings.id as classroom_activity_pairing_id")
+				.order('classroom_activity_pairings.sort_order ASC')
+				.distinct
 
 				sql = 'SELECT spv.student_user_id is not null as requires_verification, student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, student_performances.* 
 					FROM "student_performances" 
@@ -105,7 +112,12 @@ class Classroom < ActiveRecord::Base
 
 			elsif search_hash[:tag_id]
 
-				activities = Activity.joins(:classroom_activity_pairings).joins(:activity_tags).where("activity_tags.id = ?", search_hash[:tag_id]).where("classroom_activity_pairings.classroom_id = ?", self.id).order('classroom_activity_pairings.created_at ASC')
+				activities = Activity.joins(:classroom_activity_pairings)
+				.joins(:activity_tags)
+				.where("activity_tags.id = ?", search_hash[:tag_id])
+				.where("classroom_activity_pairings.classroom_id = ?", self.id)
+				.select("activities.*, classroom_activity_pairings.sort_order, classroom_activity_pairings.id as classroom_activity_pairing_id")
+				.order('classroom_activity_pairings.sort_order ASC')
 
 
 				sql = 'SELECT spv.student_user_id is not null as requires_verification, student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, student_performances.* 

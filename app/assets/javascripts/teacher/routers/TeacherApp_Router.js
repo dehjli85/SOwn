@@ -17,7 +17,6 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 
 	var API = {		
 		showHeaderAndLeftNavViews: function(){
-			console.log(TeacherAccount.getCurrentRoute());
 			var subapp;
 			if(TeacherAccount.getCurrentRoute().match("classrooms") != null){
 				subapp = "classrooms"
@@ -28,7 +27,6 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			else if(TeacherAccount.getCurrentRoute().match("activities/") != null){
 				subapp = "activities"		
 			}
-			console.log(subapp);
 			TeacherApp.Main.Controller.showHeaderAndLeftNavViews(subapp);			
 		},
 
@@ -83,7 +81,6 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 	};
 
 	TeacherAccount.on("classrooms", function(){
-		console.log("heard classrooms");
 		TeacherAccount.navigate("classrooms");
 		API.showClassroomOverviews();
 	})

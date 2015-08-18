@@ -19,7 +19,7 @@
   <div class="form-group">            
     <label for="input" class="col-sm-3 control-label">Hidden:</label>
     <div class="col-sm-6 switch">              
-      <input id="hidden" name="hidden" type="checkbox" value="false" ui-hidden-button>               
+      <input <% if(pairing != null && pairing.hidden) {%> checked="checked" <%}%> id="hidden" name="hidden" type="checkbox" value="false" ui-hidden-button>               
     </div>
   </div>
 

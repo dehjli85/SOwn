@@ -11,6 +11,8 @@
  * file per style scope.
  *
  *= require bootstrap3-switch
+ *= require jquery-ui
+ *= require dragtable
  *= require_tree .
  *= require_self
  */

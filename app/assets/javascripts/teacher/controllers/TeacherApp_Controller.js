@@ -39,7 +39,6 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 			TeacherAccount.navigate('classroom/' + subapp + '/' + classroomId);
 
 			var classroomLayoutView = TeacherAccount.TeacherApp.Classroom.Controller.showClassroomLayout(classroomId);
-			console.log(classroomLayoutView);
 
 			TeacherAccount.TeacherApp.Classroom.Controller.showClassroomHeader(classroomLayoutView,classroomId, subapp);
 

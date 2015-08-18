@@ -145,7 +145,7 @@ class TeacherAccountController < ApplicationController
 		end
 
 		@students = @classroom.student_users		
-		
+
 		render json: {status: "success", students: @students, activities: @search_matched_pairings_and_activities[:activities], student_performances: performance_array, classroom: @classroom}
 
 	end
@@ -291,6 +291,43 @@ class TeacherAccountController < ApplicationController
 
 	end
 
+	def save_activities_sort_order
+
+		classroom_activities_sorted = params[:classroom_activities_sorted]
+
+		errors = Array.new
+		classroom_activities_sorted.each do |index, value|
+
+			cap = ClassroomActivityPairing.where({id: value}).first
+
+			puts "index: #{index}, value: #{value}"
+			if cap
+				
+				cap.sort_order = index
+				if !cap.save
+					errors.push(cap.errors)
+				end
+
+			else
+
+				errors.push({"id" => "invalid classroom activity pairing"})
+
+			end
+
+		end
+
+		if errors.empty?
+
+			render json: {status: "success"}
+
+		else
+
+			render json: {status: "error", errors: errors}
+
+		end
+		
+	end
+
 	#################################################################################
 	#
 	# Activities App Methods
@@ -351,38 +388,62 @@ class TeacherAccountController < ApplicationController
 		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
 		@activity = Activity.where({teacher_user_id: @current_teacher_user.id, id: params[:activity_id]}).first
 
-		puts @classroom.nil?
-		puts @activity.nil?
-
 		if(!@classroom.nil? && !@activity.nil?)
 
 			@classroom_activity_pairing = ClassroomActivityPairing.where({classroom_id: @classroom.id, activity_id: @activity.id}).first
 			
-			activity_status = 'no-change'
+			assignment_status = 'no-change'
+			
+
+			# wasn't assigned assigned, needs to be assigned
 			if !params[:assigned].nil? && params[:assigned].eql?('true') && @classroom_activity_pairing.nil?
 
-				@classroom_activity_pairing = ClassroomActivityPairing.new({classroom_id:@classroom.id, activity_id: @activity.id})
+				@classroom_activity_pairing = ClassroomActivityPairing.new({classroom_id:@classroom.id, activity_id: @activity.id, hidden: false})
+				@classroom_activity_pairing.sort_order = ClassroomActivityPairing.max_sort_order(@classroom.id)+1
 				if @classroom_activity_pairing.save
-					activity_status = 'success-assign'
+					assignment_status = 'success-assign'
 				else
-					activity_status = 'fail-assign'
+					assignment_status = 'fail-assign'
 				end
 
+			# was assigned, needs to be unassigned
 			elsif (params[:assigned].nil? || params[:assigned].eql?('false')) && !@classroom_activity_pairing.nil?
 
 				#TODO: under this scenario, should we get rid of all the verifications?  They effectively go away because if it gets reassigned, it will be with a different classroom_activity_pairing_id
 				if @classroom_activity_pairing.destroy
 					@classroom_activity_pairing = nil
-					activity_status = 'success-unassign'
+					assignment_status = 'success-unassign'
 				else
-					activity_status = 'fail-unassign'
+					assignment_status = 'fail-unassign'
 				end
 
 			end
 
+			
+			hidden_status = 'no-change'
 			verifications_errors = Array.new
 
 			if @classroom_activity_pairing			
+
+				#wasn't hidden, needs to be hidden
+				if !params[:hidden].nil? && params[:hidden].eql?('true') && !@classroom_activity_pairing.hidden
+					@classroom_activity_pairing.hidden = true
+					if @classroom_activity_pairing.save
+						hidden_status = 'success-hide'
+					else
+						hidden_status = 'fail-hide'
+					end
+
+				# was hidden, needs to be unhidden
+				else
+
+					@classroom_activity_pairing.hidden = false
+					if 	@classroom_activity_pairing.save
+						hidden_status = 'success-unhide'
+					else
+						hidden_status = 'fail-unhide'
+					end
+				end
 
 				verifications_hash = params[:student_performance_verification] 
 				verifications_hash ||= Hash.new
@@ -412,11 +473,11 @@ class TeacherAccountController < ApplicationController
 
 			if verifications_errors.empty?
 				
-				render json: {status: "success", activity_status: activity_status, verifications_status: "success"} 
+				render json: {status: "success", assignment_status: assignment_status, hidden_status: hidden_status, verifications_status: "success"} 
 
 			else
 
-				render json: {status: "success", activity_status: activity_status, verifications_status: "error", verification_errors: verifications_errors} 				
+				render json: {status: "success", assignment_status: assignment_status, hidden_status: hidden_status, verifications_status: "error", verification_errors: verifications_errors} 				
 
 			end			
 
@@ -482,7 +543,6 @@ class TeacherAccountController < ApplicationController
 			activity["tags"] = Array.new
 		end
 
-		puts activities_indices
 		tags.each do |tag|
 			index = activities_indices[tag["activity_id"]]			
 			activities[index]["tags"].push(tag)
@@ -494,7 +554,7 @@ class TeacherAccountController < ApplicationController
 
 	def save_new_activity
 
-		@activity = Activity.new(params.require(:activity).permit(:name, :description, :instructions, :activity_type, :min_score, :max_score, :benchmark1_score, :benchmark2_score))
+		@activity = Activity.new(params.require(:activity).permit(:name, :description, :instructions, :activity_type, :min_score, :max_score, :benchmark1_score, :benchmark2_score, :link))
 		@activity.teacher_user_id = @current_teacher_user.id
 
 		tag_errors = Array.new
@@ -556,7 +616,7 @@ class TeacherAccountController < ApplicationController
 		@activity = Activity.where({teacher_user_id: @current_teacher_user.id, id: params[:id]}).first
 
 		if !@activity.nil?
-			@activity.update(params.require(:activity).permit(:name, :description, :instructions, :activity_type, :min_score, :max_score, :benchmark1_score, :benchmark2_score))
+			@activity.update(params.require(:activity).permit(:name, :description, :instructions, :activity_type, :min_score, :max_score, :benchmark1_score, :benchmark2_score, :link))
 
 			if(@activity.save)
 
@@ -651,6 +711,8 @@ class TeacherAccountController < ApplicationController
 						ca = ClassroomActivityPairing.new
 						ca.classroom_id = c.id
 						ca.activity_id = activity.id
+						ca.hidden = false
+						ca.sort_order = ClassroomActivityPairing.max_sort_order(c.id)+1
 						ca.save
 
 					end

@@ -5,7 +5,7 @@
     <label for="inputName" class="col-sm-2 control-label">Name:</label>
     <div class="col-sm-5">
     	<% if(errors.name != null){%><div class="field_with_errors"><%}%>
-      <input class="form-control" id="inputName" name="activity[name]" placeholder="" type="text" value="<%= name %>" ui-name-input>
+      <input class="form-control" id="inputName" name="activity[name]" placeholder="Multiplication Lesson" type="text" value="<%= name %>" ui-name-input>
       <% if(errors.name != null){%>
       	<label class="control-label" for="inputName">Name <%= errors.name[0] %></label>
     		</div>
@@ -14,18 +14,25 @@
   </div>
 
 
-    <div class="form-group form-group-sm">
+  <div class="form-group form-group-sm">
     <label for="inputDescription" class="col-sm-2 control-label">Description:</label>
     <div class="col-sm-5">
-      <textarea class="form-control" id="inputDescription" name="activity[description]" placeholder="" ui-description-input><%= description %></textarea>
+      <textarea class="form-control" id="inputDescription" name="activity[description]" placeholder="Online Math Lesson from Khan Academy" ui-description-input><%= description %></textarea>
     </div>
   </div>
   
   
-    <div class="form-group form-group-sm">
+  <div class="form-group form-group-sm">
     <label for="inputInstructions" class="col-sm-2 control-label">Mastery Goal:</label>    
     <div class="col-sm-5">      
-      <textarea class="form-control" id="inputInstructions" name="activity[instructions]" placeholder="" ui-instructions-input><%= instructions %></textarea>
+      <textarea class="form-control" id="inputInstructions" name="activity[instructions]" placeholder="90% correct" ui-instructions-input><%= instructions %></textarea>
+    </div>
+  </div>
+
+  <div class="form-group form-group-sm">
+    <label for="inputLink" class="col-sm-2 control-label">Link to Assignment:</label>    
+    <div class="col-sm-5">      
+      <input class="form-control" id="inputName" name="activity[link]" placeholder="http://www.example.com/activity10" type="text" value="<%= link %>" ui-link-input>
     </div>
   </div>
 

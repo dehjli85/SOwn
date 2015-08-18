@@ -43,7 +43,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			modalRegion: "#classroom_modal_region"
 		},
 
-		onChildviewActivitiesCompositeShowTrackModal: function(view){
+		onChildviewActivitiesLayoutShowTrackModal: function(view){
 			this.ui.modalRegion.modal("show");
 			StudentAccount.StudentApp.Classroom.Controller.openTrackModal(this,view.model.get("classroom_activity_pairing_id"));
 		},
@@ -52,9 +52,14 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			StudentAccount.StudentApp.Classroom.Controller.savePerformance(this, view, view.ui.performanceForm);
 		},
 
-		onChildviewActivitiesCompositeShowSeeAllModal: function(view){
+		onChildviewActivitiesLayoutShowSeeAllModal: function(view){
 			this.ui.modalRegion.modal("show");
 			StudentAccount.StudentApp.Classroom.Controller.openSeeAllModal(this,view.model.get("classroom_activity_pairing_id"));
+		},
+
+		onChildviewActivitiesLayoutShowActivityDetailsModal: function(view){
+			this.ui.modalRegion.modal("show");
+			StudentAccount.StudentApp.Classroom.Controller.openActivityDetailsModal(this, view.model.get("classroom_activity_pairing_id"));
 		}
 		
 	});
@@ -68,12 +73,14 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 		ui:{
 			trackButton: "[ui-track-button]",
-			seeAllButton: "[ui-see-all-a]"
+			seeAllButton: "[ui-see-all-a]",
+			nameLink: "[ui-name-a]"
 		},
 
 		triggers:{
-			"click @ui.trackButton": "activities:composite:show:track:modal",
-			"click @ui.seeAllButton": "activities:composite:show:see:all:modal"
+			"click @ui.trackButton": "activities:layout:show:track:modal",
+			"click @ui.seeAllButton": "activities:layout:show:see:all:modal",
+			"click @ui.nameLink": "activities:layout:show:activity:details:modal"
 		}
 		
 	});
@@ -425,6 +432,26 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	        .call(yAxis);
 
 		}
+
+	});
+
+	Classroom.ActivityDetailsModalView = Marionette.ItemView.extend({
+		template: JST ["student/templates/StudentApp_Classroom_ActivityDetailsModal"],
+		className: "modal-dialog",
+
+		ui:{
+
+		},
+
+		triggers:{
+
+		},
+
+		initialize: function(options){
+			this.$el.attr("role","document");			
+
+		},
+
 
 	});
 

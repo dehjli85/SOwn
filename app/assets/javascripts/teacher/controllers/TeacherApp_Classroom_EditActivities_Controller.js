@@ -90,23 +90,23 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 
 		},
 
-		saveActivityAssignmentAndVerifications: function(editActivitiesLayoutView, classroomId, activityId, activityAssigned, verificationsForm){
-			console.log(classroomId);
+		saveActivityAssignmentAndVerifications: function(editActivitiesLayoutView, classroomId, activityId, activityAssigned, activityHidden, verificationsForm){
 			var postUrl = "/teacher/save_teacher_activity_assignment_and_verifications"
-			var postParams = "classroom_id=" + classroomId + "&activity_id=" + activityId + "&assigned=" + activityAssigned;
+			var postParams = "classroom_id=" + classroomId 
+				+ "&activity_id=" + activityId 
+				+ "&assigned=" + activityAssigned
+				+ "&hidden=" + activityHidden;
 			if (verificationsForm != null)
 				postParams +=  "&" + verificationsForm.serialize();
 
-			console.log(postParams);
 
 			var jqxhr = $.post(postUrl, postParams, function(){
 				console.log('get request for classroom activities made');
 			})
 			.done(function(data) {
 
-				console.log(data);
 
-				if(data.activity_status == 'no-change' || data.activity_status == 'success-assign' || data.activity_status == 'success-unassign'){
+				if(data.assignment_status == 'no-change' || data.assignment_status == 'success-assign' || data.assignment_status == 'success-unassign'){
 					var alertModel = new TeacherAccount.TeacherApp.Classroom.EditActivities.Models.Alert({message: "Successfully Saved!", alertClass: "alert-success"});
 					var alertView = new TeacherAccount.TeacherApp.Classroom.EditActivities.AlertView({model: alertModel});
 					editActivitiesLayoutView.alertRegion.show(alertView);
