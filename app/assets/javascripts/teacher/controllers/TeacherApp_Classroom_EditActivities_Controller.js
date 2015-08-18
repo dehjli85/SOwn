@@ -91,7 +91,6 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 		},
 
 		saveActivityAssignmentAndVerifications: function(editActivitiesLayoutView, classroomId, activityId, activityAssigned, activityHidden, verificationsForm){
-			console.log(classroomId);
 			var postUrl = "/teacher/save_teacher_activity_assignment_and_verifications"
 			var postParams = "classroom_id=" + classroomId 
 				+ "&activity_id=" + activityId 
@@ -100,14 +99,12 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 			if (verificationsForm != null)
 				postParams +=  "&" + verificationsForm.serialize();
 
-			console.log(postParams);
 
 			var jqxhr = $.post(postUrl, postParams, function(){
 				console.log('get request for classroom activities made');
 			})
 			.done(function(data) {
 
-				console.log(data);
 
 				if(data.assignment_status == 'no-change' || data.assignment_status == 'success-assign' || data.assignment_status == 'success-unassign'){
 					var alertModel = new TeacherAccount.TeacherApp.Classroom.EditActivities.Models.Alert({message: "Successfully Saved!", alertClass: "alert-success"});

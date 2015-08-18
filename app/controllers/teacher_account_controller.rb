@@ -145,7 +145,7 @@ class TeacherAccountController < ApplicationController
 		end
 
 		@students = @classroom.student_users		
-		
+
 		render json: {status: "success", students: @students, activities: @search_matched_pairings_and_activities[:activities], student_performances: performance_array, classroom: @classroom}
 
 	end
@@ -285,6 +285,43 @@ class TeacherAccountController < ApplicationController
 
 	end
 
+	def save_activities_sort_order
+
+		classroom_activities_sorted = params[:classroom_activities_sorted]
+
+		errors = Array.new
+		classroom_activities_sorted.each do |index, value|
+
+			cap = ClassroomActivityPairing.where({id: value}).first
+
+			puts "index: #{index}, value: #{value}"
+			if cap
+				
+				cap.sort_order = index
+				if !cap.save
+					errors.push(cap.errors)
+				end
+
+			else
+
+				errors.push({"id" => "invalid classroom activity pairing"})
+
+			end
+
+		end
+
+		if errors.empty?
+
+			render json: {status: "success"}
+
+		else
+
+			render json: {status: "error", errors: errors}
+
+		end
+		
+	end
+
 	#################################################################################
 	#
 	# Activities App Methods
@@ -356,6 +393,7 @@ class TeacherAccountController < ApplicationController
 			if !params[:assigned].nil? && params[:assigned].eql?('true') && @classroom_activity_pairing.nil?
 
 				@classroom_activity_pairing = ClassroomActivityPairing.new({classroom_id:@classroom.id, activity_id: @activity.id, hidden: false})
+				@classroom_activity_pairing.sort_order = ClassroomActivityPairing.max_sort_order(@classroom.id)+1
 				if @classroom_activity_pairing.save
 					assignment_status = 'success-assign'
 				else
@@ -499,7 +537,6 @@ class TeacherAccountController < ApplicationController
 			activity["tags"] = Array.new
 		end
 
-		puts activities_indices
 		tags.each do |tag|
 			index = activities_indices[tag["activity_id"]]			
 			activities[index]["tags"].push(tag)
@@ -669,6 +706,7 @@ class TeacherAccountController < ApplicationController
 						ca.classroom_id = c.id
 						ca.activity_id = activity.id
 						ca.hidden = false
+						ca.sort_order = ClassroomActivityPairing.max_sort_order(c.id)+1
 						ca.save
 
 					end

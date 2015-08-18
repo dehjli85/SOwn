@@ -58,3 +58,5 @@ gem 'rails_12factor', group: :production
 
 gem 'google-api-client'
 
+gem 'jquery-ui-rails'
+

@@ -57,7 +57,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		initialize : function (options) {
 	    this.model.attributes.parentActivities = options.activities;
-	    console.log(this.model);	    
 
 	  }
 	});
@@ -101,12 +100,11 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		events: {
-			"click .activity_header": "sortActivityHeader",
+			"dblclick .activity_header": "sortActivityHeader",
 			"click @ui.studentHeader": "sortByName"
 		},
 
 		sortByName: function(){
-			console.log(this.collection);
 			this.collection.comparator = function(item){
 				return [item.get("student").last_name, item.get("student").first_name];
 				
@@ -117,7 +115,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		sortActivityHeader: function(e){
 
 			index = parseInt($(e.target).attr("id").replace("header_",""));
-			console.log(index);
 			
 			this.collection.comparator = function(item){
 				
@@ -129,7 +126,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 					}				
 					else if (item.attributes.student_performance[index].activity_type == 'completion'){
 						if(item.attributes.student_performance[index].completed_performance == 't'){
-							console.log('completed!');
 							return 0;
 						}							
 						else{
@@ -141,21 +137,70 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 					}
 
 				}
-				else
+				else{
 					return Number.MAX_VALUE;
-
+				}
 			};
 
 			this.collection.sort();
+			this.render();
 			// console.log(this.collection);	
 		},
 
-		initialize: function(){
-		//TODO: THIS IS A HACK, FIND THE WAY TO GET THE COLLECTION SIZE IN A COMPOSITE VIEW AND GET RID OF THIS
+		initialize: function(model, collection){
+			//TODO: THIS IS A HACK, FIND THE WAY TO GET THE COLLECTION SIZE IN A COMPOSITE VIEW AND GET RID OF THIS
 			if(this.model == null){
 				this.model = new Backbone.Model({});
 			}
 			this.model.attributes.collectionSize = this.collection.length;
+
+			//create a data structure for storing the sorted list of activities
+			this.model.attributes.activitiesSortOrder = [];
+			for(var i=0; i < this.model.attributes.activities.length; i++){
+				this.model.attributes.activitiesSortOrder[i] = this.model.attributes.activities[i].classroom_activity_pairing_id;
+			}
+
+			// this.model.attributes.searchTerm = options.searchTerm
+			// this.model.attributes.tagId = options.tagId
+
+			// console.log(options);
+			console.log(this.model.attributes);
+
+		},
+
+		onRender: function(){
+			// if(this.model.attributes.searchTerm == null && this.model.attributes.tagId == null)
+				this.initializeDragTable();
+		},
+
+		onShow: function(){
+			// if(this.model.attributes.searchTerm == null && this.model.attributes.tagId == null)
+				this.initializeDragTable();
+		},
+
+		initializeDragTable: function(){
+			var obj = this;
+			$('#perf_table').dragtable(
+				{
+					persistState: function(table){
+						obj.saveActivitiesSortOrder(table, obj);
+					}
+				}
+			);
+		},
+
+		saveActivitiesSortOrder: function(table, obj){
+			table.el.find('th').each(function(i) { 
+	      if(this.id != '') {
+	      	table.sortOrder["classroom_activities_sorted[" + (i-1) +"]"]=$(this).attr("name");
+	      } 
+	    }); 
+	    obj.model.attributes.activitiesSortOrder = table.sortOrder
+	    // console.log(obj.model.attributes);
+			if((obj.model.attributes.searchTerm == null || obj.model.attributes.searchTerm == "") && obj.model.attributes.tagId == null){
+	    	this.triggerMethod("save:activities:sort:order");
+			}
+
 		}
 
 	});
@@ -171,6 +216,10 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		ui: {
 			modalRegion: "#modal_region"
+		},
+
+		childViewOptions: function(model, index){			
+			return {searchTerm: this.model.attributes.searchTerm, tagId: this.model.attributes.tagId}
 		},
 
 		onChildviewFilterSearchClassroomScoresView: function(view){
@@ -189,7 +238,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		onChildviewScoresLayoutOpenVerifyModal: function(view){
-			console.log(view);
 			TeacherAccount.TeacherApp.Classroom.Scores.Controller.showVerifyModal(this, view.model.get("studentPerformanceId"));
 		},
 
@@ -199,6 +247,12 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		onChildviewSaveClassroomScores: function(view){			
 			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveClassroomScores(this, view.ui.studentPerformanceForm);
+		},
+
+		onChildviewSaveActivitiesSortOrder: function(view){
+
+	    TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveActivitiesSortOrder(this, view, view.model.attributes.activitiesSortOrder);
+
 		}
 
 	});
