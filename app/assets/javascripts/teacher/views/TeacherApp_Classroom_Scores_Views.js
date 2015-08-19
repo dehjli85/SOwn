@@ -80,6 +80,14 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			"submit @ui.studentPerformanceForm": "saveClassroomScores"
 		},
 
+		initialize: function(){
+		//TODO: THIS IS A HACK, FIND THE WAY TO GET THE COLLECTION SIZE IN A COMPOSITE VIEW AND GET RID OF THIS
+			if(this.model == null){
+				this.model = new Backbone.Model({});
+			}
+			this.model.attributes.collectionSize = this.collection.length;
+		}
+
 		
 
 		
