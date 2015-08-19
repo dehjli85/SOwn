@@ -249,6 +249,7 @@ class PublicPagesController < ApplicationController
 
 		session[:teacher_user_id] = nil
     session[:student_user_id] = nil
+    session[:admin_user_id] = nil
     redirect_to root_path
 		
 	end

@@ -1,0 +1,27 @@
+<div class="row">
+	<form class="form-inline" ui-search-form>
+		<div class="form-group">
+			<label>Search for a user:</label>
+			<input type="search" class="form-control" placeholder="John Doe" style="width:500px" name="searchTerm"> 
+		</div>
+		<button type="submit" class="btn btn-primary">Search</button>
+</form>
+</div>
+
+<div class="row">
+	<% if(searchTerm != null && searchTerm != "") { %>
+		<table class="table table-bordered" style="margin-top:15px;">
+			<thead>
+				<th>Id</th>
+				<th>User Type</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email</th>
+				<th>Actions</th>
+			</thead>
+			<tbody>
+
+			</tbody>
+		</table>
+	<% } %>
+</div>

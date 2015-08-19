@@ -115,6 +115,14 @@ Rails.application.routes.draw do
   get 'student/activity_and_performances' => 'student_account#activity_and_performances'
 
 
+  #admin routes
+  get 'admin' => 'admin#home'
+  get 'admin/logged_in' => 'admin#logged_in'
+  post 'admin/google_login_post' => 'admin#google_login_post'
+  post 'admin/search_users' => 'admin#search_users'
+  get 'admin/sign_out' => 'admin#sign_out'
+  post 'admin/become_user' => 'admin#become_user'
+
   #old routes
   get 'student_home_old' => 'student_account#home'
   get 'teacher_home_old' => 'teacher_account#home'
