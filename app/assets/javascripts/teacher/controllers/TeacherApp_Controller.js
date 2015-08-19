@@ -7,13 +7,13 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 		showHeaderAndLeftNavViews: function(subapp){
 
 			//get user model data and create the header
-			var jqxhr = $.get("/current_teacher_user", function(){
+			var jqxhr = $.get("/current_user", function(){
 				console.log('get request made for teacher user data');
 			})
 			.done(function(data) {
 	     	
 	     	//fetch user model and create header
-	     	var user = new TeacherAccount.Models.TeacherUser(data.teacher);
+	     	var user = new Backbone.Model({teacher: data.teacher, student: data.student});
 				var headerView = new TeacherAccount.TeacherApp.HeaderView({model:user});				
 				TeacherAccount.rootView.headerRegion.show(headerView);
 
@@ -149,6 +149,10 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 		  .always(function() {
 		   
 			});	
+		},
+
+		showStudentView: function(){
+			window.location.replace("student_home");
 		}
 
 	

@@ -36,6 +36,7 @@ class TeacherAccountController < ApplicationController
 		
 	end
 
+
 	#return the json object representing a classroom with the specified id for the logged in user
 	def classroom
 		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first

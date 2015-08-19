@@ -5,7 +5,19 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 	TeacherApp.HeaderView = Marionette.ItemView.extend({				
 		template: JST["teacher/templates/TeacherApp_Header"],
 		tagName: "nav",
-		className: "navbar navbar-inverse navbar-fixed-top"
+		className: "navbar navbar-inverse navbar-fixed-top",
+
+		ui: {
+			switchAccountLink: "[ui-switch-account-link]"
+		},
+
+		triggers:{
+			"click @ui.switchAccountLink": "show:student:view",
+		},
+
+		onShowStudentView: function(){
+			TeacherApp.Main.Controller.showStudentView();
+		}
 			
 	});
 

@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :student_performance_verifications
 
-  get 'student_account/home'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -59,6 +57,9 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
+  # application routes
+  get 'current_user' => 'application#current_user_json'
+
   # public pages routes  
   post 'login_post' => 'public_pages#login_post'
   post 'teacher_google_sign_up' => 'public_pages#teacher_google_sign_up'
@@ -74,6 +75,7 @@ Rails.application.routes.draw do
   get 'current_teacher_user' => 'teacher_account#current_teacher_user'
   post 'teacher/update_classroom' => 'teacher_account#update_classroom'
   post 'teacher/save_new_classroom' => 'teacher_account#save_new_classroom'
+
   
   # teacher/classrooms app routes
   get 'classrooms_summary' => 'teacher_account#classrooms_summary'
@@ -137,5 +139,7 @@ Rails.application.routes.draw do
   resources :activity_tags
   resources :teacher_users
   resources :student_users
+  resources :student_performance_verifications
+
 
 end

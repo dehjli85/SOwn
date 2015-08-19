@@ -7,13 +7,13 @@ StudentAccount.module("StudentApp.Main", function(Main, StudentAccount, Backbone
 		showHeaderAndLeftNavViews: function(){
 
 			//get user model data and create the header
-			var jqxhr = $.get("/current_student_user", function(){
+			var jqxhr = $.get("/current_user", function(){
 				console.log('get request made for student user data');
 			})
 			.done(function(data) {
 
 	     	//fetch user model and create header
-	     	var user = new StudentAccount.Models.StudentUser(data.student);
+	     	var user = new StudentAccount.Models.StudentUser({student:data.student, teacher: data.teacher});
 				var headerView = new StudentAccount.StudentApp.HeaderView({model:user});				
 				StudentAccount.rootView.headerRegion.show(headerView);
 
@@ -57,6 +57,10 @@ StudentAccount.module("StudentApp.Main", function(Main, StudentAccount, Backbone
 
 			}
 			
+		},
+
+		showTeacherView: function(){
+			window.location.replace("teacher_home");
 		}
 	
 	}
