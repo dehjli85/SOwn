@@ -72,7 +72,11 @@ class TeacherAccountController < ApplicationController
 
 		@current_teacher_user.default_view_student = params[:default_view_student]
 
+		puts "current_teacher: #{@current_teacher_user.default_view_student}"
+
 		if @current_teacher_user.save
+
+			puts "after save current_teacher: #{@current_teacher_user.default_view_student}"
 
 			render json: {status: "success"}
 
