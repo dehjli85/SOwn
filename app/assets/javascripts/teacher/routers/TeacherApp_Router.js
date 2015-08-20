@@ -11,7 +11,8 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			"classroom/edit_classroom/:id": "showClassroomEditClassroom",
 			"activities/index": "showActivitiesIndex",
 			"activities/new": "showActivitiesNew",
-			"activities/:id/edit": "showActivitiesEdit"
+			"activities/:id/edit": "showActivitiesEdit",
+			"settings": "showSettings"
 		}
 	});
 
@@ -76,7 +77,15 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 
 		showActivitiesEdit: function(id){
 			TeacherApp.Main.Controller.startActivitiesApp('edit', id);
-		}
+		},
+
+		/**
+		 *  Settings Subapp
+		 */
+
+		 showSettings: function(){
+		 	TeacherApp.Main.Controller.startSettingsApp();
+		 }
 
 	};
 

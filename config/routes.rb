@@ -76,6 +76,8 @@ Rails.application.routes.draw do
   post 'teacher/update_classroom' => 'teacher_account#update_classroom'
   post 'teacher/save_new_classroom' => 'teacher_account#save_new_classroom'
 
+  # teacher/settings routes
+  post 'teacher/delete_account' => 'teacher_account#delete_account'
   
   # teacher/classrooms app routes
   get 'classrooms_summary' => 'teacher_account#classrooms_summary'
@@ -117,13 +119,15 @@ Rails.application.routes.draw do
   get 'student/activity_and_performances' => 'student_account#activity_and_performances'
 
 
-  #admin routes
+  # admin routes
   get 'admin' => 'admin#home'
   get 'admin/logged_in' => 'admin#logged_in'
   post 'admin/google_login_post' => 'admin#google_login_post'
   post 'admin/search_users' => 'admin#search_users'
   get 'admin/sign_out' => 'admin#sign_out'
   post 'admin/become_user' => 'admin#become_user'
+
+  
 
   #old routes
   get 'student_home_old' => 'student_account#home'

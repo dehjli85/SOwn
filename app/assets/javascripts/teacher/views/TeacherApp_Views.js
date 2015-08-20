@@ -8,11 +8,13 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 		className: "navbar navbar-inverse navbar-fixed-top",
 
 		ui: {
-			switchAccountLink: "[ui-switch-account-link]"
+			switchAccountLink: "[ui-switch-account-link]",
+			settingsLink: "[ui-settings-link]"
 		},
 
 		triggers:{
 			"click @ui.switchAccountLink": "show:student:view",
+			"click @ui.settingsLink": "start:settings:app"
 		},
 
 		onShowStudentView: function(){
@@ -63,24 +65,28 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 		},
 
 		onChildviewTeacherappStartClassroomAppScores: function(view){
-			console.log("LayoutView: heard show:classroom:view");			
-			
-			//start the classroom app in the main region, have it display the scores
 
 			TeacherAccount.TeacherApp.Main.Controller.startClassroomApp(view.model.id, 'scores');
-
 
 		},
 
 		onChildviewStartActivitiesApp: function(view){
+			
 			TeacherAccount.TeacherApp.Main.Controller.startActivitiesApp("index");
 		},
 
-		onChildviewShowNewClassForm: function(view){
-			TeacherAccount.navigate("classroom/new");
+		onChildviewShowNewClassForm: function(view){			
 
 			TeacherAccount.TeacherApp.Main.Controller.showClassroomNew();
+
+		},
+
+		onChildviewStartSettingsApp: function(view){
+
+			TeacherAccount.TeacherApp.Main.Controller.startSettingsApp();
+
 		}
+
 	});
 
 	TeacherApp.AlertView = Marionette.ItemView.extend({

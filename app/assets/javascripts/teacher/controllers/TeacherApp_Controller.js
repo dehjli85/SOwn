@@ -86,7 +86,17 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 
 		},
 
+		startSettingsApp: function(){
+
+			TeacherAccount.navigate("settings");
+
+			TeacherAccount.TeacherApp.Settings.Controller.showSettingsOptions();
+
+		},
+
 		showClassroomNew: function(){
+
+			TeacherAccount.navigate("classroom/new");			
 			
 			var classroom = new TeacherAccount.Models.Classroom({
 				name: "",

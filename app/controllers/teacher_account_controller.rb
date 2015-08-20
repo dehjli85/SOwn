@@ -37,6 +37,37 @@ class TeacherAccountController < ApplicationController
 	end
 
 
+	#################################################################################
+	#
+	# Settings App Methods
+	#
+	#################################################################################
+
+	def delete_account
+
+		if !(@current_teacher_user.id.eql?(params[:teacher_user_id].to_i))
+
+			render json: {status: "error", message: "user-not-logged-in"}
+
+		else
+
+			@current_teacher_user.email = "sowntogrow_deleted_teacher_" + @current_teacher_user.id.to_s + "@sowntogrow.com"
+			if @current_teacher_user.save
+				session[:teacher_user_id] = nil
+				session[:student_user_id] = nil
+
+				render json: {status: "success"}
+
+			else
+
+				render json: {status: "error", message: "unable-to-disable-account"}
+
+			end
+
+		end
+		
+	end
+
 	#return the json object representing a classroom with the specified id for the logged in user
 	def classroom
 		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
