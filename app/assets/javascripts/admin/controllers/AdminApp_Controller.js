@@ -62,7 +62,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 					
 		},
 
-		searchUsers: function(userIndexComposite, searchForm){
+		searchUsers: function(userIndexComposite, searchForm, adminLayoutView){
 
 			var postUrl = "/admin/search_users";						
 			var postData = searchForm.serialize();
@@ -83,9 +83,13 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 					userIndexComposite.render();
 
 		    }
-		    else{
-		    	
+		    else if (data.status == "error"){
+		    	if(data.message == "invalid-admin-user"){
+		    		console.log("display error message")
+		    		adminLayoutView.flashErrorMessage({message_type: "error", message: "Error: You are not logged in as in Admin User"});
+		    	}
 		    }
+
 	     	
 	     	
 		  })
@@ -98,7 +102,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 
 		},
 
-		becomeUser: function(userModel){
+		becomeUser: function(userModel, adminLayoutView){
 
 			var postUrl = "admin/become_user";
 			var postData = "user_id=" + userModel.attributes.id + "&user_type=" + userModel.attributes.user_type
@@ -108,11 +112,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			})
 			.done(function(data) {
 
-				console.log(data);
-
-				if (data.status === 'success'){		    
-
-					console.log(userModel);
+				if (data.status == 'success'){		    
 
 					if(userModel.attributes.user_type == "teacher")
 						window.open("teacher_home", "_blank");
@@ -120,8 +120,11 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 						window.open("student_home", "_blank");
 
 		    }
-		    else{
-		    	
+		    else if (data.status == "error"){
+		    	if(data.message == "invalid-admin-user"){
+		    		console.log("display error message")
+		    		adminLayoutView.flashErrorMessage({message_type: "error", message: "Error: You are not logged in as in Admin User"});
+		    	}
 		    }
 	     	
 	     	
@@ -133,7 +136,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 		   
 			});
 
-		}
+		},
 
 	}	
 

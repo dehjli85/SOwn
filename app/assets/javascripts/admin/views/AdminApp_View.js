@@ -19,6 +19,14 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 				var errorView = new AdminApp.AlertView({model: errorModel});
 				this.alertRegion.show(errorView);
 			},
+
+			onChildviewBecomeUser: function(view){
+				AdminApp.Controller.becomeUser(view.model, this);
+			},
+
+			onChildviewSearchUsers: function(view){
+				AdminApp.Controller.searchUsers(view, view.ui.searchForm, this );
+			}
 			
 
 	});
@@ -68,17 +76,14 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			},
 
 			events:{
+
+			},
+
+			triggers:{
 				"submit @ui.searchForm": "searchUsers"
-			},
-
-			searchUsers: function(e){
-				e.preventDefault();
-				AdminApp.Controller.searchUsers(this, this.ui.searchForm );
-			},
-
-			onChildviewBecomeUser: function(view){
-				AdminApp.Controller.becomeUser(view.model);
 			}
+
+			
 			
 
 	});
