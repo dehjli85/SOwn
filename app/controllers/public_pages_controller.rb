@@ -33,14 +33,13 @@ class PublicPagesController < ApplicationController
 				user_type = @teacher_user.default_view_student ? "student" : "teacher"
 				format.json { render json: {login_response: "success", user_type: user_type, error: nil} }				
 
-
-			elsif session[:teacher_user_id] #successful teacher login				
-				
-					format.json { render json: {login_response: "success", user_type: "teacher", error: nil} }				
-
 			elsif session[:student_user_id] #successful student login
 				
-					format.json { render json: {login_response: "success", user_type: "student", error:nil} }
+				format.json { render json: {login_response: "success", user_type: "student", error:nil} }
+					
+			elsif session[:teacher_user_id] #successful teacher login				
+				
+				format.json { render json: {login_response: "success", user_type: "teacher", error: nil} }				
 
 			elsif (@student_user && !@student_user.provider.nil?) || 
 				(@teacher_user && @teacher_user.provider.nil?) #post login with google credentials attempted
@@ -79,13 +78,14 @@ class PublicPagesController < ApplicationController
 				user_type = @teacher_user.default_view_student ? "student" : "teacher"
 				format.json { render json: {login_response: "success", user_type: user_type, error: nil} }				
 
-			elsif session[:teacher_user_id] #successful teacher login				
-				
-					format.json { render json: {login_response: "success", user_type: "teacher", error: nil} }				
-
 			elsif session[:student_user_id] #successful student login
 				
-					format.json { render json: {login_response: "success", user_type: "student", error:nil} }
+				format.json { render json: {login_response: "success", user_type: "student", error:nil} }
+
+			elsif session[:teacher_user_id] #successful teacher login				
+				
+				format.json { render json: {login_response: "success", user_type: "teacher", error: nil} }				
+			
 
 			elsif (@student_user && @student_user.provider.nil?) || 
 				(@teacher_user && @teacher_user.provider.nil?) #google login with stg credentials attempted
