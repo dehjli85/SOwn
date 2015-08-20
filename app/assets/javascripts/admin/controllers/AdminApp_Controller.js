@@ -115,10 +115,9 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 					console.log(userModel);
 
 					if(userModel.attributes.user_type == "teacher")
-						window.location.replace("teacher_home")					
+						window.open("teacher_home", "_blank");
 					else if(userModel.attributes.user_type == "student")
-						window.location.replace("student_home")
-
+						window.open("student_home", "_blank");
 
 		    }
 		    else{
