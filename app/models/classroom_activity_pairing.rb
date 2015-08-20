@@ -11,7 +11,13 @@ class ClassroomActivityPairing < ActiveRecord::Base
 
 	def self.max_sort_order(classroom_id)
 
-		ClassroomActivityPairing.where({classroom_id: classroom_id}).pluck(:sort_order).max
+		max = ClassroomActivityPairing.where({classroom_id: classroom_id}).pluck(:sort_order).max
+
+		if max.nil?
+			max = 0
+		end
+
+		return max
 		
 	end
 end
