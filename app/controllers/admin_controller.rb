@@ -93,9 +93,34 @@ class AdminController < ApplicationController
 
 
 			if(params[:user_type].eql?("teacher"))
-				session[:teacher_user_id] = params[:user_id]
+
+				#set the session value for the teacher id
+				teacher_user = TeacherUser.where(id: params[:user_id]).first
+				session[:teacher_user_id] = teacher_user.id
+
+				#check to see if they have a student account and set that as well
+				student_user = StudentUser.where(email: teacher_user.email).first
+				if !student_user.nil?
+					session[:student_user_id] = student_user.id
+				else
+					session[:student_user_id] = nil
+				end
+
+
 			elsif(params[:user_type].eql?("student"))
+
+				#set the session value for the student id				
+				student_user = StudentUser.where(id: params[:user_id]).first
 				session[:student_user_id] = params[:user_id]
+
+				#check to see if they have a teacher account and set that as well				
+				teacher_user = TeacherUser.where(email: student_user.email).first
+				if !teacher_user.nil?
+					session[:teacher_user_id] = teacher_user.id
+				else
+					session[:teacher_user_id] = nil
+				end
+
 			end
 
 			if session[:teacher_user_id] || session[:student_user_id]
