@@ -12,7 +12,9 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 		ui: {
 			deleteAccountLink: "[ui-delete-account-link]",
 			deleteButton: "[ui-delete-button]",
-			modalDiv: "[ui-modal-div]"
+			modalDiv: "[ui-modal-div]",
+			defaultViewSelect: "[ui-default-view-select]",
+			settingsForm: "[ui-settings-form]"
 		},
 
 		events:{
@@ -20,7 +22,8 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 		},
 
 		triggers:{
-			"click @ui.deleteButton": "delete:teacher:account"
+			"click @ui.deleteButton": "delete:teacher:account",
+			"submit @ui.settingsForm": "save:settings"
 		},
 
 		showVerifyDeleteModal: function(e){
@@ -29,8 +32,11 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 		},
 
 		onDeleteTeacherAccount: function(view){
-			console.log(view);
 			TeacherAccount.TeacherApp.Settings.Controller.deleteTeacherAccount(this, view.model);
+		},
+
+		onSaveSettings: function(view){
+			TeacherAccount.TeacherApp.Settings.Controller.saveSettings(this, this.ui.settingsForm);
 		}
 
 

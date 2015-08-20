@@ -31,7 +31,6 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 
 		deleteTeacherAccount: function(settingsLayoutView, userModel){
 
-			var x = settingsLayoutView;
 			var postUrl = "teacher/delete_account"
 			var postData = "teacher_user_id=" + userModel.attributes.teacher.id;
 			var jqxhr = $.post(postUrl, postData, function(){
@@ -68,6 +67,49 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 
 				TeacherAccount.rootView.mainRegion.show(settingsLayoutView);
 
+
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+
+		},
+
+		saveSettings: function(settingsLayoutView, settingsForm){
+
+			var postUrl = "teacher/save_settings"
+			var postData = settingsForm.serialize();
+			console.log(postData);
+			var jqxhr = $.post(postUrl, postData, function(){
+				console.log('post request made to save settings');
+			})
+			.done(function(data) {
+
+				console.log(data);
+
+				if(data.status == "success"){
+
+					TeacherAccount.TeacherApp.Settings.Controller.showSettingsOptions();
+
+					var alertModel = new Backbone.Model({message: "Settings Saved.", alertClass: "alert-success"})
+					var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
+
+					TeacherAccount.rootView.alertRegion.show(alertView);
+
+				}
+				else if(data.status == "error"){
+
+					var alertModel = new Backbone.Model({message: "Unable to save settings.  Please try again later.", alertClass: "alert-danger"})
+					var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
+
+					TeacherAccount.rootView.alertRegion.show(alertView);
+
+				}
+	     	
+	     	
 
 		  })
 		  .fail(function() {

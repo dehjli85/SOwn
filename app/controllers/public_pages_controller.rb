@@ -27,7 +27,14 @@ class PublicPagesController < ApplicationController
 		puts "student user: #{@student_user}"
 
 		respond_to do |format|
-			if session[:teacher_user_id] #successful teacher login				
+
+			if session[:teacher_user_id] && session[:student_user_id]
+
+				user_type = @teacher_user.default_view_student ? "student" : "teacher"
+				format.json { render json: {login_response: "success", user_type: user_type, error: nil} }				
+
+
+			elsif session[:teacher_user_id] #successful teacher login				
 				
 					format.json { render json: {login_response: "success", user_type: "teacher", error: nil} }				
 
@@ -67,7 +74,12 @@ class PublicPagesController < ApplicationController
 			end
 
 			respond_to do |format|
-			if session[:teacher_user_id] #successful teacher login				
+			if session[:teacher_user_id] && session[:student_user_id]
+
+				user_type = @teacher_user.default_view_student ? "student" : "teacher"
+				format.json { render json: {login_response: "success", user_type: user_type, error: nil} }				
+
+			elsif session[:teacher_user_id] #successful teacher login				
 				
 					format.json { render json: {login_response: "success", user_type: "teacher", error: nil} }				
 

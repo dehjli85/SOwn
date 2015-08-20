@@ -68,16 +68,24 @@ class TeacherAccountController < ApplicationController
 		
 	end
 
-	#return the json object representing a classroom with the specified id for the logged in user
-	def classroom
-		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
+	def save_settings
 
-		if @classroom
-			render json: {status: "success", classroom: @classroom}
+		@current_teacher_user.default_view_student = params[:default_view_student]
+
+		if @current_teacher_user.save
+
+			render json: {status: "success"}
+
 		else
-			render json: {status: "error", message: "invalid-classroom-id"}
+
+			render json: {status: "error", message: "unable-to-save-settings"}
+
 		end
+
+		
 	end
+
+	
 
 	#################################################################################
 	#
@@ -148,6 +156,16 @@ class TeacherAccountController < ApplicationController
 	#################################################################################
 
 
+	#return the json object representing a classroom with the specified id for the logged in user
+	def classroom
+		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
+
+		if @classroom
+			render json: {status: "success", classroom: @classroom}
+		else
+			render json: {status: "error", message: "invalid-classroom-id"}
+		end
+	end
 
 	#return the json object representing the unique tags for the classroom with the specified id for the logged in user
 	def classroom_tags

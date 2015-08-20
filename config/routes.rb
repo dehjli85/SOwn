@@ -78,6 +78,7 @@ Rails.application.routes.draw do
 
   # teacher/settings routes
   post 'teacher/delete_account' => 'teacher_account#delete_account'
+  post 'teacher/save_settings' => 'teacher_account#save_settings'
   
   # teacher/classrooms app routes
   get 'classrooms_summary' => 'teacher_account#classrooms_summary'
