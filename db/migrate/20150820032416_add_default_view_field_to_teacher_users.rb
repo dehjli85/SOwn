@@ -3,7 +3,7 @@ class AddDefaultViewFieldToTeacherUsers < ActiveRecord::Migration
   	add_column :teacher_users, :default_view_student, :boolean, null: false, default: false
 
   	TeacherUser.all.each do |teacher|
-  		teacher.default_view_student = false
+  		teacher.default_view_student = true
   		if !teacher.save
   			teacher.errors.each do |k,v|
   				puts "#{k}: #{v}"  				
