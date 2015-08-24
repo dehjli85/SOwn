@@ -841,7 +841,7 @@ class TeacherAccountController < ApplicationController
 		
 	end
 
-	def classroom_activities_and_performances
+	def student_activities_and_performances
 
 		classroom = Classroom.joins(:classroom_student_users)
 			.where("student_user_id = ? and classrooms.id = ? and teacher_user_id = ?", params[:student_user_id], params[:classroom_id], @current_teacher_user.id)

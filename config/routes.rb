@@ -106,7 +106,7 @@ Rails.application.routes.draw do
   # teacher/students app routes
   get 'teacher/students' => 'teacher_account#students'
   get 'teacher/student' => 'teacher_account#student'
-  get 'teacher/classroom_activities_and_performances' => 'teacher_account#classroom_activities_and_performances'
+  get 'teacher/student_activities_and_performances' => 'teacher_account#student_activities_and_performances'
   get 'teacher/student_activity' => 'teacher_account#student_activity'
   get 'teacher/activity_and_performances' => 'teacher_account#activity_and_performances'
 

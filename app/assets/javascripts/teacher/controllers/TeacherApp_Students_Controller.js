@@ -37,7 +37,7 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 
 		showStudentView: function(studentId, classroomId){
 
-			var getUrl = "/teacher/classroom_activities_and_performances?" 
+			var getUrl = "/teacher/student_activities_and_performances?" 
 			+ "student_user_id=" + encodeURIComponent(studentId)
 			+ "&classroom_id=" + encodeURIComponent(classroomId);
 
