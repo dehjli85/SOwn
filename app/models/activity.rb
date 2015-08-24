@@ -20,6 +20,14 @@ class Activity < ActiveRecord::Base
   validate :min_less_than_max
   validate :benchmarks_valid
 
+  after_find :set_pretty_properties
+
+  ##################################################################################################
+  #
+  # Validations
+  #
+  ##################################################################################################
+
   def min_less_than_max
     if(!min_score.nil? && !max_score.nil? && min_score >= max_score)
       errors.add(:min_score, 'must be less than max score')
@@ -46,22 +54,46 @@ class Activity < ActiveRecord::Base
     end
   end
 
+  ##################################################################################################
+  #
+  # Pretty Properties
+  #
+  ##################################################################################################
+  def set_pretty_properties
+    
+    # activity type
+    if activity_type.eql?('scored')
+      @activity_type_pretty = 'Scored'
+    elsif activity_type.eql?('completion')
+      @activity_type_pretty = 'Completed'
+    end     
+
+    # description abbreviation
+    @description_abbreviated = description[0..25] + (description.length > 26 ? '...' : '')
+
+    # instructions abbreviation    
+    @instructions_abbreviated = instructions[0..25] + (instructions.length > 26 ? '...' : '')
+
+  end
+
+  def activity_type_pretty
+    @activity_type_pretty
+  end
+
   def description_abbreviated
-  	description[0..25] + (description.length > 26 ? '...' : '')
+    @description_abbreviated
   end
 
   def instructions_abbreviated
-  	instructions[0..25] + (instructions.length > 26 ? '...' : '')
+    @instructions_abbreviated
   end
 
-  def activity_type_description
-  	case activity_type
-  	when 'completion'
-  		'Completion'
-  	when 'scored'
-  		'Scored'
-  	end
-  end
+
+  ##################################################################################################
+  #
+  # Model API Methods
+  #
+  ##################################################################################################
 
   def activity_tags_to_js_array
     a = Array.new
@@ -94,5 +126,11 @@ class Activity < ActiveRecord::Base
     end
     return false
   end
+
+  
+
+  
+
+
 
 end

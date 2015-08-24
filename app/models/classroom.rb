@@ -1,14 +1,23 @@
 class Classroom < ActiveRecord::Base
 	belongs_to :teacher_user
-	has_and_belongs_to_many :student_users, -> {order 'student_users.last_name, student_users.first_name'}
+	# has_and_belongs_to_many :student_users, -> {order 'student_users.last_name, student_users.first_name'}
+  has_many :student_users, :through => :classroom_student_users
+
 	#has_and_belongs_to_many :activities
 	has_many :classroom_activity_pairings, -> {order 'classroom_activity_pairings.created_at ASC'}
 	has_many :activities, :through => :classroom_activity_pairings
+	has_many :classroom_student_users
 
 	validates :classroom_code, :name, :teacher_user_id, presence: true
 	validates :classroom_code, uniqueness: true
 	validates :classroom_code, length: { maximum: 100 }
 	validate :classroom_code_in_valid_format
+
+	##################################################################################################
+  #
+  # Validations
+  #
+  ##################################################################################################
 
 	def classroom_code_in_valid_format
 		if (/^(\d|[a-zA-Z]|-)+$/ =~ classroom_code).nil?
@@ -17,6 +26,37 @@ class Classroom < ActiveRecord::Base
 
 	end
 
+	##################################################################################################
+  #
+  # Model API Methods
+  #
+  ##################################################################################################
+
+  # Return array of activities 
+  # Includes classroom_activity_pairing_id and sort order for each activity
+  def activities_with_pairing_ids
+  	Activity.joins("inner join classroom_activity_pairings cap on cap.activity_id = activities.id")
+          .joins("inner join classrooms c on c.id = cap.classroom_id")
+          .where("c.id = ?", self.id)
+          .where("cap.hidden = false")
+          .order("cap.sort_order ASC")
+          .select("activities.*, cap.id as classroom_activity_pairing_id, cap.sort_order")
+  end
+
+  # Returns student performances in the classroom for the specified student.  
+  # Includes the activity_id, sort_order, and boolean for requires verification
+  def student_performances_for_student(student_user_id)
+
+    cap_ids = self.classroom_activity_pairings.pluck(:id)
+
+  	StudentPerformance.joins(:classroom_activity_pairing)
+          .joins("left join student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id")
+          .where(classroom_activity_pairing_id: cap_ids)
+          .where(student_user_id: student_user_id)
+          .where("classroom_activity_pairings.hidden = false")
+          .order("created_at DESC")
+          .select("student_performances.*, classroom_activity_pairings.activity_id, classroom_activity_pairings.sort_order", "spv.id is not null as requires_verification")
+  end
 
 	def search_matched_pairings_and_activities(search_hash={search_term: nil, tag_id: nil })
 
@@ -429,6 +469,32 @@ class Classroom < ActiveRecord::Base
 		else
 			return 0
 		end
+
+	end
+
+	def activities_and_performances(student_user_id)
+
+		activities = self.activities_with_pairing_ids.as_json
+    activities.each do |activity, index|
+      activity["student_performances"] = Array.new
+    end
+
+    cap_ids = self.classroom_activity_pairings.pluck(:id)
+
+    performances_array = self.student_performances_for_student(student_user_id).as_json
+    performances_array.each do |performance|
+
+      index = performance["sort_order"]
+      performance["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activities[index]["activity_type"], performance["scored_performance"], performance["completed_performance"])
+      performance["performance_color"] = StudentPerformance.performance_color_no_active_record(activities[index]["activity_type"], activities[index]["benchmark1_score"], activities[index]["benchmark2_score"], activities[index]["min_score"], activities[index]["max_score"], performance["scored_performance"], performance["completed_performance"])
+      if activities[index]["student_performances"].nil?
+        activities[index]["student_performances"] = Array.new
+      end
+      activities[index]["student_performances"].push(performance)
+
+    end
+
+    return activities
 
 	end
 

@@ -5,6 +5,7 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 	Classroom.HeaderView = Marionette.ItemView.extend({				
 		template: JST["teacher/templates/TeacherApp_Classroom_Header"],					
 		tagName: "div",		
+		className:"col-md-12",
 		// model: TeacherAccount.TeacherApp.Classroom.Models.Classroom,
 
 		triggers: {
@@ -60,6 +61,8 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			mainRegion: '#classroom_main_region', 
 			alertRegion: "#classroom_alert_region"
 		},
+
+		className: "col-md-12",
 
 		onChildviewClassroomShowScores: function(view){
 

@@ -8,9 +8,11 @@ class StudentPerformance < ActiveRecord::Base
 	validate :scored_performance_within_range
 	validates :performance_date, :student_user_id, :classroom_activity_pairing_id, presence: true
 
-	def requires_verification?
-		return !StudentPerformanceVerification.where({student_user_id: student_user_id, classroom_activity_pairing_id: classroom_activity_pairing_id}).empty?
-	end
+	##################################################################################################
+  #
+  # Validations
+  #
+  ##################################################################################################
 
 	def scored_performance_within_range
 		if self.classroom_activity_pairing.activity.activity_type.eql?('scored')
@@ -27,11 +29,19 @@ class StudentPerformance < ActiveRecord::Base
 		end
 	end
 
-	def activity
-		self.classroom_activity_pairing.activity
-	end
+	##################################################################################################
+  #
+  # Pretty Properties
+  #
+  ##################################################################################################
 
-	def performance_color
+  # set the pretty performance and color given an activity (should be a hash with the activity properties)
+  def set_pretty_properties(activity_hash)
+  	@performance_color = StudentPerformance.performance_color_no_active_record(activity["activity_type"],activity["benchmark1_score"],activity["benchmark2_score"],activity["min_score"],activity["max_score"],self.scored_performance, self.completed_performance)
+  	@performance_pretty = StudentPerformance.performance_pretty_no_active_record(activity["activity_type"],self.scored_performance, self.completed_performance)
+  end
+
+  def performance_color
 		@activity = self.activity
 		StudentPerformance.performance_color_no_active_record(@activity.activity_type, @activity.benchmark1_score, @activity.benchmark2_score, @activity.min_score, @activity.max_score, self.scored_performance, self.completed_performance)
 	end
@@ -125,28 +135,23 @@ class StudentPerformance < ActiveRecord::Base
 		@performance_pretty = p
 	end
 
+	##################################################################################################
+  #
+  # Model API Methods
+  #
+  ##################################################################################################
 
+  def activity
+		self.classroom_activity_pairing.activity
+	end
 
 	def activity_type
 		self.classroom_activity_pairing.activity.activity_type
 	end
 
-	#NEED TO DEPREACATE USE OF THIS METHOD
-	def scored_performance_pretty
-		scored_performance.to_i == scored_performance ? scored_performance.to_i : scored_performance
+	def requires_verification?
+		return !StudentPerformanceVerification.where({student_user_id: student_user_id, classroom_activity_pairing_id: classroom_activity_pairing_id}).empty?
 	end
-
-	#NEED TO DEPREACATE USE OF THIS METHOD
-	def completed_performance_desc
-		case self.completed_performance
-		when true
-			'Completed'
-		when false 			
-			'Not Completed'
-		when nil
-			'Not Attempted'
-		end
-		
-	end
+	
 
 end

@@ -46,7 +46,7 @@ TeacherAccount.module("TeacherApp.Classrooms", function(Classrooms, TeacherAccou
 
 	Classrooms.ClassroomWidgetRowView = Marionette.CompositeView.extend({
 		tagName: "div",
-		className: "row placeholders",
+		className: "col-md-12 placeholders",
 		template: JST["teacher/templates/TeacherApp_Classrooms_ClassroomWidgetRow"],							
 		childView: Classrooms.ClassroomWidgetView,
 		childViewContainer: "#widget-container-div",

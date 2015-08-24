@@ -1,3 +1,4 @@
+
   // Place all the styles related to the teacher_account controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
@@ -97,8 +98,8 @@ body {
 }
 @media (min-width: 768px) {
   .main {
-    padding-right: 40px;
-    padding-left: 40px;
+    // padding-right: 40px;
+    // padding-left: 40px;
   }
 }
 .main .page-header {
@@ -158,6 +159,25 @@ body {
 /*
  * TeacherApp Classrooms CSS
  */
+
 .classroom_edit_div{
   margin: 10px 0px 0px 0px;
+}
+
+/*
+ * TeacherApp Students CSS
+ */
+
+.students_search_form{
+  padding: 10px 0px 10px 0px;
+}
+
+.table_div{
+  background-color: #FFFFFF;
+  padding: 10px 10px 10px 10px;
+}
+
+#student_main_region{
+  padding:15px;
+  background-color: #FFFFFF;
 }

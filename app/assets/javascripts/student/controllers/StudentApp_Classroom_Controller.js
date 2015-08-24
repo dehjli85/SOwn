@@ -5,7 +5,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	Classroom.Controller = {
 
 		showClassroomLayout: function(classroomId){
-			console.log(classroomId);
 			var classroom = new Backbone.Model({classroomId: classroomId})
 			var layoutView = new StudentAccount.StudentApp.Classroom.LayoutView({model: classroom});			
 			StudentAccount.rootView.mainRegion.show(layoutView);

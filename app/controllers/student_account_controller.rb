@@ -75,7 +75,7 @@ class StudentAccountController < ApplicationController
     #confirm the classroom exists
     if Classroom.exists?(params[:classroom_id])
 
-      csu = ClassroomsStudentUsers.new
+      csu = ClassroomStudentUser.new
       csu.student_user_id = @current_student_user.id
       csu.classroom_id = params[:classroom_id]
 
@@ -105,7 +105,7 @@ class StudentAccountController < ApplicationController
   #################################################################################
 
   def classroom
-    classrooms = Classroom.joins(:classrooms_student_users).where("student_user_id = ? and classrooms.id = ?", @current_student_user.id, params[:classroom_id])
+    classrooms = Classroom.joins(:classroom_student_users).where("student_user_id = ? and classrooms.id = ?", @current_student_user.id, params[:classroom_id])
 
     if !classrooms.empty?
     
@@ -123,47 +123,13 @@ class StudentAccountController < ApplicationController
 
   def classroom_activities_and_performances
       
-      classrooms = Classroom.joins(:classrooms_student_users).where("student_user_id = ? and classrooms.id = ?", @current_student_user.id, params[:classroom_id])
+      classroom = Classroom.joins(:classroom_student_users)
+        .where("student_user_id = ? and classrooms.id = ?", @current_student_user.id, params[:classroom_id])
+        .first
 
-      if !classrooms.empty?
+      if !classroom.nil?
 
-        classroom = classrooms.first
-
-        cap_ids = classroom.classroom_activity_pairings.pluck(:id)
-
-        activities = Activity.joins("inner join classroom_activity_pairings cap on cap.activity_id = activities.id")
-          .joins("inner join classrooms c on c.id = cap.classroom_id")
-          .where("c.id = ?", classroom.id)
-          .where("cap.hidden = false")
-          .select("activities.*, cap.id as classroom_activity_pairing_id")
-          .as_json
-        activity_indices = Hash.new
-
-        # activities = Activity.joins("inner join classroom_activity_pairings cap on cap.activity_id = activities.id").joins("inner join classrooms c on c.id = cap.classroom_id").where("c.id = ?", classroom.id).select("activities.*, cap.id as classroom_activity_pairing_id").as_json
-
-        activities.each_with_index do |activity, index|
-          activity_indices[activity["id"]] = index
-          activities[index]["student_performances"] = Array.new
-        end
-
-        performances_array = StudentPerformance.joins(:classroom_activity_pairing)
-          .joins("left join student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id")
-          .where(classroom_activity_pairing_id: cap_ids)
-          .where(student_user_id: @current_student_user.id)
-          .where("classroom_activity_pairings.hidden = false")
-          .order("created_at DESC")
-          .select("student_performances.*, classroom_activity_pairings.activity_id", "spv.id is not null as requires_verification")
-          .as_json
-
-          # performances_array = StudentPerformance.joins(:classroom_activity_pairing).joins("left join student_performance_verifications spv on classroom_activity_pairings.id = spv.id").where(classroom_activity_pairing_id: cap_ids).where(student_user_id: @current_student_user.id).order("created_at DESC").select("student_performances.*, classroom_activity_pairings.activity_id", "spv.id is not null as requires_verification").as_json
-
-        performances_array.each do |performance|
-
-          index = activity_indices[performance["activity_id"]]
-          performance["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activities[index]["activity_type"], performance["scored_performance"], performance["completed_performance"])
-          performance["performance_color"] = StudentPerformance.performance_color_no_active_record(activities[index]["activity_type"], activities[index]["benchmark1_score"], activities[index]["benchmark2_score"], activities[index]["min_score"], activities[index]["max_score"], performance["scored_performance"], performance["completed_performance"])
-          activities[index]["student_performances"].push(performance)
-        end
+        activities = classroom.activities_and_performances(@current_student_user.id)        
 
         render json: {status: "success", activities:activities}
 
@@ -181,9 +147,9 @@ class StudentAccountController < ApplicationController
 
     if classroom_activity_pairing
 
-      classrooms_student_users = ClassroomsStudentUsers.where(classroom_id: classroom_activity_pairing.classroom_id).where(student_user_id: @current_student_user.id).first
+      classroom_student_users = ClassroomStudentUser.where(classroom_id: classroom_activity_pairing.classroom_id).where(student_user_id: @current_student_user.id).first
 
-      if classrooms_student_users
+      if classroom_student_users
 
         activity = classroom_activity_pairing.activity
 
@@ -209,9 +175,9 @@ class StudentAccountController < ApplicationController
 
     if classroom_activity_pairing
 
-      classrooms_student_users = ClassroomsStudentUsers.where(classroom_id: classroom_activity_pairing.classroom_id).where(student_user_id: @current_student_user.id).first
+      classroom_student_users = ClassroomStudentUser.where(classroom_id: classroom_activity_pairing.classroom_id).where(student_user_id: @current_student_user.id).first
 
-      if classrooms_student_users
+      if classroom_student_users
 
         activity = classroom_activity_pairing.activity
 
@@ -279,7 +245,7 @@ class StudentAccountController < ApplicationController
   def join_classroom_confirm_post
   	#confirm the classroom exists
   	if (Classroom.exists?(params[:classroom][:id]))
-  		csu = ClassroomsStudentUsers.new
+  		csu = ClassroomStudentUser.new
   		csu.student_user_id = session[:student_user_id]
   		csu.classroom_id = params[:classroom][:id]
 

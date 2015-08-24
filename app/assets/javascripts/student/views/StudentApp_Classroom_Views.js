@@ -5,30 +5,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	Classroom.HeaderView = Marionette.ItemView.extend({				
 		template: JST["student/templates/StudentApp_Classroom_Header"],					
 		tagName: "div",		
-
-		triggers: {
-			"click @ui.scoresLink": "classroom:show:scores",
-			"click @ui.editDataLink": "classroom:show:edit:scores"
-		},
-
-		events:{
-			"click a": "makeTabActive"
-		},
-
-		ui:{
-			scoresLink: "[ui-scores-a]",			
-			editDataLink: "[ui-edit-data-a]",
-			lis: "li"
-		},
-
-		makeTabActive: function(e){
-			this.ui.lis.removeClass("active");			
-			$(e.target).parent().addClass("active");
-			
-		}
-
-		
-			
+	
 	});
 
 	Classroom.LayoutView = Marionette.LayoutView.extend({

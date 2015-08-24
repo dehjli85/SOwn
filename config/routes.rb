@@ -103,6 +103,14 @@ Rails.application.routes.draw do
   get 'teacher/classroom_assignments' => 'teacher_account#classroom_assignments'
   post 'teacher/assign_activities' => 'teacher_account#assign_activities'
 
+  # teacher/students app routes
+  get 'teacher/students' => 'teacher_account#students'
+  get 'teacher/student' => 'teacher_account#student'
+  get 'teacher/classroom_activities_and_performances' => 'teacher_account#classroom_activities_and_performances'
+  get 'teacher/student_activity' => 'teacher_account#student_activity'
+  get 'teacher/activity_and_performances' => 'teacher_account#activity_and_performances'
+
+
   # student routes
   get 'student_home' => 'student_account#index'
   get 'current_student_user' => 'student_account#current_student_user'

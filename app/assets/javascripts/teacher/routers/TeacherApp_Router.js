@@ -12,6 +12,8 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			"activities/index": "showActivitiesIndex",
 			"activities/new": "showActivitiesNew",
 			"activities/:id/edit": "showActivitiesEdit",
+			"students/index": "showStudentsIndex",
+			"students/:student_user_id/:classroom_id": "showStudent",
 			"settings": "showSettings"
 		}
 	});
@@ -85,7 +87,21 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 
 		 showSettings: function(){
 		 	TeacherApp.Main.Controller.startSettingsApp();
+		 },
+
+
+		/**
+		 *  Students Subapp
+		 */
+
+		 showStudentsIndex: function(){
+		 	TeacherApp.Main.Controller.startStudentsApp("index");
+		 },
+
+		 showStudent: function(student_user_id, classroom_id){
+		 	TeacherApp.Main.Controller.startStudentsApp("show", student_user_id, classroom_id);
 		 }
+
 
 	};
 

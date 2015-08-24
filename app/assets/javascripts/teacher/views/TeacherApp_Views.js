@@ -33,7 +33,8 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 		},
 
 		triggers:{
-			"click @ui.navActivities": "start:activities:app"
+			"click @ui.navActivities": "start:activities:app",
+			"click @ui.navStudents": "start:students:app"
 		},
 
 		ui:{
@@ -64,6 +65,7 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			alertRegion: "#alert_region"
 		},
 
+
 		onChildviewTeacherappStartClassroomAppScores: function(view){
 
 			TeacherAccount.TeacherApp.Main.Controller.startClassroomApp(view.model.id, 'scores');
@@ -85,6 +87,11 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 
 			TeacherAccount.TeacherApp.Main.Controller.startSettingsApp();
 
+		},
+
+		onChildviewStartStudentsApp: function(view){
+
+			TeacherAccount.TeacherApp.Main.Controller.startStudentsApp("index");
 		}
 
 	});

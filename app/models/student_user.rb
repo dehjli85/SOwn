@@ -1,8 +1,11 @@
 class StudentUser < ActiveRecord::Base
 
-    has_and_belongs_to_many :classrooms
+    # has_and_belongs_to_many :classrooms
+    has_many :classrooms, :through => :classroom_student_users
+
     has_many :student_performances, -> {order 'student_performances.created_at'}
     has_many :student_performance_verifications    
+    has_many :classroom_student_users
 
     validates :first_name, :last_name, :email, presence: true
     validate :has_password_or_external_authentication

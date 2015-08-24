@@ -418,7 +418,7 @@ class TeacherAccountController < ApplicationController
 
 			sql = "SELECT s.id as student_user_id, s.first_name, s.last_name, s.display_name, a.id as activity_id, spv.id as verifications_id, spv.classroom_activity_pairing_id
 			 	FROM classrooms c		 			 	
-			 	INNER JOIN classrooms_student_users csu on csu.classroom_id = c.id
+			 	INNER JOIN classroom_student_users csu on csu.classroom_id = c.id
 			 	INNER JOIN student_users s on s.id = csu.student_user_id
 			 	LEFT JOIN classroom_activity_pairings cap on c.id = cap.classroom_id AND cap.activity_id = ?
 			 	LEFT JOIN activities a on a.id = cap.activity_id
@@ -788,5 +788,159 @@ class TeacherAccountController < ApplicationController
 
 		
 	end
+
+	#################################################################################
+	#
+	# Students App Methods
+	#
+	#################################################################################
+
+	def students
+
+		searchTerm = params[:searchTerm].nil? ? "" : params[:searchTerm].downcase 
+		
+		students = StudentUser.joins(:classrooms)
+			.joins("inner join teacher_users t on classrooms.teacher_user_id = t.id")
+			.where("t.id = ?", @current_teacher_user.id)
+			.where("lower(student_users.first_name) like ? or lower(student_users.last_name) like ? or lower(student_users.display_name) like ?", "%#{searchTerm}%", "%#{searchTerm}%", "%#{searchTerm}%")
+			.select("student_users.*")
+			.distinct
+
+		students_ids = students.pluck("student_users.id")
+
+		classrooms = Classroom.joins(:student_users)
+			.where("student_users.id in (?) ", students_ids)
+			.where("classrooms.teacher_user_id = ?", @current_teacher_user.id)
+			.select("classrooms.*, student_users.id as student_user_id")
+			.as_json
+
+		students_json = students.as_json
+		students_indices = Hash.new
+
+		students_json.each_with_index do |student, index|
+			students_indices[student["id"]] = index
+			student["classrooms"] = Array.new
+		end
+
+		classrooms.each do |classroom|
+			index = students_indices[classroom["student_user_id"]]
+			students_json[index]["classrooms"].push(classroom)
+		end
+
+		render json: {status: "success", students: students_json}
+
+	end
+
+	def student
+
+		student = StudentUser.joins(:classrooms)
+			.joins("inner join teacher_users t on classrooms.teacher_user_id = t.id")
+			.where("t.id = ?", @current_teacher_user.id)
+			.where("student_users.id = ?" , params[:studentId])
+			.first
+		
+	end
+
+	def classroom_activities_and_performances
+
+		classroom = Classroom.joins(:classroom_student_users)
+			.where("student_user_id = ? and classrooms.id = ? and teacher_user_id = ?", params[:student_user_id], params[:classroom_id], @current_teacher_user.id)
+			.first
+
+		student = StudentUser.joins(:classroom_student_users)
+			.joins(:classrooms)
+			.where("student_users.id = ? and classroom_student_users.classroom_id = ? and classrooms.teacher_user_id = ?", params[:student_user_id], params[:classroom_id], @current_teacher_user.id)
+			.first
+
+    if !classroom.nil?
+
+      activities = classroom.activities_and_performances(params[:student_user_id])        
+
+      render json: {status: "success", activities:activities, student: student, classroom: classroom}
+
+    else
+
+      render json: {status: "error", message: "invalid-classroom"}
+
+    end  
+		
+	end
+
+	def student_activity
+    
+    classroom_activity_pairing = ClassroomActivityPairing.where(id: params[:classroom_activity_pairing_id]).first
+
+    if classroom_activity_pairing
+
+      classroom_student_user = ClassroomStudentUser.joins(:classroom)
+      		.joins("inner join teacher_users t on t.id = classrooms.teacher_user_id")
+      		.where(classroom_id: classroom_activity_pairing.classroom_id)
+      		.where(student_user_id: params[:student_user_id])
+      		.where("t.id = ?", @current_teacher_user.id)
+      		.first
+
+
+      if !classroom_student_user.nil?
+
+        activity = classroom_activity_pairing.activity
+
+        render json: {status: "success", activity: activity, classroom_activity_pairing: classroom_activity_pairing}
+
+      else
+
+      	render json: {status: "error", message: "invalid-student-for-classroom-activity-pairing"}
+
+      end
+
+    else
+
+      	render json: {status: "error", message: "invalid-classroom-activity-pairing-id"}
+
+    end
+
+  end
+
+  def activity_and_performances
+    
+    classroom_activity_pairing = ClassroomActivityPairing.where(id: params[:classroom_activity_pairing_id]).first
+
+    if classroom_activity_pairing
+
+      classroom_student_user = ClassroomStudentUser.joins(:classroom)
+      		.joins("inner join teacher_users t on t.id = classrooms.teacher_user_id")
+      		.where(classroom_id: classroom_activity_pairing.classroom_id)
+      		.where(student_user_id: params[:student_user_id])
+      		.where("t.id = ?", @current_teacher_user.id)
+      		.first
+
+      if !classroom_student_user.nil?
+
+        activity = classroom_activity_pairing.activity
+
+        performances = StudentPerformance.where({classroom_activity_pairing_id: classroom_activity_pairing.id, student_user_id: params[:student_user_id]}).order("created_at ASC").as_json
+
+        performances.each do |performance|
+          performance["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activity.activity_type, performance["scored_performance"], performance["completed_performance"])
+          performance["performance_color"] = StudentPerformance.performance_color_no_active_record(activity.activity_type, activity.benchmark1_score, activity.benchmark2_score, activity.min_score, activity.max_score, performance["scored_performance"], performance["completed_performance"])
+
+        end
+
+        render json: {status: "success", activity: activity, classroom_activity_pairing: classroom_activity_pairing, performances: performances}
+
+      else
+
+      render json: {status: "error", message: "invalid-student-for-classroom-activity-pairing"}
+
+      end
+
+    else
+
+      render json: {status: "error", message: "invalid-classroom-activity-pairing-id"}
+
+    end
+
+  end
+
+
 
 end

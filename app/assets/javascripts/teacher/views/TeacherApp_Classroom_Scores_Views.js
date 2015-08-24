@@ -222,6 +222,8 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			modalRegion: '#modal_region'
 		},
 
+		className:"col-md-12",
+
 		ui: {
 			modalRegion: "#modal_region"
 		},

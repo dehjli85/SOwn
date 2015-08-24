@@ -163,6 +163,26 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 
 		showStudentView: function(){
 			window.location.replace("student_home");
+		},
+
+		startStudentsApp: function(subapp, student_user_id, classroom_id){
+
+			url = 'students';
+			if(student_user_id){
+				url += "/" + student_user_id;
+			}
+			url += "/" + subapp;
+
+			TeacherAccount.navigate(url);
+			
+			if( subapp === 'index'){
+				TeacherAccount.TeacherApp.Students.Controller.showIndexCompositeView();
+			}
+			else if(subapp === 'show'){
+				TeacherAccount.TeacherApp.Students.Controller.showStudentView(student_user_id, classroom_id);
+			}
+			
+
 		}
 
 	
