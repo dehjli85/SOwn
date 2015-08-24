@@ -231,10 +231,17 @@ class TeacherAccountController < ApplicationController
 
 					elsif !stored_performance.nil?
 						
-						stored_performance.scored_performance = performance.to_f						
-						if !stored_performance.save
-							errors.push(stored_performance.errors)
+						if performance.strip.eql?('')
+							if !stored_performance.destroy
+								errors.push(stored_performance.errors)
+							end
+						else
+							stored_performance.scored_performance = performance.to_f						
+							if !stored_performance.save
+								errors.push(stored_performance.errors)
+							end
 						end
+						
 					end
 
 				elsif activity.activity_type.eql?('completion')
@@ -251,9 +258,15 @@ class TeacherAccountController < ApplicationController
 
 					elsif !stored_performance.nil?
 
-						stored_performance.completed_performance = performance
-						if !stored_performance.save
-							errors.push(stored_performance.errors)
+						if performance.strip.eql?('')
+							if !stored_performance.destroy
+								errors.push(stored_performance.errors)
+							end
+						else
+							stored_performance.completed_performance = performance
+							if !stored_performance.save
+								errors.push(stored_performance.errors)
+							end
 						end
 
 					end
