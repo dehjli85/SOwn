@@ -14,7 +14,7 @@ class ClassroomActivityPairing < ActiveRecord::Base
 		max = ClassroomActivityPairing.where({classroom_id: classroom_id}).pluck(:sort_order).max
 
 		if max.nil?
-			max = 0
+			max = -1
 		end
 
 		return max

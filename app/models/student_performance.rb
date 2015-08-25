@@ -135,6 +135,10 @@ class StudentPerformance < ActiveRecord::Base
 		@performance_pretty = p
 	end
 
+	def to_s
+		return "classroom_activity_pairing_id: #{classroom_activity_pairing_id}, scored_performance: #{scored_performance}, completed_performance: #{completed_performance}, performance_date: #{performance_date}"
+	end
+
 	##################################################################################################
   #
   # Model API Methods
