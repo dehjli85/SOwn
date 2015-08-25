@@ -954,6 +954,54 @@ class TeacherAccountController < ApplicationController
 
   end
 
+  def classroom_student_user
+
+  	classroom_student_user = ClassroomStudentUser.joins(:classroom)
+  		.joins(:student_user)
+  		.joins("inner join teacher_users t on t.id = classrooms.teacher_user_id")
+  		.where("t.id = ?", @current_teacher_user.id)
+  		.where("classroom_student_users.student_user_id = ?", params[:student_user_id])
+  		.where("classroom_student_users.classroom_id = ?", params[:classroom_id])
+  		.select("student_users.display_name, classrooms.name, classroom_student_users.*")
+  		.first
+
+    render json: {status: "success", classroom_student_user: classroom_student_user}
+
+  	
+  end
+
+  def classroom_remove_student
+
+  	classroom_student_user = ClassroomStudentUser.joins(:classroom)
+  		.joins(:student_user)
+  		.joins("inner join teacher_users t on t.id = classrooms.teacher_user_id")
+  		.where("t.id = ?", @current_teacher_user.id)
+  		.where("classroom_student_users.student_user_id = ?", params[:student_user_id])
+  		.where("classroom_student_users.classroom_id = ?", params[:classroom_id])
+  		.where("classroom_student_users.id = ?", params[:classroom_student_user_id])
+  		.select("student_users.display_name, classrooms.name, classroom_student_users.*")
+  		.first
+
+  	if !classroom_student_user.nil?
+
+  		if(classroom_student_user.destroy)
+    		render json: {status: "success"}
+    	else
+      	render json: {status: "error", message: "error-removing-student", errors: @classroom_student_user.errors}
+    	end
+
+  	else
+      
+      render json: {status: "error", message: "invalid-classroom-student-user-id"}
+
+  	end
+  	
+  	
+
+  end
+
+
+
 
 
 end

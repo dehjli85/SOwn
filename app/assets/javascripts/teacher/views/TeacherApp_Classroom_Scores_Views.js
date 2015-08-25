@@ -4,7 +4,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 
 	Scores.SearchBarView = Marionette.ItemView.extend({
-		template: JST["teacher/templates/TeacherApp_Classroom_Scores_SearchBar"],			
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_SearchBar"],			
 		className: "col-sm-5",
 		triggers: {
 			"submit [ui-search-form]":"filter:search:classroom:scores:view"
@@ -15,7 +15,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	});
 
 	Scores.TagView = Marionette.ItemView.extend({
-		template: JST["teacher/templates/TeacherApp_Classroom_Scores_Tag"],			
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_Tag"],			
 		tagName: "li",
 		triggers: {
 			"click a":"filter:tag:classroom:scores:view"			
@@ -31,7 +31,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 	Scores.StudentPerformanceView = Marionette.ItemView.extend({
 		tagName: "tr",
-		template: JST["teacher/templates/TeacherApp_Classroom_Scores_StudentPerformance"],
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_StudentPerformance"],
 		initialize : function (options) {
 	    this.model.attributes.activitiesCount = options.activitiesCount;	    
 	  },
@@ -53,7 +53,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 	Scores.StudentPerformanceEditView = Marionette.ItemView.extend({
 		tagName: "tr",
-		template: JST["teacher/templates/TeacherApp_Classroom_Scores_StudentPerformanceEdit"],
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_StudentPerformanceEdit"],
 
 		initialize : function (options) {
 	    this.model.attributes.parentActivities = options.activities;
@@ -64,7 +64,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	Scores.EditScoresView = Marionette.CompositeView.extend({
 		tagName: "div",
 		className: "classroom-tab-content",
-		template: JST["teacher/templates/TeacherApp_Classroom_Scores_EditScores"],																		 
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_EditScores"],																		 
 		childView: Scores.StudentPerformanceEditView,
 		childViewContainer: "tbody",
 		childViewOptions: function(model, index){			
@@ -96,7 +96,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	Scores.ScoresView = Marionette.CompositeView.extend({
 		tagName: "div",
 		className: "classroom-tab-content",
-		template: JST["teacher/templates/TeacherApp_Classroom_Scores_Scores"],
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_Scores"],
 		childView: Scores.StudentPerformanceView,
 		childViewContainer: "tbody",
 		childViewOptions: function(model, index){			
@@ -214,7 +214,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	});
 
 	Scores.LayoutView = Marionette.LayoutView.extend({
-		template: JST["teacher/templates/TeacherApp_Classroom_Scores_Layout"],			
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_Layout"],			
 		regions:{			
 			searchBarRegion: "#search_bar_region",
 			tagsRegion: "#tags_region",
@@ -268,7 +268,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	});
 
 Scores.VerifyModalView = Marionette.ItemView.extend({
-	template: JST["teacher/templates/TeacherApp_Classroom_Scores_VerifyModal"],
+	template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_VerifyModal"],
 	className: "modal-dialog",
 
 	ui:{

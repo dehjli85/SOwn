@@ -1,0 +1,17 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title" id="myModalLabel" ui-title>Remove Student?</h5>
+  </div>
+  <div class="modal-body" ui-body-div>
+    <p>Are you sure you want to remove <b><%= display_name%></b> from <%= name %>?</p>
+    <p style="color:red"><b>If you click the "Remove" button, <%= display_name %> will lose all data associated with <%= name %>!</b></p>
+    <form class="form-horizontal" ui-verify-form>
+      
+    </form>
+  </div>
+  <div class="modal-footer" ui-footer-div>
+    <button type="button" class="btn btn-danger" data-dismiss="modal" ui-remove-button>Remove Student</button>          
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>	        
+  </div>
+</div>

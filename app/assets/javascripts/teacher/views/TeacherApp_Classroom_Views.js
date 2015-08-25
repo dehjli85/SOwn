@@ -3,7 +3,7 @@
 TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount, Backbone, Marionette, $, _){
 	
 	Classroom.HeaderView = Marionette.ItemView.extend({				
-		template: JST["teacher/templates/TeacherApp_Classroom_Header"],					
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Header"],					
 		tagName: "div",		
 		className:"col-md-12",
 		// model: TeacherAccount.TeacherApp.Classroom.Models.Classroom,
@@ -55,7 +55,7 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 	});
 
 	Classroom.LayoutView = Marionette.LayoutView.extend({
-		template: JST["teacher/templates/TeacherApp_Classroom_Layout"],			
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Layout"],			
 		regions:{
 			headerRegion: "#classroom_header_region",
 			mainRegion: '#classroom_main_region', 

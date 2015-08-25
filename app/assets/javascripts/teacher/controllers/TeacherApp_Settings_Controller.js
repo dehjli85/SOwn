@@ -40,6 +40,8 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 
 				console.log(data);
 				$('.modal-backdrop').remove(); //This is a hack, don't know why the backdrop isn't going away
+     		$('body').removeClass('modal-open'); //This is a hack, don't know why the backdrop isn't going away
+				
 
 				if(data.status == "success"){
 

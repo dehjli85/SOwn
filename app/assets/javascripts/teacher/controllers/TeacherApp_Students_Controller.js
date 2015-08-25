@@ -22,7 +22,11 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 				var studentsCollection = new Backbone.Collection(data.students);
 
 				var indexCompositeView = new TeacherAccount.TeacherApp.Students.IndexCompositeView({collection: studentsCollection, model:model});
-				TeacherAccount.rootView.mainRegion.show(indexCompositeView);
+
+				var studentsLayoutView = new TeacherAccount.TeacherApp.Students.StudentsLayoutView({model:model});
+				TeacherAccount.rootView.mainRegion.show(studentsLayoutView);
+
+				studentsLayoutView.mainRegion.show(indexCompositeView);
 				
 				
 		  })
@@ -35,7 +39,7 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 
 		},
 
-		showStudentView: function(studentId, classroomId){
+		showStudentView: function(studentsLayoutView, studentId, classroomId){
 
 			var getUrl = "/teacher/student_activities_and_performances?" 
 			+ "student_user_id=" + encodeURIComponent(studentId)
@@ -48,15 +52,13 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 				
 				TeacherAccount.navigate("students/" + studentId + "/" + classroomId);
 
-
 				var collection = new Backbone.Collection(data.activities);
 				var model = new Backbone.Model({student: data.student, classroom:data.classroom})
 
-				var showLayoutView = new TeacherAccount.TeacherApp.Students.ShowLayoutView({model:model});
-				TeacherAccount.rootView.mainRegion.show(showLayoutView);
+				studentsLayoutView.model.attributes.student = data.student;
 
 				var showStudentCompositeView = new TeacherAccount.TeacherApp.Students.ShowStudentCompositeView({collection: collection, model: model});
-				showLayoutView.mainRegion.show(showStudentCompositeView);
+				studentsLayoutView.mainRegion.show(showStudentCompositeView);
 
 				
 		  })
@@ -126,7 +128,80 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 		   
 			});			
 
+		},
+
+		openRemoveStudentModal: function(studentsLayoutView, studentId, classroomId){
+			var getURL = "/teacher/classroom_student_user?" 
+				+ "classroom_id=" + classroomId
+				+ "&student_user_id=" + studentId;
+			var jqxhr = $.get(getURL, function(){
+				console.log('get request for classroom model');
+			})
+			.done(function(data) {
+	     		console.log(data);
+	     	if(data.status == "success"){
+
+	     		var classroomStudentUserModel = new Backbone.Model(data.classroom_student_user);
+	     		var removeStudentConfirmationModalView = new TeacherAccount.TeacherApp.Students.RemoveStudentConfirmationModalView({model: classroomStudentUserModel});
+	     		studentsLayoutView.modalRegion.show(removeStudentConfirmationModalView);
+
+					
+	     	}
+	     	
+	     	
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});			
+		},
+
+		removeStudent: function(classroomStudentUserId, studentUserId, classroomId){
+			var postURL = "/teacher/classroom_remove_student" 
+
+			var postData = "classroom_id=" + classroomId
+				+ "&student_user_id=" + studentUserId
+				+ "&classroom_student_user_id=" + classroomStudentUserId;
+			var jqxhr = $.post(postURL, postData, function(){
+				console.log('get request for classroom model');
+			})
+			.done(function(data) {
+
+     		$('.modal-backdrop').remove(); //This is a hack, don't know why the backdrop isn't going away
+     		$('body').removeClass('modal-open'); //This is a hack, don't know why the backdrop isn't going away
+
+				Students.Controller.showIndexCompositeView();
+
+	     	if(data.status == "success"){
+
+					var alertModel = new TeacherAccount.Models.Alert({alertClass: "alert-success", message: "Student successfully removed!"});
+					var alertView = new TeacherAccount.TeacherApp.AlertView({model:alertModel});
+
+					TeacherAccount.rootView.alertRegion.show(alertView);
+
+					
+	     	}else{
+
+					var alertModel = new TeacherAccount.Models.Alert({alertClass: "alert-danger", message: "Sorry, there was an error removing the student."});
+					var alertView = new TeacherAccount.TeacherApp.AlertView({model:alertModel});
+
+					TeacherAccount.rootView.alertRegion.show(alertView);
+
+	     	}
+	     	
+	     	
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});	
+
 		}
+
 
 	}
 

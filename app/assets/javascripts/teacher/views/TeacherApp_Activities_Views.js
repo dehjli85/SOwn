@@ -3,7 +3,7 @@
 TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccount, Backbone, Marionette, $, _){
 
 	Activities.IndexActivityView = Marionette.ItemView.extend({
-		template: JST["teacher/templates/TeacherApp_Activities_IndexActivityView"],
+		template: JST["teacher/templates/Activities/TeacherApp_Activities_IndexActivityView"],
 		tagName: "tr",
 
 		triggers:{
@@ -30,7 +30,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 	});
 
 	Activities.IndexCompositeView = Marionette.CompositeView.extend({
-		template: JST["teacher/templates/TeacherApp_Activities_IndexComposite"],
+		template: JST["teacher/templates/Activities/TeacherApp_Activities_IndexComposite"],
 		tagName: "div",
 		className: "classroom-tab-content",
 		childView: Activities.IndexActivityView,
@@ -84,7 +84,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 	});	
 
 	Activities.IndexHeaderView = Marionette.ItemView.extend({
-		template: JST["teacher/templates/TeacherApp_Activities_IndexHeader"],					
+		template: JST["teacher/templates/Activities/TeacherApp_Activities_IndexHeader"],					
 		triggers: {
 			"submit [ui-search-form]":"activities:index:filter:search:term"
 		},
@@ -100,7 +100,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 	
 	
 	Activities.IndexLayoutView = Marionette.LayoutView.extend({
-		template: JST["teacher/templates/TeacherApp_Activities_IndexLayout"],			
+		template: JST["teacher/templates/Activities/TeacherApp_Activities_IndexLayout"],			
 		regions:{			
 			headerRegion: "#header_region",
 			mainRegion: "#main_region",
@@ -137,7 +137,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 	});
 
 	Activities.AssignActivitiesModalView = Marionette.ItemView.extend({
-		template: JST ["teacher/templates/TeacherApp_Activities_AssignActivitiesModal"],
+		template: JST ["teacher/templates/Activities/TeacherApp_Activities_AssignActivitiesModal"],
 		className: "modal-dialog",
 
 		ui:{
@@ -155,7 +155,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 	})
 
 	Activities.EditActivityTagView = Marionette.ItemView.extend({
-		template: JST["teacher/templates/TeacherApp_Activities_EditActivityTag"],
+		template: JST["teacher/templates/Activities/TeacherApp_Activities_EditActivityTag"],
 		tagName: "li",
 		events:{
 			"click span": "removeTag"
@@ -175,7 +175,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 
 	Activities.EditActivityCompositeView = Marionette.CompositeView.extend({
-		template: JST["teacher/templates/TeacherApp_Activities_EditActivityComposite"],
+		template: JST["teacher/templates/Activities/TeacherApp_Activities_EditActivityComposite"],
 		tagName: "div",
 		className: "classroom-tab-content",
 		childView: Activities.EditActivityTagView,

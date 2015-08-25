@@ -3,7 +3,7 @@
 TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivities, TeacherAccount, Backbone, Marionette, $, _){
 
 	EditActivities.ActivityOptionView = Marionette.ItemView.extend({
-		template: JST["teacher/templates/TeacherApp_Classroom_EditActivities_ActivityOption"],			
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_EditActivities_ActivityOption"],			
 		tagName: "option",
 		className: "",
 		triggers: {
@@ -23,7 +23,7 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 	});
 
 	EditActivities.ActivityAssignmentView = Marionette.CompositeView.extend({
-		template: JST["teacher/templates/TeacherApp_Classroom_EditActivities_ActivityAssignment"],			
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_EditActivities_ActivityAssignment"],			
 		className: "",
 		childView: EditActivities.ActivityOptionView,
 		childViewContainer: "select",		
@@ -75,7 +75,7 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 	});
 
 	EditActivities.VerificationsView = Marionette.ItemView.extend({
-		template: JST["teacher/templates/TeacherApp_Classroom_EditActivities_Verification"],			
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_EditActivities_Verification"],			
 		tagName: "tr",
 		triggers: {
 			
@@ -88,7 +88,7 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 	});
 
 	EditActivities.VerificationsCompositeView = Marionette.CompositeView.extend({
-		template: JST["teacher/templates/TeacherApp_Classroom_EditActivities_VerificationsComposite"],
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_EditActivities_VerificationsComposite"],
 		tagName: "div",
 		className: "",
 		childView: EditActivities.VerificationsView,
@@ -135,7 +135,7 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 	});
 
 	EditActivities.AlertView = Marionette.ItemView.extend({
-		template: JST["teacher/templates/TeacherApp_Classroom_EditActivities_Alert"],
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_EditActivities_Alert"],
 		tagName: "div",
 		className: "alert center",
 
@@ -147,7 +147,7 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 
 	
 	EditActivities.LayoutView = Marionette.LayoutView.extend({
-		template: JST["teacher/templates/TeacherApp_Classroom_EditActivities_Layout"],			
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_EditActivities_Layout"],			
 		regions:{			
 			activityAssignmentRegion: "#activity_assignment_region",
 			verificationsRegion: "#tags_region",

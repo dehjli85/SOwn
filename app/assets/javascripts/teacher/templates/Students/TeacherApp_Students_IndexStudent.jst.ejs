@@ -1,0 +1,13 @@
+<td class="student_index_name_td"><%= display_name %></td>
+<td class="student_index_td">
+	<div class="no_border"><a href="#" id="<%= classrooms[0].id %>" class="ui-classroom-link"><%= classrooms[0].name %></a></div>		
+		<% for(var i = 1; i < classrooms.length; i++){ %>
+			<div class="top_bordered"><a href="#" id="<%= classrooms[i].id %>" class="ui-classroom-link"><%= classrooms[i].name %></a></div>		
+		<% } %>
+</td>
+<td class="student_index_td">
+	<div class="no_border"><a href="#" id="<%= classrooms[0].id %>" class="btn btn-danger btn-xs ui_remove_link">Remove</a></div>		
+		<% for(var i = 1; i < classrooms.length; i++){ %>
+			<div class="top_bordered"><a href="#" id="<%= classrooms[i].id %>" class="btn btn-danger btn-xs ui_remove_link">Remove</a></div>		
+		<% } %>
+</td>

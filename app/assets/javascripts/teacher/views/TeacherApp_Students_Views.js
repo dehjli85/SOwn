@@ -4,11 +4,11 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 
 	Students.IndexStudentView = Marionette.ItemView.extend({
 
-		template: JST["teacher/templates/TeacherApp_Students_IndexStudent"],
+		template: JST["teacher/templates/Students/TeacherApp_Students_IndexStudent"],
 		tagName: "tr",
 
 		ui:{
-			studentNameLink: "[ui-student-name-link]"
+			studentNameLink: "[ui-student-name-link]",			
 		},
 
 		triggers:{
@@ -16,17 +16,20 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 		},
 
 		events:{
-			"click .ui-classroom-link": "showStudentView"
+			"click .ui-classroom-link": "showStudentView",
+			"click .ui_remove_link": "showRemoveModal"
 		},
 
 		showStudentView: function(e){
 			e.preventDefault();
-			var classroomId = $(e.target).attr("id");
-			TeacherAccount.TeacherApp.Students.Controller.showStudentView(this.model.attributes.id, classroomId);
+			this.model.attributes.classroomId = $(e.target).attr("id");
+			this.triggerMethod("show:student:view");
 		},
 
-		onShowStudentView: function(){
-
+		showRemoveModal: function(e){
+			e.preventDefault();
+			this.model.attributes.classroomId = $(e.target).attr("id");
+			this.triggerMethod("show:remove:modal");
 		}
 
 	});
@@ -34,7 +37,7 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 
 	Students.IndexCompositeView = Marionette.CompositeView.extend({
 
-		template: JST["teacher/templates/TeacherApp_Students_IndexComposite"],
+		template: JST["teacher/templates/Students/TeacherApp_Students_IndexComposite"],
 		tagName: "div",
 		className: "col-md-12",
 		childView: TeacherAccount.TeacherApp.Students.IndexStudentView,
@@ -67,12 +70,14 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 		searchStudents: function(e){
 			e.preventDefault();
 			TeacherAccount.TeacherApp.Students.Controller.showIndexCompositeView(this.ui.searchInput.val())
-		}
+		},
+
+		
 
 	});	
 
 	Students.ShowActivityView = Marionette.ItemView.extend({
-		template: JST["teacher/templates/TeacherApp_Students_ShowActivity"],
+		template: JST["teacher/templates/Students/TeacherApp_Students_ShowActivity"],
 		tagName: "tr",
 
 		ui:{
@@ -88,7 +93,7 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 	});
 
 	Students.ShowStudentCompositeView = Marionette.CompositeView.extend({
-		template: JST["teacher/templates/TeacherApp_Students_ShowStudentComposite"],
+		template: JST["teacher/templates/Students/TeacherApp_Students_ShowStudentComposite"],
 		childViewContainer: "tbody",
 		childView: TeacherAccount.TeacherApp.Students.ShowActivityView,
 		className: "col-md-12",
@@ -98,8 +103,8 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 
 	});
 
-	Students.ShowLayoutView = Marionette.LayoutView.extend({
-		template: JST["teacher/templates/TeacherApp_Students_ShowLayout"],
+	Students.StudentsLayoutView = Marionette.LayoutView.extend({
+		template: JST["teacher/templates/Students/TeacherApp_Students_StudentsLayout"],
 		regions: { 
 			mainRegion: "#show_layout_main_region",
 			modalRegion: "#show_layout_modal_region"
@@ -119,9 +124,46 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 		onChildviewStudentsLayoutShowActivityDetailsModal: function(view){
 			this.ui.modalRegion.modal("show");
 			TeacherAccount.TeacherApp.Students.Controller.openActivityDetailsModal(this, view.model.get("classroom_activity_pairing_id"), this.model.attributes.student.id);
+		},
+
+		onChildviewShowStudentView: function(view){
+			TeacherAccount.TeacherApp.Students.Controller.showStudentView(this, view.model.attributes.id, view.model.attributes.classroomId);			
+		},
+
+		onChildviewShowRemoveModal: function(view){
+			this.ui.modalRegion.modal("show");
+			TeacherAccount.TeacherApp.Students.Controller.openRemoveStudentModal(this, view.model.attributes.id, view.model.attributes.classroomId);
+		},
+
+		onChildviewRemoveStudent: function(view){
+			this.ui.modalRegion.modal("hide");			
+			TeacherAccount.TeacherApp.Students.Controller.removeStudent(view.model.attributes.id, view.model.attributes.student_user_id, view.model.attributes.classroom_id)
 		}
 
-	})
+	});
+
+	Students.RemoveStudentConfirmationModalView = Marionette.ItemView.extend({
+		template: JST["teacher/templates/Students/TeacherApp_Students_RemoveStudentConfirmationModal"],
+		className: "modal-dialog",
+
+		ui:{
+			removeButton: "[ui-remove-button]"
+		},
+
+		triggers: {
+			"click @ui.removeButton": "remove:student"
+		},
+		
+		initialize: function(options){
+			this.$el.attr("role","document");
+		}, 
+
+
+
+
+
+	});
+
 
 
 
