@@ -100,7 +100,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		childView: Scores.StudentPerformanceView,
 		childViewContainer: "tbody",
 		childViewOptions: function(model, index){			
-			return {activitiesCount: this.model.attributes.activities.length}
+			return {
+				activitiesCount: this.model.attributes.activities.length
+			}
 		},
 
 		ui:{
@@ -160,6 +162,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			if(this.model == null){
 				this.model = new Backbone.Model({});
 			}
+			console.log(this.collection.length);
 			this.model.attributes.collectionSize = this.collection.length;
 
 			//create a data structure for storing the sorted list of activities
@@ -168,11 +171,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				this.model.attributes.activitiesSortOrder[i] = this.model.attributes.activities[i].classroom_activity_pairing_id;
 			}
 
-			// this.model.attributes.searchTerm = options.searchTerm
-			// this.model.attributes.tagId = options.tagId
-
-			// console.log(options);
-			console.log(this.model.attributes);
 
 		},
 

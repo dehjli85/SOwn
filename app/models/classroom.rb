@@ -60,14 +60,11 @@ class Classroom < ActiveRecord::Base
 
 	def search_matched_pairings_and_activities(search_hash={search_term: nil, tag_id: nil })
 
-		start_time = Time.now
 		tag_hash = Hash.new
 		
 		# if there's no search term provided, just use active record relationship
 		if (search_hash[:search_term].nil? || search_hash[:search_term].eql?('')) && search_hash[:tag_id].nil?
 
-			end_time = Time.now
-			puts "search_matched_pairings run time: #{end_time-start_time}"
 
 			activities = Activity.joins(:classroom_activity_pairings)
 				.where("classroom_activity_pairings.classroom_id = ?", self.id)
@@ -77,12 +74,13 @@ class Classroom < ActiveRecord::Base
 			sql = 'SELECT spv.student_user_id is not null as requires_verification, student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, student_performances.* 
 			FROM "student_performances" 
 			INNER JOIN "student_users" ON "student_users"."id" = "student_performances"."student_user_id" 
+			INNER JOIN "classroom_student_users" ON "classroom_student_users"."student_user_id" = "student_users"."id" and "classroom_student_users"."classroom_id" = ?
 			INNER JOIN "classroom_activity_pairings" ON "classroom_activity_pairings"."id" = "student_performances"."classroom_activity_pairing_id" 
 			INNER JOIN activities a on a.id =  classroom_activity_pairings.activity_id 
 			LEFT OUTER JOIN student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id and student_users.id = spv.student_user_id 
 			WHERE (classroom_activity_pairings.classroom_id = ?)  ORDER BY student_users.last_name ASC'
 
-			sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, id])
+			sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, id, id])
 
 			student_performances = ActiveRecord::Base.connection.execute(sanitized_query)
 
@@ -92,8 +90,6 @@ class Classroom < ActiveRecord::Base
 			
 			#if the user has provided a space-separated list of tags
 			if(!(search_hash[:search_term].nil? || search_hash[:search_term].eql?('')) && search_hash[:search_term][0].eql?('#'))
-
-				puts "space separted list of hashes"
 
 				#create an array with the tags
 				tag_array = search_hash[:search_term].gsub('#','').split(/ +/)
@@ -109,14 +105,15 @@ class Classroom < ActiveRecord::Base
 				sql = 'SELECT spv.student_user_id is not null as requires_verification, student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, student_performances.* 
 					FROM "student_performances" 
 					INNER JOIN "student_users" ON "student_users"."id" = "student_performances"."student_user_id" 
+					INNER JOIN "classroom_student_users" ON "classroom_student_users"."student_user_id" = "student_users"."id" and "classroom_student_users"."classroom_id" = ?
 					INNER JOIN "classroom_activity_pairings" ON "classroom_activity_pairings"."id" = "student_performances"."classroom_activity_pairing_id" 
 					INNER JOIN activities a on a.id =  classroom_activity_pairings.activity_id 
-					INNER JOIN activity_tag_pairings atp on atp.activity_id = a.id
-					INNER JOIN activity_tags tags on tags.id = atp.activity_tag_id and tags.name in (?)
+					LEFT JOIN activity_tag_pairings atp on atp.activity_id = a.id
+					LEFT JOIN activity_tags tags on tags.id = atp.activity_tag_id and tags.name in (?)
 					LEFT OUTER JOIN student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id and student_users.id = spv.student_user_id 
 					WHERE (classroom_activity_pairings.classroom_id = ?)  
 					ORDER BY student_users.last_name ASC'
-				sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, tag_array,id])
+				sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, id, tag_array,id])
 				student_performances = ActiveRecord::Base.connection.execute(sanitized_query)
 
 
@@ -126,8 +123,8 @@ class Classroom < ActiveRecord::Base
 			elsif search_hash[:search_term]			
 
 				activities = Activity.joins(:classroom_activity_pairings)				
-				.joins("inner join activity_tag_pairings tag_pairings on classroom_activity_pairings.activity_id = tag_pairings.activity_id")
-				.joins("inner join activity_tags tags on tag_pairings.activity_tag_id = tags.id")
+				.joins("LEFT JOIN activity_tag_pairings tag_pairings on classroom_activity_pairings.activity_id = tag_pairings.activity_id")
+				.joins("LEFT JOIN activity_tags tags on tag_pairings.activity_tag_id = tags.id")
 				.where("lower(tags.name) like ? or lower(activities.name) like ? or lower(activities.description) like ?" , "%#{search_hash[:search_term].downcase}%", "%#{search_hash[:search_term].downcase}%", "%#{search_hash[:search_term].downcase}%")
 				.where("classroom_activity_pairings.classroom_id = ?", self.id)
 				.select("activities.*, classroom_activity_pairings.sort_order, classroom_activity_pairings.id as classroom_activity_pairing_id")
@@ -137,15 +134,16 @@ class Classroom < ActiveRecord::Base
 				sql = 'SELECT spv.student_user_id is not null as requires_verification, student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, student_performances.* 
 					FROM "student_performances" 
 					INNER JOIN "student_users" ON "student_users"."id" = "student_performances"."student_user_id" 
+					INNER JOIN "classroom_student_users" ON "classroom_student_users"."student_user_id" = "student_users"."id" and "classroom_student_users"."classroom_id" = ?
 					INNER JOIN "classroom_activity_pairings" ON "classroom_activity_pairings"."id" = "student_performances"."classroom_activity_pairing_id" 
 					INNER JOIN activities a on a.id =  classroom_activity_pairings.activity_id 
-					INNER JOIN activity_tag_pairings atp on atp.activity_id = a.id
-					INNER JOIN activity_tags tags on tags.id = atp.activity_tag_id 
+					LEFT JOIN activity_tag_pairings atp on atp.activity_id = a.id
+					LEFT JOIN activity_tags tags on tags.id = atp.activity_tag_id 
 					LEFT OUTER JOIN student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id and student_users.id = spv.student_user_id 
 					WHERE (classroom_activity_pairings.classroom_id = ?)  
 						AND (lower(tags.name) like ? or lower(a.name) like ? or lower(a.description) like ?)
 					ORDER BY student_users.last_name ASC'
-				sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, id, "%#{search_hash[:search_term].downcase}%", "%#{search_hash[:search_term].downcase}%", "%#{search_hash[:search_term].downcase}%" ])
+				sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, id, id, "%#{search_hash[:search_term].downcase}%", "%#{search_hash[:search_term].downcase}%", "%#{search_hash[:search_term].downcase}%" ])
 				student_performances = ActiveRecord::Base.connection.execute(sanitized_query)
 
 				return {activities: activities, student_performances: student_performances}
@@ -163,6 +161,7 @@ class Classroom < ActiveRecord::Base
 				sql = 'SELECT spv.student_user_id is not null as requires_verification, student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, student_performances.* 
 					FROM "student_performances" 
 					INNER JOIN "student_users" ON "student_users"."id" = "student_performances"."student_user_id" 
+					INNER JOIN "classroom_student_users" ON "classroom_student_users"."student_user_id" = "student_users"."id" and "classroom_student_users"."classroom_id" = ?
 					INNER JOIN "classroom_activity_pairings" ON "classroom_activity_pairings"."id" = "student_performances"."classroom_activity_pairing_id" 
 					INNER JOIN activities a on a.id =  classroom_activity_pairings.activity_id 
 					INNER JOIN activity_tag_pairings atp on atp.activity_id = a.id
@@ -170,7 +169,7 @@ class Classroom < ActiveRecord::Base
 					LEFT OUTER JOIN student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id and student_users.id = spv.student_user_id 
 					WHERE (classroom_activity_pairings.classroom_id = ?)  
 					ORDER BY student_users.last_name ASC'
-				sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, search_hash[:tag_id],id])
+				sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, id, search_hash[:tag_id],id])
 				student_performances = ActiveRecord::Base.connection.execute(sanitized_query)
 
 				return {activities: activities, student_performances: student_performances}

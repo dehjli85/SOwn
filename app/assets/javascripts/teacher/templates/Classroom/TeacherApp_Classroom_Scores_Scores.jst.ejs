@@ -1,4 +1,4 @@
-<% if(activities == null || activities.length == 0){ %>
+<% if(((searchTerm == null || searchTerm == "") && tagId == null ) && (activities == null || activities.length == 0)){ %>
   <div class="alert alert-warning">
     You haven't assigned any activities for your students to work on yet!  Get started by clicking the "Activities" link on the left or the "Edit Activites" link above!
   </div>
@@ -21,7 +21,7 @@
     </table>
   </form>
 
-  <% if(collectionSize == 0){ %> 
+  <% if(collectionSize == null || collectionSize == 0){ %> 
     <div class="alert alert-warning">
       No students have joined your classroom yet.  When they log in, have them use classroom code &quot;<b><%= classroom.classroom_code %></b>&quot; to join this class!
     </div>

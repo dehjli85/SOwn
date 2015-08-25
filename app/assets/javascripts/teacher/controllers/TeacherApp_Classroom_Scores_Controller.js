@@ -51,6 +51,8 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			})
 			.done(function(data) {
 
+				console.log(data);
+
 				if(data.status == "success"){
 					var activity_indices = {};				
 					for(var i=0; i < data.activities.length; i++){					
@@ -140,6 +142,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 				// //create a new composite view for the table
 				var classroomAndActivitiesModel = new TeacherAccount.TeacherApp.Classroom.Scores.Models.Activities({activities:data.activities, classroom: data.classroom});
+				classroomAndActivitiesModel.attributes.searchTerm = searchTerm;
+				classroomAndActivitiesModel.attributes.tagId = tagId;
+				
 				var studentPerformancesCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.StudentPerformanceCollection(students);
 
 				console.log(classroomAndActivitiesModel);
