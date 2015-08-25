@@ -484,9 +484,11 @@ class Classroom < ActiveRecord::Base
     performances_array = self.student_performances_for_student(student_user_id).as_json
     performances_array.each do |performance|
 
-      index = performance["sort_order"]
+      index = performance["sort_order"]-1
 
       puts "index #{index}"
+      puts "activity #{activities[index]}"
+
 
       performance["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activities[index]["activity_type"], performance["scored_performance"], performance["completed_performance"])
       performance["performance_color"] = StudentPerformance.performance_color_no_active_record(activities[index]["activity_type"], activities[index]["benchmark1_score"], activities[index]["benchmark2_score"], activities[index]["min_score"], activities[index]["max_score"], performance["scored_performance"], performance["completed_performance"])
