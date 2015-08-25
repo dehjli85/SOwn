@@ -435,15 +435,24 @@ class Classroom < ActiveRecord::Base
 	def percent_proficient_activities
 		
 		students = self.student_users
-		cap_ids = self.search_matched_pairings.joins(:activity).where("(activity_type = 'completion') or (activity_type = 'scored' and (benchmark1_score is not null or benchmark2_score is not null))").ids
+		cap_ids = self.search_matched_pairings.joins(:activity)
+			.where("(activity_type = 'completion') or (activity_type = 'scored' and (benchmark1_score is not null or benchmark2_score is not null))")
+			.ids
 
 		total_activities = students.length * cap_ids.length
 		
 		
-		student_performances = StudentPerformance.joins(:activity).where({classroom_activity_pairing_id: cap_ids}).where('completed_performance= true or scored_performance > greatest(benchmark1_score, benchmark2_score)')
+		student_performances = StudentPerformance.joins(:activity)
+			.joins(:classroom_activity_pairing)
+			.where({classroom_activity_pairing_id: cap_ids})
+			.where('completed_performance= true or scored_performance > greatest(benchmark1_score, benchmark2_score)')
+			.where(:student_user_id => students.pluck(:id))
+
 		proficient_count = student_performances.length
 
-		if proficient_count > 0
+		if total_activities == 0
+			return 0
+		elsif proficient_count > 0
 			return proficient_count.to_f / total_activities.to_f
 		else
 			return 0
