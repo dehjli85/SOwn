@@ -54,7 +54,7 @@ class StudentPerformance < ActiveRecord::Base
 		scored_performance = scored_performance ? scored_performance.to_f : nil
 
 		if activity_type.eql?('scored')
-			if (benchmark1_score.nil? && benchmark2_score.nil?) || min_score.nil? || max_score.nil?
+			if scored_performance.nil? || (benchmark1_score.nil? && benchmark2_score.nil?) || min_score.nil? || max_score.nil?
 				return 'none'
 			elsif !benchmark2_score.nil? && benchmark1_score.nil?
 				if scored_performance <= max_score && scored_performance > benchmark2_score
