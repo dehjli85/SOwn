@@ -9,13 +9,11 @@ class ClassroomActivityPairing < ActiveRecord::Base
 	validates :classroom_id, :activity_id, :sort_order, presence: true
 	validates_uniqueness_of :classroom_id, :scope => :activity_id
 
+	# Returns the max sort_order for Activities assigned in the Classroom
+	# If there are no activities assigned, it returns nil
 	def self.max_sort_order(classroom_id)
 
 		max = ClassroomActivityPairing.where({classroom_id: classroom_id}).pluck(:sort_order).max
-
-		if max.nil?
-			max = -1
-		end
 
 		return max
 		

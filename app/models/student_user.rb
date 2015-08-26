@@ -1,19 +1,19 @@
 class StudentUser < ActiveRecord::Base
 
-    # has_and_belongs_to_many :classrooms
-    has_many :classrooms, :through => :classroom_student_users
+  # has_and_belongs_to_many :classrooms
+  has_many :classrooms, :through => :classroom_student_users
 
-    has_many :student_performances, -> {order 'student_performances.created_at'}
-    has_many :student_performance_verifications    
-    has_many :classroom_student_users
+  has_many :student_performances, -> {order 'student_performances.created_at'}
+  has_many :student_performance_verifications    
+  has_many :classroom_student_users
 
-    validates :first_name, :last_name, :email, presence: true
-    validate :has_password_or_external_authentication
-    validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
-    validates :email, uniqueness: true
+  validates :first_name, :last_name, :email, presence: true
+  validate :has_password_or_external_authentication
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
+  validates :email, uniqueness: true
 
-		def self.from_omniauth_sign_up(auth)
-    
+	def self.from_omniauth_sign_up(auth)
+  
     puts 'AUTH_HASH:\n' + auth.to_s
 
     #check to see if the user already exists in the db.  If so, return null.
@@ -34,7 +34,7 @@ class StudentUser < ActiveRecord::Base
     user.username = auth.info.email
     user.display_name = auth.info.name
     
-  
+
 
     return user
 

@@ -32,32 +32,55 @@ class Classroom < ActiveRecord::Base
   #
   ##################################################################################################
 
-  # Return array of activities 
-  # Includes classroom_activity_pairing_id and sort order for each activity
-  def activities_with_pairing_ids
-  	Activity.joins("inner join classroom_activity_pairings cap on cap.activity_id = activities.id")
-          .joins("inner join classrooms c on c.id = cap.classroom_id")
-          .where("c.id = ?", self.id)
-          .where("cap.hidden = false")
-          .order("cap.sort_order ASC")
-          .select("activities.*, cap.id as classroom_activity_pairing_id, cap.sort_order")
+  # Returns array of activities with classroom_activity_pairing_id and sort order for each activity
+  # includeHidden can be passed to indicate whether hidden activities should be returned (default is false)
+  def activities_with_pairing_ids(includeHidden=false)
+  	if includeHidden
+  		Activity.joins("inner join classroom_activity_pairings cap on cap.activity_id = activities.id")
+        .joins("inner join classrooms c on c.id = cap.classroom_id")
+        .where("c.id = ?", self.id)
+        .order("cap.sort_order ASC")
+        .select("activities.*, cap.id as classroom_activity_pairing_id, cap.sort_order")
+    else
+    	Activity.joins("inner join classroom_activity_pairings cap on cap.activity_id = activities.id")
+	      .joins("inner join classrooms c on c.id = cap.classroom_id")
+	      .where("c.id = ?", self.id)
+	      .where("cap.hidden = false")
+	      .order("cap.sort_order ASC")
+	      .select("activities.*, cap.id as classroom_activity_pairing_id, cap.sort_order")
+    end
+
   end
 
-  # Returns student performances in the classroom for the specified student.  
+  # Returns an Array of Student Performances in the classroom for the specified student.  
   # Includes the activity_id, sort_order, and boolean for requires verification
-  def student_performances_for_student(student_user_id)
+  # includeHidden can be passed to indicate whether hidden activities should be returned (default is false)  
+  def student_performances_for_student(student_user_id, includeHidden=false)
 
     cap_ids = self.classroom_activity_pairings.pluck(:id)
 
-  	StudentPerformance.joins(:classroom_activity_pairing)
-          .joins("left join student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id")
-          .where(classroom_activity_pairing_id: cap_ids)
-          .where(student_user_id: student_user_id)
-          .where("classroom_activity_pairings.hidden = false")
-          .order("created_at DESC")
-          .select("student_performances.*, classroom_activity_pairings.activity_id, classroom_activity_pairings.sort_order", "spv.id is not null as requires_verification")
+		if(includeHidden)
+	  	StudentPerformance.joins(:classroom_activity_pairing)
+        .joins("left join student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id")
+        .where(classroom_activity_pairing_id: cap_ids)
+        .where(student_user_id: student_user_id)
+        .order("created_at DESC")
+        .select("student_performances.*, classroom_activity_pairings.activity_id, classroom_activity_pairings.sort_order", "spv.id is not null as requires_verification")
+    else
+    	StudentPerformance.joins(:classroom_activity_pairing)
+        .joins("left join student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id")
+        .where(classroom_activity_pairing_id: cap_ids)
+        .where(student_user_id: student_user_id)
+        .where("classroom_activity_pairings.hidden = false")
+        .order("created_at DESC")
+        .select("student_performances.*, classroom_activity_pairings.activity_id, classroom_activity_pairings.sort_order", "spv.id is not null as requires_verification")
+      end
+
   end
 
+  # Returns a hash with keys "activities" and "student_performances"
+  # Value for "activities" key is an array of activities with classroom_activity_pairing_id and sort order for each activity 
+  # Value for "student_performances" key is an array of student_performances.  Each object in the array also includes activity_information and student name and id
 	def search_matched_pairings_and_activities(search_hash={search_term: nil, tag_id: nil })
 
 		tag_hash = Hash.new
@@ -65,11 +88,7 @@ class Classroom < ActiveRecord::Base
 		# if there's no search term provided, just use active record relationship
 		if (search_hash[:search_term].nil? || search_hash[:search_term].eql?('')) && search_hash[:tag_id].nil?
 
-
-			activities = Activity.joins(:classroom_activity_pairings)
-				.where("classroom_activity_pairings.classroom_id = ?", self.id)
-				.order('classroom_activity_pairings.sort_order ASC')
-				.select("activities.*, classroom_activity_pairings.sort_order, classroom_activity_pairings.id as classroom_activity_pairing_id")
+			activities = self.activities_with_pairing_ids(true)
 
 			sql = 'SELECT spv.student_user_id is not null as requires_verification, student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, student_performances.* 
 			FROM "student_performances" 
@@ -181,19 +200,13 @@ class Classroom < ActiveRecord::Base
 	end
 
 
-	# return classroom pairing objects that match the search_term
-	# this method has been optimized to minimize the number of database calls made
-	# it, therefore, doesn't take advantage of all the active record features
+	# Returns and array of Classroom Activity Pairings that match the search_term or search tag
 	def search_matched_pairings(search_hash={search_term: nil, search_tag: nil })
 
-		start_time = Time.now
 		tag_hash = Hash.new
 		
 		# if there's no search term provided, just use active record relationship
 		if search_hash[:search_term].nil? && search_hash[:search_tag].nil?
-
-			end_time = Time.now
-			puts "search_matched_pairings run time: #{end_time-start_time}"
 
 			return self.classroom_activity_pairings
 
@@ -213,9 +226,6 @@ class Classroom < ActiveRecord::Base
 
 				#get the classroom activity pairings for those activities and the classroom
 				caps = ClassroomActivityPairing.where({activity_id: activity_id_array, classroom_id: self.id})
-
-				end_time = Time.now
-				puts "search_matched_pairings run time: #{end_time-start_time}"
 
 				return caps
 
@@ -252,9 +262,6 @@ class Classroom < ActiveRecord::Base
 				#get the classroom activity pairings that match the classroom id and the activity ids from the created array
 				caps = ClassroomActivityPairing.where({activity_id: activity_id_array, classroom_id: self.id})
 
-				end_time = Time.now
-				puts "search_matched_pairings run time: #{end_time-start_time}"
-
 				return caps
 
 			end		
@@ -263,7 +270,7 @@ class Classroom < ActiveRecord::Base
 
 	end
 
-	#return an array of the distinct tags for activities inthe classroom
+	# Returns an array of the distinct Tags for Activities in the Classroom matching search_term or search_tag
 	def search_matched_tags(search_hash={search_term: nil, search_tag: nil })
 
 		activity_ids = self.search_matched_pairings(search_hash).pluck(:activity_id)		
@@ -274,10 +281,9 @@ class Classroom < ActiveRecord::Base
 
 	end
 
+	# Returns an array of distinct Tags for Activities in the Classroom
 	def tags
 		
-		start_time = Time.now
-
 		tag_hash = Hash.new
 
 		#Get all the activities ids for the classroom and put them into an array
@@ -289,122 +295,15 @@ class Classroom < ActiveRecord::Base
 		#query for the activity tags corresponding to the tag id's, and put them into a hash to make them unique
 		activity_tags = ActivityTag.where(id: tag_id_array).order("name ASC").distinct
 
-		end_time = Time.now
-		puts end_time-start_time
-
 		return activity_tags
 		
 	end
 
-	# returns a hash of hashes.  
-	# the key the first layer of the hash is the student, the value is another hash
-	# => the key for the second layer of the hash is an activity, 
-	# => the value is the student's performance (from the key of the first layer) on that activity
-	def student_performances(search_hash={search_term: nil, search_tag: nil })
-
-		start_time = Time.now
-
-		#get the pairings that match the search hash
-		#store the pairing ids and activity ids into separate arrays				
-		pairing_id_array = search_matched_pairings(search_hash).pluck(:id)
-		activity_id_array = search_matched_pairings(search_hash).pluck(:activity_id)
-		
-
-		#store the performances into a hash, where the student is the key
-		# the values are another hash, where the key is the activity, and the value is the pairing		
-		performances = StudentPerformance.where({classroom_activity_pairing_id: pairing_id_array})
-
-		#get the students for the classroom and store them in a hash where the key is the id
-		students = self.student_users
-		students_hash = Hash.new
-		students.each do |student|
-			students_hash[student.id] = student
-		end
-
-		#get the activities for the classroom and store them in a hash where the key is the id
-		activities = Activity.where(id: activity_id_array)
-		activities_hash = Hash.new
-		activities.each do |activity|
-			activities_hash[activity.id] = activity
-		end
-
-		#get the pairings for the classroom and store them in a hash where the key is the id and the object is the activity
-		caps = ClassroomActivityPairing.where(id: pairing_id_array)
-		cap_activities_hash = Hash.new
-		caps.each do |cap|
-			cap_activities_hash[cap.id] = activities_hash[cap.activity_id]
-		end
-		puts cap_activities_hash
-		
-		performances_hash = Hash.new
-		performances.each do |p|
-		
-			if !performances_hash[students_hash[p.student_user_id]]
-				performances_hash[students_hash[p.student_user_id]] = Hash.new
-			end
-			performances_hash[students_hash[p.student_user_id]][cap_activities_hash[p.classroom_activity_pairing_id]] = p
-		
-		end	
-
-		end_time = Time.now
-		puts "student_performances runtime: #{end_time-start_time}"
-
-		return performances_hash
-		
-	end
-
-	def get_activities_and_student_performance_data_all
-		
-		activities_array = Array.new(self.activities.size)
-		student_performances_array = Array.new
-
-		acs = ClassroomActivityPairing.where({classroom_id: self.id})
-		acs.each_with_index do |ac, index|
-			#create a sorted array of the activities
-			activities_array[index] = {activity: ac.activity, ac_id: ac.id}
-			#create a sorted array of all performances
-			student_performances_array[index]= ac.student_performances
-			#create a sorted array of all the activities_classrooms id
-
-		end
-		
-		#create an empty array for students to store their performance data
-		student_performances = Array.new(self.student_users.size)
-
-		#for each student
-		self.student_users.each_with_index do |s, index_j|
-			
-			#create an empty array for their performance on each activity
-			individual_performance_array = Array.new(activities_array.size)
-
-			#for each activity
-			student_performances_array.each_with_index do |sp, index|
-				#check go through all the performances and look to see if the student has one
-				sp.each do |p|
-					#if the student matches, add the performance to their array
-					if p.student_user.id == s.id
-						individual_performance_array[index] = p				
-					end
-				end
-			end
-
-			student_performances[index_j] = {student: s, performance_array: individual_performance_array}
-
-		end
-
-		activities_and_student_performance_hash = Hash.new
-		activities_and_student_performance_hash[:activities] = activities_array
-		activities_and_student_performance_hash[:student_performances] = student_performances
-
-		return activities_and_student_performance_hash
-
-	end
-
-	# Returns a 2 element hash for the specified student.  
-	# First key of hash = :activities, value is an array of hashes.  For each hash in the array:
-	# => First key of hash = :activity, value is the activity model object
-	# => Second key of the hash = cap_id, value is the id of the ClassroomActivityPairing associated with that activity and this classroom
-	# Second key of the hash = :student_performance, value is an array of an array of StudentPerformances, with the most recent performances coming first
+	# Returns a Hash with 2 keys: :activities and :student_performances for the specified student_user_id  
+	# Value for :activities is an Array of Hashes.  Each Hash in the Array has 2 keys: :activity and :cap_id
+	# => Value for :activity is the Activity
+	# => Value for cap_id, value is the id of the Classroom Activity Pairing associated with that Activity and this Classroom
+	# Value for :student_performances is an Array of Student Performances, with the most recent performances coming first
 	#
 	# The performances are sorted in the same order as the activities.
 	def get_activities_and_student_performance_data(student_user_id)
@@ -419,8 +318,7 @@ class Classroom < ActiveRecord::Base
 			activities_array[index] = {activity: cap.activity, cap_id: cap.id}
 
 			#create a sorted array of all performances			
-			student_performance_array[index] = StudentPerformance.where({classroom_activity_pairing_id: cap.id, student_user_id: student_user_id}).order("created_at DESC")
-			
+			student_performance_array[index] = StudentPerformance.where({classroom_activity_pairing_id: cap.id, student_user_id: student_user_id}).order("id DESC")
 
 		end		
 
@@ -432,6 +330,10 @@ class Classroom < ActiveRecord::Base
 
 	end
 
+	# Returns a Float indicating the percentage of Activities completed by Student Users in the Classroom at a proficient level
+	# Proficient level is:
+	# => Completed for completion Activity
+	# => Greater than the max of Benchmark1 and Benchmark2 of the scored Activity
 	def percent_proficient_activities
 		
 		students = self.student_users
@@ -440,7 +342,6 @@ class Classroom < ActiveRecord::Base
 			.ids
 
 		total_activities = students.length * cap_ids.length
-		
 		
 		student_performances = StudentPerformance.joins(:activity)
 			.joins(:classroom_activity_pairing)
@@ -451,72 +352,95 @@ class Classroom < ActiveRecord::Base
 		proficient_count = student_performances.length
 
 		if total_activities == 0
-			return 0
+			return 0.0
 		elsif proficient_count > 0
 			return proficient_count.to_f / total_activities.to_f
 		else
-			return 0
+			return 0.0
 		end
-
-		
 
 	end
 
+	# Returns a Float indicating the percentage of Activities completed by the specified Student User in the Classroom at a proficient level
+	# Proficient level is:
+	# => Completed for completion Activity
+	# => Greater than the max of Benchmark1 and Benchmark2 of the scored Activity
 	def percent_proficient_activities_student(student_user_id)
-		
 		
 		cap_ids = self.search_matched_pairings.joins(:activity).where("(activity_type = 'completion') or (activity_type = 'scored' and (benchmark1_score is not null or benchmark2_score is not null))").ids
 
 		total_activities = cap_ids.length
 		
+		student_performances = StudentPerformance.joins(:activity)
+			.where({classroom_activity_pairing_id: cap_ids})
+			.where('completed_performance= true or scored_performance > greatest(benchmark1_score, benchmark2_score)')
+			.where(student_user_id: student_user_id)
 		
-		student_performances = StudentPerformance.joins(:activity).where({classroom_activity_pairing_id: cap_ids}).where('completed_performance= true or scored_performance > greatest(benchmark1_score, benchmark2_score)').where(student_user_id: student_user_id)
 		proficient_count = student_performances.length
-		if proficient_count > 0
+		
+		if total_activities == 0
+			return 0.0
+		elsif proficient_count > 0
 			return proficient_count.to_f / total_activities.to_f
 		else
-			return 0
+			return 0.0
 		end
 
 	end
 
+
+	# Returns and Array of Hashes.  
+	# Each Hash represents an Activity. In addition to having keys representing all the Activity fields, there is also a "student performances" key
+	# The value of the "student performances" key is an Array of all the Student Performances entered by the Student User for that Activity in the Classroom
+	# Activities hidden from the Student User are excluded
 	def activities_and_performances(student_user_id)
 
-		activities_pre = self.activities_with_pairing_ids.as_json
-		activities = Array.new
-
-    activities_pre.each do |activity, index|
+		unsorted_activities = self.activities_with_pairing_ids.as_json
+		
+		# Sort activities based on their sort order		
+		# There are potentially null objects in the sorted array based on what the teacher has hidden
+		sorted_activities = Array.new
+    unsorted_activities.each do |activity|
       activity["student_performances"] = Array.new
-      activities[activity["sort_order"]] = activity
+      sorted_activities[activity["sort_order"]] = activity
     end
 
-
-
-    cap_ids = self.classroom_activity_pairings.pluck(:id)
-
+    # Get all Student Performances for the Student User in the Classroom (excluding hidden Activities)
     performances_array = self.student_performances_for_student(student_user_id).as_json
-    puts activities.length
-    puts performances_array.length
     performances_array.each do |performance|
 
-      index = performance["sort_order"]
+      sort_order = performance["sort_order"]
 
-      puts "activities[#{index}]: #{activities[index]}"
+      performance["performance_pretty"] = 
+      	StudentPerformance.performance_pretty_no_active_record(
+      		activities[sort_order]["activity_type"], 
+      		performance["scored_performance"], 
+      		performance["completed_performance"]
+    		)
+      performance["performance_color"] = 
+      	StudentPerformance.performance_color_no_active_record(
+      		activities[sort_order]["activity_type"], 
+      		activities[sort_order]["benchmark1_score"], 
+      		activities[sort_order]["benchmark2_score"], 
+      		activities[sort_order]["min_score"], 
+      		activities[sort_order]["max_score"], 
+      		performance["scored_performance"], 
+      		performance["completed_performance"]
+      	)
 
-      performance["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activities[index]["activity_type"], performance["scored_performance"], performance["completed_performance"])
-      performance["performance_color"] = StudentPerformance.performance_color_no_active_record(activities[index]["activity_type"], activities[index]["benchmark1_score"], activities[index]["benchmark2_score"], activities[index]["min_score"], activities[index]["max_score"], performance["scored_performance"], performance["completed_performance"])
-      if activities[index]["student_performances"].nil?
-        activities[index]["student_performances"] = Array.new
+      if sorted_activities[sort_order]["student_performances"].nil?
+        sorted_activities[sort_order]["student_performances"] = Array.new
       end
-      activities[index]["student_performances"].push(performance)
+      sorted_activities[sort_order]["student_performances"].push(performance)
 
     end
 
-    activities = activities.reject { |c| c.nil? }
+    # Remove nil objects from the sorted array
+    sorted_activities.reject! do |activity| 
+    	activity.nil? 
+    end
 
-
-
-    return activities
+    return sorted_activities
 
 	end
 

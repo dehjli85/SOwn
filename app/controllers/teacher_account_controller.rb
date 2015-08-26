@@ -466,7 +466,7 @@ class TeacherAccountController < ApplicationController
 			if !params[:assigned].nil? && params[:assigned].eql?('true') && @classroom_activity_pairing.nil?
 
 				@classroom_activity_pairing = ClassroomActivityPairing.new({classroom_id:@classroom.id, activity_id: @activity.id, hidden: false})
-				@classroom_activity_pairing.sort_order = ClassroomActivityPairing.max_sort_order(@classroom.id)+1
+				@classroom_activity_pairing.sort_order = ClassroomActivityPairing.max_sort_order(@classroom.id).nil? ? 0 : ClassroomActivityPairing.max_sort_order(@classroom.id) + 1
 				if @classroom_activity_pairing.save
 					assignment_status = 'success-assign'
 				else
@@ -779,7 +779,7 @@ class TeacherAccountController < ApplicationController
 						ca.classroom_id = c.id
 						ca.activity_id = activity.id
 						ca.hidden = false
-						ca.sort_order = ClassroomActivityPairing.max_sort_order(c.id)+1
+						ca.sort_order = ClassroomActivityPairing.max_sort_order(c.id).nil? ? 0 : ClassroomActivityPairing.max_sort_order(c.id) + 1
 						ca.save
 
 					end
@@ -869,7 +869,7 @@ class TeacherAccountController < ApplicationController
 
       activities = classroom.activities_and_performances(params[:student_user_id])        
 
-      render json: {status: "success", activities:activities, student: student, classroom: classroom}
+      render json: {status: "success", activities: activities, student: student, classroom: classroom}
 
     else
 
