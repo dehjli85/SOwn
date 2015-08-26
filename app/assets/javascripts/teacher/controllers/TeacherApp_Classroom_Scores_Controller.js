@@ -143,8 +143,14 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				for(var i=0; i < data.student_performances.length; i++){	
 					var activities_index = activity_indices[data.student_performances[i].activity_id];					
 					var student_index = student_indices[data.student_performances[i].student_user_id];					
+
+					if (students[student_index].student_performance[activities_index]){
+						var currentPerformanceId = new Date(students[student_index].student_performance[activities_index].id);
+						var performanceIdAtIndex = new Date(data.student_performances[i].id);
+					}
+
 					
-					if(!students[student_index].student_performance[activities_index] || ((new Date(students[student_index].student_performance[activities_index].performance_date.replace(/T|Z/g, " "))) < (new Date(data.student_performances[i].performance_date.replace(/T|Z/g, " ")))))
+					if(!students[student_index].student_performance[activities_index] || (currentPerformanceId < performanceIdAtIndex))
 						students[student_index].student_performance[activities_index] = data.student_performances[i];
 				}
 
