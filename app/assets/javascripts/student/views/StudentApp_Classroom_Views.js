@@ -3,13 +3,15 @@
 StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount, Backbone, Marionette, $, _){
 	
 	Classroom.HeaderView = Marionette.ItemView.extend({				
-		template: JST["student/templates/StudentApp_Classroom_Header"],					
+		template: JST["student/templates/StudentApp_Classroom_Header"],			
+		className: "col-md-12",		
 		tagName: "div",		
 	
 	});
 
 	Classroom.LayoutView = Marionette.LayoutView.extend({
-		template: JST["student/templates/StudentApp_Classroom_Layout"],			
+		template: JST["student/templates/StudentApp_Classroom_Layout"],		
+		className: "col-md-12",
 		regions:{
 			headerRegion: "#classroom_header_region",
 			mainRegion: '#classroom_main_region',
@@ -65,7 +67,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	Classroom.ActivitiesCompositeView = Marionette.CompositeView.extend({
 		template: JST["student/templates/StudentApp_Classroom_ActivitiesComposite"],			
 		tagName: "div",
-		className: "classroom-tab-content",
+		className: "col-md-12",
 		childView: Classroom.ActivityView,
 		childViewContainer: "tbody",
 		childViewOptions: function(model, index){

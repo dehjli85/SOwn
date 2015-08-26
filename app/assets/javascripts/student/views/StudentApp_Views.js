@@ -23,8 +23,8 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 
 	StudentApp.LeftNavView = Marionette.ItemView.extend({				
 		template: JST["student/templates/StudentApp_LeftNav"],
-		tagName: "div",
-		className: "col-sm-3 col-md-2 sidebar",
+		tagName: "ul",
+		className: "nav nav-sidebar",
 
 		events: {
 			"click li" : "makeNavActive"

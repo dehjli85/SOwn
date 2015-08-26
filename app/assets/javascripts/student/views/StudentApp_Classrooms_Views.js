@@ -4,7 +4,7 @@ StudentAccount.module("StudentApp.Classrooms", function(Classrooms, StudentAccou
 	
 	Classrooms.ClassroomWidgetView = Marionette.ItemView.extend({				
 		template: JST["student/templates/StudentApp_Classrooms_ClassroomWidget"],			
-		className: "col-xs-6 col-sm-3 placeholder",
+		className: "col-xs-6 col-sm-3 col-md-3 placeholder",
 		triggers: {
 			"click .placeholder.thumbnail":"show:classroom:scores"			
 		},
@@ -44,17 +44,22 @@ StudentAccount.module("StudentApp.Classrooms", function(Classrooms, StudentAccou
 
 	Classrooms.ClassroomWidgetRowView = Marionette.CompositeView.extend({
 		tagName: "div",
-		className: "row placeholders",
+		className: "col-md-12 placeholders",
 		template: JST["student/templates/StudentApp_Classrooms_ClassroomWidgetRow"],							
 		childView: Classrooms.ClassroomWidgetView,
 		childViewContainer: "#widget-container-div",
 
 		ui:{
-			addClassDiv: '[ui-add-class-div]'
+			addClassDiv: '[ui-add-class-div]',
+			widgetContainerDiv: "#widget-container-div"
 		},
 
 		triggers:{
 			"click @ui.addClassDiv": "classrooms:layout:show:join:class:modal"
+		},
+
+		onShow: function(){
+			this.ui.widgetContainerDiv.append(this.ui.addClassDiv);
 		}
 
 
@@ -63,6 +68,7 @@ StudentAccount.module("StudentApp.Classrooms", function(Classrooms, StudentAccou
 
 	Classrooms.ClassroomsLayoutView = Marionette.LayoutView.extend({
 		tagName: "div",
+		className: "col-md-12",
 		template: JST["student/templates/StudentApp_Classrooms_Layout"],
 
 		regions:{
