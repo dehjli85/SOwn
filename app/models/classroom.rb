@@ -482,17 +482,26 @@ class Classroom < ActiveRecord::Base
 
 	def activities_and_performances(student_user_id)
 
-		activities = self.activities_with_pairing_ids.as_json
-    activities.each do |activity, index|
+		activities_pre = self.activities_with_pairing_ids.as_json
+		activities = Array.new
+
+    activities_pre.each do |activity, index|
       activity["student_performances"] = Array.new
+      activities[activity["sort_order"]] = activity
     end
+
+
 
     cap_ids = self.classroom_activity_pairings.pluck(:id)
 
     performances_array = self.student_performances_for_student(student_user_id).as_json
+    puts activities.length
+    puts performances_array.length
     performances_array.each do |performance|
 
-      index = performance["sort_order"] # -1 because sort_ordes start at 1
+      index = performance["sort_order"]
+
+      puts "activities[#{index}]: #{activities[index]}"
 
       performance["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activities[index]["activity_type"], performance["scored_performance"], performance["completed_performance"])
       performance["performance_color"] = StudentPerformance.performance_color_no_active_record(activities[index]["activity_type"], activities[index]["benchmark1_score"], activities[index]["benchmark2_score"], activities[index]["min_score"], activities[index]["max_score"], performance["scored_performance"], performance["completed_performance"])
@@ -502,6 +511,10 @@ class Classroom < ActiveRecord::Base
       activities[index]["student_performances"].push(performance)
 
     end
+
+    activities = activities.reject { |c| c.nil? }
+
+
 
     return activities
 
