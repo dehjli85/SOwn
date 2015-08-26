@@ -32,7 +32,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 	Activities.IndexCompositeView = Marionette.CompositeView.extend({
 		template: JST["teacher/templates/Activities/TeacherApp_Activities_IndexComposite"],
 		tagName: "div",
-		className: "classroom-tab-content",
+		className: "col-md-12",
 		childView: Activities.IndexActivityView,
 		childViewContainer: "tbody",
 		ui:{
@@ -85,6 +85,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 	Activities.IndexHeaderView = Marionette.ItemView.extend({
 		template: JST["teacher/templates/Activities/TeacherApp_Activities_IndexHeader"],					
+		className: "col-md-12",
 		triggers: {
 			"submit [ui-search-form]":"activities:index:filter:search:term"
 		},
@@ -101,6 +102,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 	
 	Activities.IndexLayoutView = Marionette.LayoutView.extend({
 		template: JST["teacher/templates/Activities/TeacherApp_Activities_IndexLayout"],			
+		className: "col-md-12",
 		regions:{			
 			headerRegion: "#header_region",
 			mainRegion: "#main_region",

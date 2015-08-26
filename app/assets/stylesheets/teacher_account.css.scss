@@ -18,6 +18,34 @@
 }
 
 
+.teacher_label_info{
+  background-color: #4C5254;
+}
+
+/* 
+ * Sub Nav
+ */ 
+.nav_ul{
+  list-style: none;
+  display: block;
+  padding: 0px;
+}
+
+.nav_li{
+  display: inline-block;
+  padding: 10px 20px 10px 0px;
+}
+
+.nav_li > a{
+  color: #999;
+  text-decoration: none;
+}
+
+.nav_active > a{
+  color: #555;
+}
+
+
 
 
 

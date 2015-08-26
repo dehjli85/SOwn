@@ -52,7 +52,8 @@ TeacherAccount.module("TeacherApp.Classrooms", function(Classrooms, TeacherAccou
 		childViewContainer: "#widget-container-div",
 
 		ui:{
-			addClassDiv: '[ui-add-class-div]'
+			addClassDiv: '[ui-add-class-div]',
+			widgetContainerDiv: "#widget-container-div"
 		},
 
 		triggers:{
@@ -61,7 +62,13 @@ TeacherAccount.module("TeacherApp.Classrooms", function(Classrooms, TeacherAccou
 
 		onChildviewShowClassroomView: function(){
 			console.log("Row View: heard show:classroom:view");			
+		},
+
+		onShow: function(){
+			this.ui.widgetContainerDiv.append(this.ui.addClassDiv);
 		}
+
+
 		
 	});	
 

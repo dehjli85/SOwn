@@ -34,8 +34,8 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			console.log(e);
 			if(!($(e.target).attr("data-target") == "#comingSoonModal") &&
 				$(e.target).attr("ui-show-classroom-code-a") == null){
-				this.ui.lis.removeClass("active");			
-				$(e.target).parent().addClass("active");	
+				this.ui.lis.removeClass("nav_active");			
+				$(e.target).parent().addClass("nav_active");	
 			}
 			
 			

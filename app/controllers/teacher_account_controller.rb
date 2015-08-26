@@ -598,6 +598,8 @@ class TeacherAccountController < ApplicationController
 				.as_json
 
 		end
+
+		puts activities[0]["activity_type_pretty"]
 		
 		tags = ActivityTag.joins(:activity_tag_pairings)
 			.where("activity_tag_pairings.activity_id" => activity_ids)

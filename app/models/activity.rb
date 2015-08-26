@@ -88,6 +88,14 @@ class Activity < ActiveRecord::Base
     @instructions_abbreviated
   end
 
+  def as_json(options = { })
+      # just in case someone says as_json(nil) and bypasses
+      # our default...
+      super((options || { }).merge({
+          :methods => [:description_abbreviated, :instructions_abbreviated, :activity_type_pretty]
+      }))
+  end
+
 
   ##################################################################################################
   #
