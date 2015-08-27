@@ -119,6 +119,7 @@ Rails.application.routes.draw do
   # student/classrooms app routes
   get 'student/classrooms_summary' => 'student_account#classrooms_summary'
   get 'student/search_classroom_code' => 'student_account#search_classroom_code'
+  get 'student/classroom_tags' => 'student_account#classroom_tags'
   post 'student/join_classroom' => 'student_account#join_classroom'
 
   # student/classroom app routes

@@ -15,7 +15,10 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		regions:{
 			headerRegion: "#classroom_header_region",
 			mainRegion: '#classroom_main_region',
-			modalRegion: '#classroom_modal_region'
+			modalRegion: '#classroom_modal_region',
+			scoresRegion: '#classroom_scores_region',
+			tagsRegion: '#classroom_tags_region',
+			searchRegion: '#classroom_search_region'
 		},
 
 		ui:{
@@ -39,7 +42,17 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		onChildviewActivitiesLayoutShowActivityDetailsModal: function(view){
 			this.ui.modalRegion.modal("show");
 			StudentAccount.StudentApp.Classroom.Controller.openActivityDetailsModal(this, view.model.get("classroom_activity_pairing_id"));
-		}
+		},
+
+		onChildviewFilterSearchClassroomView: function(view){
+			this.model.attributes.searchTerm = view.ui.searchInput.val();
+			StudentAccount.StudentApp.Classroom.Controller.showClassroomScores(this, this.model.attributes.classroomId, view.ui.searchInput.val(), null);
+		},
+
+		onChildviewFilterTagClassroomView: function(view){
+			StudentAccount.StudentApp.Classroom.Controller.showClassroomScores(this, this.model.attributes.classroomId, null, view.model.id);
+		},
+
 		
 	});
 
@@ -432,6 +445,32 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		},
 
 
+	});
+
+	Classroom.SearchBarView = Marionette.ItemView.extend({
+		template: JST["student/templates/StudentApp_Classroom_SearchBar"],			
+		className: "col-sm-5",
+		triggers: {
+			"submit [ui-search-form]":"filter:search:classroom:view"
+		},
+		ui:{
+			searchInput: "[ui-search-input]"
+		}
+	});
+
+	Classroom.TagView = Marionette.ItemView.extend({
+		template: JST["student/templates/StudentApp_Classroom_Tag"],			
+		tagName: "li",
+		triggers: {
+			"click a":"filter:tag:classroom:view"			
+		}
+		
+	});
+
+	Classroom.TagCollectionView = Marionette.CollectionView.extend({
+		childView: Classroom.TagView,
+		tagName: "ul",
+		className: "list-inline col-sm-12",		
 	});
 
 

@@ -102,6 +102,61 @@ class Activity < ActiveRecord::Base
   # Model API Methods
   #
   ##################################################################################################
+  
+  def self.activities_with_pairings_ids(classroomId, searchTerm=nil, tagId=nil, includeHidden=true)
 
+    if(!(searchTerm.nil? || searchTerm.eql?('')) && searchTerm[0].eql?('#'))
+      tag_array = searchTerm.gsub('#','').split(/ +/)
+    else
+      tag_array = nil
+    end
+
+    arguments = [nil]
+
+    sql = 'SELECT distinct a.*, 
+            cap.id as classroom_activity_pairing_id, cap.sort_order
+          FROM activities a 
+          INNER JOIN "classroom_activity_pairings" cap on cap.activity_id = a.id 
+          LEFT JOIN activity_tag_pairings atp on atp.activity_id = a.id'
+    
+    if !tag_array.nil?
+      sql += ' LEFT JOIN activity_tags tags on tags.id = atp.activity_tag_id and tags.name in (?)'
+      arguments.push(tag_array)
+    elsif searchTerm
+      sql += ' LEFT JOIN activity_tags tags on tags.id = atp.activity_tag_id' 
+    elsif tagId
+      sql += ' INNER JOIN activity_tags tags on tags.id = atp.activity_tag_id and tags.id = ?'
+      arguments.push(tagId)
+    end
+
+    sql += ' WHERE (cap.classroom_id = ?)'
+    arguments.push(classroomId)
+
+    if !includeHidden
+      sql += ' AND cap.hidden = false'
+    end
+
+    if tag_array
+      sql += ' AND tags.name in (?)'
+      arguments.push(tag_array)
+    elsif searchTerm && tag_array.nil?
+      sql += ' AND (lower(tags.name) like ? or lower(a.name) like ? or lower(a.description) like ?)'      
+      arguments.push("%#{searchTerm.downcase}%")      
+      arguments.push("%#{searchTerm.downcase}%")      
+      arguments.push("%#{searchTerm.downcase}%")      
+    end    
+
+    sql += ' ORDER BY a.created_at DESC'    
+    arguments[0] = sql
+
+    sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, arguments)
+    activities = ActiveRecord::Base.connection.execute(sanitized_query)
+
+      # Activity.joins("inner join classroom_activity_pairings cap on cap.activity_id = activities.id")
+      #   .joins("inner join classrooms c on c.id = cap.classroom_id")
+      #   .where("c.id = ?", classroomId)
+      #   .order("cap.sort_order ASC")
+      #   .select("activities.*, cap.id as classroom_activity_pairing_id, cap.sort_order")
+  end
 
 end

@@ -156,6 +156,76 @@ class StudentPerformance < ActiveRecord::Base
 	def requires_verification?
 		return !StudentPerformanceVerification.where({student_user_id: student_user_id, classroom_activity_pairing_id: classroom_activity_pairing_id}).empty?
 	end
+
+	# Returns a Result set containing Student Performances for the specified classroom
+	# Result set is filtered by specified arguments
+	# Student Performance objects have the following addtional fields:
+	# => Activity fields, 
+	# => Classroom Activity Pairing sort_order
+	# => Student User id, first_name, last_name, display_name
+	def self.student_performances_with_verification(classroomId, searchTerm=nil, tagId=nil, studentUserId=nil, includeHidden=true)
+
+		if(!(searchTerm.nil? || searchTerm.eql?('')) && searchTerm[0].eql?('#'))
+			tag_array = searchTerm.gsub('#','').split(/ +/)
+		else
+			tag_array = nil
+		end
+
+		arguments = [nil, classroomId]
+		
+		sql = 'SELECT distinct spv.student_user_id is not null as requires_verification, 
+						student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, 
+						a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, 
+						classroom_activity_pairings.sort_order, 
+						student_performances.* 
+					FROM "student_performances" 
+					INNER JOIN "student_users" ON "student_users"."id" = "student_performances"."student_user_id" 
+					INNER JOIN "classroom_student_users" ON "classroom_student_users"."student_user_id" = "student_users"."id" and "classroom_student_users"."classroom_id" = ?
+					INNER JOIN "classroom_activity_pairings" ON "classroom_activity_pairings"."id" = "student_performances"."classroom_activity_pairing_id" 
+					INNER JOIN activities a on a.id =  classroom_activity_pairings.activity_id 
+					LEFT JOIN activity_tag_pairings atp on atp.activity_id = a.id'
+
+
+		if !tag_array.nil?
+			sql += ' LEFT JOIN activity_tags tags on tags.id = atp.activity_tag_id and tags.name in (?)'
+			arguments.push(tag_array)
+		elsif searchTerm
+			sql += ' LEFT JOIN activity_tags tags on tags.id = atp.activity_tag_id'	
+		elsif tagId
+			sql += ' INNER JOIN activity_tags tags on tags.id = atp.activity_tag_id and tags.id = ?'
+			arguments.push(tagId)
+		end
+
+		sql += ' LEFT OUTER JOIN student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id and student_users.id = spv.student_user_id 
+					WHERE (classroom_activity_pairings.classroom_id = ?)'
+		arguments.push(classroomId)
+
+		if tag_array
+      sql += ' AND tags.name in (?)'
+      arguments.push(tag_array)
+    elsif searchTerm && tag_array.nil?
+			sql += ' AND (lower(tags.name) like ? or lower(a.name) like ? or lower(a.description) like ?)'			
+			arguments.push("%#{searchTerm.downcase}%")			
+			arguments.push("%#{searchTerm.downcase}%")			
+			arguments.push("%#{searchTerm.downcase}%")			
+		end
+
+		if studentUserId
+			sql += ' AND "student_users"."id" = ?'
+			arguments.push(studentUserId)
+		end
+
+		if !includeHidden
+			sql += ' AND classroom_activity_pairings.hidden = false'
+		end
+
+		sql	+= ' ORDER BY student_users.last_name ASC'		
+
+		arguments[0] = sql
+
+		sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, arguments)
+		student_performances = ActiveRecord::Base.connection.execute(sanitized_query)
+	end
 	
 
 end

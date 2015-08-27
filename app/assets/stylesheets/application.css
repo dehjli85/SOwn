@@ -183,3 +183,35 @@ body {
 }
 
 
+/*
+ * Misc. Student/TeacherApp Styles
+ */ 
+.activity_header{  
+  min-width:75px; 
+  vertical-align:bottom; 
+  text-align:center
+}
+
+
+
+.inline-block{
+  display:inline-block;
+  padding:10px;
+}
+
+.switch{
+  height:29px;
+}
+
+.center{
+  text-align:center;
+}
+
+.search-bar-container {
+  margin-top: 10px;
+}
+
+.tag-list-container{
+  margin-top: 10px;
+}
+

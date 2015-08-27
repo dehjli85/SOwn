@@ -121,6 +121,19 @@ class StudentAccountController < ApplicationController
 
   end
 
+  #return the json object representing the unique tags for the classroom with the specified id for the logged in user
+  def classroom_tags
+
+    @classroom = Classroom.joins(:classroom_activity_pairings)
+      .joins(:classroom_student_users)
+      .where(id: params[:classroom_id])
+      .where("classroom_student_users.student_user_id = ?", @current_student_user.id)
+      .first
+
+    render json: @classroom.tags(false).to_json
+    
+  end
+
   def classroom_activities_and_performances
       
       classroom = Classroom.joins(:classroom_student_users)
@@ -129,7 +142,7 @@ class StudentAccountController < ApplicationController
 
       if !classroom.nil?
 
-        activities = classroom.activities_and_performances(@current_student_user.id)        
+        activities = classroom.activities_and_performances(@current_student_user.id, {search_term: params[:search_term], search_tag: params[:tag_id]})        
 
         render json: {status: "success", activities:activities}
 

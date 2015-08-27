@@ -38,19 +38,58 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			
 		},
 
-		showClassroomScores: function(classroomLayoutView, classroomId){			
+		showClassroomScores: function(classroomLayoutView, classroomId, searchTerm, tagId){			
 
-			var jqxhr = $.get("/student/classroom_activities_and_performances?classroom_id=" + classroomId, function(){
+			//show search bar
+			var searchBarModel = new Backbone.Model({searchTerm: searchTerm})
+   		var searchBarView = new StudentAccount.StudentApp.Classroom.SearchBarView({model: searchBarModel});
+   		classroomLayoutView.searchRegion.show(searchBarView);
+
+   		//show the tags for the classroom activities
+   		var jqxhr = $.get("/student/classroom_tags?classroom_id=" + classroomId, function(){
+				console.log('get request made');
+			})
+			.done(function(data) {
+				
+				var tagCollection = new Backbone.Collection(data);
+
+				var tagCollectionView = new StudentAccount.StudentApp.Classroom.TagCollectionView({collection: tagCollection});	     	
+				classroomLayoutView.tagsRegion.show(tagCollectionView);
+				
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+   		
+
+   		//show scores view
+   		var getURL = "/student/classroom_activities_and_performances?classroom_id=" + classroomId 
+			if(searchTerm){
+				classroomLayoutView.model.attributes.searchTerm = searchTerm;
+				classroomLayoutView.model.attributes.tagId = null;
+				getURL +=  "&search_term=" + encodeURIComponent(searchTerm)
+			}
+			if(tagId){
+				classroomLayoutView.model.attributes.searchTerm = null;
+				classroomLayoutView.model.attributes.tagId = tagId;
+				getURL +=  "&tag_id=" + tagId
+			}
+
+			var jqxhr = $.get(getURL, function(){
 				console.log('get request for classroom model');
 			})
 			.done(function(data) {
 	     		console.log(data);
 	     	if(data.status == "success"){
-	     		
+
+
 					var activities = new StudentAccount.StudentApp.Classroom.Models.ActivityCollection(data.activities);
 					var activityCompositeView = new StudentAccount.StudentApp.Classroom.ActivitiesCompositeView({collection:activities});
 
-					classroomLayoutView.mainRegion.show(activityCompositeView);
+					classroomLayoutView.scoresRegion.show(activityCompositeView);
 	     	}
 	     	
 	     	

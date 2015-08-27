@@ -186,7 +186,8 @@ class TeacherAccountController < ApplicationController
 	# the activities and performances will be sorted the same
 	def classroom_activities_and_performances
 		
-		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
+		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]})
+			.first
 		
 		@search_matched_pairings_and_activities = @classroom.search_matched_pairings_and_activities({search_term: params[:search_term], tag_id: params[:tag_id]})
 

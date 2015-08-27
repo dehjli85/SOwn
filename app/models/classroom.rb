@@ -32,170 +32,18 @@ class Classroom < ActiveRecord::Base
   #
   ##################################################################################################
 
-  # Returns array of activities with classroom_activity_pairing_id and sort order for each activity
-  # includeHidden can be passed to indicate whether hidden activities should be returned (default is false)
-  def activities_with_pairing_ids(includeHidden=false)
-  	if includeHidden
-  		Activity.joins("inner join classroom_activity_pairings cap on cap.activity_id = activities.id")
-        .joins("inner join classrooms c on c.id = cap.classroom_id")
-        .where("c.id = ?", self.id)
-        .order("cap.sort_order ASC")
-        .select("activities.*, cap.id as classroom_activity_pairing_id, cap.sort_order")
-    else
-    	Activity.joins("inner join classroom_activity_pairings cap on cap.activity_id = activities.id")
-	      .joins("inner join classrooms c on c.id = cap.classroom_id")
-	      .where("c.id = ?", self.id)
-	      .where("cap.hidden = false")
-	      .order("cap.sort_order ASC")
-	      .select("activities.*, cap.id as classroom_activity_pairing_id, cap.sort_order")
-    end
-
-  end
-
-  # Returns an Array of Student Performances in the classroom for the specified student.  
-  # Includes the activity_id, sort_order, and boolean for requires verification
-  # includeHidden can be passed to indicate whether hidden activities should be returned (default is false)  
-  def student_performances_for_student(student_user_id, includeHidden=false)
-
-    cap_ids = self.classroom_activity_pairings.pluck(:id)
-
-		if(includeHidden)
-	  	StudentPerformance.joins(:classroom_activity_pairing)
-        .joins("left join student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id")
-        .where(classroom_activity_pairing_id: cap_ids)
-        .where(student_user_id: student_user_id)
-        .order("created_at DESC")
-        .select("student_performances.*, classroom_activity_pairings.activity_id, classroom_activity_pairings.sort_order", "spv.id is not null as requires_verification")
-    else
-    	StudentPerformance.joins(:classroom_activity_pairing)
-        .joins("left join student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id")
-        .where(classroom_activity_pairing_id: cap_ids)
-        .where(student_user_id: student_user_id)
-        .where("classroom_activity_pairings.hidden = false")
-        .order("created_at DESC")
-        .select("student_performances.*, classroom_activity_pairings.activity_id, classroom_activity_pairings.sort_order", "spv.id is not null as requires_verification")
-      end
-
-  end
-
   # Returns a hash with keys "activities" and "student_performances"
   # Value for "activities" key is an array of activities with classroom_activity_pairing_id and sort order for each activity 
   # Value for "student_performances" key is an array of student_performances.  Each object in the array also includes activity_information and student name and id
 	def search_matched_pairings_and_activities(search_hash={search_term: nil, tag_id: nil })
 
 		tag_hash = Hash.new
+
+		activities = Activity.activities_with_pairings_ids(self.id, search_hash[:search_term], search_hash[:tag_id], true)
 		
-		# if there's no search term provided, just use active record relationship
-		if (search_hash[:search_term].nil? || search_hash[:search_term].eql?('')) && search_hash[:tag_id].nil?
+		student_performances = StudentPerformance.student_performances_with_verification(self.id, search_hash[:search_term], search_hash[:tag_id], nil, true)
 
-			activities = self.activities_with_pairing_ids(true)
-
-			sql = 'SELECT spv.student_user_id is not null as requires_verification, student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, student_performances.* 
-			FROM "student_performances" 
-			INNER JOIN "student_users" ON "student_users"."id" = "student_performances"."student_user_id" 
-			INNER JOIN "classroom_student_users" ON "classroom_student_users"."student_user_id" = "student_users"."id" and "classroom_student_users"."classroom_id" = ?
-			INNER JOIN "classroom_activity_pairings" ON "classroom_activity_pairings"."id" = "student_performances"."classroom_activity_pairing_id" 
-			INNER JOIN activities a on a.id =  classroom_activity_pairings.activity_id 
-			LEFT OUTER JOIN student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id and student_users.id = spv.student_user_id 
-			WHERE (classroom_activity_pairings.classroom_id = ?)  ORDER BY student_users.last_name ASC'
-
-			sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, id, id])
-
-			student_performances = ActiveRecord::Base.connection.execute(sanitized_query)
-
-			return {activities: activities, student_performances: student_performances}
-
-		else
-			
-			#if the user has provided a space-separated list of tags
-			if(!(search_hash[:search_term].nil? || search_hash[:search_term].eql?('')) && search_hash[:search_term][0].eql?('#'))
-
-				#create an array with the tags
-				tag_array = search_hash[:search_term].gsub('#','').split(/ +/)
-
-				activities = Activity.joins(:classroom_activity_pairings)
-					.joins(:activity_tags)
-					.where("activity_tags.name" => tag_array)
-					.where("classroom_activity_pairings.classroom_id = ?", self.id)
-					.select("activities.*, classroom_activity_pairings.sort_order, classroom_activity_pairings.id as classroom_activity_pairing_id")
-					.order('classroom_activity_pairings.sort_order ASC')
-
-
-				sql = 'SELECT spv.student_user_id is not null as requires_verification, student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, student_performances.* 
-					FROM "student_performances" 
-					INNER JOIN "student_users" ON "student_users"."id" = "student_performances"."student_user_id" 
-					INNER JOIN "classroom_student_users" ON "classroom_student_users"."student_user_id" = "student_users"."id" and "classroom_student_users"."classroom_id" = ?
-					INNER JOIN "classroom_activity_pairings" ON "classroom_activity_pairings"."id" = "student_performances"."classroom_activity_pairing_id" 
-					INNER JOIN activities a on a.id =  classroom_activity_pairings.activity_id 
-					LEFT JOIN activity_tag_pairings atp on atp.activity_id = a.id
-					LEFT JOIN activity_tags tags on tags.id = atp.activity_tag_id and tags.name in (?)
-					LEFT OUTER JOIN student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id and student_users.id = spv.student_user_id 
-					WHERE (classroom_activity_pairings.classroom_id = ?)  
-					ORDER BY student_users.last_name ASC'
-				sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, id, tag_array,id])
-				student_performances = ActiveRecord::Base.connection.execute(sanitized_query)
-
-
-				return {activities: activities, student_performances: student_performances}
-
-				
-			elsif search_hash[:search_term]			
-
-				activities = Activity.joins(:classroom_activity_pairings)				
-				.joins("LEFT JOIN activity_tag_pairings tag_pairings on classroom_activity_pairings.activity_id = tag_pairings.activity_id")
-				.joins("LEFT JOIN activity_tags tags on tag_pairings.activity_tag_id = tags.id")
-				.where("lower(tags.name) like ? or lower(activities.name) like ? or lower(activities.description) like ?" , "%#{search_hash[:search_term].downcase}%", "%#{search_hash[:search_term].downcase}%", "%#{search_hash[:search_term].downcase}%")
-				.where("classroom_activity_pairings.classroom_id = ?", self.id)
-				.select("activities.*, classroom_activity_pairings.sort_order, classroom_activity_pairings.id as classroom_activity_pairing_id")
-				.order('classroom_activity_pairings.sort_order ASC')
-				.distinct
-
-				sql = 'SELECT spv.student_user_id is not null as requires_verification, student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, student_performances.* 
-					FROM "student_performances" 
-					INNER JOIN "student_users" ON "student_users"."id" = "student_performances"."student_user_id" 
-					INNER JOIN "classroom_student_users" ON "classroom_student_users"."student_user_id" = "student_users"."id" and "classroom_student_users"."classroom_id" = ?
-					INNER JOIN "classroom_activity_pairings" ON "classroom_activity_pairings"."id" = "student_performances"."classroom_activity_pairing_id" 
-					INNER JOIN activities a on a.id =  classroom_activity_pairings.activity_id 
-					LEFT JOIN activity_tag_pairings atp on atp.activity_id = a.id
-					LEFT JOIN activity_tags tags on tags.id = atp.activity_tag_id 
-					LEFT OUTER JOIN student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id and student_users.id = spv.student_user_id 
-					WHERE (classroom_activity_pairings.classroom_id = ?)  
-						AND (lower(tags.name) like ? or lower(a.name) like ? or lower(a.description) like ?)
-					ORDER BY student_users.last_name ASC'
-				sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, id, id, "%#{search_hash[:search_term].downcase}%", "%#{search_hash[:search_term].downcase}%", "%#{search_hash[:search_term].downcase}%" ])
-				student_performances = ActiveRecord::Base.connection.execute(sanitized_query)
-
-				return {activities: activities, student_performances: student_performances}
-
-			elsif search_hash[:tag_id]
-
-				activities = Activity.joins(:classroom_activity_pairings)
-				.joins(:activity_tags)
-				.where("activity_tags.id = ?", search_hash[:tag_id])
-				.where("classroom_activity_pairings.classroom_id = ?", self.id)
-				.select("activities.*, classroom_activity_pairings.sort_order, classroom_activity_pairings.id as classroom_activity_pairing_id")
-				.order('classroom_activity_pairings.sort_order ASC')
-
-
-				sql = 'SELECT spv.student_user_id is not null as requires_verification, student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, student_performances.* 
-					FROM "student_performances" 
-					INNER JOIN "student_users" ON "student_users"."id" = "student_performances"."student_user_id" 
-					INNER JOIN "classroom_student_users" ON "classroom_student_users"."student_user_id" = "student_users"."id" and "classroom_student_users"."classroom_id" = ?
-					INNER JOIN "classroom_activity_pairings" ON "classroom_activity_pairings"."id" = "student_performances"."classroom_activity_pairing_id" 
-					INNER JOIN activities a on a.id =  classroom_activity_pairings.activity_id 
-					INNER JOIN activity_tag_pairings atp on atp.activity_id = a.id
-					INNER JOIN activity_tags tags on tags.id = atp.activity_tag_id and tags.id = ?
-					LEFT OUTER JOIN student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id and student_users.id = spv.student_user_id 
-					WHERE (classroom_activity_pairings.classroom_id = ?)  
-					ORDER BY student_users.last_name ASC'
-				sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, id, search_hash[:tag_id],id])
-				student_performances = ActiveRecord::Base.connection.execute(sanitized_query)
-
-				return {activities: activities, student_performances: student_performances}
-
-			end				
-
-		end
+		return {activities: activities, student_performances: student_performances}
 
 	end
 
@@ -270,24 +118,16 @@ class Classroom < ActiveRecord::Base
 
 	end
 
-	# Returns an array of the distinct Tags for Activities in the Classroom matching search_term or search_tag
-	def search_matched_tags(search_hash={search_term: nil, search_tag: nil })
-
-		activity_ids = self.search_matched_pairings(search_hash).pluck(:activity_id)		
-
-		activity_tag_ids = ActivityTagPairing.where(activity_id: activity_ids).pluck(:activity_tag_id)
-
-		return ActivityTag.where(id: activity_tag_ids)
-
-	end
-
 	# Returns an array of distinct Tags for Activities in the Classroom
-	def tags
+  # includeHidden can be passed to indicate whether hidden activities should be returned (default is true)  
+	def tags(includeHidden=true)
 		
 		tag_hash = Hash.new
 
 		#Get all the activities ids for the classroom and put them into an array
-		activity_id_array = self.classroom_activity_pairings.pluck(:activity_id)
+		activities = Activity.activities_with_pairings_ids(self.id, nil, nil, includeHidden)
+	 	activity_id_array = Array.new
+	 	activities.each do |a| activity_id_array.push(a["id"].to_i) end
 
 		#get all the tag id's from the pairings
 		tag_id_array = ActivityTagPairing.where({activity_id: activity_id_array}).pluck(:activity_tag_id)
@@ -327,6 +167,62 @@ class Classroom < ActiveRecord::Base
 		activities_and_student_performance_hash[:student_performances] = student_performance_array
 
 		return activities_and_student_performance_hash
+
+	end
+
+	# Returns and Array of Hashes.  
+	# Each Hash represents an Activity. In addition to having keys representing all the Activity fields, there is also a "student performances" key
+	# The value of the "student performances" key is an Array of all the Student Performances entered by the Student User for that Activity in the Classroom
+	# Activities hidden from the Student User are excluded
+	def activities_and_performances(student_user_id, search_hash={search_term: nil, search_tag: nil })
+
+		# unsorted_activities = self.activities_with_pairing_ids.as_json
+		unsorted_activities = Activity.activities_with_pairings_ids(self.id, search_hash[:search_term], search_hash[:search_tag], false)
+		
+		# Sort activities based on their sort order		
+		# There are potentially null objects in the sorted array based on what the teacher has hidden
+		sorted_activities = Array.new
+    unsorted_activities.each do |activity|
+      activity["student_performances"] = Array.new
+      sorted_activities[activity["sort_order"].to_i] = activity
+    end
+
+    # Get all Student Performances for the Student User in the Classroom (excluding hidden Activities)
+    performances_array = StudentPerformance.student_performances_with_verification(self.id, search_hash[:search_term], search_hash[:search_tag], student_user_id, false)
+    performances_array.each do |performance|
+
+      sort_order = performance["sort_order"].to_i
+
+      performance["performance_pretty"] = 
+      	StudentPerformance.performance_pretty_no_active_record(
+      		activities[sort_order]["activity_type"], 
+      		performance["scored_performance"], 
+      		performance["completed_performance"]
+    		)
+      performance["performance_color"] = 
+      	StudentPerformance.performance_color_no_active_record(
+      		activities[sort_order]["activity_type"], 
+      		activities[sort_order]["benchmark1_score"], 
+      		activities[sort_order]["benchmark2_score"], 
+      		activities[sort_order]["min_score"], 
+      		activities[sort_order]["max_score"], 
+      		performance["scored_performance"], 
+      		performance["completed_performance"]
+      	)
+
+      if sorted_activities[sort_order]["student_performances"].nil?
+        sorted_activities[sort_order]["student_performances"] = Array.new
+      end
+      sorted_activities[sort_order]["student_performances"].push(performance)
+
+    end
+
+    # Remove nil objects from the sorted array
+    sorted_activities.reject! do |activity| 
+    	activity.nil? 
+    end
+
+    return sorted_activities
 
 	end
 
@@ -389,60 +285,7 @@ class Classroom < ActiveRecord::Base
 	end
 
 
-	# Returns and Array of Hashes.  
-	# Each Hash represents an Activity. In addition to having keys representing all the Activity fields, there is also a "student performances" key
-	# The value of the "student performances" key is an Array of all the Student Performances entered by the Student User for that Activity in the Classroom
-	# Activities hidden from the Student User are excluded
-	def activities_and_performances(student_user_id)
-
-		unsorted_activities = self.activities_with_pairing_ids.as_json
-		
-		# Sort activities based on their sort order		
-		# There are potentially null objects in the sorted array based on what the teacher has hidden
-		sorted_activities = Array.new
-    unsorted_activities.each do |activity|
-      activity["student_performances"] = Array.new
-      sorted_activities[activity["sort_order"]] = activity
-    end
-
-    # Get all Student Performances for the Student User in the Classroom (excluding hidden Activities)
-    performances_array = self.student_performances_for_student(student_user_id).as_json
-    performances_array.each do |performance|
-
-      sort_order = performance["sort_order"]
-
-      performance["performance_pretty"] = 
-      	StudentPerformance.performance_pretty_no_active_record(
-      		activities[sort_order]["activity_type"], 
-      		performance["scored_performance"], 
-      		performance["completed_performance"]
-    		)
-      performance["performance_color"] = 
-      	StudentPerformance.performance_color_no_active_record(
-      		activities[sort_order]["activity_type"], 
-      		activities[sort_order]["benchmark1_score"], 
-      		activities[sort_order]["benchmark2_score"], 
-      		activities[sort_order]["min_score"], 
-      		activities[sort_order]["max_score"], 
-      		performance["scored_performance"], 
-      		performance["completed_performance"]
-      	)
-
-      if sorted_activities[sort_order]["student_performances"].nil?
-        sorted_activities[sort_order]["student_performances"] = Array.new
-      end
-      sorted_activities[sort_order]["student_performances"].push(performance)
-
-    end
-
-    # Remove nil objects from the sorted array
-    sorted_activities.reject! do |activity| 
-    	activity.nil? 
-    end
-
-    return sorted_activities
-
-	end
+	
 
 
 end
