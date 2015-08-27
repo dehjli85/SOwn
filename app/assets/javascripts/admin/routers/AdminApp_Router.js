@@ -2,7 +2,6 @@
 Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 	AdminApp.Router = Marionette.AppRouter.extend({
 		appRoutes:{
-			"home": "showLoginButton",
 			"users_index": "showUsersIndex"			
 		}		
 	});
@@ -15,7 +14,8 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 		showUsersIndex: function(){
 
 			//check if session is valid
-			this.checkLoggedIn(AdminApp.Controller.showUsersIndex)
+			Admin.navigate("users_index");
+			this.checkLoggedIn(AdminApp.Controller.showUsersIndex);
 
 			
 		},
@@ -54,8 +54,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 	};
 
 	Admin.on("index:home",function(){
-		Admin.navigate("home");
-		API.showLoginButton();
+		API.checkLoggedIn(AdminApp.Controller.showUsersIndex);
 	});
 
 	Admin.addInitializer(function(){
