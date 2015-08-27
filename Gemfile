@@ -60,3 +60,5 @@ gem 'google-api-client'
 
 gem 'jquery-ui-rails'
 
+gem 'yaml_db'
+
