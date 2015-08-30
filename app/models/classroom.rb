@@ -1,9 +1,7 @@
 class Classroom < ActiveRecord::Base
 	belongs_to :teacher_user
-	# has_and_belongs_to_many :student_users, -> {order 'student_users.last_name, student_users.first_name'}
   has_many :student_users, :through => :classroom_student_users
 
-	#has_and_belongs_to_many :activities
 	has_many :classroom_activity_pairings, -> {order 'classroom_activity_pairings.created_at ASC'}
 	has_many :activities, :through => :classroom_activity_pairings
 	has_many :classroom_student_users
@@ -37,8 +35,6 @@ class Classroom < ActiveRecord::Base
   # Value for "student_performances" key is an array of student_performances.  Each object in the array also includes activity_information and student name and id
 	def search_matched_pairings_and_activities(search_hash={search_term: nil, tag_id: nil })
 
-		tag_hash = Hash.new
-
 		activities = Activity.activities_with_pairings_ids(self.id, search_hash[:search_term], search_hash[:tag_id], true)
 		
 		student_performances = StudentPerformance.student_performances_with_verification(self.id, search_hash[:search_term], search_hash[:tag_id], nil, true)
@@ -51,8 +47,6 @@ class Classroom < ActiveRecord::Base
 	# Returns and array of Classroom Activity Pairings that match the search_term or search tag
 	def search_matched_pairings(search_hash={search_term: nil, search_tag: nil })
 
-		tag_hash = Hash.new
-		
 		# if there's no search term provided, just use active record relationship
 		if search_hash[:search_term].nil? && search_hash[:search_tag].nil?
 
@@ -122,8 +116,6 @@ class Classroom < ActiveRecord::Base
   # includeHidden can be passed to indicate whether hidden activities should be returned (default is true)  
 	def tags(includeHidden=true)
 		
-		tag_hash = Hash.new
-
 		#Get all the activities ids for the classroom and put them into an array
 		activities = Activity.activities_with_pairings_ids(self.id, nil, nil, includeHidden)
 	 	activity_id_array = Array.new

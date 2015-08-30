@@ -4,8 +4,93 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+a1s:
+  name: a1
+  description: a1_d
+  instructions: a1_i
+  activity_type: scored
+  created_at: '2015-07-09 23:31:29.703808'
+  updated_at: '2015-07-09 23:31:29.703808'
+  min_score: 0
+  max_score: 100
+  benchmark1_score: 70
+  benchmark2_score: 90
+  teacher_user: demo_standard
+
+a2s: 
+  name: a2
+  description: a2_d
+  instructions: a2_i
+  activity_type: scored
+  created_at: '2015-07-09 23:31:29.703808'
+  updated_at: '2015-07-09 23:31:29.703808'
+  min_score: 0
+  max_score: 100
+  benchmark1_score: 70
+  benchmark2_score: 90
+  teacher_user: demo_standard
+
+a3s: 
+  name: a3
+  description: a3_d
+  instructions: a3_i
+  activity_type: scored
+  created_at: '2015-07-09 23:31:29.703808'
+  updated_at: '2015-07-09 23:31:29.703808'
+  min_score: 50
+  max_score: 
+  benchmark1_score:
+  benchmark2_score: 
+  teacher_user: demo_standard
+
+a4s: 
+  name: a4
+  description: a4_d
+  instructions: a4_i
+  activity_type: scored
+  created_at: '2015-07-09 23:31:29.703808'
+  updated_at: '2015-07-09 23:31:29.703808'
+  min_score: 
+  max_score: 50
+  benchmark1_score:
+  benchmark2_score: 
+  teacher_user: demo_standard
+
+a5s: 
+  name: a5
+  description: a5_d
+  instructions: a5_i
+  activity_type: completion
+  created_at: '2015-07-09 23:31:29.703808'
+  updated_at: '2015-07-09 23:31:29.703808'
+  min_score: 
+  max_score: 
+  benchmark1_score:
+  benchmark2_score: 
+  teacher_user: demo_standard
+
+a1g:
+  name: a1
+  description: a1_d
+  instructions: a1_i
+  activity_type: scored
+  created_at: '2015-07-09 23:31:29.703808'
+  updated_at: '2015-07-09 23:31:29.703808'
+  min_score: 0
+  max_score: 100
+  benchmark1_score: 70
+  benchmark2_score: 90
+  teacher_user: demo_gmail
+
+a2g: 
+  name: a2
+  description: a2_d
+  instructions: a2_i
+  activity_type: scored
+  created_at: '2015-07-09 23:31:29.703808'
+  updated_at: '2015-07-09 23:31:29.703808'
+  min_score: 0
+  max_score: 100
+  benchmark1_score: 70
+  benchmark2_score: 90
+  teacher_user: demo_gmail

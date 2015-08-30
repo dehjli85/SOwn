@@ -4,8 +4,26 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+a1s_to_t1:
+  activity: a1s
+  activity_tag: t1
+
+a1s_to_t2:
+  activity: a1s
+  activity_tag: t2
+
+a2s_to_t1:
+  activity: a2s
+  activity_tag: t1
+
+a2s_to_t2:
+  activity: a2s
+  activity_tag: t2
+
+a1g_to_t3:
+  activity: a1g
+  activity_tag: t3
+
+a2g_to_t4:
+  activity: a2g
+  activity_tag: t4

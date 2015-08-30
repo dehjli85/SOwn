@@ -4,8 +4,35 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+
+# STANDARD TEACHER CLASSROOM ACTIVITY SETUP
+c1s_to_a1s:
+  classroom: c1s
+  activity: a1s
+  hidden: false
+
+c1s_to_a2s:
+  classroom: c1s
+  activity: a2s
+  hidden: false
+
+c1s_to_a3s:
+  classroom: c1s
+  activity: a3s
+  hidden: true
+
+c1s_to_a5s:
+  classroom: c1s
+  activity: a5s
+
+# GOOGLE TEACHER CLASSROOM ACTIVITY SETUP
+c1g_to_a1g:
+  classroom: c1g
+  activity: a1g
+  hidden: false
+
+c1g_to_a2g:
+  classroom: c1g
+  activity: a2g
+  hidden: false
+

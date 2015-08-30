@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+demo_standard: 
+  username: demo_teacher@sowntogrow.com
+  display_name: demo teacher
+  first_name: demo
+  last_name: teacher
+  email: demo_teacher@sowntogrow.com
+  salt: 3324
+  password_digest: 87cd53bad64ea5ffe6fad879b872c0cb909bf15f
+  provider:
+  uid:
+  oauth_token:
+  oauth_expires_at:
+  created_at: 2015-07-09 23:31:29.608908
+  updated_at: 2015-07-09 23:31:29.608908
+  default_view_student: false
+#
+demo_gmail: 
+  username: dennis.hj.li@gmail.com
+  display_name: Dennis Li
+  first_name: Dennis
+  last_name: Li
+  email: dennis.hj.li@gmail.com
+  salt: 
+  password_digest: 
+  provider: google_oauth
+  uid: 104622704525621705854
+  oauth_token: ya29.sAFaUDBIJDL0odCUp7S65L8Th0ykhG1K_wdaJVZiajaB00zyuiaJ36j0y5EKQNy-1302
+  oauth_expires_at: 2015-07-14 04:23:28
+  created_at: 2015-07-14 03:23:29.308241
+  updated_at: 2015-07-14 03:23:29.308241
+  default_view_student: false

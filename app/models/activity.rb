@@ -96,14 +96,30 @@ class Activity < ActiveRecord::Base
       }))
   end
 
-
   ##################################################################################################
   #
   # Model API Methods
   #
   ##################################################################################################
   
+  # Returns SQL Result object representing Activities assigned the Classroom with id = classroomId
+  # In addition to all activity fields, all objects in Result also include the Classroom Activity Pairing id and sort_order fields
+  # If an invalid classroomId (i.e. Classroom doesn't exist) is passed, returns nil
+  #
+  # Uses:
+  #  searchTerm: if the first character is a '#', all '#'s are removed from the string, and it is treated as a space separated list of tags.  Returns only Activities with one or more of the tags in the list
+  #                 EXAMPLES: "#tag1 #tag2" => ('tag1', 'tag2').  "#tag1#tag2" => ('tag1tag2').  "#tag1 tag2" => ('tag1',' tag2')
+  #              if the first character is not a '#', returns Activities that have a name, description, or Tag name containing the string (case insensitive)
+  #  tagId: returns Activities that have been tagged with the Activity Tag with id = tagId
+  #  includeHidden: boolean argument that determines whether Activities assigned to Classrooms but are hidden should be returned.  Method by default returns all Activities.
+  #
+  # WARNING: searchTerm and tagId cannot be used together.  If both are passed to the method, searchTerm will be used and tagId will be ignored
+
   def self.activities_with_pairings_ids(classroomId, searchTerm=nil, tagId=nil, includeHidden=true)
+
+    if Classroom.where(id: classroomId).empty?
+      return nil
+    end
 
     if(!(searchTerm.nil? || searchTerm.eql?('')) && searchTerm[0].eql?('#'))
       tag_array = searchTerm.gsub('#','').split(/ +/)
@@ -152,11 +168,6 @@ class Activity < ActiveRecord::Base
     sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, arguments)
     activities = ActiveRecord::Base.connection.execute(sanitized_query)
 
-      # Activity.joins("inner join classroom_activity_pairings cap on cap.activity_id = activities.id")
-      #   .joins("inner join classrooms c on c.id = cap.classroom_id")
-      #   .where("c.id = ?", classroomId)
-      #   .order("cap.sort_order ASC")
-      #   .select("activities.*, cap.id as classroom_activity_pairing_id, cap.sort_order")
   end
 
 end

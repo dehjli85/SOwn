@@ -16,6 +16,8 @@ class ApplicationController < ActionController::Base
     @current_teacher_user = (!session[:teacher_user_id].nil? && TeacherUser.exists?(session[:teacher_user_id])) ? TeacherUser.find(session[:teacher_user_id]) : nil
     @current_student_user = (!session[:student_user_id].nil? && StudentUser.exists?(session[:student_user_id])) ? StudentUser.find(session[:student_user_id]) : nil
     unless !@current_teacher_user.nil? || !@current_student_user.nil?
+      session[:teacher_user_id] = nil
+      session[:student_user_id] = nil      
       redirect_to '/#login'
     end
   end
@@ -23,6 +25,7 @@ class ApplicationController < ActionController::Base
   def require_teacher_login
     @current_teacher_user = (!session[:teacher_user_id].nil? && TeacherUser.exists?(session[:teacher_user_id])) ? TeacherUser.find(session[:teacher_user_id]) : nil
     unless !@current_teacher_user.nil?
+      session[:teacher_user_id] = nil
       redirect_to '/#login'
     end
   end
@@ -37,6 +40,7 @@ class ApplicationController < ActionController::Base
   def require_student_login
     @current_student_user = (!session[:student_user_id].nil? && StudentUser.exists?(session[:student_user_id])) ? StudentUser.find(session[:student_user_id]) : nil
     unless !@current_student_user.nil?
+      session[:student_user_id] = nil   
       redirect_to '/#login'
     end
   end

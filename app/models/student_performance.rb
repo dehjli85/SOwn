@@ -3,10 +3,13 @@ class StudentPerformance < ActiveRecord::Base
 	belongs_to :classroom_activity_pairing
 	has_one :activity, :through => :classroom_activity_pairing
 
-	validates :scored_performance, numericality: true, :allow_nil => true	
-	validates :completed_performance, inclusion: { in: [true, false, nil] }
-	validate :scored_performance_within_range
 	validates :performance_date, :student_user_id, :classroom_activity_pairing_id, presence: true
+	validates :scored_performance, numericality: true, :allow_nil => true	
+	validate :student_user_exists
+	validate :classroom_activity_pairing_exists
+	validate :scored_performance_within_range
+	validate :completed_performance_not_nil
+	validates :completed_performance, inclusion: { in: [true, false, nil] }
 
 	##################################################################################################
   #
@@ -14,8 +17,20 @@ class StudentPerformance < ActiveRecord::Base
   #
   ##################################################################################################
 
+	def student_user_exists
+		if StudentUser.where(id: student_user_id).empty?
+			errors.add(:student_user_id, "is not a valid student")
+		end
+	end
+
+	def classroom_activity_pairing_exists
+		if ClassroomActivityPairing.where(id: classroom_activity_pairing_id).empty?
+			errors.add(:classroom_activity_pairing_id, "is not a valid classroom assigned activity")
+		end
+	end
+
 	def scored_performance_within_range
-		if self.classroom_activity_pairing.activity.activity_type.eql?('scored')
+		if self.activity && self.activity.activity_type.eql?('scored')
 			if scored_performance.nil?
 				errors.add(:scored_performance, 'cannot be blank')
 				return
@@ -25,6 +40,14 @@ class StudentPerformance < ActiveRecord::Base
 			end			
 			if !self.classroom_activity_pairing.activity.max_score.nil? && scored_performance > self.classroom_activity_pairing.activity.max_score
 				errors.add(:scored_performance, 'is greater than allowable maximum score')
+			end
+		end
+	end
+
+	def completed_performance_not_nil
+		if self.activity && self.activity.activity_type.eql?('completion')
+			if self.completed_performance.nil?
+				errors.add(:completed_performance, 'cannot be blank')
 			end
 		end
 	end
@@ -145,19 +168,44 @@ class StudentPerformance < ActiveRecord::Base
   #
   ##################################################################################################
 
+  # Returns the activity associated with the Student Performance
+  # Returns nil if the Classroom Activity Pairing is invalid
   def activity
-		self.classroom_activity_pairing.activity
+		self.classroom_activity_pairing ? self.classroom_activity_pairing.activity : nil
 	end
 
+	# Returns the activity associated with the Student Performance
+  # Returns nil if the Classroom Activity Pairing is invalid
 	def activity_type
-		self.classroom_activity_pairing.activity.activity_type
+		self.classroom_activity_pairing && self.classroom_activity_pairing.activity ? self.classroom_activity_pairing.activity.activity_type : nil
 	end
 
 	def requires_verification?
 		return !StudentPerformanceVerification.where({student_user_id: student_user_id, classroom_activity_pairing_id: classroom_activity_pairing_id}).empty?
 	end
 
-	# Returns a Result set containing Student Performances for the specified classroom
+
+	# Returns SQL Result object representing Student Performances for the Classroom with id = classroomId
+  # In addition to all activity fields, all objects in Result also include:
+  #   => the Classroom Activity Pairing id and sort_order fields 
+  # 	=> the Student User id, first_name, last_name, and display_name fields
+  # If an invalid classroomId (i.e. Classroom doesn't exist) is passed, returns nil
+  #
+  # Uses:
+  #  searchTerm: if the first character is a '#', all '#'s are removed from the string, and it is treated as a space separated list of tags.  
+  # 								=> Returns only Student Performances for Activities with one or more of the tags in the list
+  #                 EXAMPLES: "#tag1 #tag2" => ('tag1', 'tag2').  "#tag1#tag2" => ('tag1tag2').  "#tag1 tag2" => ('tag1',' tag2')
+  #
+  #              if the first character is not a '#'
+  # 								=> Returns Student Performances for Activities that have a name, description, or Tag name containing the string (case insensitive)
+  #
+  #  tagId: returns Student Performances for Activities that have been tagged with the Activity Tag with id = tagId
+  #  includeHidden: boolean argument that determines whether Student Performances for Activities assigned to Classrooms but are hidden should be returned.  Method by default returns all Activities.
+  #
+  # WARNING: searchTerm and tagId cannot be used together.  If both are passed to the method, searchTerm will be used and tagId will be ignored
+
+
+	# Returns a Result set containing Student Performances for the specified Classroom (passed through classroomId)
 	# Result set is filtered by specified arguments
 	# Student Performance objects have the following addtional fields:
 	# => Activity fields, 
@@ -165,6 +213,10 @@ class StudentPerformance < ActiveRecord::Base
 	# => Student User id, first_name, last_name, display_name
 	def self.student_performances_with_verification(classroomId, searchTerm=nil, tagId=nil, studentUserId=nil, includeHidden=true)
 
+		if Classroom.where(id: classroomId).empty?
+      return nil
+    end
+    
 		if(!(searchTerm.nil? || searchTerm.eql?('')) && searchTerm[0].eql?('#'))
 			tag_array = searchTerm.gsub('#','').split(/ +/)
 		else

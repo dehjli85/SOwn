@@ -4,8 +4,62 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+s1:
+  username: demo_student_1@sowntogrow.com
+  display_name: Maria Hill
+  first_name: Maria
+  last_name: Hill
+  email: demo_student_1@sowntogrow.com
+  salt: 5042
+  password_digest: 852c3cef822bf9e19aab1583dc035d4f279f2d0d
+  provider: 
+  uid: 
+  oauth_token: 
+  oauth_expires_at: 
+  created_at: 2015-07-09 23:31:28.879426
+  updated_at: 2015-07-09 23:31:28.879426
+
+s2:
+  username: demo_student_2@sowntogrow.com
+  display_name: Ronald Brooks
+  first_name: Ronald
+  last_name: Brooks
+  email: demo_student_2@sowntogrow.com
+  salt: 6699
+  password_digest: 55a8699c1142d99455f25bb2bf3dc75188e88f83
+  provider: 
+  uid: 
+  oauth_token: 
+  oauth_expires_at: 
+  created_at: 2015-07-09 23:31:28.879426
+  updated_at: 2015-07-09 23:31:28.879426
+
+s3:
+  username: demo_student_3@sowntogrow.com
+  display_name: Lisa Moore
+  first_name: Lisa
+  last_name: Moore
+  email: demo_student_3@sowntogrow.com
+  salt: 4697
+  password_digest: 12d275ba79db77a62e1088d1f90f5c182118a4a0
+  provider: 
+  uid: 
+  oauth_token: 
+  oauth_expires_at: 
+  created_at: 2015-07-09 23:31:28.879426
+  updated_at: 2015-07-09 23:31:28.879426
+
+s4:
+  username: demo_student_4@sowntogrow.com
+  display_name: Chris Young
+  first_name: Chris
+  last_name: Young
+  email: demo_student_4@sowntogrow.com
+  salt: 6326
+  password_digest: f9c2416713749fb8d12792943b3114f9e1839927
+  provider: 
+  uid: 
+  oauth_token: 
+  oauth_expires_at: 
+  created_at: 2015-07-09 23:31:28.879426
+  updated_at: 2015-07-09 23:31:28.879426
