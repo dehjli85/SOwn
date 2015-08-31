@@ -219,7 +219,7 @@ class StudentPerformance < ActiveRecord::Base
 			sql += ' AND classroom_activity_pairings.hidden = false'
 		end
 
-		sql	+= ' ORDER BY student_users.last_name ASC'		
+		sql	+= ' ORDER BY id DESC'		
 
 		arguments[0] = sql
 
