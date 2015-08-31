@@ -142,4 +142,200 @@ class StudentPerformanceTest < ActiveSupport::TestCase
 
   end
 
+  test "student_performances_with_verification invalid classroomsId" do
+    
+    student_performances_with_verification = StudentPerformance.student_performances_with_verification(-1)
+    
+    assert_nil student_performances_with_verification, "non nil value returned with invalid classroomId"
+
+    student_performances_with_verification = StudentPerformance.student_performances_with_verification(nil)
+
+    assert_nil student_performances_with_verification, "non nil value returned with invalid classroomId"
+
+
+  end
+
+  test "student_performances_with_verification method no search" do
+    
+    student_performances_with_verification = StudentPerformance.student_performances_with_verification(classrooms(:c1s))
+    performances_array = student_performances_with_verification.as_json
+    
+    assert_not_empty 	performances_array
+
+    includes_s1_c1s_a1s_1 = false
+    includes_s1_c1s_a1s_2 = false
+    includes_s2_c1s_a1s_1 = false    
+    includes_s2_c1s_a1s_2 = false
+
+
+    performances_array.each do |performance_hash|
+    	
+    	if performance_hash["id"].to_i.eql?(classroom_activity_pairings(:c1s_to_a1s).id)
+    		includes_a1s = true
+    	elsif activity_hash["id"].to_i.eql?(activities(:a2s).id)
+    		includes_a2s = true
+  		elsif activity_hash["id"].to_i.eql?(activities(:a3s).id)
+    		includes_a3s = true
+    	end
+
+			if activity_hash["classroom_activity_pairing_id"].to_i.eql?(classroom_activity_pairings(:c1s_to_a1s).id)
+    		includes_c1s_to_a1s = true
+    	elsif activity_hash["classroom_activity_pairing_id"].to_i.eql?(classroom_activity_pairings(:c1s_to_a2s).id)
+    		includes_c1s_to_a2s = true
+    	elsif activity_hash["classroom_activity_pairing_id"].to_i.eql?(classroom_activity_pairings(:c1s_to_a3s).id)
+    		includes_c1s_to_a3s = true
+    	end
+
+    end
+
+    assert includes_a1s, "activities_with_pairings_ids(c1s.id) did not return a1s"
+    assert includes_a2s, "activities_with_pairings_ids(c1s.id) did not return a2s"
+    assert includes_a3s, "activities_with_pairings_ids(c1s.id) did not return a3s"
+    assert includes_c1s_to_a1s, "activities_with_pairings_ids(c1s.id) did not return c1s_to_a1s"
+    assert includes_c1s_to_a2s, "activities_with_pairings_ids(c1s.id) did not return c1s_to_a2s"
+    assert includes_c1s_to_a3s, "activities_with_pairings_ids(c1s.id) did not return c1s_to_a3s"
+
+
+  end
+
+  test "activities_with_pairing_ids with matching tagId" do
+    
+    activities_with_pairings = Activity.activities_with_pairings_ids(classrooms(:c1s), nil, activity_tags(:t1))
+    activities_array = activities_with_pairings.as_json
+    
+    assert_not_empty 	activities_array
+
+    includes_a1s = false
+    includes_a2s = false
+    includes_a3s = false    
+    includes_c1s_to_a1s = false
+    includes_c1s_to_a2s = false
+    includes_c1s_to_a3s = false
+
+    activities_array.each do |activity_hash|
+    	
+    	if activity_hash["id"].to_i.eql?(activities(:a1s).id)
+    		includes_a1s = true
+    	elsif activity_hash["id"].to_i.eql?(activities(:a2s).id)
+    		includes_a2s = true
+  		elsif activity_hash["id"].to_i.eql?(activities(:a3s).id)
+    		includes_a3s = true
+    	end
+
+			if activity_hash["classroom_activity_pairing_id"].to_i.eql?(classroom_activity_pairings(:c1s_to_a1s).id)
+    		includes_c1s_to_a1s = true
+    	elsif activity_hash["classroom_activity_pairing_id"].to_i.eql?(classroom_activity_pairings(:c1s_to_a2s).id)
+    		includes_c1s_to_a2s = true
+    	elsif activity_hash["classroom_activity_pairing_id"].to_i.eql?(classroom_activity_pairings(:c1s_to_a3s).id)
+    		includes_c1s_to_a3s = true
+    	end
+
+    end
+
+    assert includes_a1s, "activities_with_pairings_ids(c1s.id, nil, t1.id) did not return a1s"
+    assert includes_a2s, "activities_with_pairings_ids(c1s.id, nil, t1.id) did not return a2s"
+    assert_not includes_a3s, "activities_with_pairings_ids(c1s.id, nil, t1.id) did not returned a3d"
+    assert includes_c1s_to_a1s, "activities_with_pairings_ids(c1s.id, nil, t1.id) did not return c1s_to_a1s"
+    assert includes_c1s_to_a2s, "activities_with_pairings_ids(c1s.id, nil, t1.id) did not return c1s_to_a2s"
+    assert_not includes_c1s_to_a3s, "activities_with_pairings_ids(c1s.id, nil, t1.id) did not return c1s_to_a3s"
+
+
+  end
+
+  test "activities_with_pairing_ids with non-matching tagId" do
+    
+    activities_with_pairings = Activity.activities_with_pairings_ids(classrooms(:c1s), nil, activity_tags(:t3))
+    activities_array = activities_with_pairings.as_json
+    
+    assert_empty 	activities_array, "activities_with_pairings_ids(c1s.id, nil, t3.id) returned a non-empty result"
+    
+  end
+
+  test "activities_with_pairing_ids with general search term 'tag1'" do
+    
+    activities_with_pairings = Activity.activities_with_pairings_ids(classrooms(:c1s), "tag1", nil)
+    activities_array = activities_with_pairings.as_json
+    
+    assert_not_empty 	activities_array
+
+    includes_a1s = false
+    includes_a2s = false
+    includes_a3s = false    
+    includes_c1s_to_a1s = false
+    includes_c1s_to_a2s = false
+    includes_c1s_to_a3s = false
+
+    activities_array.each do |activity_hash|
+    	
+    	if activity_hash["id"].to_i.eql?(activities(:a1s).id)
+    		includes_a1s = true
+    	elsif activity_hash["id"].to_i.eql?(activities(:a2s).id)
+    		includes_a2s = true
+  		elsif activity_hash["id"].to_i.eql?(activities(:a3s).id)
+    		includes_a3s = true
+    	end
+
+			if activity_hash["classroom_activity_pairing_id"].to_i.eql?(classroom_activity_pairings(:c1s_to_a1s).id)
+    		includes_c1s_to_a1s = true
+    	elsif activity_hash["classroom_activity_pairing_id"].to_i.eql?(classroom_activity_pairings(:c1s_to_a2s).id)
+    		includes_c1s_to_a2s = true
+    	elsif activity_hash["classroom_activity_pairing_id"].to_i.eql?(classroom_activity_pairings(:c1s_to_a3s).id)
+    		includes_c1s_to_a3s = true
+    	end
+
+    end
+
+    assert includes_a1s, "activities_with_pairings_ids(c1s.id, 'tag1') did not return a1s"
+    assert includes_a2s, "activities_with_pairings_ids(c1s.id, 'tag1') did not return a2s"
+    assert_not includes_a3s, "activities_with_pairings_ids(c1s.id, 'tag1') returned a3s"
+    assert includes_c1s_to_a1s, "activities_with_pairings_ids(c1s.id, 'tag1') did not return c1s_to_a1s"
+    assert includes_c1s_to_a2s, "activities_with_pairings_ids(c1s.id, 'tag1') did not return c1s_to_a2s"
+    assert_not includes_c1s_to_a3s, "activities_with_pairings_ids(c1s.id, 'tag1') returned c1s_to_a3s"
+
+  end
+
+  test "activities_with_pairing_ids with general search term 'tag1' and tagId" do
+    
+    activities_with_pairings = Activity.activities_with_pairings_ids(classrooms(:c1s), "tag1", activity_tags(:t1))
+
+    activities_array = activities_with_pairings.as_json
+    
+    assert_not_empty    activities_array
+
+    includes_a1s = false
+    includes_a2s = false
+    includes_a3s = false    
+    includes_c1s_to_a1s = false
+    includes_c1s_to_a2s = false
+    includes_c1s_to_a3s = false
+
+    activities_array.each do |activity_hash|
+        
+        if activity_hash["id"].to_i.eql?(activities(:a1s).id)
+            includes_a1s = true
+        elsif activity_hash["id"].to_i.eql?(activities(:a2s).id)
+            includes_a2s = true
+        elsif activity_hash["id"].to_i.eql?(activities(:a3s).id)
+            includes_a3s = true
+        end
+
+            if activity_hash["classroom_activity_pairing_id"].to_i.eql?(classroom_activity_pairings(:c1s_to_a1s).id)
+            includes_c1s_to_a1s = true
+        elsif activity_hash["classroom_activity_pairing_id"].to_i.eql?(classroom_activity_pairings(:c1s_to_a2s).id)
+            includes_c1s_to_a2s = true
+        elsif activity_hash["classroom_activity_pairing_id"].to_i.eql?(classroom_activity_pairings(:c1s_to_a3s).id)
+            includes_c1s_to_a3s = true
+        end
+
+    end
+
+    assert includes_a1s, "activities_with_pairings_ids(c1s.id, 'tag1') did not return a1s"
+    assert includes_a2s, "activities_with_pairings_ids(c1s.id, 'tag1') did not return a2s"
+    assert_not includes_a3s, "activities_with_pairings_ids(c1s.id, 'tag1') returned a3s"
+    assert includes_c1s_to_a1s, "activities_with_pairings_ids(c1s.id, 'tag1') did not return c1s_to_a1s"
+    assert includes_c1s_to_a2s, "activities_with_pairings_ids(c1s.id, 'tag1') did not return c1s_to_a2s"
+    assert_not includes_c1s_to_a3s, "activities_with_pairings_ids(c1s.id, 'tag1') returned c1s_to_a3s"
+
+  end
+
 end

@@ -4,8 +4,52 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+s1_c1s_a1s_1: 
+  student_user: s1
+  classroom_activity_pairing: c1s_to_a1s
+  scored_performance: 50
+  completed_performance: 
+  performance_date: '2015-07-09 23:31:29.703808'
+  created_at: '2015-07-09 23:31:29.703808'
+  updated_at: '2015-07-09 23:31:29.703808'
+  verified: false
+
+s1_c1s_a1s_2: 
+  student_user: s1
+  classroom_activity_pairing: c1s_to_a1s
+  scored_performance: 70
+  completed_performance: 
+  performance_date: '2015-07-10 23:31:29.703808'
+  created_at: '2015-07-10 23:31:29.703808'
+  updated_at: '2015-07-10 23:31:29.703808'
+  verified: false
+
+s1_c2s_a2s_1: 
+  student_user: s1
+  classroom_activity_pairing: c2s_to_a1s
+  scored_performance: 50
+  completed_performance: 
+  performance_date: '2015-07-09 23:31:29.703808'
+  created_at: '2015-07-09 23:31:29.703808'
+  updated_at: '2015-07-09 23:31:29.703808'
+  verified: false
+
+s2_c1s_a1s_1: 
+  student_user: s2
+  classroom_activity_pairing: c1s_to_a1s
+  scored_performance: 65
+  completed_performance: 
+  performance_date: '2015-07-09 23:31:29.703808'
+  created_at: '2015-07-09 23:31:29.703808'
+  updated_at: '2015-07-09 23:31:29.703808'
+  verified: false
+
+s2_c1s_a1s_2: 
+  student_user: s2
+  classroom_activity_pairing: c1s_to_a1s
+  scored_performance: 100
+  completed_performance: 
+  performance_date: '2015-07-10 23:31:29.703808'
+  created_at: '2015-07-10 23:31:29.703808'
+  updated_at: '2015-07-10 23:31:29.703808'
+  verified: false
