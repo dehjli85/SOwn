@@ -112,13 +112,10 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			.done(function(data) {
 	     		console.log(data);
 	     	if(data.status == "success"){
-
-
 	     		
 	     		var activity_and_pairing = new Backbone.Model({activity: data.activity, classroom_activity_pairing: data.classroom_activity_pairing, errors:{}});
 	     		var trackModal = new StudentAccount.StudentApp.Classroom.TrackModalView({model: activity_and_pairing});
 	     		classroomLayoutView.modalRegion.show(trackModal);
-
 					
 	     	}
 	     	
