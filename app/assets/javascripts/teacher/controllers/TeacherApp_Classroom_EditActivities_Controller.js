@@ -38,7 +38,7 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 			
 		},
 
-		showClassroomEditActivitiesVerificationsView: function(editActivitiesLayoutView, classroomId, activityId){
+		showClassroomEditActivitiesAssignmentOptionsView: function(editActivitiesLayoutView, classroomId, activityId){
 
 			var jqxhr2 = $.get("/teacher/teacher_activities_verifications?classroom_id=" + classroomId + "&activity_id=" + activityId, function(){
 				console.log('get request for verifications data');
@@ -47,8 +47,8 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 
 				var verifications = new TeacherAccount.TeacherApp.Classroom.EditActivities.Models.VerificationsCollection(data.verifications);
 														
-				var verificationsCompositeView = new TeacherAccount.TeacherApp.Classroom.EditActivities.VerificationsCompositeView({collection:verifications, model: new Backbone.Model({classroomId:classroomId})});
-				editActivitiesLayoutView.verificationsRegion.show(verificationsCompositeView);
+				var assignmentOptionsCompositeView = new TeacherAccount.TeacherApp.Classroom.EditActivities.AssignmentOptionsCompositeView({collection:verifications, model: new Backbone.Model({classroomId:classroomId})});
+				editActivitiesLayoutView.verificationsRegion.show(assignmentOptionsCompositeView);
 
 		  })
 		  .fail(function() {
@@ -70,6 +70,8 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 			})
 			.done(function(data) {
 
+				console.log(data);
+
 				var activities = new TeacherAccount.TeacherApp.Classroom.EditActivities.Models.ActivitiesCollection(data.activities);
 				var activity = new TeacherAccount.TeacherApp.Classroom.EditActivities.Models.Activity({pairing: data.pairing, activity: data.activity});
 
@@ -77,7 +79,9 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 				editActivitiesLayoutView.activityAssignmentRegion.show(activitiyAssignmentView);
 
 				if(activity.attributes.pairing != null){
-					EditActivities.Controller.showClassroomEditActivitiesVerificationsView(editActivitiesLayoutView, classroomId, data.activity.id);
+					EditActivities.Controller.showClassroomEditActivitiesAssignmentOptionsView(editActivitiesLayoutView, classroomId, data.activity.id);
+				}else{
+					editActivitiesLayoutView.verificationsRegion.empty();
 				}
 				
 		  })

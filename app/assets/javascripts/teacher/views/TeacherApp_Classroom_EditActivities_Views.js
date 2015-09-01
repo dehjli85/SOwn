@@ -87,8 +87,8 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 		
 	});
 
-	EditActivities.VerificationsCompositeView = Marionette.CompositeView.extend({
-		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_EditActivities_VerificationsComposite"],
+	EditActivities.AssignmentOptionsCompositeView = Marionette.CompositeView.extend({
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_EditActivities_AssignmentOptionsComposite"],
 		tagName: "div",
 		className: "",
 		childView: EditActivities.VerificationsView,
@@ -165,7 +165,7 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 		onChildviewEditActivitiesToggleVerificationView: function(view){
 
 			if(view.ui.assignedButton.val() == "true"){					
-				TeacherAccount.TeacherApp.Classroom.EditActivities.Controller.showClassroomEditActivitiesVerificationsView(this,this.model.attributes.classroomId,view.model.attributes.activity.id)
+				TeacherAccount.TeacherApp.Classroom.EditActivities.Controller.showClassroomEditActivitiesAssignmentOptionsView(this,this.model.attributes.classroomId,view.model.attributes.activity.id)
 			}else{
 				this.verificationsRegion.empty();
 			}
