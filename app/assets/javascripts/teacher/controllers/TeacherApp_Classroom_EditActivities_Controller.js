@@ -38,7 +38,7 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 			
 		},
 
-		showClassroomEditActivitiesAssignmentOptionsView: function(editActivitiesLayoutView, classroomId, activityId){
+		showClassroomEditActivitiesAssignmentOptionsView: function(editActivitiesLayoutView, classroomId, activityId, pairing){
 
 			var jqxhr2 = $.get("/teacher/teacher_activities_verifications?classroom_id=" + classroomId + "&activity_id=" + activityId, function(){
 				console.log('get request for verifications data');
@@ -47,8 +47,8 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 
 				var verifications = new TeacherAccount.TeacherApp.Classroom.EditActivities.Models.VerificationsCollection(data.verifications);
 														
-				var assignmentOptionsCompositeView = new TeacherAccount.TeacherApp.Classroom.EditActivities.AssignmentOptionsCompositeView({collection:verifications, model: new Backbone.Model({classroomId:classroomId})});
-				editActivitiesLayoutView.verificationsRegion.show(assignmentOptionsCompositeView);
+				var assignmentOptionsCompositeView = new TeacherAccount.TeacherApp.Classroom.EditActivities.AssignmentOptionsCompositeView({collection:verifications, model: new Backbone.Model({classroomId:classroomId, pairing:pairing})});
+				editActivitiesLayoutView.optionsRegion.show(assignmentOptionsCompositeView);
 
 		  })
 		  .fail(function() {
@@ -79,9 +79,9 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 				editActivitiesLayoutView.activityAssignmentRegion.show(activitiyAssignmentView);
 
 				if(activity.attributes.pairing != null){
-					EditActivities.Controller.showClassroomEditActivitiesAssignmentOptionsView(editActivitiesLayoutView, classroomId, data.activity.id);
+					EditActivities.Controller.showClassroomEditActivitiesAssignmentOptionsView(editActivitiesLayoutView, classroomId, data.activity.id, activity.attributes.pairing);
 				}else{
-					editActivitiesLayoutView.verificationsRegion.empty();
+					editActivitiesLayoutView.optionsRegion.empty();
 				}
 				
 		  })
@@ -94,7 +94,7 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 
 		},
 
-		saveActivityAssignmentAndVerifications: function(editActivitiesLayoutView, classroomId, activityId, activityAssigned, activityHidden, verificationsForm){
+		saveActivityAssignmentAndOptions: function(editActivitiesLayoutView, classroomId, activityId, activityAssigned, activityHidden, verificationsForm){
 			var postUrl = "/teacher/save_teacher_activity_assignment_and_verifications"
 			var postParams = "classroom_id=" + classroomId 
 				+ "&activity_id=" + activityId 

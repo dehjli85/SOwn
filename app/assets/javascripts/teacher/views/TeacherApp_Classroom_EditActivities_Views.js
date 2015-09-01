@@ -34,7 +34,6 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 		
 		ui:{
 			assignedButton: "[ui-assigned-button]",
-			hiddenButton: "[ui-hidden-button]",
 			select: "[ui-select]"
 		},
 
@@ -52,21 +51,16 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 
 		  // console.log($(this.ui.assignedButton));
 		  var assigned_button = $(this.ui.assignedButton).bootstrapSwitch(options);
-		  var hidden_button = $(this.ui.hiddenButton).bootstrapSwitch(options);
 
 		  assigned_button.bootstrapSwitch('state', this.model.attributes.pairing);
-		  if(this.model.attributes.pairing){
-			  hidden_button.bootstrapSwitch('state', this.model.attributes.pairing.hidden);
-		  }
+		  
   		
   		var obj = this;
   		assigned_button.on('switchChange.bootstrapSwitch', function(event, state) {
 		    this.value = assigned_button.bootstrapSwitch('state');		    
 		    obj.triggerMethod("edit:activities:toggle:verification:view");
 		  });
-		  hidden_button.on('switchChange.bootstrapSwitch', function(event, state) {
-		    this.value = hidden_button.bootstrapSwitch('state');		    
-		  });
+		  
 
 
 		  
@@ -98,7 +92,8 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 			verificationsForm: "[ui-verifications-form]",
 			allA: "[ui-all-a]",
 			noneA: "[ui-none-a]",
-			randomA: "[ui-random-a]"
+			randomA: "[ui-random-a]",
+			hiddenButton: "[ui-hidden-button]",			
 		},
 
 		triggers:{
@@ -128,6 +123,27 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 	      	childview.ui.checkBox.prop("checked", true);
 	    });
 			
+		},
+
+		onRender: function(){
+
+			var options = {
+		    onText: "Yes",
+		    onColor: 'primary',    
+		    offText: "No",
+		    animate: true,        
+		  };
+
+		  var hidden_button = $(this.ui.hiddenButton).bootstrapSwitch(options);
+		  if(this.model.attributes.pairing){
+			  hidden_button.bootstrapSwitch('state', this.model.attributes.pairing.hidden);
+		  }
+
+  		var obj = this;
+
+  		hidden_button.on('switchChange.bootstrapSwitch', function(event, state) {
+		    this.value = hidden_button.bootstrapSwitch('state');		    
+		  });
 		}
 
 		
@@ -150,7 +166,7 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_EditActivities_Layout"],			
 		regions:{			
 			activityAssignmentRegion: "#activity_assignment_region",
-			verificationsRegion: "#tags_region",
+			optionsRegion: "#options_region",
 			alertRegion: "#alert_region"
 		},
 
@@ -167,7 +183,7 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 			if(view.ui.assignedButton.val() == "true"){					
 				TeacherAccount.TeacherApp.Classroom.EditActivities.Controller.showClassroomEditActivitiesAssignmentOptionsView(this,this.model.attributes.classroomId,view.model.attributes.activity.id)
 			}else{
-				this.verificationsRegion.empty();
+				this.optionsRegion.empty();
 			}
 		},
 
@@ -183,15 +199,18 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 
 			//set up the verifications data to be saved
 			var verificationsForm = null;
-			if(this.verificationsRegion.currentView)
-				verificationsForm = this.verificationsRegion.currentView.ui.verificationsForm
+			var hiddenInput = null
+			if(this.optionsRegion.currentView){
+				verificationsForm = this.optionsRegion.currentView.ui.verificationsForm;
+				hiddenInput = this.optionsRegion.currentView.ui.hiddenButton.val();
+			}
 
-			TeacherAccount.TeacherApp.Classroom.EditActivities.Controller.saveActivityAssignmentAndVerifications(
+			TeacherAccount.TeacherApp.Classroom.EditActivities.Controller.saveActivityAssignmentAndOptions(
 				this,
 				this.model.attributes.classroomId, 
 				this.activityAssignmentRegion.currentView.model.attributes.activity.id,
 				this.activityAssignmentRegion.currentView.ui.assignedButton.val(),
-				this.activityAssignmentRegion.currentView.ui.hiddenButton.val(),
+				hiddenInput,
 				verificationsForm
 			);
 
