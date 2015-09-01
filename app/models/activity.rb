@@ -146,7 +146,7 @@ class Activity < ActiveRecord::Base
       arguments.push("%#{searchTerm.downcase}%")      
     end    
 
-    sql += ' ORDER BY a.created_at DESC'    
+    sql += ' ORDER BY cap.sort_order ASC'    
     arguments[0] = sql
 
     sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, arguments)
