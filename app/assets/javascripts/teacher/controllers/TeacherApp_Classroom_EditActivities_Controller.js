@@ -40,14 +40,17 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 
 		showClassroomEditActivitiesAssignmentOptionsView: function(editActivitiesLayoutView, classroomId, activityId, pairing){
 
-			var jqxhr2 = $.get("/teacher/teacher_activities_verifications?classroom_id=" + classroomId + "&activity_id=" + activityId, function(){
+			var jqxhr2 = $.get("/teacher/teacher_activities_options?classroom_id=" + classroomId + "&activity_id=" + activityId, function(){
 				console.log('get request for verifications data');
 			})
-			.done(function(data) {				
+			.done(function(data) {			
 
-				var verifications = new TeacherAccount.TeacherApp.Classroom.EditActivities.Models.VerificationsCollection(data.verifications);
-														
-				var assignmentOptionsCompositeView = new TeacherAccount.TeacherApp.Classroom.EditActivities.AssignmentOptionsCompositeView({collection:verifications, model: new Backbone.Model({classroomId:classroomId, pairing:pairing})});
+				console.log(data);	
+
+				var verifications = new Backbone.Collection(data.verifications);
+				var model = new Backbone.Model({classroomId:classroomId, classroomActivityPairing:data.classroom_activity_pairing})
+
+				var assignmentOptionsCompositeView = new TeacherAccount.TeacherApp.Classroom.EditActivities.AssignmentOptionsCompositeView({collection:verifications, model: model});
 				editActivitiesLayoutView.optionsRegion.show(assignmentOptionsCompositeView);
 
 		  })
@@ -94,12 +97,11 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 
 		},
 
-		saveActivityAssignmentAndOptions: function(editActivitiesLayoutView, classroomId, activityId, activityAssigned, activityHidden, verificationsForm){
-			var postUrl = "/teacher/save_teacher_activity_assignment_and_verifications"
+		saveActivityAssignmentAndOptions: function(editActivitiesLayoutView, classroomId, activityId, activityAssigned, verificationsForm){
+			var postUrl = "/teacher/save_teacher_activity_assignment_and_options"
 			var postParams = "classroom_id=" + classroomId 
-				+ "&activity_id=" + activityId 
-				+ "&assigned=" + activityAssigned
-				+ "&hidden=" + activityHidden;
+				+ "&activity_id=" + activityId
+				+ "&assigned=" + activityAssigned;
 			if (verificationsForm != null)
 				postParams +=  "&" + verificationsForm.serialize();
 

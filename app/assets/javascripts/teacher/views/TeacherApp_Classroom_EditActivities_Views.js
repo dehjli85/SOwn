@@ -210,7 +210,6 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 				this.model.attributes.classroomId, 
 				this.activityAssignmentRegion.currentView.model.attributes.activity.id,
 				this.activityAssignmentRegion.currentView.ui.assignedButton.val(),
-				hiddenInput,
 				verificationsForm
 			);
 

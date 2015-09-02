@@ -94,8 +94,8 @@ Rails.application.routes.draw do
 
   # teacher/activities app routes
   get 'teacher/teacher_activities_and_classroom_assignment' => 'teacher_account#teacher_activities_and_classroom_assignment'
-  get 'teacher/teacher_activities_verifications' => 'teacher_account#teacher_activities_verifications'
-  post 'teacher/save_teacher_activity_assignment_and_verifications' => 'teacher_account#save_teacher_activity_assignment_and_verifications'
+  get 'teacher/teacher_activities_options' => 'teacher_account#teacher_activities_options'
+  post 'teacher/save_teacher_activity_assignment_and_options' => 'teacher_account#save_teacher_activity_assignment_and_options'
   get 'teacher/teacher_activities_and_tags' => 'teacher_account#teacher_activities_and_tags'
   post 'teacher/save_new_activity' => 'teacher_account#save_new_activity'
   get 'teacher/activity' => 'teacher_account#activity'
