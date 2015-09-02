@@ -60,7 +60,7 @@
         <label for="inputPerformanceDate" class="col-sm-4 control-label">Date:</label>
         <div class="col-sm-8">          
           <% if(errors.performance_date != null){%><div class="field_with_errors"><%}%>
-          <input class="form-control" id="student_performance_performance_date" name="student_performance[performance_date]" type="date" value="<%= (new Date()).getFullYear() %>-<%= ((new Date()).getMonth()+1) < 10 ? '0' + ((new Date()).getMonth()+1).toString() : ((new Date()).getMonth()+1).toString() %>-<%= (new Date()).getDate() < 10 ? '0' + ((new Date()).getDate()).toString() : ((new Date()).getDate()).toString() %>">
+          <input class="form-control" id="student_performance_performance_date" name="student_performance[performance_date]" type="date" value="<%= moment().format('YYYY-MM-DD')%>">
           <% if(errors.performance_date != null){%>
               <label class="control-label" for="inputName">Date <%= errors.performance_date[0] %></label>
             </div>
