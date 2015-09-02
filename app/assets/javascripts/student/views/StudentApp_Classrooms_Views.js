@@ -4,7 +4,7 @@ StudentAccount.module("StudentApp.Classrooms", function(Classrooms, StudentAccou
 	
 	Classrooms.ClassroomWidgetView = Marionette.ItemView.extend({				
 		template: JST["student/templates/StudentApp_Classrooms_ClassroomWidget"],			
-		className: "col-xs-6 col-sm-3 col-md-3 placeholder",
+		className: "col-xs-6 col-sm-4 col-md-4 col-lg-3 placeholder",
 		triggers: {
 			"click .placeholder.thumbnail":"show:classroom:scores"			
 		},
