@@ -62,3 +62,5 @@ gem 'jquery-ui-rails'
 
 gem 'yaml_db'
 
+gem 'momentjs-rails'
+

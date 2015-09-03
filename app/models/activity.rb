@@ -115,7 +115,8 @@ class Activity < ActiveRecord::Base
   #
   # WARNING: searchTerm and tagId cannot be used together.  If both are passed to the method, searchTerm will be used and tagId will be ignored
 
-  def self.activities_with_pairings_ids(classroomId, searchTerm=nil, tagId=nil, includeHidden=true)
+  
+  def self.activities_with_pairings(classroomId, searchTerm=nil, tagId=nil, includeHidden=true)
 
     if Classroom.where(id: classroomId).empty?
       return nil
@@ -130,7 +131,7 @@ class Activity < ActiveRecord::Base
     arguments = [nil]
 
     sql = 'SELECT distinct a.*, 
-            cap.id as classroom_activity_pairing_id, cap.sort_order
+            cap.id as classroom_activity_pairing_id, cap.sort_order, cap.due_date
           FROM activities a 
           INNER JOIN "classroom_activity_pairings" cap on cap.activity_id = a.id 
           LEFT JOIN activity_tag_pairings atp on atp.activity_id = a.id'
@@ -162,11 +163,11 @@ class Activity < ActiveRecord::Base
       arguments.push("%#{searchTerm.downcase}%")      
     end    
 
-    sql += ' ORDER BY a.created_at DESC'    
+    sql += ' ORDER BY cap.sort_order ASC'    
     arguments[0] = sql
 
     sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, arguments)
-    activities = ActiveRecord::Base.connection.execute(sanitized_query)
+    activities = ActiveRecord::Base.connection.execute(sanitized_query).to_a
 
   end
 

@@ -114,6 +114,12 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			}
 		},
 
+		onRender: function(){
+			if(this.model.get("showScoreBar")){
+				this.showScoreBar();
+			}
+		},
+
 		showScoreBar: function(){
 
 			var dataset, colours;

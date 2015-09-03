@@ -112,7 +112,9 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			})
 			.done(function(data) {
 
-				if (data.status == 'success'){		    
+				if (data.status == 'success'){	
+
+					adminLayoutView.flashMessage({message_type: "success", message: "Session variable set.  Click <a href='/' target='_blank'>here</a> to proceed."});	    
 
 					if(userModel.attributes.user_type == "teacher")
 						window.open("teacher_home", "_blank");
@@ -123,7 +125,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 		    else if (data.status == "error"){
 		    	if(data.message == "invalid-admin-user"){
 		    		console.log("display error message")
-		    		adminLayoutView.flashErrorMessage({message_type: "error", message: "Error: You are not logged in as in Admin User"});
+		    		adminLayoutView.flashMessage({message_type: "error", message: "Error: You are not logged in as in Admin User"});
 		    	}
 		    }
 	     	

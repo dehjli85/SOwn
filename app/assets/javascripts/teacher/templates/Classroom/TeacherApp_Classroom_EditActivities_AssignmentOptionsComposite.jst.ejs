@@ -1,4 +1,19 @@
 <form class="form-horizontal" ui-verifications-form>
+
+  <div class="form-group">            
+    <label for="input" class="col-sm-3 control-label">Hidden:</label>
+    <div class="col-sm-6 switch">              
+      <input <% if(classroomActivityPairing != null && classroomActivityPairing.hidden) {%> checked="checked" <%}%> id="hidden" name="hidden" type="checkbox" value="false" ui-hidden-button>               
+    </div>
+  </div>
+
+  <div class="form-group">            
+    <label for="input" class="col-sm-3 control-label">Due Date:</label>
+    <div class="col-sm-3">              
+      <input id="dueDate" class="form-control" name="dueDate" type="date" value="<%= classroomActivityPairing != null && classroomActivityPairing.due_date ? classroomActivityPairing.due_date : '' %>" ui-due-date-input>               
+    </div>
+  </div>
+
   <div class="form-group" id="verifications">
     <label for="input" class="col-sm-3 control-label">Verifications:</label>
     <div class="col-sm-8">             

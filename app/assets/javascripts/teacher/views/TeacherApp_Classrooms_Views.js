@@ -4,7 +4,7 @@ TeacherAccount.module("TeacherApp.Classrooms", function(Classrooms, TeacherAccou
 	
 	Classrooms.ClassroomWidgetView = Marionette.ItemView.extend({				
 		template: JST["teacher/templates/TeacherApp_Classrooms_ClassroomWidget"],			
-		className: "col-xs-6 col-sm-3 placeholder",
+		className: "col-xs-6 col-sm-4 col-md-4 col-lg-3 placeholder",
 		model: Classrooms.Models.ClassroomWidgetModel,
 
 		triggers: {

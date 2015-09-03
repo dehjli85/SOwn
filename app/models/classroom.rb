@@ -30,20 +30,6 @@ class Classroom < ActiveRecord::Base
   #
   ##################################################################################################
 
-  # Returns a hash with keys "activities" and "student_performances"
-  # Value for "activities" key is an array of activities with classroom_activity_pairing_id and sort order for each activity 
-  # Value for "student_performances" key is an array of student_performances.  Each object in the array also includes activity_information and student name and id
-	def search_matched_pairings_and_activities(search_hash={search_term: nil, tag_id: nil })
-
-		activities = Activity.activities_with_pairings_ids(self.id, search_hash[:search_term], search_hash[:tag_id], true)
-		
-		student_performances = StudentPerformance.student_performances_with_verification(self.id, search_hash[:search_term], search_hash[:tag_id], nil, true)
-
-		return {activities: activities, student_performances: student_performances}
-
-	end
-
-
 	# Returns and array of Classroom Activity Pairings that match the search_term or search tag
 	def search_matched_pairings(search_hash={search_term: nil, search_tag: nil })
 
@@ -117,7 +103,7 @@ class Classroom < ActiveRecord::Base
 	def tags(includeHidden=true)
 		
 		#Get all the activities ids for the classroom and put them into an array
-		activities = Activity.activities_with_pairings_ids(self.id, nil, nil, includeHidden)
+		activities = Activity.activities_with_pairings(self.id, nil, nil, includeHidden)
 	 	activity_id_array = Array.new
 	 	activities.each do |a| activity_id_array.push(a["id"].to_i) end
 
@@ -131,37 +117,6 @@ class Classroom < ActiveRecord::Base
 		
 	end
 
-	# Returns a Hash with 2 keys: :activities and :student_performances for the specified student_user_id  
-	# Value for :activities is an Array of Hashes.  Each Hash in the Array has 2 keys: :activity and :cap_id
-	# => Value for :activity is the Activity
-	# => Value for cap_id, value is the id of the Classroom Activity Pairing associated with that Activity and this Classroom
-	# Value for :student_performances is an Array of Student Performances, with the most recent performances coming first
-	#
-	# The performances are sorted in the same order as the activities.
-	def get_activities_and_student_performance_data(student_user_id)
-		
-		activities_array = Array.new(self.activities.size)
-		student_performance_array = Array.new
-
-		caps = ClassroomActivityPairing.where({classroom_id: self.id})
-		caps.each_with_index do |cap, index|
-
-			#create a sorted array of the activities
-			activities_array[index] = {activity: cap.activity, cap_id: cap.id}
-
-			#create a sorted array of all performances			
-			student_performance_array[index] = StudentPerformance.where({classroom_activity_pairing_id: cap.id, student_user_id: student_user_id}).order("id DESC")
-
-		end		
-
-		activities_and_student_performance_hash = Hash.new
-		activities_and_student_performance_hash[:activities] = activities_array
-		activities_and_student_performance_hash[:student_performances] = student_performance_array
-
-		return activities_and_student_performance_hash
-
-	end
-
 	# Returns and Array of Hashes.  
 	# Each Hash represents an Activity. In addition to having keys representing all the Activity fields, there is also a "student performances" key
 	# The value of the "student performances" key is an Array of all the Student Performances entered by the Student User for that Activity in the Classroom
@@ -169,7 +124,7 @@ class Classroom < ActiveRecord::Base
 	def activities_and_performances(student_user_id, search_hash={search_term: nil, search_tag: nil })
 
 		# unsorted_activities = self.activities_with_pairing_ids.as_json
-		unsorted_activities = Activity.activities_with_pairings_ids(self.id, search_hash[:search_term], search_hash[:search_tag], false)
+		unsorted_activities = Activity.activities_with_pairings(self.id, search_hash[:search_term], search_hash[:search_tag], false)
 		
 		# Sort activities based on their sort order		
 		# There are potentially null objects in the sorted array based on what the teacher has hidden
@@ -184,23 +139,6 @@ class Classroom < ActiveRecord::Base
     performances_array.each do |performance|
 
       sort_order = performance["sort_order"].to_i
-
-      performance["performance_pretty"] = 
-      	StudentPerformance.performance_pretty_no_active_record(
-      		activities[sort_order]["activity_type"], 
-      		performance["scored_performance"], 
-      		performance["completed_performance"]
-    		)
-      performance["performance_color"] = 
-      	StudentPerformance.performance_color_no_active_record(
-      		activities[sort_order]["activity_type"], 
-      		activities[sort_order]["benchmark1_score"], 
-      		activities[sort_order]["benchmark2_score"], 
-      		activities[sort_order]["min_score"], 
-      		activities[sort_order]["max_score"], 
-      		performance["scored_performance"], 
-      		performance["completed_performance"]
-      	)
 
       if sorted_activities[sort_order]["student_performances"].nil?
         sorted_activities[sort_order]["student_performances"] = Array.new
@@ -218,54 +156,39 @@ class Classroom < ActiveRecord::Base
 
 	end
 
-	# Returns a Float indicating the percentage of Activities completed by Student Users in the Classroom at a proficient level
-	# Proficient level is:
-	# => Completed for completion Activity
-	# => Greater than the max of Benchmark1 and Benchmark2 of the scored Activity
-	def percent_proficient_activities
-		
-		students = self.student_users
-		cap_ids = self.search_matched_pairings.joins(:activity)
-			.where("(activity_type = 'completion') or (activity_type = 'scored' and (benchmark1_score is not null or benchmark2_score is not null))")
-			.ids
-
-		total_activities = students.length * cap_ids.length
-		
-		student_performances = StudentPerformance.joins(:activity)
-			.joins(:classroom_activity_pairing)
-			.where({classroom_activity_pairing_id: cap_ids})
-			.where('completed_performance= true or scored_performance > greatest(benchmark1_score, benchmark2_score)')
-			.where(:student_user_id => students.pluck(:id))
-
-		proficient_count = student_performances.length
-
-		if total_activities == 0
-			return 0.0
-		elsif proficient_count > 0
-			return proficient_count.to_f / total_activities.to_f
-		else
-			return 0.0
-		end
-
-	end
 
 	# Returns a Float indicating the percentage of Activities completed by the specified Student User in the Classroom at a proficient level
 	# Proficient level is:
 	# => Completed for completion Activity
 	# => Greater than the max of Benchmark1 and Benchmark2 of the scored Activity
-	def percent_proficient_activities_student(student_user_id)
+	def percent_proficient_activities(student_user_id=nil)
 		
-		cap_ids = self.search_matched_pairings.joins(:activity).where("(activity_type = 'completion') or (activity_type = 'scored' and (benchmark1_score is not null or benchmark2_score is not null))").ids
+		if student_user_id.nil?
+			student_user_ids = self.student_users.pluck(:id)
+		else
+			student_user_ids = [student_user_id]
+		end
 
-		total_activities = cap_ids.length
+		cap_ids = self.search_matched_pairings
+			.joins(:activity)
+			.where(hidden: false)
+			.where("due_date is not null and due_date < current_date")
+			.where("(activity_type = 'completion') 
+				or (activity_type = 'scored' and (benchmark1_score is not null or benchmark2_score is not null))")
+			.ids
+
+		total_activities = cap_ids.length * student_user_ids.length
 		
 		student_performances = StudentPerformance.joins(:activity)
-			.where({classroom_activity_pairing_id: cap_ids})
-			.where('completed_performance= true or scored_performance > greatest(benchmark1_score, benchmark2_score)')
-			.where(student_user_id: student_user_id)
-		
+			.joins(:classroom_activity_pairing)
+			.where(classroom_activity_pairing_id: cap_ids)
+			.where('completed_performance = true or scored_performance > greatest(benchmark1_score, benchmark2_score)')
+			.where(student_user_id: student_user_ids)
+			.select("student_user_id, classroom_activity_pairing_id")
+			.distinct
+
 		proficient_count = student_performances.length
-		
+
 		if total_activities == 0
 			return 0.0
 		elsif proficient_count > 0

@@ -3,6 +3,7 @@
 		<a href="#" ui-name-a><%= name %></a>
 	</td>
 	<td><%= instructions %></td>
+	<td><%= due_date != null ? moment(due_date).format('MM/DD/YYYY') : '' %></td>
 
 	<% if(student_performances[0]){ %>
 		<td class="center <%= student_performances[0].performance_color %>">

@@ -229,7 +229,7 @@ class StudentPerformance < ActiveRecord::Base
 						student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, 
 						a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, 
 						classroom_activity_pairings.sort_order, 
-						student_performances.* 
+						student_performances.*
 					FROM "student_performances" 
 					INNER JOIN "student_users" ON "student_users"."id" = "student_performances"."student_user_id" 
 					INNER JOIN "classroom_student_users" ON "classroom_student_users"."student_user_id" = "student_users"."id" and "classroom_student_users"."classroom_id" = ?
@@ -276,7 +276,32 @@ class StudentPerformance < ActiveRecord::Base
 		arguments[0] = sql
 
 		sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, arguments)
-		student_performances = ActiveRecord::Base.connection.execute(sanitized_query)
+		student_performances = ActiveRecord::Base.connection.execute(sanitized_query).to_a
+
+		student_performances.each do |performance|
+
+      performance["performance_pretty"] = 
+      	StudentPerformance.performance_pretty_no_active_record(
+      		performance["activity_type"], 
+      		performance["scored_performance"], 
+      		performance["completed_performance"]
+    		)
+
+      performance["performance_color"] = 
+      	StudentPerformance.performance_color_no_active_record(
+      		performance["activity_type"], 
+      		performance["benchmark1_score"], 
+      		performance["benchmark2_score"], 
+      		performance["min_score"], 
+      		performance["max_score"], 
+      		performance["scored_performance"], 
+      		performance["completed_performance"]
+      	)
+    end
+
+
+    return student_performances
+
 	end
 	
 

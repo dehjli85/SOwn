@@ -49,8 +49,10 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 				console.log('get request for data for student view info');
 			})
 			.done(function(data) {
+
+				console.log(data);
 				
-				TeacherAccount.navigate("students/" + studentId + "/" + classroomId);
+				TeacherAccount.navigate("students/show/" + studentId + "/" + classroomId);
 
 				var collection = new Backbone.Collection(data.activities);
 				var model = new Backbone.Model({student: data.student, classroom:data.classroom})

@@ -14,11 +14,15 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 				AdminApp.Controller.logInWithGoogle(this);			
 			},
 
-			flashErrorMessage: function(errorObject){
-				var errorModel = new Backbone.Model(errorObject);
-				var errorView = new AdminApp.AlertView({model: errorModel});
-				this.alertRegion.show(errorView);
+			flashMessage: function(object){
+				var model = new Backbone.Model(object);
+				var view = new AdminApp.AlertView({model: model});
+				this.alertRegion.show(view);
 			},
+
+			
+
+
 
 			onChildviewBecomeUser: function(view){
 				AdminApp.Controller.becomeUser(view.model, this);

@@ -186,22 +186,16 @@ class TeacherAccountController < ApplicationController
 	# the activities and performances will be sorted the same
 	def classroom_activities_and_performances
 		
-		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]})
+		classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]})
 			.first
 		
-		@search_matched_pairings_and_activities = @classroom.search_matched_pairings_and_activities({search_term: params[:search_term], tag_id: params[:tag_id]})
+		activities = Activity.activities_with_pairings(classroom.id, params[:search_term], params[:tag_id], true)
+		
+		performance_array = StudentPerformance.student_performances_with_verification(classroom.id, params[:search_term], params[:tag_id], nil, true)
 
-		performance_array = @search_matched_pairings_and_activities[:student_performances].to_a
-		performance_array.each do |sp|
+		students = classroom.student_users		
 
-			sp["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(sp["activity_type"], sp["scored_performance"], sp["completed_performance"])			
-			sp["performance_color"] = StudentPerformance.performance_color_no_active_record(sp["activity_type"], sp["benchmark1_score"], sp["benchmark2_score"], sp["min_score"], sp["max_score"], sp["scored_performance"], sp["completed_performance"])
-			
-		end
-
-		@students = @classroom.student_users		
-
-		render json: {status: "success", students: @students, activities: @search_matched_pairings_and_activities[:activities], student_performances: performance_array, classroom: @classroom}
+		render json: {status: "success", students: students, activities: activities, student_performances: performance_array, classroom: classroom}
 
 	end
 
@@ -419,7 +413,7 @@ class TeacherAccountController < ApplicationController
 		
 	end
 
-	def teacher_activities_verifications
+	def teacher_activities_options
 
 		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
 		@activity = Activity.where({teacher_user_id: @current_teacher_user.id, id: params[:activity_id]}).first
@@ -430,7 +424,12 @@ class TeacherAccountController < ApplicationController
 
 		else
 
-			sql = "SELECT s.id as student_user_id, s.first_name, s.last_name, s.display_name, a.id as activity_id, spv.id as verifications_id, spv.classroom_activity_pairing_id
+			classroom_activity_pairing = ClassroomActivityPairing.where("classroom_id = ? and activity_id = ?", @classroom.id, @activity.id).first
+
+			sql = "SELECT s.id as student_user_id, s.first_name, s.last_name, s.display_name, 
+					a.id as activity_id, 
+					cap.hidden, cap.due_date, 
+					spv.id as verifications_id, spv.classroom_activity_pairing_id
 			 	FROM classrooms c		 			 	
 			 	INNER JOIN classroom_student_users csu on csu.classroom_id = c.id
 			 	INNER JOIN student_users s on s.id = csu.student_user_id
@@ -444,14 +443,14 @@ class TeacherAccountController < ApplicationController
 
 			verifications = ActiveRecord::Base.connection.execute(sanitized_query)
 
-			render json: {status: "success", verifications: verifications}
+			render json: {status: "success", verifications: verifications, classroom_activity_pairing: classroom_activity_pairing}
 		end
 		
 	end
 
 
 
-	def save_teacher_activity_assignment_and_verifications
+	def save_teacher_activity_assignment_and_options
 		
 		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
 		@activity = Activity.where({teacher_user_id: @current_teacher_user.id, id: params[:activity_id]}).first
@@ -488,11 +487,14 @@ class TeacherAccountController < ApplicationController
 			end
 
 			
+			# Variables to activity assignment options
 			hidden_status = 'no-change'
 			verifications_errors = Array.new
+			due_date_status = 'no-due-date'
 
 			if @classroom_activity_pairing			
 
+				# Save hidden status	
 				#wasn't hidden, needs to be hidden
 				if !params[:hidden].nil? && params[:hidden].eql?('true') && !@classroom_activity_pairing.hidden
 					@classroom_activity_pairing.hidden = true
@@ -513,6 +515,35 @@ class TeacherAccountController < ApplicationController
 					end
 				end
 
+				# Save due date
+				# Due date exists, need to remove
+				if params[:dueDate].nil? && !@classroom_activity_pairing.due_date.nil?
+					@classroom_activity_pairing.due_date = params[:dueDate]
+					if @classroom_activity_pairing.save
+							due_date_status = 'success-due-date-remove'
+					else
+							due_date_status = 'fail-due-date-remove'
+					end
+
+				elsif !params[:dueDate].nil? && @classroom_activity_pairing.due_date.nil?
+					@classroom_activity_pairing.due_date = params[:dueDate]
+					if @classroom_activity_pairing.save
+							due_date_status = 'success-new-due-date-saved'
+					else
+							due_date_status = 'fail-new-due-date-saved'
+					end			
+
+				elsif !params[:dueDate].nil? 
+					@classroom_activity_pairing.due_date = params[:dueDate]
+					if @classroom_activity_pairing.save
+							due_date_status = 'success-new-due-date-updated'
+					else
+							due_date_status = 'fail-new-due-date-updated'
+					end			
+
+				end
+
+				# Save verifications
 				verifications_hash = params[:student_performance_verification] 
 				verifications_hash ||= Hash.new
 				
@@ -541,11 +572,11 @@ class TeacherAccountController < ApplicationController
 
 			if verifications_errors.empty?
 				
-				render json: {status: "success", assignment_status: assignment_status, hidden_status: hidden_status, verifications_status: "success"} 
+				render json: {status: "success", assignment_status: assignment_status, hidden_status: hidden_status, due_date_status: due_date_status, verifications_status: "success"} 
 
 			else
 
-				render json: {status: "success", assignment_status: assignment_status, hidden_status: hidden_status, verifications_status: "error", verification_errors: verifications_errors} 				
+				render json: {status: "success", assignment_status: assignment_status, hidden_status: hidden_status, due_date_status: due_date_status, verifications_status: "error", verification_errors: verifications_errors} 				
 
 			end			
 
@@ -600,8 +631,6 @@ class TeacherAccountController < ApplicationController
 
 		end
 
-		puts activities[0]["activity_type_pretty"]
-		
 		tags = ActivityTag.joins(:activity_tag_pairings)
 			.where("activity_tag_pairings.activity_id" => activity_ids)
 			.select("activity_tags.*, activity_tag_pairings.activity_id")
