@@ -13,7 +13,7 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			"activities/new": "showActivitiesNew",
 			"activities/:id/edit": "showActivitiesEdit",
 			"students/index": "showStudentsIndex",
-			"students/:student_user_id/:classroom_id": "showStudent",
+			"students/show/:student_user_id/:classroom_id": "showStudent",
 			"settings": "showSettings"
 		}
 	});

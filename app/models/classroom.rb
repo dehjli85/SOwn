@@ -35,8 +35,6 @@ class Classroom < ActiveRecord::Base
 	# Returns and array of Classroom Activity Pairings that match the search_term or search tag
 	def search_matched_pairings(search_hash={search_term: nil, search_tag: nil })
 
-		tag_hash = Hash.new
-		
 		# if there's no search term provided, just use active record relationship
 		if search_hash[:search_term].nil? && search_hash[:search_tag].nil?
 
@@ -106,8 +104,6 @@ class Classroom < ActiveRecord::Base
   # includeHidden can be passed to indicate whether hidden activities should be returned (default is true)  
 	def tags(includeHidden=true)
 		
-		tag_hash = Hash.new
-
 		#Get all the activities ids for the classroom and put them into an array
 		activities = Activity.activities_with_pairings(self.id, nil, nil, includeHidden)
 	 	activity_id_array = Array.new
@@ -121,37 +117,6 @@ class Classroom < ActiveRecord::Base
 
 		return activity_tags
 		
-	end
-
-	# Returns a Hash with 2 keys: :activities and :student_performances for the specified student_user_id  
-	# Value for :activities is an Array of Hashes.  Each Hash in the Array has 2 keys: :activity and :cap_id
-	# => Value for :activity is the Activity
-	# => Value for cap_id, value is the id of the Classroom Activity Pairing associated with that Activity and this Classroom
-	# Value for :student_performances is an Array of Student Performances, with the most recent performances coming first
-	#
-	# The performances are sorted in the same order as the activities.
-	def get_activities_and_student_performance_data(student_user_id)
-		
-		activities_array = Array.new(self.activities.size)
-		student_performance_array = Array.new
-
-		caps = ClassroomActivityPairing.where({classroom_id: self.id})
-		caps.each_with_index do |cap, index|
-
-			#create a sorted array of the activities
-			activities_array[index] = {activity: cap.activity, cap_id: cap.id}
-
-			#create a sorted array of all performances			
-			student_performance_array[index] = StudentPerformance.where({classroom_activity_pairing_id: cap.id, student_user_id: student_user_id}).order("id DESC")
-
-		end		
-
-		activities_and_student_performance_hash = Hash.new
-		activities_and_student_performance_hash[:activities] = activities_array
-		activities_and_student_performance_hash[:student_performances] = student_performance_array
-
-		return activities_and_student_performance_hash
-
 	end
 
 	# Returns and Array of Hashes.  
@@ -176,23 +141,6 @@ class Classroom < ActiveRecord::Base
     performances_array.each do |performance|
 
       sort_order = performance["sort_order"].to_i
-
-      performance["performance_pretty"] = 
-      	StudentPerformance.performance_pretty_no_active_record(
-      		activities[sort_order]["activity_type"], 
-      		performance["scored_performance"], 
-      		performance["completed_performance"]
-    		)
-      performance["performance_color"] = 
-      	StudentPerformance.performance_color_no_active_record(
-      		activities[sort_order]["activity_type"], 
-      		activities[sort_order]["benchmark1_score"], 
-      		activities[sort_order]["benchmark2_score"], 
-      		activities[sort_order]["min_score"], 
-      		activities[sort_order]["max_score"], 
-      		performance["scored_performance"], 
-      		performance["completed_performance"]
-      	)
 
       if sorted_activities[sort_order]["student_performances"].nil?
         sorted_activities[sort_order]["student_performances"] = Array.new

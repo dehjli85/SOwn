@@ -168,18 +168,29 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 		startStudentsApp: function(subapp, student_user_id, classroom_id){
 
 			url = 'students';
+			url += "/" + subapp;			
 			if(student_user_id){
 				url += "/" + student_user_id;
 			}
-			url += "/" + subapp;
+			if(classroom_id){
+				url += "/" + classroom_id;
+			}
 
 			TeacherAccount.navigate(url);
+
+		 	console.log("classroom_id: " + classroom_id);
+
 			
 			if( subapp === 'index'){
 				TeacherAccount.TeacherApp.Students.Controller.showIndexCompositeView();
 			}
 			else if(subapp === 'show'){
-				TeacherAccount.TeacherApp.Students.Controller.showStudentView(student_user_id, classroom_id);
+				var model = new Backbone.Model({});
+
+				var studentsLayoutView = new TeacherAccount.TeacherApp.Students.StudentsLayoutView({model:model});
+				TeacherAccount.rootView.mainRegion.show(studentsLayoutView);
+
+				TeacherAccount.TeacherApp.Students.Controller.showStudentView(studentsLayoutView, student_user_id, classroom_id);
 			}
 			
 
