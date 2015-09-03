@@ -189,10 +189,9 @@ class TeacherAccountController < ApplicationController
 		classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]})
 			.first
 		
-
 		activities = Activity.activities_with_pairings(classroom.id, params[:search_term], params[:tag_id], true)
 		
-		performance_array = StudentPerformance.student_performances_with_verification(classroom.id, params[:search_term], params[:tag_id], nil, true).to_a
+		performance_array = StudentPerformance.student_performances_with_verification(classroom.id, params[:search_term], params[:tag_id], nil, true)
 
 		students = classroom.student_users		
 
@@ -632,8 +631,6 @@ class TeacherAccountController < ApplicationController
 
 		end
 
-		puts activities[0]["activity_type_pretty"]
-		
 		tags = ActivityTag.joins(:activity_tag_pairings)
 			.where("activity_tag_pairings.activity_id" => activity_ids)
 			.select("activity_tags.*, activity_tag_pairings.activity_id")
