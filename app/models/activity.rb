@@ -114,7 +114,7 @@ class Activity < ActiveRecord::Base
     arguments = [nil]
 
     sql = 'SELECT distinct a.*, 
-            cap.id as classroom_activity_pairing_id, cap.sort_order
+            cap.id as classroom_activity_pairing_id, cap.sort_order, cap.due_date
           FROM activities a 
           INNER JOIN "classroom_activity_pairings" cap on cap.activity_id = a.id 
           LEFT JOIN activity_tag_pairings atp on atp.activity_id = a.id'
@@ -152,11 +152,6 @@ class Activity < ActiveRecord::Base
     sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, arguments)
     activities = ActiveRecord::Base.connection.execute(sanitized_query)
 
-      # Activity.joins("inner join classroom_activity_pairings cap on cap.activity_id = activities.id")
-      #   .joins("inner join classrooms c on c.id = cap.classroom_id")
-      #   .where("c.id = ?", classroomId)
-      #   .order("cap.sort_order ASC")
-      #   .select("activities.*, cap.id as classroom_activity_pairing_id, cap.sort_order")
   end
 
 end

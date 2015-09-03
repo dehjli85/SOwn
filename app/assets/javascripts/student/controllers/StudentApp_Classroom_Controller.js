@@ -85,6 +85,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	     		console.log(data);
 	     	if(data.status == "success"){
 
+	     		console.log(data);
 
 					var activities = new StudentAccount.StudentApp.Classroom.Models.ActivityCollection(data.activities);
 					var activityCompositeView = new StudentAccount.StudentApp.Classroom.ActivitiesCompositeView({collection:activities});
