@@ -46,7 +46,7 @@ class StudentAccountController < ApplicationController
       .as_json
 
     classrooms.each_with_index do |classroom, index|
-      classrooms_hash[index]["percent_proficient"] = classroom.percent_proficient_activities_student(@current_student_user.id)*100
+      classrooms_hash[index]["percent_proficient"] = classroom.percent_proficient_activities(@current_student_user.id)*100
     end
 
     render json: {status: "success", classrooms: classrooms_hash}

@@ -150,7 +150,7 @@ class Activity < ActiveRecord::Base
     arguments[0] = sql
 
     sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, arguments)
-    activities = ActiveRecord::Base.connection.execute(sanitized_query)
+    activities = ActiveRecord::Base.connection.execute(sanitized_query).to_a
 
   end
 

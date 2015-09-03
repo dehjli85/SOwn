@@ -158,54 +158,39 @@ class Classroom < ActiveRecord::Base
 
 	end
 
-	# Returns a Float indicating the percentage of Activities completed by Student Users in the Classroom at a proficient level
-	# Proficient level is:
-	# => Completed for completion Activity
-	# => Greater than the max of Benchmark1 and Benchmark2 of the scored Activity
-	def percent_proficient_activities
-		
-		students = self.student_users
-		cap_ids = self.search_matched_pairings.joins(:activity)
-			.where("(activity_type = 'completion') or (activity_type = 'scored' and (benchmark1_score is not null or benchmark2_score is not null))")
-			.ids
-
-		total_activities = students.length * cap_ids.length
-		
-		student_performances = StudentPerformance.joins(:activity)
-			.joins(:classroom_activity_pairing)
-			.where({classroom_activity_pairing_id: cap_ids})
-			.where('completed_performance= true or scored_performance > greatest(benchmark1_score, benchmark2_score)')
-			.where(:student_user_id => students.pluck(:id))
-
-		proficient_count = student_performances.length
-
-		if total_activities == 0
-			return 0.0
-		elsif proficient_count > 0
-			return proficient_count.to_f / total_activities.to_f
-		else
-			return 0.0
-		end
-
-	end
 
 	# Returns a Float indicating the percentage of Activities completed by the specified Student User in the Classroom at a proficient level
 	# Proficient level is:
 	# => Completed for completion Activity
 	# => Greater than the max of Benchmark1 and Benchmark2 of the scored Activity
-	def percent_proficient_activities_student(student_user_id)
+	def percent_proficient_activities(student_user_id=nil)
 		
-		cap_ids = self.search_matched_pairings.joins(:activity).where("(activity_type = 'completion') or (activity_type = 'scored' and (benchmark1_score is not null or benchmark2_score is not null))").ids
+		if student_user_id.nil?
+			student_user_ids = self.student_users.pluck(:id)
+		else
+			student_user_ids = [student_user_id]
+		end
 
-		total_activities = cap_ids.length
+		cap_ids = self.search_matched_pairings
+			.joins(:activity)
+			.where(hidden: false)
+			.where("due_date is not null and due_date < current_date")
+			.where("(activity_type = 'completion') 
+				or (activity_type = 'scored' and (benchmark1_score is not null or benchmark2_score is not null))")
+			.ids
+
+		total_activities = cap_ids.length * student_user_ids.length
 		
 		student_performances = StudentPerformance.joins(:activity)
-			.where({classroom_activity_pairing_id: cap_ids})
-			.where('completed_performance= true or scored_performance > greatest(benchmark1_score, benchmark2_score)')
-			.where(student_user_id: student_user_id)
-		
+			.joins(:classroom_activity_pairing)
+			.where(classroom_activity_pairing_id: cap_ids)
+			.where('completed_performance = true or scored_performance > greatest(benchmark1_score, benchmark2_score)')
+			.where(student_user_id: student_user_ids)
+			.select("student_user_id, classroom_activity_pairing_id")
+			.distinct
+
 		proficient_count = student_performances.length
-		
+
 		if total_activities == 0
 			return 0.0
 		elsif proficient_count > 0
