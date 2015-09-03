@@ -186,12 +186,16 @@ class TeacherAccountController < ApplicationController
 	# the activities and performances will be sorted the same
 	def classroom_activities_and_performances
 		
-		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]})
+		classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]})
 			.first
 		
-		@search_matched_pairings_and_activities = @classroom.search_matched_pairings_and_activities({search_term: params[:search_term], tag_id: params[:tag_id]})
 
-		performance_array = @search_matched_pairings_and_activities[:student_performances].to_a
+		activities = Activity.activities_with_pairings(classroom.id, params[:search_term], params[:tag_id], true)
+		
+		# @search_matched_pairings_and_activities = @classroom.search_matched_pairings_and_activities({search_term: params[:search_term], tag_id: params[:tag_id]})
+
+		# performance_array = @search_matched_pairings_and_activities[:student_performances].to_a
+		performance_array = StudentPerformance.student_performances_with_verification(classroom.id, params[:search_term], params[:tag_id], nil, true).to_a
 		performance_array.each do |sp|
 
 			sp["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(sp["activity_type"], sp["scored_performance"], sp["completed_performance"])			
@@ -199,9 +203,9 @@ class TeacherAccountController < ApplicationController
 			
 		end
 
-		@students = @classroom.student_users		
+		students = classroom.student_users		
 
-		render json: {status: "success", students: @students, activities: @search_matched_pairings_and_activities[:activities], student_performances: performance_array, classroom: @classroom}
+		render json: {status: "success", students: students, activities: activities, student_performances: performance_array, classroom: classroom}
 
 	end
 

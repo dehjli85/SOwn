@@ -32,22 +32,6 @@ class Classroom < ActiveRecord::Base
   #
   ##################################################################################################
 
-  # Returns a hash with keys "activities" and "student_performances"
-  # Value for "activities" key is an array of activities with classroom_activity_pairing_id and sort order for each activity 
-  # Value for "student_performances" key is an array of student_performances.  Each object in the array also includes activity_information and student name and id
-	def search_matched_pairings_and_activities(search_hash={search_term: nil, tag_id: nil })
-
-		tag_hash = Hash.new
-
-		activities = Activity.activities_with_pairings_ids(self.id, search_hash[:search_term], search_hash[:tag_id], true)
-		
-		student_performances = StudentPerformance.student_performances_with_verification(self.id, search_hash[:search_term], search_hash[:tag_id], nil, true)
-
-		return {activities: activities, student_performances: student_performances}
-
-	end
-
-
 	# Returns and array of Classroom Activity Pairings that match the search_term or search tag
 	def search_matched_pairings(search_hash={search_term: nil, search_tag: nil })
 
@@ -125,7 +109,7 @@ class Classroom < ActiveRecord::Base
 		tag_hash = Hash.new
 
 		#Get all the activities ids for the classroom and put them into an array
-		activities = Activity.activities_with_pairings_ids(self.id, nil, nil, includeHidden)
+		activities = Activity.activities_with_pairings(self.id, nil, nil, includeHidden)
 	 	activity_id_array = Array.new
 	 	activities.each do |a| activity_id_array.push(a["id"].to_i) end
 
@@ -177,7 +161,7 @@ class Classroom < ActiveRecord::Base
 	def activities_and_performances(student_user_id, search_hash={search_term: nil, search_tag: nil })
 
 		# unsorted_activities = self.activities_with_pairing_ids.as_json
-		unsorted_activities = Activity.activities_with_pairings_ids(self.id, search_hash[:search_term], search_hash[:search_tag], false)
+		unsorted_activities = Activity.activities_with_pairings(self.id, search_hash[:search_term], search_hash[:search_tag], false)
 		
 		# Sort activities based on their sort order		
 		# There are potentially null objects in the sorted array based on what the teacher has hidden

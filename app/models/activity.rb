@@ -103,7 +103,7 @@ class Activity < ActiveRecord::Base
   #
   ##################################################################################################
   
-  def self.activities_with_pairings_ids(classroomId, searchTerm=nil, tagId=nil, includeHidden=true)
+  def self.activities_with_pairings(classroomId, searchTerm=nil, tagId=nil, includeHidden=true)
 
     if(!(searchTerm.nil? || searchTerm.eql?('')) && searchTerm[0].eql?('#'))
       tag_array = searchTerm.gsub('#','').split(/ +/)
