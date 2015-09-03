@@ -18,4 +18,29 @@ class ClassroomActivityPairing < ActiveRecord::Base
 		return max
 		
 	end
+
+	def self.from_hash(hash={})
+    
+    c = ClassroomActivityPairing.new
+    c.id = hash["id"]
+    c.activity_id = hash["activity_id"]
+    c.classroom_id = hash["classroom_id"]
+    c.sort_order = hash["sort_order"]
+    c.hidden = hash["hidden"]    
+    c.created_at = hash["created_at"]
+    c.updated_at = hash["updated_at"]
+
+    return c
+  end
+
+  def attributes_eql?(cap)
+  	return self.id.eql?(cap.id) && 
+  		self.activity_id.eql?(cap.activity_id) && 
+  		self.classroom_id.eql?(cap.classroom_id) && 
+  		self.sort_order.eql?(cap.sort_order) && 
+  		self.hidden.eql?(cap.hidden) && 
+  		self.due_date.eql?(cap.due_date)
+
+  end
+
 end

@@ -10,20 +10,24 @@ c1s_to_a1s:
   classroom: c1s
   activity: a1s
   hidden: false
+  sort_order: 2
 
 c1s_to_a2s:
   classroom: c1s
   activity: a2s
   hidden: false
+  sort_order: 1
 
 c1s_to_a3s:
   classroom: c1s
   activity: a3s
   hidden: true
+  sort_order: 4
 
 c1s_to_a5s:
   classroom: c1s
   activity: a5s
+  sort_order: 3
 
 # GOOGLE TEACHER CLASSROOM ACTIVITY SETUP
 c1g_to_a1g:

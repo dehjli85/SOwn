@@ -49,7 +49,7 @@ class Activity < ActiveRecord::Base
     if benchmark2_score && (benchmark2_score < min_score || benchmark2_score > max_score)
       errors.add(:benchmark2_score, 'must be between min and max scores')
     end
-    if (benchmark1_score && benchmark2_score) && benchmark1_score > benchmark2_score
+    if (benchmark1_score && benchmark2_score) && benchmark1_score >= benchmark2_score
       errors.add(:benchmark1_score, 'must be less than benchmark 2 score')
     end
   end
@@ -65,7 +65,7 @@ class Activity < ActiveRecord::Base
     if activity_type.eql?('scored')
       @activity_type_pretty = 'Scored'
     elsif activity_type.eql?('completion')
-      @activity_type_pretty = 'Completed'
+      @activity_type_pretty = 'Completion'
     end     
 
     # description abbreviation
@@ -115,7 +115,27 @@ class Activity < ActiveRecord::Base
   #
   # WARNING: searchTerm and tagId cannot be used together.  If both are passed to the method, searchTerm will be used and tagId will be ignored
 
-  
+  # This method converts a hash object to an Activity.  Originally created for testing purposes when working with executed SQL queries
+  def self.from_hash(hash={})
+    
+    a = Activity.new
+    a.id = hash["id"]
+    a.name = hash["name"]
+    a.activity_type = hash["activity_type"]
+    a.description = hash["description"]
+    a.instructions = hash["instructions"]
+    a.min_score = hash["min_score"]
+    a.max_score = hash["max_score"]
+    a.benchmark1_score = hash["benchmark1_score"]
+    a.benchmark2_score = hash["benchmark2_score"]
+    a.teacher_user_id = hash["teacher_user_id"]
+    a.link = hash["link"]
+    a.created_at = hash["created_at"]
+    a.updated_at = hash["updated_at"]
+
+    return a
+  end
+
   def self.activities_with_pairings(classroomId, searchTerm=nil, tagId=nil, includeHidden=true)
 
     if Classroom.where(id: classroomId).empty?
@@ -131,7 +151,7 @@ class Activity < ActiveRecord::Base
     arguments = [nil]
 
     sql = 'SELECT distinct a.*, 
-            cap.id as classroom_activity_pairing_id, cap.sort_order, cap.due_date
+            cap.id as classroom_activity_pairing_id, cap.sort_order, cap.due_date, cap.hidden, cap.classroom_id
           FROM activities a 
           INNER JOIN "classroom_activity_pairings" cap on cap.activity_id = a.id 
           LEFT JOIN activity_tag_pairings atp on atp.activity_id = a.id'
