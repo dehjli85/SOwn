@@ -39,7 +39,9 @@
   <div class="form-group form-group-sm">
     <label for="inputTags" class="col-sm-2 control-label">Tags:</label>
     <div class="col-sm-2"><input type="text" name="newtag" class="form-control" id="newTag" ui-tag-input></div>
-    <div class="col-sm-2"><a id="tagAddButton" class="btn btn-sm btn-primary" ui-add-tags-button>Add</a></div>          
+    <div class="col-sm-2">
+      <input type="submit" class="btn btn-sm btn-primary" value="Add" ui-add-tags-button>      
+    </div>          
   </div>
 
   <div class="row">
@@ -128,7 +130,7 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <input class="btn btn-primary" name="commit" type="submit" value="Save">
+      <a href="#" class="btn btn-primary" name="commit" ui-save-button>Save</a>      
     </div>
   </div>
 </form>

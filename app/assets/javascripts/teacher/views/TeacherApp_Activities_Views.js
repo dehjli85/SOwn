@@ -194,13 +194,15 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			maxScoreInput: "[ui-max-score-input]",
 			minScoreInput: "[ui-min-score-input]",
 			benchmark1ScoreInput: "[ui-benchmark-one-score-input]",
-			benchmark2ScoreInput: "[ui-benchmark-two-score-input]"
+			benchmark2ScoreInput: "[ui-benchmark-two-score-input]",
+			saveButton: "[ui-save-button]"
 		},
 
 		events:{
 			"change @ui.activityTypeSelect": "toggleScoreRangeDiv",
 			"click @ui.addTagsButton": "addTag",
-			"submit @ui.activityForm": "saveActivity"
+			"submit @ui.activityForm": "addTag",
+			"click @ui.saveButton": "saveActivity"
 		},
 
 		toggleScoreRangeDiv: function(){
@@ -213,12 +215,14 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			}
 		},
 
-		addTag: function(){
+		addTag: function(e){
+			e.preventDefault();
 			if(this.ui.tagInput.val().trim() != ""){
 				var tagModel = {name: this.ui.tagInput.val().replace(/ /g,""), index: this.model.attributes.tagCount};
 				this.collection.push(tagModel);
 				this.model.attributes.tagCount++;
 			}
+			this.ui.tagInput.val("");
 		},
 
 		saveActivity: function(e){	
