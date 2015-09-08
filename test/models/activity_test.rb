@@ -263,7 +263,7 @@ class ActivityTest < ActiveSupport::TestCase
 
   test "activities_with_pairings with matching tagId" do
     
-    activities_with_pairings = Activity.activities_with_pairings(classrooms(:c1s), nil, activity_tags(:t1))
+    activities_with_pairings = Activity.activities_with_pairings(classrooms(:c1s), nil, activity_tags(:t1).id)
 
     a1s = Activity.find(activities(:a1s))
     a2s = Activity.find(activities(:a2s))

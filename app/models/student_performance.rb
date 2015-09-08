@@ -168,6 +168,23 @@ class StudentPerformance < ActiveRecord::Base
   #
   ##################################################################################################
 
+  # This method converts a hash object to an Activity.  Originally created for testing purposes when working with executed SQL queries
+  def self.from_hash(hash={})
+    
+    sp = StudentPerformance.new
+    sp.id = hash["id"]
+    sp.student_user_id = hash["student_user_id"]
+    sp.classroom_activity_pairing_id = hash["classroom_activity_pairing_id"]
+    sp.scored_performance = hash["scored_performance"]
+    sp.completed_performance = hash["completed_performance"]
+    sp.performance_date = hash["performance_date"]
+    sp.verified = hash["verified"]
+    sp.created_at = hash["created_at"]
+    sp.updated_at = hash["updated_at"]
+
+    return sp
+  end
+
   # Returns the activity associated with the Student Performance
   # Returns nil if the Classroom Activity Pairing is invalid
   def activity
@@ -185,9 +202,9 @@ class StudentPerformance < ActiveRecord::Base
 	end
 
 
-	# Returns SQL Result object representing Student Performances for the Classroom with id = classroomId
-  # In addition to all activity fields, all objects in Result also include:
-  #   => the Classroom Activity Pairing id and sort_order fields 
+	# Returns an Array of Hashes representing Student Performances for the Classroom with id = classroomId
+  # In addition to all activity fields, all Hashes in the Array also include:
+  #   => the Classroom Activity Pairing id, sort_order, hidden and due_date fields 
   # 	=> the Student User id, first_name, last_name, and display_name fields
   # If an invalid classroomId (i.e. Classroom doesn't exist) is passed, returns nil
   #
@@ -228,7 +245,7 @@ class StudentPerformance < ActiveRecord::Base
 		sql = 'SELECT distinct spv.student_user_id is not null as requires_verification, 
 						student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, 
 						a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, 
-						classroom_activity_pairings.sort_order, 
+						classroom_activity_pairings.sort_order, classroom_activity_pairings.hidden, classroom_activity_pairings.due_date, 
 						student_performances.*
 					FROM "student_performances" 
 					INNER JOIN "student_users" ON "student_users"."id" = "student_performances"."student_user_id" 

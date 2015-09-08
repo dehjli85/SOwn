@@ -30,13 +30,33 @@ class Classroom < ActiveRecord::Base
   #
   ##################################################################################################
 
+
+	# Returns an array of distinct Tags for Activities in the Classroom
+  # includeHidden can be passed to indicate whether hidden activities should be returned (default is true)  
+	def tags(includeHidden=true)
+		
+		#Get all the activities ids for the classroom and put them into an array
+		activities = Activity.activities_with_pairings(self.id, nil, nil, includeHidden)
+	 	activity_id_array = Array.new
+	 	activities.each do |a| activity_id_array.push(a["id"].to_i) end
+
+		#get all the tag id's from the pairings
+		tag_id_array = ActivityTagPairing.where({activity_id: activity_id_array}).pluck(:activity_tag_id)
+
+		#query for the activity tags corresponding to the tag id's, and put them into a hash to make them unique
+		activity_tags = ActivityTag.where(id: tag_id_array).order("name ASC").distinct
+
+		return activity_tags
+		
+	end
+
 	# Returns and array of Classroom Activity Pairings that match the search_term or search tag
 	def search_matched_pairings(search_hash={search_term: nil, search_tag: nil })
 
 		# if there's no search term provided, just use active record relationship
 		if search_hash[:search_term].nil? && search_hash[:search_tag].nil?
 
-			return self.classroom_activity_pairings
+			return self.classroom_activity_pairings.order("sort_order ASC")
 
 		else
 			
@@ -53,7 +73,7 @@ class Classroom < ActiveRecord::Base
 				activity_id_array = ActivityTagPairing.where({activity_tag_id: activity_tag_id_array}).pluck(:activity_id)
 
 				#get the classroom activity pairings for those activities and the classroom
-				caps = ClassroomActivityPairing.where({activity_id: activity_id_array, classroom_id: self.id})
+				caps = ClassroomActivityPairing.where({activity_id: activity_id_array, classroom_id: self.id}).order("sort_order ASC")
 
 				return caps
 
@@ -88,7 +108,7 @@ class Classroom < ActiveRecord::Base
 				end
 
 				#get the classroom activity pairings that match the classroom id and the activity ids from the created array
-				caps = ClassroomActivityPairing.where({activity_id: activity_id_array, classroom_id: self.id})
+				caps = ClassroomActivityPairing.where({activity_id: activity_id_array, classroom_id: self.id}).order("sort_order ASC")
 
 				return caps
 
@@ -98,24 +118,6 @@ class Classroom < ActiveRecord::Base
 
 	end
 
-	# Returns an array of distinct Tags for Activities in the Classroom
-  # includeHidden can be passed to indicate whether hidden activities should be returned (default is true)  
-	def tags(includeHidden=true)
-		
-		#Get all the activities ids for the classroom and put them into an array
-		activities = Activity.activities_with_pairings(self.id, nil, nil, includeHidden)
-	 	activity_id_array = Array.new
-	 	activities.each do |a| activity_id_array.push(a["id"].to_i) end
-
-		#get all the tag id's from the pairings
-		tag_id_array = ActivityTagPairing.where({activity_id: activity_id_array}).pluck(:activity_tag_id)
-
-		#query for the activity tags corresponding to the tag id's, and put them into a hash to make them unique
-		activity_tags = ActivityTag.where(id: tag_id_array).order("name ASC").distinct
-
-		return activity_tags
-		
-	end
 
 	# Returns and Array of Hashes.  
 	# Each Hash represents an Activity. In addition to having keys representing all the Activity fields, there is also a "student performances" key

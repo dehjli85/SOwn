@@ -40,3 +40,13 @@ c1g_to_a2g:
   activity: a2g
   hidden: false
 
+
+c2g_to_a1g:
+  classroom: c2g
+  activity: a1g
+  hidden: false
+
+c2g_to_a2g:
+  classroom: c2g
+  activity: a2g
+  hidden: true
