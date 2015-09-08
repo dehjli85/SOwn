@@ -215,8 +215,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		addTag: function(){
 			if(this.ui.tagInput.val().trim() != ""){
-				var tagModel = {name: this.ui.tagInput.val(), index: this.model.attributes.tagCount};
-				console.log(this);
+				var tagModel = {name: this.ui.tagInput.val().replace(/ /g,""), index: this.model.attributes.tagCount};
 				this.collection.push(tagModel);
 				this.model.attributes.tagCount++;
 			}
