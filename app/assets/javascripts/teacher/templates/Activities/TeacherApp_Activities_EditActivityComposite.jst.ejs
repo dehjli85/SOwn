@@ -5,7 +5,7 @@
     <label for="inputName" class="col-sm-2 control-label">Name:</label>
     <div class="col-sm-5">
     	<% if(errors.name != null){%><div class="field_with_errors"><%}%>
-      <input class="form-control" id="inputName" name="activity[name]" placeholder="Multiplication Lesson" type="text" value="<%= name %>" ui-name-input>
+      <input class="form-control" id="inputName" name="activity[name]" placeholder="Multiplication Lesson" type="text" value="<%= _.escape(name) %>" ui-name-input>
       <% if(errors.name != null){%>
       	<label class="control-label" for="inputName">Name <%= errors.name[0] %></label>
     		</div>
