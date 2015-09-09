@@ -2,14 +2,10 @@ class TeacherAccountController < ApplicationController
 
 	require 'json'
 
-	before_action :require_teacher_login_json, :current_user
+	before_action :require_teacher_login_json, except: [:index]
 
 	respond_to :json
 	
-	def home
-		#TODO: check if the user is properly logged in 
-		@classrooms = Classroom.where({teacher_user_id: @current_teacher_user.id}).to_a
-	end	
 
 	#################################################################################
 	#
@@ -19,23 +15,6 @@ class TeacherAccountController < ApplicationController
 
 	def index
 		require_teacher_login
-	end
-
-	#return a json object representing the currently logged in teacher user
-	def current_teacher_user		
-
-		teacher = @current_teacher_user.serializable_hash
-    teacher.delete("salt")
-    teacher.delete("password_digest")
-    teacher.delete("oauth_expires_at")
-    teacher.delete("oauth_token")
-    teacher.delete("provider")
-    teacher.delete("uid")
-    teacher.delete("updated_at")
-    teacher.delete("create_at")
-
-		render json: {status: "success", teacher: teacher}
-		
 	end
 
 

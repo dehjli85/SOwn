@@ -72,7 +72,6 @@ Rails.application.routes.draw do
   
   # teacher routes
   get 'teacher_home' => 'teacher_account#index'
-  get 'current_teacher_user' => 'teacher_account#current_teacher_user'
   post 'teacher/update_classroom' => 'teacher_account#update_classroom'
   post 'teacher/save_new_classroom' => 'teacher_account#save_new_classroom'
 
@@ -137,13 +136,6 @@ Rails.application.routes.draw do
   post 'admin/search_users' => 'admin#search_users'
   get 'admin/sign_out' => 'admin#sign_out'
   post 'admin/become_user' => 'admin#become_user'
-
-  
-
-  #old routes
-  get 'student_home_old' => 'student_account#home'
-  get 'teacher_home_old' => 'teacher_account#home'
-
 
   root to: "public_pages#home"
 
