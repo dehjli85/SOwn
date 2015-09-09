@@ -136,7 +136,7 @@ class Activity < ActiveRecord::Base
     return a
   end
 
-  def self.activities_with_pairings(classroomId, searchTerm=nil, tagId=nil, includeHidden=true)
+  def self.activities_with_pairings(classroomId, searchTerm=nil, tagIds=nil, includeHidden=true)
 
     if Classroom.where(id: classroomId).empty?
       return nil
@@ -161,9 +161,9 @@ class Activity < ActiveRecord::Base
       arguments.push(tag_array)
     elsif searchTerm
       sql += ' LEFT JOIN activity_tags tags on tags.id = atp.activity_tag_id' 
-    elsif tagId
-      sql += ' INNER JOIN activity_tags tags on tags.id = atp.activity_tag_id and tags.id = ?'
-      arguments.push(tagId)
+    elsif tagIds
+      sql += ' INNER JOIN activity_tags tags on tags.id = atp.activity_tag_id and tags.id in (?)'
+      arguments.push(tagIds)
     end
 
     sql += ' WHERE (cap.classroom_id = ?)'

@@ -125,7 +125,6 @@ class Classroom < ActiveRecord::Base
 	# Activities hidden from the Student User are excluded
 	def activities_and_performances(student_user_id, search_hash={search_term: nil, search_tag: nil })
 
-		# unsorted_activities = self.activities_with_pairing_ids.as_json
 		unsorted_activities = Activity.activities_with_pairings(self.id, search_hash[:search_term], search_hash[:search_tag], false)
 		
 		# Sort activities based on their sort order		

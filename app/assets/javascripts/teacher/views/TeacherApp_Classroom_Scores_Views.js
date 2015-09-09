@@ -17,6 +17,11 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	Scores.TagView = Marionette.ItemView.extend({
 		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_Tag"],			
 		tagName: "li",
+
+		ui: {
+			label: "a"
+		},
+
 		triggers: {
 			"click a":"filter:tag:classroom:scores:view"			
 		}
@@ -154,7 +159,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 			this.collection.sort();
 			this.render();
-			// console.log(this.collection);	
 		},
 
 		initialize: function(model, collection){
@@ -162,7 +166,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			if(this.model == null){
 				this.model = new Backbone.Model({});
 			}
-			console.log(this.collection.length);
 			this.model.attributes.collectionSize = this.collection.length;
 
 			//create a data structure for storing the sorted list of activities
@@ -201,9 +204,10 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	      	table.sortOrder["classroom_activities_sorted[" + (i-1) +"]"]=$(this).attr("name");
 	      } 
 	    }); 
-	    obj.model.attributes.activitiesSortOrder = table.sortOrder
-	    // console.log(obj.model.attributes);
-			if((obj.model.attributes.searchTerm == null || obj.model.attributes.searchTerm == "") && obj.model.attributes.tagId == null){
+	    obj.model.attributes.activitiesSortOrder = table.sortOrder;
+	    console.log(obj.model);
+			if((obj.model.attributes.searchTerm == null || obj.model.attributes.searchTerm == "") && (obj.model.attributes.tagIds == null || obj.model.attributes.tagIds.length == 0)){
+				console.log("try to save sort order");
 	    	this.triggerMethod("save:activities:sort:order");
 			}
 
@@ -232,6 +236,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		onChildviewFilterSearchClassroomScoresView: function(view){
 			
+			//clear the tags
+
+
 			if(this.model.get("readOrEdit") == "read")
 				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomScores(this, this.model.attributes.classroomId, view.ui.searchInput.val(), null);
 			else if(this.model.get("readOrEdit") == "edit")
@@ -239,10 +246,26 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		onChildviewFilterTagClassroomScoresView: function(view){
+
+			//change the color of the tag
+			if(view.ui.label.hasClass("selected_tag")){
+				view.ui.label.removeClass("selected_tag");
+				
+				var index = $.inArray(view.model.attributes.id, this.model.attributes.tags);
+				this.model.attributes.tags.splice(index, 1);
+
+			}
+			else{
+
+				view.ui.label.addClass("selected_tag");
+				this.model.attributes.tags.push(view.model.attributes.id);
+
+			}
+
 			if(this.model.get("readOrEdit") == "read")
-				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomScores(this, this.model.attributes.classroomId, null, view.model.id);
+				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomScores(this, this.model.attributes.classroomId, null, this.model.attributes.tags);
 			else if(this.model.get("readOrEdit") == "edit")
-				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomEditScores(this, this.model.attributes.classroomId, null, view.model.id);
+				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomEditScores(this, this.model.attributes.classroomId, null, this.model.attributes.tags);
 		},
 
 		onChildviewScoresLayoutOpenVerifyModal: function(view){

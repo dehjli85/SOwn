@@ -1,5 +1,7 @@
 class TeacherAccountController < ApplicationController
 
+	require 'json'
+
 	before_action :require_teacher_login_json, :current_user
 
 	respond_to :json
@@ -185,13 +187,15 @@ class TeacherAccountController < ApplicationController
 	# => student_performances: array of student performances for activities in the classroom 
 	# the activities and performances will be sorted the same
 	def classroom_activities_and_performances
-		
+			
+		tag_ids = params[:tag_ids] && !params[:tag_ids].eql?("[]") ? JSON.parse(params[:tag_ids]) : nil
+
 		classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]})
 			.first
 		
-		activities = Activity.activities_with_pairings(classroom.id, params[:search_term], params[:tag_id], true)
+		activities = Activity.activities_with_pairings(classroom.id, params[:search_term], tag_ids, true)
 		
-		performance_array = StudentPerformance.student_performances_with_verification(classroom.id, params[:search_term], params[:tag_id], nil, true)
+		performance_array = StudentPerformance.student_performances_with_verification(classroom.id, params[:search_term], tag_ids, nil, true)
 
 		students = classroom.student_users		
 

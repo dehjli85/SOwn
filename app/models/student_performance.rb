@@ -228,7 +228,7 @@ class StudentPerformance < ActiveRecord::Base
 	# => Activity fields, 
 	# => Classroom Activity Pairing sort_order
 	# => Student User id, first_name, last_name, display_name
-	def self.student_performances_with_verification(classroomId, searchTerm=nil, tagId=nil, studentUserId=nil, includeHidden=true)
+	def self.student_performances_with_verification(classroomId, searchTerm=nil, tagIds=nil, studentUserId=nil, includeHidden=true)
 
 		if Classroom.where(id: classroomId).empty?
       return nil
@@ -260,9 +260,9 @@ class StudentPerformance < ActiveRecord::Base
 			arguments.push(tag_array)
 		elsif searchTerm
 			sql += ' LEFT JOIN activity_tags tags on tags.id = atp.activity_tag_id'	
-		elsif tagId
-			sql += ' INNER JOIN activity_tags tags on tags.id = atp.activity_tag_id and tags.id = ?'
-			arguments.push(tagId)
+		elsif tagIds
+			sql += ' INNER JOIN activity_tags tags on tags.id = atp.activity_tag_id and tags.id in (?)'
+			arguments.push(tagIds)
 		end
 
 		sql += ' LEFT OUTER JOIN student_performance_verifications spv on classroom_activity_pairings.id = spv.classroom_activity_pairing_id and student_users.id = spv.student_user_id 

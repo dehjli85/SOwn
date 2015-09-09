@@ -25,25 +25,25 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		showClassroomScoresLayout: function(classroomLayoutView, classroomId, readOrEdit){
 
-			var scoresLayoutView = new TeacherAccount.TeacherApp.Classroom.Scores.LayoutView();
-			scoresLayoutView.model =  new Backbone.Model({classroomId: classroomId, readOrEdit: readOrEdit});
+			var model = new Backbone.Model({classroomId: classroomId, readOrEdit: readOrEdit, tags:[]});
+			var scoresLayoutView = new TeacherAccount.TeacherApp.Classroom.Scores.LayoutView({model:model});
 			classroomLayoutView.mainRegion.show(scoresLayoutView);
 
 			return scoresLayoutView;
 		},
 
-		showClassroomScores: function(scoresLayoutView, classroomId, searchTerm, tagId){			
+		showClassroomScores: function(scoresLayoutView, classroomId, searchTerm, tagIds){			
 
 			var getURL = "/teacher/classroom_activities_and_performances?classroom_id=" + classroomId 
 			if(searchTerm){
 				scoresLayoutView.model.attributes.searchTerm = searchTerm;
-				scoresLayoutView.model.attributes.tagId = null;
-				getURL +=  "&search_term=" + encodeURIComponent(searchTerm)
+				scoresLayoutView.model.attributes.tagIds = null;
+				getURL +=  "&search_term=" + encodeURIComponent(searchTerm);
 			}
-			if(tagId){
+			if(tagIds){
 				scoresLayoutView.model.attributes.searchTerm = null;
-				scoresLayoutView.model.attributes.tagId = tagId;
-				getURL +=  "&tag_id=" + tagId
+				scoresLayoutView.model.attributes.tagIds = tagIds;
+				getURL +=  "&tag_ids=" + encodeURIComponent(JSON.stringify(tagIds));
 			}
 
 			var jqxhr = $.get(getURL, function(){
@@ -85,7 +85,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 					// //create a new composite view for the table
 					var classroomAndActivitiesModel = new TeacherAccount.TeacherApp.Classroom.Scores.Models.Activities({activities:data.activities, classroom: data.classroom});
 					classroomAndActivitiesModel.attributes.searchTerm = searchTerm;
-					classroomAndActivitiesModel.attributes.tagId = tagId;
+					classroomAndActivitiesModel.attributes.tagIds = tagIds;
 
 					var studentPerformancesCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.StudentPerformanceCollection(students);
 					var scoresView = new TeacherAccount.TeacherApp.Classroom.Scores.ScoresView({collection: studentPerformancesCollection, model:classroomAndActivitiesModel});
@@ -108,19 +108,19 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			
 		},
 
-		showClassroomEditScores: function(scoresLayoutView, classroomId, searchTerm, tagId){
+		showClassroomEditScores: function(scoresLayoutView, classroomId, searchTerm, tagIds){
 			
 			var getURL = "/teacher/classroom_activities_and_performances?classroom_id=" + classroomId 
 			
 			if(searchTerm){
 				scoresLayoutView.model.attributes.searchTerm = searchTerm;
-				scoresLayoutView.model.attributes.tagId = null;
+				scoresLayoutView.model.attributes.tagIds = null;
 				getURL +=  "&search_term=" + encodeURIComponent(searchTerm)
 			}
-			if(tagId){
+			if(tagIds){
 				scoresLayoutView.model.attributes.searchTerm = null;
-				scoresLayoutView.model.attributes.tagId = tagId;
-				getURL +=  "&tag_id=" + tagId
+				scoresLayoutView.model.attributes.tagIds = tagIds;
+				getURL +=  "&tag_ids=" + encodeURIComponent(JSON.stringify(tagIds));
 			}
 
 			var jqxhr = $.get(getURL, function(){
@@ -157,7 +157,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				// //create a new composite view for the table
 				var classroomAndActivitiesModel = new TeacherAccount.TeacherApp.Classroom.Scores.Models.Activities({activities:data.activities, classroom: data.classroom});
 				classroomAndActivitiesModel.attributes.searchTerm = searchTerm;
-				classroomAndActivitiesModel.attributes.tagId = tagId;
+				classroomAndActivitiesModel.attributes.tagIds = tagIds;
 				
 				var studentPerformancesCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.StudentPerformanceCollection(students);
 
@@ -297,62 +297,64 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				
 				if(data.status == "success"){
 
-					//refersh the collection data
-					var getURL = "/teacher/classroom_activities_and_performances?classroom_id=" + scoresLayoutView.model.attributes.classroomId 
-					if(scoresView.model.attributes.searchTerm){
-						getURL +=  "&search_term=" + encodeURIComponent(scoresLayoutView.model.attributes.searchTerm)
-					}
-					if(scoresView.model.attributes.tagId){
-						getURL +=  "&tag_id=" + scoresLayoutView.model.attributes.tagId
-					}
+					Scores.Controller.showClassroomScores(scoresLayoutView, scoresLayoutView.model.attributes.classroomId, scoresLayoutView.model.attributes.searchTerm, scoresLayoutView.model.attributes.tagIds);
 
-					var jqxhr = $.get(getURL, function(){
-						console.log('get request made: ' + scoresLayoutView.model.attributes.classroomId);
-					})
-					.done(function(data) {
+					//refresh the collection data
+					// var getURL = "/teacher/classroom_activities_and_performances?classroom_id=" + scoresLayoutView.model.attributes.classroomId 
+					// if(scoresView.model.attributes.searchTerm){
+					// 	getURL +=  "&search_term=" + encodeURIComponent(scoresLayoutView.model.attributes.searchTerm)
+					// }
+					// if(scoresView.model.attributes.tagId){
+					// 	getURL +=  "&tag_ids=" + scoresLayoutView.model.attributes.tagIds
+					// }
 
-						var activity_indices = {};				
-						for(var i=0; i < data.activities.length; i++){					
-							activity_indices[data.activities[i].id] = i;
-						}
+					// var jqxhr = $.get(getURL, function(){
+					// 	console.log('get request made: ' + scoresLayoutView.model.attributes.classroomId);
+					// })
+					// .done(function(data) {
 
-						var students = [];								
-						var student_indices = {};
-						for(var i=0; i < data.students.length; i++){												
-							student_indices[data.students[i].id] = i;
-							students[i] = {student: data.students[i], student_performance: []};
-						}
+					// 	var activity_indices = {};				
+					// 	for(var i=0; i < data.activities.length; i++){					
+					// 		activity_indices[data.activities[i].id] = i;
+					// 	}
 
-						for(var i=0; i < data.student_performances.length; i++){	
-							var activities_index = activity_indices[data.student_performances[i].activity_id];					
-							var student_index = student_indices[data.student_performances[i].student_user_id];					
+					// 	var students = [];								
+					// 	var student_indices = {};
+					// 	for(var i=0; i < data.students.length; i++){												
+					// 		student_indices[data.students[i].id] = i;
+					// 		students[i] = {student: data.students[i], student_performance: []};
+					// 	}
+
+					// 	for(var i=0; i < data.student_performances.length; i++){	
+					// 		var activities_index = activity_indices[data.student_performances[i].activity_id];					
+					// 		var student_index = student_indices[data.student_performances[i].student_user_id];					
 							
-							if(!students[student_index].student_performance[activities_index] || ((new Date(students[student_index].student_performance[activities_index].performance_date.replace(/T|Z/g, " "))) < (new Date(data.student_performances[i].performance_date.replace(/T|Z/g, " ")))))
-								students[student_index].student_performance[activities_index] = data.student_performances[i];
-						}
+					// 		if(!students[student_index].student_performance[activities_index] || ((new Date(students[student_index].student_performance[activities_index].performance_date.replace(/T|Z/g, " "))) < (new Date(data.student_performances[i].performance_date.replace(/T|Z/g, " ")))))
+					// 			students[student_index].student_performance[activities_index] = data.student_performances[i];
+					// 	}
 
-						// //create a new composite view for the table
-						var classroomAndActivitiesModel = new TeacherAccount.TeacherApp.Classroom.Scores.Models.Activities({activities:data.activities, classroom: data.classroom});
-						classroomAndActivitiesModel.attributes.searchTerm = scoresLayoutView.model.attributes.searchTerm;
-						classroomAndActivitiesModel.attributes.tagId = scoresLayoutView.model.attributes.tagId
+					// 	// //create a new composite view for the table
+					// 	var classroomAndActivitiesModel = new TeacherAccount.TeacherApp.Classroom.Scores.Models.Activities({activities:data.activities, classroom: data.classroom});
+					// 	classroomAndActivitiesModel.attributes.searchTerm = scoresLayoutView.model.attributes.searchTerm;
+					// 	classroomAndActivitiesModel.attributes.tagId = scoresLayoutView.model.attributes.tagId
 
-						var studentPerformancesCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.StudentPerformanceCollection(students);
+					// 	var studentPerformancesCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.StudentPerformanceCollection(students);
 
-						// var scoresView = new TeacherAccount.TeacherApp.Classroom.Scores.ScoresView({collection: studentPerformancesCollection, model:classroomAndActivitiesModel});
-						scoresView.collection = studentPerformancesCollection;
-						scoresView.model = classroomAndActivitiesModel;
-						scoresView.model.attributes.collectionSize = scoresView.collection.length;
-						scoresView.render();
+					// 	// var scoresView = new TeacherAccount.TeacherApp.Classroom.Scores.ScoresView({collection: studentPerformancesCollection, model:classroomAndActivitiesModel});
+					// 	scoresView.collection = studentPerformancesCollection;
+					// 	scoresView.model = classroomAndActivitiesModel;
+					// 	scoresView.model.attributes.collectionSize = scoresView.collection.length;
+					// 	scoresView.render();
 
 						
 			     	
-				  })
-				  .fail(function() {
-				  	console.log("error");
-				  })
-				  .always(function() {
+				 //  })
+				 //  .fail(function() {
+				 //  	console.log("error");
+				 //  })
+				 //  .always(function() {
 				   
-					});
+					// });
 				}
 				else if(data.status == "error"){
 					console.log(data.errors);
