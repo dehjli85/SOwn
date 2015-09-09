@@ -128,6 +128,8 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			})
 			.done(function(data) {
 
+				console.log(data);
+
 				var activity_indices = {};				
 				for(var i=0; i < data.activities.length; i++){					
 					activity_indices[data.activities[i].id] = i;
@@ -160,8 +162,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				classroomAndActivitiesModel.attributes.tagIds = tagIds;
 				
 				var studentPerformancesCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.StudentPerformanceCollection(students);
-
-				console.log(classroomAndActivitiesModel);
 
 				var editScoresView = new TeacherAccount.TeacherApp.Classroom.Scores.EditScoresView({collection: studentPerformancesCollection, model:classroomAndActivitiesModel});
 				scoresLayoutView.scoresRegion.show(editScoresView);
@@ -307,63 +307,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				if(data.status == "success"){
 
 					Scores.Controller.showClassroomScores(scoresLayoutView, scoresLayoutView.model.attributes.classroomId, scoresLayoutView.model.attributes.searchTerm, scoresLayoutView.model.attributes.tagIds);
-
-					//refresh the collection data
-					// var getURL = "/teacher/classroom_activities_and_performances?classroom_id=" + scoresLayoutView.model.attributes.classroomId 
-					// if(scoresView.model.attributes.searchTerm){
-					// 	getURL +=  "&search_term=" + encodeURIComponent(scoresLayoutView.model.attributes.searchTerm)
-					// }
-					// if(scoresView.model.attributes.tagId){
-					// 	getURL +=  "&tag_ids=" + scoresLayoutView.model.attributes.tagIds
-					// }
-
-					// var jqxhr = $.get(getURL, function(){
-					// 	console.log('get request made: ' + scoresLayoutView.model.attributes.classroomId);
-					// })
-					// .done(function(data) {
-
-					// 	var activity_indices = {};				
-					// 	for(var i=0; i < data.activities.length; i++){					
-					// 		activity_indices[data.activities[i].id] = i;
-					// 	}
-
-					// 	var students = [];								
-					// 	var student_indices = {};
-					// 	for(var i=0; i < data.students.length; i++){												
-					// 		student_indices[data.students[i].id] = i;
-					// 		students[i] = {student: data.students[i], student_performance: []};
-					// 	}
-
-					// 	for(var i=0; i < data.student_performances.length; i++){	
-					// 		var activities_index = activity_indices[data.student_performances[i].activity_id];					
-					// 		var student_index = student_indices[data.student_performances[i].student_user_id];					
-							
-					// 		if(!students[student_index].student_performance[activities_index] || ((new Date(students[student_index].student_performance[activities_index].performance_date.replace(/T|Z/g, " "))) < (new Date(data.student_performances[i].performance_date.replace(/T|Z/g, " ")))))
-					// 			students[student_index].student_performance[activities_index] = data.student_performances[i];
-					// 	}
-
-					// 	// //create a new composite view for the table
-					// 	var classroomAndActivitiesModel = new TeacherAccount.TeacherApp.Classroom.Scores.Models.Activities({activities:data.activities, classroom: data.classroom});
-					// 	classroomAndActivitiesModel.attributes.searchTerm = scoresLayoutView.model.attributes.searchTerm;
-					// 	classroomAndActivitiesModel.attributes.tagId = scoresLayoutView.model.attributes.tagId
-
-					// 	var studentPerformancesCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.StudentPerformanceCollection(students);
-
-					// 	// var scoresView = new TeacherAccount.TeacherApp.Classroom.Scores.ScoresView({collection: studentPerformancesCollection, model:classroomAndActivitiesModel});
-					// 	scoresView.collection = studentPerformancesCollection;
-					// 	scoresView.model = classroomAndActivitiesModel;
-					// 	scoresView.model.attributes.collectionSize = scoresView.collection.length;
-					// 	scoresView.render();
-
-						
-			     	
-				 //  })
-				 //  .fail(function() {
-				 //  	console.log("error");
-				 //  })
-				 //  .always(function() {
-				   
-					// });
+					
 				}
 				else if(data.status == "error"){
 					console.log(data.errors);

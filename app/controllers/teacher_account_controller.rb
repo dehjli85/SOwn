@@ -198,14 +198,13 @@ class TeacherAccountController < ApplicationController
 
 		end
 
-
 		student_performance_hash = params[:studentPerformance]
 
 		errors = Array.new
 
-		student_performance_hash.each do |activity_id, student_activity_performances|
+		student_performance_hash.each do |cap_id, student_activity_performances|
 
-			cap = ClassroomActivityPairing.where({activity_id: activity_id, classroom_id: @classroom.id}).first
+			cap = ClassroomActivityPairing.where(id: cap_id).first
 			activity = cap.activity
 
 			student_activity_performances.each do |student_user_id, performance| 
@@ -237,10 +236,6 @@ class TeacherAccountController < ApplicationController
 					end
 
 				elsif activity.activity_type.eql?('completion')
-
-					if cap.activity_id == 10 && student_user_id == 42
-						puts "performance: #{performance}"
-					end
 
 					if(stored_performance.nil? && performance.eql?('true'))	
 						newStudentPerformance = StudentPerformance.new({classroom_activity_pairing_id: cap.id, student_user_id: student_user_id, completed_performance: true, performance_date: Time.now})
