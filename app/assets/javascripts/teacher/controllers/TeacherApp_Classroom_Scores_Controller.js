@@ -203,13 +203,13 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			});
 		},
 
-		showClassroomScoresHeader: function(scoresLayoutView, classroomId){
-
-			//create the search bar view and add it to the layout
+		showClassroomSearchBarView: function(scoresLayoutView){
 			var searchBar = new TeacherAccount.TeacherApp.Classroom.Scores.SearchBarView();
 			scoresLayoutView.searchBarRegion.show(searchBar);
+		},
 
-			//create the tags view and add it to the layout
+		showClassroomTagCollectionView: function(scoresLayoutView, classroomId){
+
 			var jqxhr = $.get("/teacher/classroom_tags?classroom_id=" + classroomId, function(){
 				console.log('get request made');
 			})
@@ -217,8 +217,8 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				
 				var tagCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.TagCollection(data);
 
-				var tags = new TeacherAccount.TeacherApp.Classroom.Scores.TagCollectionView({collection: tagCollection});	     	
-				scoresLayoutView.tagsRegion.show(tags);
+				var tagCollectionView = new TeacherAccount.TeacherApp.Classroom.Scores.TagCollectionView({collection: tagCollection});	     	
+				scoresLayoutView.tagsRegion.show(tagCollectionView);
 				
 		  })
 		  .fail(function() {
@@ -227,6 +227,15 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		  .always(function() {
 		   
 			});
+		},
+
+		showClassroomScoresHeader: function(scoresLayoutView, classroomId){
+
+			//create the search bar view and add it to the layout
+			Scores.Controller.showClassroomSearchBarView(scoresLayoutView);
+
+			//create the tags view and add it to the layout
+			Scores.Controller.showClassroomTagCollectionView(scoresLayoutView, classroomId);
 
 		},
 

@@ -236,8 +236,8 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		onChildviewFilterSearchClassroomScoresView: function(view){
 			
-			//clear the tags
-
+			//re-render the header to clear any tags
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomTagCollectionView(this, this.model.attributes.classroomId);
 
 			if(this.model.get("readOrEdit") == "read")
 				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomScores(this, this.model.attributes.classroomId, view.ui.searchInput.val(), null);
