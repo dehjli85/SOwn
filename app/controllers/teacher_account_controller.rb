@@ -185,6 +185,20 @@ class TeacherAccountController < ApplicationController
 	def save_student_performances
 		
 		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
+
+		due_date_hash = params[:due_date]
+		due_date_hash.each do |cap_id, date|
+			
+			cap = ClassroomActivityPairing.where(id: cap_id).first
+			cap.due_date = date
+			
+			if(!cap.save)
+				errors.push(cap.errors)
+			end
+
+		end
+
+
 		student_performance_hash = params[:studentPerformance]
 
 		errors = Array.new

@@ -4,7 +4,7 @@
   </div>
 <% }else{ %>
 
-  <form ui-scores-form>
+  <form class="form" ui-scores-form>
 
     <% if(collectionSize != 0){ %> 
       <button class="btn btn-primary" style="margin-bottom:10px">Save Changes</button>
@@ -14,12 +14,20 @@
 
     <table id="perf_table" class="table table-condensed table-bordered small" style="table-layout:fixed; width:inherit; padding-top:10px;">
       <thead>        
-      <tr>
-        <th style="min-width:150px; vertical-align:bottom" ui-student-header>Student</th>
-        <% for(var i = 0; i < activities.length; i++){ %>
-            <th class="activity_header" style="" id="header_<%= i %>"><%= activities[i].name %></th>             
-        <% } %>
-      </tr>
+        <tr>
+          <th class="student_header th_left_col" ui-student-header>Activity:</th>
+          <% for(var i = 0; i < activities.length; i++){ %>
+              <th class="activity_header" style="" id="header_<%= i %>"><%= activities[i].name %></th>             
+          <% } %>
+        </tr>
+        <tr>
+          <th class="student_header due_date th_bottom_row th_left_col">Due Date:</th>
+          <% for(var i = 0; i < activities.length; i++){ %>
+              <td style="" id="header_<%= i %>" name="<%= activities[i].classroom_activity_pairing_id %>" class="due_date td_bottom_row" >
+                <input type="date" class="form-control" name="due_date[<%= activities[i].classroom_activity_pairing_id %>]" value="<%= activities[i].due_date ?  moment( activities[i].due_date).format("YYYY-MM-DD") : "" %>"/>
+              </td>             
+          <% } %>
+        </tr>
       </thead>
       <tbody>    
 
