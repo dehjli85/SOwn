@@ -101,6 +101,8 @@ Rails.application.routes.draw do
   post 'teacher/update_activity/:id' => 'teacher_account#update_activity'
   get 'teacher/classroom_assignments' => 'teacher_account#classroom_assignments'
   post 'teacher/assign_activities' => 'teacher_account#assign_activities'
+  get 'teacher/student_performance_count' => 'teacher_account#student_performance_count'
+  post 'teacher/delete_activity' => 'teacher_account#delete_activity'
 
   # teacher/students app routes
   get 'teacher/students' => 'teacher_account#students'

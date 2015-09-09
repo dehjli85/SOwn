@@ -219,6 +219,34 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		},
 
+		openDeleteActivityModal: function(indexLayoutView, activityId){
+
+			// create activity assignment view and add it to the layout
+			var getUrl = "/teacher/student_performance_count?activity_id=" + activityId;			
+			
+			var jqxhr = $.get(getUrl, function(){
+				console.log('get request for teacher activity');
+			})
+			.done(function(data) {
+
+				if(data.status == "success"){
+
+					var model = new Backbone.Model({student_performance_count: data.student_performance_count, student_count: data.student_count, activity: data.activity});
+
+					var deleteActivityModal = new TeacherAccount.TeacherApp.Activities.DeleteActivityModalView({model: model});
+					indexLayoutView.modalRegion.show(deleteActivityModal);
+				}	
+
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});			
+
+		},
+
 		saveActivityAssignments: function(indexLayoutView, assignmentForm){
 			
 			TeacherAccount.rootView.alertRegion.empty();
@@ -253,6 +281,47 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		  .always(function() {
 		   
 			});	
+		},
+
+		deleteActivity: function(indexLayoutView, activityForm){
+			
+			TeacherAccount.rootView.alertRegion.empty();
+
+			var postUrl = "/teacher/delete_activity"
+			var jqxhr = $.post(postUrl, activityForm.serialize(), function(){
+				console.log('post request to assign activities');
+			})
+			.done(function(data) {
+
+				console.log(data);
+				if(data.status == "success"){
+
+					indexLayoutView.ui.modalRegion.modal("hide");
+					indexLayoutView.modalRegion.empty();
+					$('.modal-backdrop').remove(); //This is a hack, don't know why the backdrop isn't going away
+					
+					var alertModel = new TeacherAccount.Models.Alert({alertClass: "alert-success", message: "Activity successfully deleted!"});
+					var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
+					
+					TeacherAccount.rootView.alertRegion.show(alertView);
+					Activities.Controller.showActivitiesIndex();
+				}
+				else{
+					//show an error message
+					
+				}
+
+
+				
+				
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});	
+
 		}
 		
 

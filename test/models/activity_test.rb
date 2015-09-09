@@ -355,4 +355,46 @@ class ActivityTest < ActiveSupport::TestCase
 
   end
 
+  test "student_performance_count" do
+    
+
+    a1s = Activity.find(activities(:a1s))
+    student_performance_count = a1s.student_performance_count
+    expected_performance_count = 4
+    expected_student_count = 2
+    assert_equal expected_performance_count, student_performance_count[:student_performance_count], "student_performance_count does not match expected count for Activity a1s"
+    assert_equal expected_student_count , student_performance_count[:student_count], "student_performance_count does not match expected count for Activity a1s"
+
+
+
+    a2s = Activity.find(activities(:a2s))
+    student_performance_count = a2s.student_performance_count
+    expected_performance_count = 1
+    expected_student_count = 1
+    assert_equal expected_performance_count, student_performance_count[:student_performance_count], "student_performance_count does not match expected count for Activity a2s"
+    assert_equal expected_student_count , student_performance_count[:student_count], "student_performance_count does not match expected count for Activity a2s"
+
+
+
+  end
+
+  test "destroy" do
+
+    a1s = Activity.find(activities(:a1s))
+    id = a1s.id
+    cap_ids = a1s.classroom_activity_pairings.pluck(:id)
+    sps_ids = StudentPerformance.where(classroom_activity_pairing_id: cap_ids).pluck(:id)
+    v_ids = StudentPerformanceVerification.where(classroom_activity_pairing_id: cap_ids).pluck(:id)
+    atp_ids = ActivityTagPairing.where(activity_id: id)
+
+    a1s.destroy
+    assert_not Activity.exists?(id)
+
+    assert_empty ClassroomActivityPairing.where(id: cap_ids)
+    assert_empty StudentPerformance.where(id: sps_ids)
+    assert_empty StudentPerformanceVerification.where(id: v_ids)
+    assert_empty ActivityTagPairing.where(id: atp_ids)
+
+  end
+
 end

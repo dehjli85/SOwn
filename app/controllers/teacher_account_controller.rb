@@ -822,7 +822,30 @@ class TeacherAccountController < ApplicationController
 
 		end
 		
+	end
 
+	def student_performance_count
+		activity = Activity.where({id: params[:activity_id], teacher_user_id: @current_teacher_user.id}).first
+		if activity.nil?
+			render json: {status: "error", message: "activity does not exist"}
+		else	
+			counts = activity.student_performance_count
+			render json: {status: "success", student_performance_count: counts[:student_performance_count], student_count: counts[:student_count], activity: activity}
+		end
+		
+	end
+
+	def delete_activity
+		activity = Activity.where({id: params[:activity_id], teacher_user_id: @current_teacher_user.id}).first
+		if activity.nil?
+			render json: {status: "error", message: "activity does not exist"}
+		else	
+			if activity.destroy
+				render json: {status: "success"}
+			else
+				render json: {status: "error", message: "errors deleting activity"}
+			end
+		end
 		
 	end
 

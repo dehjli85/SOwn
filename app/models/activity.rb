@@ -9,6 +9,7 @@ class Activity < ActiveRecord::Base
   has_many :classrooms, :through => :classroom_activity_pairings
   has_many :activity_tag_pairings
   has_many :activity_tags, :through => :activity_tag_pairings
+  
 
 	validates :activity_type, inclusion: { in: %w(completion scored),
     message: "%{value} is not a valid activity type" }
@@ -188,6 +189,34 @@ class Activity < ActiveRecord::Base
 
     sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, arguments)
     activities = ActiveRecord::Base.connection.execute(sanitized_query).to_a
+
+  end
+
+  def student_performance_count
+    cap_ids = self.classroom_activity_pairings.pluck(:id)
+    {
+      student_performance_count: StudentPerformance.where(classroom_activity_pairing_id: cap_ids).length,
+      student_count: StudentPerformance.where(classroom_activity_pairing_id: cap_ids).distinct.pluck(:student_user_id).length,
+    }
+  end
+
+  def student_performances
+    cap_ids = self.classroom_activity_pairings.pluck(:id)
+    StudentPerformance.where(classroom_activity_pairing_id: cap_ids)
+  end
+
+  def student_performances_verifications
+    cap_ids = self.classroom_activity_pairings.pluck(:id)
+    StudentPerformanceVerification.where(classroom_activity_pairing_id: cap_ids)
+  end
+
+  def destroy
+
+    self.student_performances.destroy_all &&
+    self.student_performances_verifications.destroy_all &&
+    self.classroom_activity_pairings.destroy_all &&
+    self.activity_tag_pairings.destroy_all &&
+    super
 
   end
 

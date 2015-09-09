@@ -167,10 +167,11 @@ class StudentPerformanceTest < ActiveSupport::TestCase
 
     s1_c1s_a1s_1 = StudentPerformance.find(student_performances(:s1_c1s_a1s_1).id)
     s1_c1s_a1s_2 = StudentPerformance.find(student_performances(:s1_c1s_a1s_2).id)
+    s1_c1s_a2s_1 = StudentPerformance.find(student_performances(:s1_c1s_a2s_1).id)
     s2_c1s_a1s_1 = StudentPerformance.find(student_performances(:s2_c1s_a1s_1).id)
     s2_c1s_a1s_2 = StudentPerformance.find(student_performances(:s2_c1s_a1s_2).id)
 
-    expected_output = [s1_c1s_a1s_1, s1_c1s_a1s_2, s2_c1s_a1s_1, s2_c1s_a1s_2]
+    expected_output = [s1_c1s_a1s_1, s1_c1s_a1s_2, s2_c1s_a1s_1, s2_c1s_a1s_2, s1_c1s_a2s_1]
     expected_output.sort! do |a,b|
         b.id <=> a.id 
     end
@@ -192,10 +193,11 @@ class StudentPerformanceTest < ActiveSupport::TestCase
 
     s1_c1s_a1s_1 = StudentPerformance.find(student_performances(:s1_c1s_a1s_1).id)
     s1_c1s_a1s_2 = StudentPerformance.find(student_performances(:s1_c1s_a1s_2).id)
+    s1_c1s_a2s_1 = StudentPerformance.find(student_performances(:s1_c1s_a2s_1).id)
     s2_c1s_a1s_1 = StudentPerformance.find(student_performances(:s2_c1s_a1s_1).id)
     s2_c1s_a1s_2 = StudentPerformance.find(student_performances(:s2_c1s_a1s_2).id)
 
-    expected_output = [s1_c1s_a1s_1, s1_c1s_a1s_2, s2_c1s_a1s_1, s2_c1s_a1s_2]
+    expected_output = [s1_c1s_a1s_1, s1_c1s_a1s_2, s2_c1s_a1s_1, s2_c1s_a1s_2, s1_c1s_a2s_1]
     expected_output.sort! do |a,b|
         b.id <=> a.id 
     end
@@ -225,10 +227,11 @@ class StudentPerformanceTest < ActiveSupport::TestCase
 
     s1_c1s_a1s_1 = StudentPerformance.find(student_performances(:s1_c1s_a1s_1).id)
     s1_c1s_a1s_2 = StudentPerformance.find(student_performances(:s1_c1s_a1s_2).id)
+    s1_c1s_a2s_1 = StudentPerformance.find(student_performances(:s1_c1s_a2s_1).id)
     s2_c1s_a1s_1 = StudentPerformance.find(student_performances(:s2_c1s_a1s_1).id)
     s2_c1s_a1s_2 = StudentPerformance.find(student_performances(:s2_c1s_a1s_2).id)
 
-    expected_output = [s1_c1s_a1s_1, s1_c1s_a1s_2, s2_c1s_a1s_1, s2_c1s_a1s_2]
+    expected_output = [s1_c1s_a1s_1, s1_c1s_a1s_2, s2_c1s_a1s_1, s2_c1s_a1s_2, s1_c1s_a2s_1]
     expected_output.sort! do |a,b|
         b.id <=> a.id 
     end

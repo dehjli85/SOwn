@@ -9,5 +9,6 @@
     <% } %>
   </ul>
 </td>
-<td><a class="edit_link" href="#activities/<%= id %>/edit" name="activity_<%= id %>">Edit</a></td>
-<td><a class="assign_link" name="<%= id %>" href="#activities/index">Assign to Classrooms</a></td>
+<td><a class="edit_link" href="#activities/<%= id %>/edit" name="activity_<%= id %>" ui-edit-link>Edit</a></td>
+<td><a class="assign_link" name="<%= id %>" href="#activities/index" ui-assign-link>Assign</a></td>
+<td><a class="delete_link" href="#" ui-delete-link>Delete</a></td>

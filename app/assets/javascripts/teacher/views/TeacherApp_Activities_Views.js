@@ -6,13 +6,20 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		template: JST["teacher/templates/Activities/TeacherApp_Activities_IndexActivityView"],
 		tagName: "tr",
 
+		ui:{
+			assignLink: "[ui-assign-link]",
+			deleteLink: "[ui-delete-link]",
+			editLink: "[ui-edit-link]"	
+		},
+
 		triggers:{
-			"click .assign_link": "open:assign:activities:modal"
+			"click @ui.assignLink": "open:assign:activities:modal",
+			"click @ui.deleteLink": "open:delete:activity:modal"
 		},
 
 		events:{
 			"click .tag": "filterTag",
-			"click .edit_link": "goToEditPage",
+			"click @ui.editLink": "goToEditPage",
 
 		},
 
@@ -132,8 +139,20 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		},
 
 		onChildviewActivitiesSaveAssignments: function(view){
-			console.log(view.ui.assignmentForm.serialize());
 			TeacherAccount.TeacherApp.Activities.Controller.saveActivityAssignments(this,view.ui.assignmentForm);
+			this.ui.modalRegion.modal("hide");
+
+		},
+
+		onChildviewOpenDeleteActivityModal: function(view){
+			TeacherAccount.TeacherApp.Activities.Controller.openDeleteActivityModal(this, view.model.get("id"));
+			this.ui.modalRegion.modal("show");
+		},
+
+		onChildviewDeleteActivity: function(view){
+			this.ui.modalRegion.modal("hide");			
+			TeacherAccount.TeacherApp.Activities.Controller.deleteActivity(this, view.ui.activityForm);
+
 		}
 
 	});
@@ -154,6 +173,25 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		initialize: function(options){
 			this.$el.attr("role","document");
 		}
+	});
+
+	Activities.DeleteActivityModalView = Marionette.ItemView.extend({
+		template: JST ["teacher/templates/Activities/TeacherApp_Activities_DeleteActivityModal"],
+		className: "modal-dialog",
+
+		ui:{
+			deleteButton: "[ui-delete-button]",
+			cancelButton: "[ui-cencel-button]",
+			activityForm: "[ui-activity-form]"
+		},
+
+		triggers:{
+			"click @ui.deleteButton": "delete:activity"
+		},
+
+		initialize: function(options){
+			this.$el.attr("role","document");
+		}
 	})
 
 	Activities.EditActivityTagView = Marionette.ItemView.extend({
@@ -163,9 +201,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			"click span": "removeTag"
 		},
 		removeTag: function(){
-			console.log(this.model);
 			this.triggerMethod("remove:tag:from:collection");
-			// this.model.destroy();
 		},
 
 		initialize : function (options) {
