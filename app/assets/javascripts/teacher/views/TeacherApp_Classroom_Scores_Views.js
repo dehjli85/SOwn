@@ -39,6 +39,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_StudentPerformance"],
 		initialize : function (options) {
 	    this.model.attributes.activitiesCount = options.activitiesCount;	    
+	    this.model.attributes.activitiesDue = options.activitiesDue;	    
+	    this.model.attributes.proficiency = options.activitiesDue == 0 ? null : 100*this.model.attributes.proficient_count/options.activitiesDue;
+
 	  },
 
 	  ui:{
@@ -106,7 +109,8 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		childViewContainer: "tbody",
 		childViewOptions: function(model, index){			
 			return {
-				activitiesCount: this.model.attributes.activities.length
+				activitiesCount: this.model.attributes.activities.length,
+				activitiesDue: this.model.attributes.activities_due,
 			}
 		},
 

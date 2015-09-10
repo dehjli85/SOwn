@@ -8,14 +8,18 @@
       <thead>
         <tr>
           <th class="student_header th_left_col" ui-student-header>Activity:</th>
+          
           <% for(var i = 0; i < activities.length; i++){ %>
               <th class="activity_header" style="" id="header_<%= i %>" name="<%= activities[i].classroom_activity_pairing_id %>" >
                 <%= activities[i].name %>              
               </th>             
           <% } %>
+
+          <th rowspan="2">% At Mastery</th>
         </tr>
         <tr>
           <th class="student_header due_date th_bottom_row th_left_col">Due Date:</th>
+          
           <% for(var i = 0; i < activities.length; i++){ %>
               <td style="" id="header_<%= i %>" name="<%= activities[i].classroom_activity_pairing_id %>" class="due_date td_bottom_row" >
                 <%= activities[i].due_date ?  moment(activities[i].due_date).format("MM/DD/YYYY") : "" %>  

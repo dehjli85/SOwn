@@ -1,4 +1,4 @@
-  <td class='td_left_col'><%= student.display_name %></td>
+  <td class='td_left_col'><%= display_name %></td>
   <% for( var i = 0; i < activitiesCount; i++){ %>
     <% if (student_performance[i] == null){ %>
       <td class="center"></td>
@@ -11,4 +11,5 @@
       </td>
     <% } %>
   <% } %>
+  <td class="<%= proficiency >= 90 ? "success-sown" : (proficiency >= 80 ? "warning-sown" : "danger-sown") %>"><%= Math.round(proficiency,1) %>%</td>
 

@@ -220,14 +220,6 @@ class StudentPerformance < ActiveRecord::Base
   #  includeHidden: boolean argument that determines whether Student Performances for Activities assigned to Classrooms but are hidden should be returned.  Method by default returns all Activities.
   #
   # WARNING: searchTerm and tagId cannot be used together.  If both are passed to the method, searchTerm will be used and tagId will be ignored
-
-
-	# Returns a Result set containing Student Performances for the specified Classroom (passed through classroomId)
-	# Result set is filtered by specified arguments
-	# Student Performance objects have the following addtional fields:
-	# => Activity fields, 
-	# => Classroom Activity Pairing sort_order
-	# => Student User id, first_name, last_name, display_name
 	def self.student_performances_with_verification(classroomId, searchTerm=nil, tagIds=nil, studentUserId=nil, includeHidden=true)
 
 		if Classroom.where(id: classroomId).empty?
@@ -321,5 +313,87 @@ class StudentPerformance < ActiveRecord::Base
 
 	end
 	
+	# Returns an Array of Hashes representing Student Users and ther proficiency % for the Classroom with id = classroomId
+  # If an invalid classroomId (i.e. Classroom doesn't exist) is passed, returns nil
+  #
+  # Uses:
+  #  searchTerm: if the first character is a '#', all '#'s are removed from the string, and it is treated as a space separated list of tags.  
+  # 								=> Only includes Activities with one or more of the tags in the list when calculating proficiency %
+  #                 EXAMPLES: "#tag1 #tag2" => ('tag1', 'tag2').  "#tag1#tag2" => ('tag1tag2').  "#tag1 tag2" => ('tag1',' tag2')
+  #
+  #              if the first character is not a '#'
+  # 								=> Only includes Activities that have a name, description, or Tag name containing the string (case insensitive) when calculating proficiency %
+  #
+  #  tagId: Only includes Activities that have been tagged with the Activity Tag with id = tagId when calculating proficency %
+  #  includeHidden: boolean argument that determines whether Activities assigned to Classrooms but are hidden should be included when calculating proficiency %.  Method by default excludes hidden Activities.
+  #
+  # WARNING: searchTerm and tagId cannot be used together.  If both are passed to the method, searchTerm will be used and tagId will be ignored
+	def self.student_performance_proficiencies(classroomId, searchTerm=nil, tagIds=nil, studentUserId=nil, includeHidden=false)
+
+		if Classroom.where(id: classroomId).empty?
+      return nil
+    end
+    
+		if(!(searchTerm.nil? || searchTerm.eql?('')) && searchTerm[0].eql?('#'))
+			tag_array = searchTerm.gsub('#','').split(/ +/)
+		else
+			tag_array = nil
+		end
+
+		arguments = [nil, classroomId]
+		
+		sql = 'SELECT student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, 
+						COUNT(DISTINCT CASE WHEN completed_performance = true or scored_performance > greatest(benchmark1_score, benchmark2_score) THEN "classroom_activity_pairings"."id" ELSE NULL END) AS proficient_count
+					FROM "student_performances" 
+					INNER JOIN "student_users" ON "student_users"."id" = "student_performances"."student_user_id" 
+					INNER JOIN "classroom_student_users" ON "classroom_student_users"."student_user_id" = "student_users"."id" and "classroom_student_users"."classroom_id" = ?
+					INNER JOIN "classroom_activity_pairings" ON "classroom_activity_pairings"."id" = "student_performances"."classroom_activity_pairing_id" 
+					INNER JOIN activities a on a.id =  classroom_activity_pairings.activity_id 
+					LEFT JOIN activity_tag_pairings atp on atp.activity_id = a.id'
+
+
+		if !tag_array.nil?
+			sql += ' LEFT JOIN activity_tags tags on tags.id = atp.activity_tag_id and tags.name in (?)'
+			arguments.push(tag_array)
+		elsif searchTerm
+			sql += ' LEFT JOIN activity_tags tags on tags.id = atp.activity_tag_id'	
+		elsif tagIds
+			sql += ' INNER JOIN activity_tags tags on tags.id = atp.activity_tag_id and tags.id in (?)'
+			arguments.push(tagIds)
+		end
+
+		sql += ' WHERE (classroom_activity_pairings.classroom_id = ?) AND classroom_activity_pairings.due_date is not null and classroom_activity_pairings.due_date < current_date'
+		arguments.push(classroomId)
+
+		if tag_array
+      sql += ' AND tags.name in (?)'
+      arguments.push(tag_array)
+    elsif searchTerm && tag_array.nil?
+			sql += ' AND (lower(tags.name) like ? or lower(a.name) like ? or lower(a.description) like ?)'			
+			arguments.push("%#{searchTerm.downcase}%")			
+			arguments.push("%#{searchTerm.downcase}%")			
+			arguments.push("%#{searchTerm.downcase}%")			
+		end
+
+		if studentUserId
+			sql += ' AND "student_users"."id" = ?'
+			arguments.push(studentUserId)
+		end
+
+		if !includeHidden
+			sql += ' AND classroom_activity_pairings.hidden = false'
+		end
+
+		sql	+= ' GROUP BY student_users.id, student_users.display_name, student_users.last_name'		
+
+		arguments[0] = sql
+
+		sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, arguments)
+		student_proficiencies = ActiveRecord::Base.connection.execute(sanitized_query).to_a
+
+
+    return student_proficiencies
+
+	end
 
 end

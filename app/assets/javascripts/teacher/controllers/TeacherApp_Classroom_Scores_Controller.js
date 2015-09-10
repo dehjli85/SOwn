@@ -54,40 +54,13 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				console.log(data);
 
 				if(data.status == "success"){
-					var activity_indices = {};				
-					for(var i=0; i < data.activities.length; i++){					
-						activity_indices[data.activities[i].id] = i;
-					}
-
-					var students = [];								
-					var student_indices = {};
-					for(var i=0; i < data.students.length; i++){												
-						student_indices[data.students[i].id] = i;
-						students[i] = {student: data.students[i], student_performance: []};
-					}
-
-					for(var i=0; i < data.student_performances.length; i++){	
-						var activities_index = activity_indices[data.student_performances[i].activity_id];					
-						var student_index = student_indices[data.student_performances[i].student_user_id];					
-
-						
-						if (students[student_index].student_performance[activities_index]){
-							var currentPerformanceId = new Date(students[student_index].student_performance[activities_index].id);
-							var performanceIdAtIndex = new Date(data.student_performances[i].id);
-						}
-						
-						
-						if(!students[student_index].student_performance[activities_index] || (currentPerformanceId < performanceIdAtIndex))
-							students[student_index].student_performance[activities_index] = data.student_performances[i];
-					}
-
 
 					// //create a new composite view for the table
-					var classroomAndActivitiesModel = new TeacherAccount.TeacherApp.Classroom.Scores.Models.Activities({activities:data.activities, classroom: data.classroom});
+					var classroomAndActivitiesModel = new Backbone.Model({activities:data.activities, classroom: data.classroom, activities_due: data.activities_due});
 					classroomAndActivitiesModel.attributes.searchTerm = searchTerm;
 					classroomAndActivitiesModel.attributes.tagIds = tagIds;
 
-					var studentPerformancesCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.StudentPerformanceCollection(students);
+					var studentPerformancesCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.StudentPerformanceCollection(data.students_with_performance);
 					var scoresView = new TeacherAccount.TeacherApp.Classroom.Scores.ScoresView({collection: studentPerformancesCollection, model:classroomAndActivitiesModel});
 					scoresLayoutView.scoresRegion.show(scoresView);
 
@@ -130,38 +103,12 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 				console.log(data);
 
-				var activity_indices = {};				
-				for(var i=0; i < data.activities.length; i++){					
-					activity_indices[data.activities[i].id] = i;
-				}
-
-				var students = [];								
-				var student_indices = {};
-				for(var i=0; i < data.students.length; i++){												
-					student_indices[data.students[i].id] = i;
-					students[i] = {student: data.students[i], student_performance: []};
-				}
-
-				for(var i=0; i < data.student_performances.length; i++){	
-					var activities_index = activity_indices[data.student_performances[i].activity_id];					
-					var student_index = student_indices[data.student_performances[i].student_user_id];					
-
-					if (students[student_index].student_performance[activities_index]){
-						var currentPerformanceId = new Date(students[student_index].student_performance[activities_index].id);
-						var performanceIdAtIndex = new Date(data.student_performances[i].id);
-					}
-
-					
-					if(!students[student_index].student_performance[activities_index] || (currentPerformanceId < performanceIdAtIndex))
-						students[student_index].student_performance[activities_index] = data.student_performances[i];
-				}
-
 				// //create a new composite view for the table
 				var classroomAndActivitiesModel = new TeacherAccount.TeacherApp.Classroom.Scores.Models.Activities({activities:data.activities, classroom: data.classroom});
 				classroomAndActivitiesModel.attributes.searchTerm = searchTerm;
 				classroomAndActivitiesModel.attributes.tagIds = tagIds;
 				
-				var studentPerformancesCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.StudentPerformanceCollection(students);
+				var studentPerformancesCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.StudentPerformanceCollection(data.students_with_performance);
 
 				var editScoresView = new TeacherAccount.TeacherApp.Classroom.Scores.EditScoresView({collection: studentPerformancesCollection, model:classroomAndActivitiesModel});
 				scoresLayoutView.scoresRegion.show(editScoresView);

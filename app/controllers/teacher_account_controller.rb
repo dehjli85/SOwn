@@ -176,9 +176,50 @@ class TeacherAccountController < ApplicationController
 		
 		performance_array = StudentPerformance.student_performances_with_verification(classroom.id, params[:search_term], tag_ids, nil, true)
 
-		students = classroom.student_users		
+		proficient_counts = StudentPerformance.student_performance_proficiencies(classroom.id, params[:search_term], tag_ids, nil, true)
 
-		render json: {status: "success", students: students, activities: activities, student_performances: performance_array, classroom: classroom}
+		students = classroom.student_users.as_json	
+
+		# Organize the performance data by student
+
+		# create a lookup hash for student_id
+		# create an array to store th performances for each student
+		students_hash = {}
+		students.each_with_index do |student, index|
+			students_hash[student["id"].to_i] = index
+			student["student_performance"] = []
+			student["proficient_count"] = 0
+		end
+
+		# assign each performance to the correct student/activity
+		performance_array.each do |performance|
+
+			student_index = students_hash[performance["student_user_id"].to_i]
+			activities_index = performance["sort_order"].to_i
+
+			if students[student_index]["student_performance"][activities_index].nil? || students[student_index]["student_performance"][activities_index]["id"].to_i < performance["id"].to_i
+				students[student_index]["student_performance"][activities_index] = performance
+			end
+
+		end
+
+		# add proficient counts
+		proficient_counts.each do |student|
+			student_index = students_hash[student["student_user_id"].to_i]
+			students[student_index]["proficient_count"] = student["proficient_count"].to_i
+		end
+
+		# count activities due
+		activities_due = 0
+		activities.each do |activity|
+			if !activity["due_date"].nil? && Date.parse(activity["due_date"]).to_time < Time.now
+				activities_due += 1
+			end
+		end
+
+
+
+		render json: {status: "success", students_with_performance: students, activities: activities, classroom: classroom, activities_due: activities_due}
 
 	end
 
