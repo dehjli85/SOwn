@@ -1,7 +1,6 @@
 class StudentAccountController < ApplicationController
 
-  skip_before_action :require_teacher_login
-  before_action :require_student_login, :current_user
+  before_action :require_student_login_json, except: [:index]
 
   respond_to :json
 
@@ -12,7 +11,7 @@ class StudentAccountController < ApplicationController
   #################################################################################
 
   def index
-    
+    require_student_login
   end
 
   def current_student_user

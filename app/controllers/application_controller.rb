@@ -40,6 +40,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_student_login_json
+    unless !@current_student_user.nil?
+      render json: {status: "error", message: "user-not-logged-in"}
+    end
+  end
+
   def current_user_json
     teacher = !@current_teacher_user.nil? ? @current_teacher_user.serializable_hash : nil
     if teacher
