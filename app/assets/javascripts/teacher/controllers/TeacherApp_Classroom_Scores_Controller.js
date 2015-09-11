@@ -56,7 +56,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				if(data.status == "success"){
 
 					// //create a new composite view for the table
-					var classroomAndActivitiesModel = new Backbone.Model({activities:data.activities, classroom: data.classroom, activities_due: data.activities_due});
+					var classroomAndActivitiesModel = new Backbone.Model({activities:data.activities, classroom: data.classroom});
 					classroomAndActivitiesModel.attributes.searchTerm = searchTerm;
 					classroomAndActivitiesModel.attributes.tagIds = tagIds;
 

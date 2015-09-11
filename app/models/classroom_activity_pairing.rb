@@ -43,4 +43,31 @@ class ClassroomActivityPairing < ActiveRecord::Base
 
   end
 
+  # sort_order_hash: key is the index, value is the Classroom Activity Pairing id
+  def self.sort_activities(sorted_cap_ids)
+    
+    # Check that all of the pairings are from the same classroom and includes all of them
+    classroom_id = ClassroomActivityPairing.find(sorted_cap_ids[0]).classroom_id
+    cap_ids = ClassroomActivityPairing.where(classroom_id: classroom_id).pluck(:id).sort
+    if !sorted_cap_ids.sort.eql?(cap_ids)
+      raise "Incomplete ClassroomActivityPairing Set Error"
+    end
+
+    sorted_cap_ids.each_with_index do |cap_id, index|
+      cap = ClassroomActivityPairing.where({id: cap_id}).first
+      
+      if cap
+        cap.sort_order = index
+        if !cap.save
+          errors.push(cap.errors)
+        end
+      else
+
+        raise "Invalid ClassroomActivityPairing Error"
+
+      end
+
+    end
+  end
+
 end

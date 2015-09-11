@@ -328,6 +328,7 @@ class StudentPerformance < ActiveRecord::Base
   #  includeHidden: boolean argument that determines whether Activities assigned to Classrooms but are hidden should be included when calculating proficiency %.  Method by default excludes hidden Activities.
   #
   # WARNING: searchTerm and tagId cannot be used together.  If both are passed to the method, searchTerm will be used and tagId will be ignored
+  # WARNING: only returns proficiences for Student Users who have tracked  at least 1 Activity
 	def self.student_performance_proficiencies(classroomId, searchTerm=nil, tagIds=nil, studentUserId=nil, includeHidden=false)
 
 		if Classroom.where(id: classroomId).empty?
@@ -362,7 +363,7 @@ class StudentPerformance < ActiveRecord::Base
 			arguments.push(tagIds)
 		end
 
-		sql += ' WHERE (classroom_activity_pairings.classroom_id = ?) AND classroom_activity_pairings.due_date is not null and classroom_activity_pairings.due_date < current_date'
+		sql += ' WHERE (classroom_activity_pairings.classroom_id = ?)'
 		arguments.push(classroomId)
 
 		if tag_array

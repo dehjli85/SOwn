@@ -38,9 +38,42 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		tagName: "tr",
 		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_StudentPerformance"],
 		initialize : function (options) {
-	    this.model.attributes.activitiesCount = options.activitiesCount;	    
-	    this.model.attributes.activitiesDue = options.activitiesDue;	    
-	    this.model.attributes.proficiency = options.activitiesDue == 0 ? null : 100*this.model.attributes.proficient_count/options.activitiesDue;
+			this.model.attributes.activities = options.activities;
+	    this.model.attributes.activitiesCount = options.activities.length;	    
+
+	    this.model.attributes.activitiesDue = options.activitiesDue;
+	    //count activities with a due date or a performance
+	    activitiesIds = [];
+	    for(var i = 0; i < this.model.attributes.activities.length; i++){
+	    	if(this.model.attributes.activities[i].due_date != null && this.model.attributes.activities[i].due_date != ""){
+	    		activitiesIds.push(this.model.attributes.activities[i].id);
+	    	}
+	    }
+	    for(var i = 0; i < this.model.attributes.student_performance.length; i++){
+	    	if(this.model.attributes.student_performance[i] != null){
+		    	activitiesIds.push(this.model.attributes.student_performance[i].activity_id);
+	    	}
+	    }
+	    console.log(activitiesIds);
+
+	    this.model.attributes.activitiesDue = $.unique(activitiesIds).length
+
+
+	    this.model.attributes.proficiency = 
+	    	options.activitiesDue == 0 ? "-" : 100*this.model.attributes.proficient_count/this.model.attributes.activitiesDue;
+
+	    if(this.model.attributes.proficiency >= 80) {
+    		this.model.attributes.proficiency_color = 'success-sown';
+    	}
+	    else if(this.model.attributes.proficiency >= 60) {
+    		this.model.attributes.proficiency_color = 'warning-sown';
+    	}
+	    else if(this.model.attributes.proficiency < 60) {
+    		this.model.attributes.proficiency_color = 'danger-sown';
+    	}
+    	else{
+	    		this.model.attributes.proficiency_color = 'none';
+    	}
 
 	  },
 
@@ -109,8 +142,8 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		childViewContainer: "tbody",
 		childViewOptions: function(model, index){			
 			return {
-				activitiesCount: this.model.attributes.activities.length,
-				activitiesDue: this.model.attributes.activities_due,
+				activities: this.model.attributes.activities,
+
 			}
 		},
 
@@ -197,7 +230,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				{
 					persistState: function(table){
 						obj.saveActivitiesSortOrder(table, obj);
-					}
+					},
+					dragaccept: '.accept',
+					maxMovingRows: 2
 				}
 			);
 		},

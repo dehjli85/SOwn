@@ -212,11 +212,26 @@ class Activity < ActiveRecord::Base
 
   def destroy
 
-    self.student_performances.destroy_all &&
+    # get the ids of all classrooms using this assignment
+    classroom_ids = self.classroom_activity_pairings.pluck(:classroom_id)
+
+
+    all_destroyed = self.student_performances.destroy_all &&
     self.student_performances_verifications.destroy_all &&
     self.classroom_activity_pairings.destroy_all &&
     self.activity_tag_pairings.destroy_all &&
     super
+
+    # use prev. obtained ids to re-establish sort_orders for remaining acivities
+    classroom_ids.each do |classroom_id|
+      classroom = Classroom.find(classroom_id)
+      sorted_cap_ids = classroom.classroom_activity_pairings.order("sort_order ASC").pluck(:id)
+    ClassroomActivityPairing.sort_activities(sorted_cap_ids)
+
+    end
+
+
+    return all_destroyed
 
   end
 

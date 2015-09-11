@@ -391,35 +391,19 @@ class TeacherAccountController < ApplicationController
 		classroom_activities_sorted = params[:classroom_activities_sorted]
 
 		errors = Array.new
+		sorted_cap_ids = Array.new
 		classroom_activities_sorted.each do |index, value|
-
-			cap = ClassroomActivityPairing.where({id: value}).first
-
-			puts "index: #{index}, value: #{value}"
-			if cap
-				
-				cap.sort_order = index
-				if !cap.save
-					errors.push(cap.errors)
-				end
-
-			else
-
-				errors.push({"id" => "invalid classroom activity pairing"})
-
-			end
-
+			sorted_cap_ids[index.to_i] = value.to_i
 		end
 
-		if errors.empty?
-
+		begin
+			ClassroomActivityPairing.sort_activities(sorted_cap_ids)
 			render json: {status: "success"}
-
-		else
-
+		rescue
 			render json: {status: "error", errors: errors}
 
 		end
+
 		
 	end
 

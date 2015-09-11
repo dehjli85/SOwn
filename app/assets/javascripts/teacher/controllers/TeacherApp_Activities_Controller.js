@@ -299,6 +299,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 					indexLayoutView.ui.modalRegion.modal("hide");
 					indexLayoutView.modalRegion.empty();
 					$('.modal-backdrop').remove(); //This is a hack, don't know why the backdrop isn't going away
+					$('body').removeClass('modal-open'); //This is a hack, don't know why the backdrop isn't going away
 					
 					var alertModel = new TeacherAccount.Models.Alert({alertClass: "alert-success", message: "Activity successfully deleted!"});
 					var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});

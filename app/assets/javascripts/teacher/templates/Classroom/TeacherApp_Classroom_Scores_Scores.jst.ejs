@@ -6,25 +6,28 @@
   <form ui-activities-header-form>
     <table id="perf_table" class="table table-condensed table-bordered small" style="table-layout:fixed; width:inherit; padding-top:10px;">
       <thead>
+        
         <tr>
-          <th class="student_header th_left_col" ui-student-header>Activity:</th>
-          
-          <% for(var i = 0; i < activities.length; i++){ %>
-              <th class="activity_header" style="" id="header_<%= i %>" name="<%= activities[i].classroom_activity_pairing_id %>" >
-                <%= activities[i].name %>              
-              </th>             
-          <% } %>
-
-          <th rowspan="2">% At Mastery</th>
-        </tr>
-        <tr>
+          <th style="border-bottom: 0px solid #FFF;" class="th_left_col"></th>
           <th class="student_header due_date th_bottom_row th_left_col">Due Date:</th>
-          
           <% for(var i = 0; i < activities.length; i++){ %>
-              <td style="" id="header_<%= i %>" name="<%= activities[i].classroom_activity_pairing_id %>" class="due_date td_bottom_row" >
-                <%= activities[i].due_date ?  moment(activities[i].due_date).format("MM/DD/YYYY") : "" %>  
+              <td style="" id="header_<%= i %>" name="<%= activities[i].classroom_activity_pairing_id %>" class="due_date td_bottom_row center accept" >
+                <%= activities[i].due_date ?  moment(activities[i].due_date).format("MM/DD") : "" %>  
               </td>             
           <% } %>
+          
+        </tr>
+        <tr>
+          <th style="text-align:left;border-top: 0px solid;" class="student_header th_left_col th_bottom_row" ui-student-header>Students</th>
+
+          <th class="student_header th_left_col" style="text-align:center;" >% At Mastery</th>
+          
+          <% for(var i = 0; i < activities.length; i++){ %>
+              <th class="activity_header accept" style="" id="header_<%= i %>" name="<%= activities[i].classroom_activity_pairing_id %>" >
+                <span><%= activities[i].name %></span>
+              </th>             
+          <% } %>
+          
         </tr>                
       </thead>
       <tbody>    
