@@ -178,7 +178,7 @@ class TeacherAccountController < ApplicationController
 
 		proficient_counts = StudentPerformance.student_performance_proficiencies(classroom.id, params[:search_term], tag_ids, nil, true)
 
-		students = classroom.student_users.as_json	
+		students = classroom.student_users.order("last_name ASC, first_name ASC").as_json	
 
 		# Organize the performance data by student
 
@@ -400,8 +400,7 @@ class TeacherAccountController < ApplicationController
 			ClassroomActivityPairing.sort_activities(sorted_cap_ids)
 			render json: {status: "success"}
 		rescue
-			render json: {status: "error", errors: errors}
-
+			render json: {status: "error", errors: errors, message: "error saving activities sort order"}
 		end
 
 		

@@ -4,31 +4,31 @@
   </div>
 <% }else{ %>
   <form ui-activities-header-form>
-    <table id="perf_table" class="table table-condensed table-bordered small" style="table-layout:fixed; width:inherit; padding-top:10px;">
+    <table id="perf_table" class="table table-condensed table-bordered small scores-table" style="table-layout:fixed; width:inherit; padding-top:10px;">
       <thead>
         
         <tr>
-          <th style="border-bottom: 0px solid #FFF;" class="th_left_col"></th>
-          <th class="student_header due_date th_bottom_row th_left_col">Due Date:</th>
+          <th class="scores-table__th_students" ui-student-header>Students</th>
+          <th class="scores-table__th_activity scores-table__th_activity_left-right-bordered">
+            <div class="scores-table__due-date scores-table__due-date_label">
+              Due Date:
+            </div>
+            <div class="scores-table scores-table__activity" ui-mastery-header>
+              % At Mastery
+            </div>
+          </th>
           <% for(var i = 0; i < activities.length; i++){ %>
-              <td style="" id="header_<%= i %>" name="<%= activities[i].classroom_activity_pairing_id %>" class="due_date td_bottom_row center accept" >
-                <%= activities[i].due_date ?  moment(activities[i].due_date).format("MM/DD") : "" %>  
-              </td>             
-          <% } %>
-          
-        </tr>
-        <tr>
-          <th style="text-align:left;border-top: 0px solid;" class="student_header th_left_col th_bottom_row" ui-student-header>Students</th>
-
-          <th class="student_header th_left_col" style="text-align:center;" >% At Mastery</th>
-          
-          <% for(var i = 0; i < activities.length; i++){ %>
-              <th class="activity_header accept" style="" id="header_<%= i %>" name="<%= activities[i].classroom_activity_pairing_id %>" >
-                <span><%= activities[i].name %></span>
+              <th name="<%= activities[i].classroom_activity_pairing_id %>" class="scores-table__th_activity draggable " >
+                <div class="scores-table__due-date">
+                  <%= activities[i].due_date ?  moment(activities[i].due_date).format("MM/DD") : "" %>  
+                </div>
+                <div id="header_<%= i %>" class="scores-table scores-table__activity activity">
+                  <%= activities[i].name %>
+                </div>
               </th>             
           <% } %>
           
-        </tr>                
+        </tr>
       </thead>
       <tbody>    
 

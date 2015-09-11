@@ -64,29 +64,75 @@
 .teacher_app_alert{
   margin: 10px 0px 10px 0px;
 }
-.table-bordered>thead>tr>th.activity_header, .table-bordered>thead>tr>td.activity_header{
 
-  border-bottom-width: 0px;
-  vertical-align:bottom;
+.scores-table>thead>tr>th{
+  padding: 0px;
+}
+
+.scores-table>thead>tr>th.scores-table__th_students{
+  font-weight: bold;
+  vertical-align: bottom;
+  text-align: left;
+  min-width: 200px;
+  padding: 5px;
+}
+
+.scores-table>thead>tr>th.scores-table__th_activity{
+  vertical-align: top;
+  text-align: center;
+  min-width: 100px;
+}
+
+.scores-table>thead>tr>th.scores-table__th_activity_left-right-bordered, .scores-table>tbody>tr>td.scores-table__td_activity_left-right-bordered{
+  border-right: 2px solid #DDDDDD;
+  border-left: 2px solid #DDDDDD;
 
 }
 
-.table-bordered>thead>tr>th.student_header, .table-bordered>thead>tr>td.student_header{
+.scores-table>thead>tr>th>div.scores-table__due-date{
+  font-weight: normal;
+  font-style: italic;
+  min-height: 30px;
+  border-bottom: 1px solid #DDDDDD;
+  padding: 5px;
+}
 
-  border-bottom-width: 0px;
-  min-width:150px; 
-  vertical-align:bottom;
+.scores-table>thead>tr>th>div.scores-table__due-date_label{
   text-align: right;
-
 }
 
-.table-bordered>thead>tr>th.th_bottom_row, .table-bordered>thead>tr>td.td_bottom_row{
-  border-bottom: 2px solid #CCCCCC;
+.scores-table>thead>tr>th>div.scores-table__activity{
+  font-weight: bold;
+  padding: 5px;
 }
 
-.table-bordered>thead>tr>th.th_left_col, .table-bordered>tbody>tr>td.td_left_col{
-  border-right: 2px solid #CCCCCC;
+.scores-table>tbody>tr>td.scores-table__score{
+  text-align: center;
 }
+
+// .table-bordered>thead>tr>th.activity_header, .table-bordered>thead>tr>td.activity_header{
+
+//   border-bottom-width: 0px;
+//   vertical-align:bottom;
+
+// }
+
+// .table-bordered>thead>tr>th.student_header, .table-bordered>thead>tr>td.student_header{
+
+//   border-bottom-width: 0px;
+//   min-width:150px; 
+//   vertical-align:bottom;
+//   text-align: right;
+
+// }
+
+// .table-bordered>thead>tr>th.th_bottom_row, .table-bordered>thead>tr>td.td_bottom_row{
+//   border-bottom: 2px solid #CCCCCC;
+// }
+
+// .table-bordered>thead>tr>th.th_left_col, .table-bordered>tbody>tr>td.td_left_col{
+//   border-right: 2px solid #CCCCCC;
+// }
 
 #perf_table{
   border: 2px solid #CCC;
@@ -95,10 +141,6 @@
 .due_date{
   font-style: italic;
   font-weight: normal;
-}
-
-.grayed{
-  background-color: #DDD;
 }
 
 /*

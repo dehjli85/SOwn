@@ -250,14 +250,14 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				console.log('post request made');
 			})
 			.done(function(data) {
-				
+
 				if(data.status == "success"){
 
 					Scores.Controller.showClassroomScores(scoresLayoutView, scoresLayoutView.model.attributes.classroomId, scoresLayoutView.model.attributes.searchTerm, scoresLayoutView.model.attributes.tagIds);
 					
 				}
 				else if(data.status == "error"){
-					console.log(data.errors);
+					console.log(data);
 				}
 				
 		  })

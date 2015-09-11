@@ -1,11 +1,11 @@
   <td class='td_left_col'><%= display_name %></td>
-  <td class="<%= proficiency_color %> center td_left_col"><%= Math.round(proficiency,1) %>%</td>
+  <td class="<%= proficiency_color %> scores-table__score scores-table__td_activity_left-right-bordered"><%= Math.round(proficiency,1) %>%</td>
   <% for( var i = 0; i < activitiesCount; i++){ %>
 
     <% if (student_performance[i] == null){ %>
       <td class="center <%= activities[i].due_date != null && moment(activities[i].due_date) < new Date() ? 'danger-sown' : ''%>"></td>
     <% }else{ %>
-      <td class="center <%= student_performance[i].performance_color %>">
+      <td class="scores-table__score <%= student_performance[i].performance_color %>">
         <%= student_performance[i].performance_pretty %>
         <% if(student_performance[i].requires_verification == 't' && student_performance[i].verified != 't') {%>
           <br /><a href="#" name="<%= student_performance[i].id%>" ui-verify-a>Verify</a> 

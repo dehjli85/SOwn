@@ -54,7 +54,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		    	activitiesIds.push(this.model.attributes.student_performance[i].activity_id);
 	    	}
 	    }
-	    console.log(activitiesIds);
 
 	    this.model.attributes.activitiesDue = $.unique(activitiesIds).length
 
@@ -148,24 +147,34 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		ui:{
-			studentHeader: "[ui-student-header]"
+			studentHeader: "[ui-student-header]",
+			masteryHeader: "[ui-mastery-header]"
 		},
 
 		events: {
-			"dblclick .activity_header": "sortActivityHeader",
-			"click @ui.studentHeader": "sortByName"
+			"dblclick .activity": "sortActivityHeader",
+			"click @ui.studentHeader": "sortByName",
+			"click @ui.masteryHeader" : "sortByMastery"
 		},
 
 		sortByName: function(){
 			this.collection.comparator = function(item){
-				return [item.get("student").last_name, item.get("student").first_name];
+				return [item.get("last_name"), item.get("first_name")];
+				
+			}
+			this.collection.sort();
+		},
+
+		sortByMastery: function(){
+			this.collection.comparator = function(item){
+				return -[parseInt(item.get("proficiency"))];
 				
 			}
 			this.collection.sort();
 		},
 
 		sortActivityHeader: function(e){
-
+			console.log(e);
 			index = parseInt($(e.target).attr("id").replace("header_",""));
 			
 			this.collection.comparator = function(item){
@@ -215,13 +224,13 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		onRender: function(){
-			// if(this.model.attributes.searchTerm == null && this.model.attributes.tagId == null)
-				// this.initializeDragTable();
+			if(this.model.attributes.searchTerm == null && this.model.attributes.tagId == null)
+				this.initializeDragTable();
 		},
 
 		onShow: function(){
-			// if(this.model.attributes.searchTerm == null && this.model.attributes.tagId == null)
-				// this.initializeDragTable();
+			if(this.model.attributes.searchTerm == null && this.model.attributes.tagId == null)
+				this.initializeDragTable();
 		},
 
 		initializeDragTable: function(){
@@ -231,16 +240,20 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 					persistState: function(table){
 						obj.saveActivitiesSortOrder(table, obj);
 					},
-					dragaccept: '.accept',
-					maxMovingRows: 2
+					dragaccept: '.draggable',
+					maxMovingRows: 1
 				}
 			);
 		},
 
 		saveActivitiesSortOrder: function(table, obj){
+
+			var index = 0;
+			//loop through each <th> tag in the table
 			table.el.find('th').each(function(i) { 
-	      if(this.id != '') {
-	      	table.sortOrder["classroom_activities_sorted[" + (i-1) +"]"]=$(this).attr("name");
+	      if($(this).hasClass('draggable')) { //ignore the rows without and id
+	      	table.sortOrder["classroom_activities_sorted[" + index +"]"]=$(this).attr("name");
+	      	index++;
 	      } 
 	    }); 
 	    obj.model.attributes.activitiesSortOrder = table.sortOrder;

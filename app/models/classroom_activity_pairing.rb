@@ -50,6 +50,7 @@ class ClassroomActivityPairing < ActiveRecord::Base
     classroom_id = ClassroomActivityPairing.find(sorted_cap_ids[0]).classroom_id
     cap_ids = ClassroomActivityPairing.where(classroom_id: classroom_id).pluck(:id).sort
     if !sorted_cap_ids.sort.eql?(cap_ids)
+      puts "Incomplete ClassroomActivityPairing Set Error"
       raise "Incomplete ClassroomActivityPairing Set Error"
     end
 
@@ -62,7 +63,7 @@ class ClassroomActivityPairing < ActiveRecord::Base
           errors.push(cap.errors)
         end
       else
-
+        puts "Invalid ClassroomActivityPairing Error"
         raise "Invalid ClassroomActivityPairing Error"
 
       end
