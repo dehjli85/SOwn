@@ -179,12 +179,12 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		onRender: function(){
 			// if(this.model.attributes.searchTerm == null && this.model.attributes.tagId == null)
-				this.initializeDragTable();
+				// this.initializeDragTable();
 		},
 
 		onShow: function(){
 			// if(this.model.attributes.searchTerm == null && this.model.attributes.tagId == null)
-				this.initializeDragTable();
+				// this.initializeDragTable();
 		},
 
 		initializeDragTable: function(){
