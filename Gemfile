@@ -42,7 +42,7 @@ gem "omniauth-google-oauth2", "~> 0.2.1"
 
 #gem 'jquery-turbolinks'
 
-gem "twitter-bootstrap-rails"
+# gem "twitter-bootstrap-rails"
 
 gem 'jquery-tablesorter'
 

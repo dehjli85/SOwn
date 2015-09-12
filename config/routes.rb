@@ -140,6 +140,7 @@ Rails.application.routes.draw do
   post 'admin/become_user' => 'admin#become_user'
 
   root to: "public_pages#home"
+  # root to: "public_pages#index"
 
   resources :sessions, only: [:create, :destroy]
   resources :classroom
