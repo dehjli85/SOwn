@@ -261,6 +261,14 @@ class PublicPagesController < ApplicationController
 		
 	end
 
+	def teacher_sign_up
+		
+	end
+
+	def student_sign_up
+		
+	end
+
 	def signout
 
 		session[:teacher_user_id] = nil
