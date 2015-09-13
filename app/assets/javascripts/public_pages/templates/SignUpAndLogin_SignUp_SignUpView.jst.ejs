@@ -35,7 +35,7 @@
               <form>
               <h4 class="heading-mini">Sign up</h4><hr>
               <div class="row">
-              	<div class="col-md-12">
+              	<div>
               		<div class="form-group form-group_sign-up" ui-google-sign-up-div>					
 										<div class="col-md-8 col-md-offset-2">
 											<a id="signinButton" class='btn btn-block theme-btn-color btn-google-plus' ui-google-sign-up-button><i class="fa fa-google-plus"></i> Sign up with Google</a>					
@@ -54,24 +54,33 @@
 										</div>
 									</div>	
 								</div>
-
-									<div ui-standard-form-div style="display:none">
-										<div class="col-md-6 margin-btm-20">
-	                      <input type="text" class="form-control" placeholder="First Name..." id="inputFirstName" name="user[first_name]">
-	                  </div>
-	                  <div class="col-md-6 margin-btm-20">
-                      <input type="text" class="form-control" placeholder="Last Name..." id="inputLastName" name="user[last_name]">
-                  	</div>
-                  	<div class="col-md-6 margin-btm-20">
-                      <input type="email" class="form-control" placeholder="Email.." name="user[email]">
-                  	</div>
-                  	<div class="col-md-6 margin-btm-20">
-                      <input type="password" class="form-control" placeholder="Password..." name="user[password]">
-                  	</div>
-										<div class="col-md-8 col-md-offset-2">
-                      <button type="submit" class="btn btn-block theme-btn-color js-sign-up" ui-sign-up-button>Sign up</button>
-                  	</div>
-									</div>
+  								<div ui-standard-form-div style="display:none">
+                    <div class="form-group" ui-first-name-form-group-div>
+  										<div class="col-md-6 margin-btm-20" ui-first-name-input-div>
+  	                      <input type="text" class="form-control" placeholder="First Name..." id="inputFirstName" name="user[first_name]">
+  	                  </div>
+                    </div>
+                    <div class="form-group" ui-last-name-form-group-div>
+  	                  <div class="col-md-6 margin-btm-20" ui-last-name-input-div>
+                        <input type="text" class="form-control" placeholder="Last Name..." id="inputLastName" name="user[last_name]">
+                    	</div>
+                    </div>
+                    <div class="form-group" ui-email-form-group-div>
+                    	<div class="col-md-6 margin-btm-20" ui-email-input-div>
+                        <input type="email" class="form-control" placeholder="Email.." name="user[email]">
+                    	</div>
+                    </div>
+                    <div class="form-group" ui-password-form-group-div>
+                    	<div class="col-md-6 margin-btm-20" ui-password-input-div>
+                        <input type="password" class="form-control" placeholder="Password..." name="user[password]">
+                    	</div>
+                    </div>
+                    <div class="form-group">
+  										<div class="col-md-8 col-md-offset-2">
+                        <button type="submit" class="btn btn-block theme-btn-color js-sign-up" ui-sign-up-button>Sign up</button>
+                    	</div>
+                    </div>
+  								</div>
 										
 										
               </div>

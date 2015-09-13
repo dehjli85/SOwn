@@ -84,7 +84,7 @@ class StudentUser < ActiveRecord::Base
 
   def has_password_or_external_authentication
     if self.password_digest.nil? && self.provider.nil?
-      errors.add(:password, 'cannot be blank, or you must sign up with Google Authentication')
+      errors.add(:password, 'can\'t be blank')
     end
   end
   

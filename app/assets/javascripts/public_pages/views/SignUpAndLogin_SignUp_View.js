@@ -46,7 +46,7 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 		},
 
 		showErrors: function(errors){
-			var jsonErrors = $.parseJSON(errors);
+			var jsonErrors = errors;
 			if(jsonErrors.first_name){
 				this.ui.firstNameFormGroup.addClass("has-error");
 				$('<label class="control-label error-label" for="inputFirstName">First Name ' + jsonErrors.first_name[0] + '</label>').appendTo(this.ui.firstNameInputDiv);
