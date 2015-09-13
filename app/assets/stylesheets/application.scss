@@ -40,19 +40,26 @@
 
 .success-sown{
 	background-color: #6BBD49;
+  color:#333333;
 }
 
 .danger-sown{
 	background-color:#D56464;
+  color:#333333;
 }
 
 .warning-sown{
 	background-color:#ECD76C;
+  color:#333333;
 }
 
 .form-label{
 	padding: 6px 12px 6px 0px;
 	font-weight: normal;
+}
+
+.verify_link{
+  color:#FFFFFF;
 }
 
 a:hover {
