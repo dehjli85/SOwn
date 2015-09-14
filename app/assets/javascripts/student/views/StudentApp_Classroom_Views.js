@@ -50,7 +50,22 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		},
 
 		onChildviewFilterTagClassroomView: function(view){
-			StudentAccount.StudentApp.Classroom.Controller.showClassroomScores(this, this.model.attributes.classroomId, null, view.model.id);
+
+			if(view.ui.label.hasClass("selected_tag")){
+				view.ui.label.removeClass("selected_tag");
+				
+				var index = $.inArray(view.model.attributes.id, this.model.attributes.tags);
+				this.model.attributes.tags.splice(index, 1);
+
+			}
+			else{
+
+				view.ui.label.addClass("selected_tag");
+				this.model.attributes.tags.push(view.model.attributes.id);
+
+			}
+
+			StudentAccount.StudentApp.Classroom.Controller.showClassroomScores(this, this.model.attributes.classroomId, null, this.model.attributes.tags);
 		},
 
 		
@@ -467,6 +482,11 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	Classroom.TagView = Marionette.ItemView.extend({
 		template: JST["student/templates/StudentApp_Classroom_Tag"],			
 		tagName: "li",
+
+		ui: {
+			label: "a"
+		},
+
 		triggers: {
 			"click a":"filter:tag:classroom:view"			
 		}

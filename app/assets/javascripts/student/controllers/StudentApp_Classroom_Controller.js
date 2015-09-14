@@ -4,8 +4,17 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 	Classroom.Controller = {
 
+		// startClassroomApp: function(classroomId, subapp){
+			
+		// 	var classroomLayoutView = Classroom.Controller.showClassroomLayout(classroomId);
+
+		// 	StudentAccount.StudentApp.Classroom.Controller.showClassroomHeader(classroomLayout,classroomId, subapp);
+
+
+		// },
+
 		showClassroomLayout: function(classroomId){
-			var classroom = new Backbone.Model({classroomId: classroomId})
+			var classroom = new Backbone.Model({classroomId: classroomId, tags: []})
 			var layoutView = new StudentAccount.StudentApp.Classroom.LayoutView({model: classroom});			
 			StudentAccount.rootView.mainRegion.show(layoutView);
 
@@ -35,17 +44,22 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		  .always(function() {
 		   
 			});
+
+			Classroom.Controller.showClassroomSearchBarView(classroomLayoutView, null);
+
+			Classroom.Controller.showClassroomTagCollectionView(classroomLayoutView, classroomId);
 			
 		},
 
-		showClassroomScores: function(classroomLayoutView, classroomId, searchTerm, tagId){			
-
-			//show search bar
+		showClassroomSearchBarView: function(classroomLayoutView, searchTerm){
 			var searchBarModel = new Backbone.Model({searchTerm: searchTerm})
    		var searchBarView = new StudentAccount.StudentApp.Classroom.SearchBarView({model: searchBarModel});
    		classroomLayoutView.searchRegion.show(searchBarView);
 
-   		//show the tags for the classroom activities
+		},
+
+		showClassroomTagCollectionView: function(classroomLayoutView, classroomId){
+			//show the tags for the classroom activities
    		var jqxhr = $.get("/student/classroom_tags?classroom_id=" + classroomId, function(){
 				console.log('get request made');
 			})
@@ -63,7 +77,14 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		  .always(function() {
 		   
 			});
+		},
+
+		showClassroomScores: function(classroomLayoutView, classroomId, searchTerm, tagIds){			
+
+			//show search bar
+			// Classroom.Controller.showClassroomSearchBarView(classroomLayoutView, searchTerm);
    		
+   		// Classroom.Controller.showClassroomTagCollectionView(classroomLayoutView, classroomId);
 
    		//show scores view
    		var getURL = "/student/classroom_activities_and_performances?classroom_id=" + classroomId 
@@ -72,10 +93,11 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 				classroomLayoutView.model.attributes.tagId = null;
 				getURL +=  "&search_term=" + encodeURIComponent(searchTerm)
 			}
-			if(tagId){
+			if(tagIds){
 				classroomLayoutView.model.attributes.searchTerm = null;
-				classroomLayoutView.model.attributes.tagId = tagId;
-				getURL +=  "&tag_id=" + tagId
+				classroomLayoutView.model.attributes.tagIds = tagIds;
+				getURL +=  "&tag_ids=" + encodeURIComponent(JSON.stringify(tagIds));
+
 			}
 
 			var jqxhr = $.get(getURL, function(){
@@ -144,7 +166,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	     		classroomLayoutView.ui.modalRegion.modal("hide");
 	     		classroomLayoutView.modalRegion.empty();
 
-	     		Classroom.Controller.showClassroomScores(classroomLayoutView, classroomLayoutView.model.get("classroomId"));
+	     		Classroom.Controller.showClassroomScores(classroomLayoutView, classroomLayoutView.model.get("classroomId"), classroomLayoutView.model.get("searchTerm"), classroomLayoutView.model.get("tags"));
 	     		
 
 	     	}
