@@ -397,4 +397,42 @@ class StudentPerformance < ActiveRecord::Base
 
 	end
 
+	# return the number of performances from "real" Student Users
+  def self.count
+  	exclude_student_user_ids = StudentUser.where("email like '%@sowntogrow.com%'").pluck(:id)
+    StudentPerformance.where("student_user_id not in (?)", exclude_student_user_ids).count
+  end
+
+	# return the number of performances from "real" Student Users by week
+  def self.create_count_by_week
+    exclude_student_user_ids = StudentUser.where("email like '%@sowntogrow.com%'").pluck(:id)
+    performances = StudentPerformance.where("student_user_id not in (?)", exclude_student_user_ids)
+
+    hash = {}
+    performances.each do |performance|
+      week = performance.created_at.strftime('(%Y) %W')
+      if(hash[week])
+        hash[week] += 1
+      else
+        hash[week] = 1
+      end
+    end
+
+    hash
+  end
+	
+	# return the cumulative number of performances from "real" Student Users by week
+  def self.cumulative_create_count_by_week
+    hash = self.create_count_by_week
+
+    cum = 0
+    hash.each do |key, value|
+      cum += value
+      hash[key] = cum
+    end
+
+    hash
+  end
+
+
 end
