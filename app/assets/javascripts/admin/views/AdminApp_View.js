@@ -41,7 +41,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 
 	AdminApp.MainView = Marionette.LayoutView.extend({				
 			template: JST["admin/templates/AdminApp_Main"],
-			className: "container",
+			className: "col-md-6 col-md-offset-3 my-login-form",
 
 			triggers: {
 				"click @ui.googleLogInButton": "log:in:with:google"

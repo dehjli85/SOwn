@@ -39,6 +39,13 @@ h3.subtitle_sown{
   z-index: 2;
 }
 
+.header-main_pp{
+  max-height: 7vh;
+}
+
+.main-flex-slider_pp-full-page, .main-flex-slider_pp-full-page>ul>li>figure>img{
+  min-height: 93vh;
+}
 
 /*
  * Sign Up Styles
