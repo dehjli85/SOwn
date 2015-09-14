@@ -84,11 +84,17 @@ PublicPages.module("SignUpAndLoginApp.Login", function(Login, PublicPages, Backb
 
 				if (data.login_response === 'success'){
 		    	if (data.user_type === 'teacher') {
+
+						ga('send', 'event', 'public_pages', 'google_login', 'teacher');
+
 		    		//redirect to teacher homepage
 		    		window.location.replace("teacher_home");
 		    	}
 		    	else if (data.user_type === 'student') {
 		    		//redirect to the student homepage
+						
+						ga('send', 'event', 'public_pages', 'google_login', 'student');
+
 		    		window.location.replace("student_home");
 		    	}
 		    }
