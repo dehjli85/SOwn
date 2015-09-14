@@ -123,12 +123,13 @@ class Classroom < ActiveRecord::Base
 	# Each Hash represents an Activity. In addition to having keys representing all the Activity fields, there is also a "student performances" key
 	# The value of the "student performances" key is an Array of all the Student Performances entered by the Student User for that Activity in the Classroom
 	# Activities hidden from the Student User are excluded
-	def activities_and_performances(student_user_id, search_hash={search_term: nil, search_tag: nil })
+	def activities_and_performances(student_user_id, search_hash={search_term: nil, tag_ids: nil })
 
-		unsorted_activities = Activity.activities_with_pairings(self.id, search_hash[:search_term], search_hash[:search_tag], false)
+		unsorted_activities = Activity.activities_with_pairings(self.id, search_hash[:search_term], search_hash[:tag_ids], false)
 		
 		# Sort activities based on their sort order		
-		# There are potentially null objects in the sorted array based on what the teacher has hidden
+		# Sorting is necessary because some activities may get filtered out based on searching or being hidden
+		# There will potentially be null objects in the sorted array based on what the teacher has hidden
 		sorted_activities = Array.new
     unsorted_activities.each do |activity|
       activity["student_performances"] = Array.new
@@ -136,7 +137,7 @@ class Classroom < ActiveRecord::Base
     end
 
     # Get all Student Performances for the Student User in the Classroom (excluding hidden Activities)
-    performances_array = StudentPerformance.student_performances_with_verification(self.id, search_hash[:search_term], search_hash[:search_tag], student_user_id, false)
+    performances_array = StudentPerformance.student_performances_with_verification(self.id, search_hash[:search_term], search_hash[:tag_ids], student_user_id, false)
     performances_array.each do |performance|
 
       sort_order = performance["sort_order"].to_i

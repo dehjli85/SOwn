@@ -134,22 +134,24 @@ class StudentAccountController < ApplicationController
   end
 
   def classroom_activities_and_performances
-      
-      classroom = Classroom.joins(:classroom_student_users)
-        .where("student_user_id = ? and classrooms.id = ?", @current_student_user.id, params[:classroom_id])
-        .first
+    
+    tag_ids = params[:tag_ids] && !params[:tag_ids].eql?("[]") ? JSON.parse(params[:tag_ids]) : nil
+    
+    classroom = Classroom.joins(:classroom_student_users)
+      .where("student_user_id = ? and classrooms.id = ?", @current_student_user.id, params[:classroom_id])
+      .first
 
-      if !classroom.nil?
+    if !classroom.nil?
 
-        activities = classroom.activities_and_performances(@current_student_user.id, {search_term: params[:search_term], search_tag: params[:tag_id]})        
+      activities = classroom.activities_and_performances(@current_student_user.id, {search_term: params[:search_term], tag_ids: tag_ids})        
 
-        render json: {status: "success", activities:activities}
+      render json: {status: "success", activities:activities}
 
-      else
+    else
 
-        render json: {status: "error", message: "invalid-classroom"}
+      render json: {status: "error", message: "invalid-classroom"}
 
-      end  
+    end  
 
   end
 
