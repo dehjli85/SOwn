@@ -65,6 +65,8 @@ Rails.application.routes.draw do
   post 'teacher_google_sign_up' => 'public_pages#teacher_google_sign_up'
   post 'student_google_sign_up' => 'public_pages#student_google_sign_up'
   post 'google_login_post' => 'public_pages#google_login_post'
+  post 'teacher_sign_up' => 'public_pages#teacher_sign_up'
+  post 'student_sign_up' => 'public_pages#student_sign_up'
   
   get 'auth/:provider/callback', to: 'public_pages#google_auth_callback'
   get 'signout', to: 'public_pages#signout', as: 'signout'

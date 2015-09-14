@@ -257,6 +257,25 @@ class PublicPagesController < ApplicationController
 		
 	end
 
+	def teacher_sign_up
+		teacher = TeacherUser.new(params.require(:user).permit(:first_name, :last_name, :email, :password))
+		if(teacher.save)
+			render json: {status: "success"}
+		else
+			render json: {status: "error", errors: teacher.errors}
+		end
+
+	end
+
+	def student_sign_up
+		student = StudentUser.new(params.require(:user).permit(:first_name, :last_name, :email, :password))
+		if(student.save)
+			render json: {status: "success"}
+		else
+			render json: {status: "error", errors: student.errors}
+		end		
+	end
+	
 	def signout
 
 		session[:teacher_user_id] = nil

@@ -23,9 +23,9 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 
 			var postUrl;
 			if(signUpView.model.attributes.user_type == "Teacher")
-				postUrl = "/teacher_users";
+				postUrl = "/teacher_sign_up";
 			else if(signUpView.model.attributes.user_type == "Student")
-				postUrl = "/student_users";
+				postUrl = "/student_sign_up";
 
 			var jqxhr = $.post( postUrl, signUpView.ui.signUpForm.serialize(), function() {
 			  console.log("post_made");
