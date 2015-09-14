@@ -4,7 +4,7 @@ PublicPages.module("SignUpAndLoginApp.Home", function(SignUpAndLoginApp, PublicP
 	
 	SignUpAndLoginApp.MainView = Marionette.LayoutView.extend({				
 			template: JST["public_pages/templates/SignUpAndLogin_Home"],
-			className: "container",
+			className: "",
 
 			triggers: {
 				"click @ui.loginButton" : "home:login",

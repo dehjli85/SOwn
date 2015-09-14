@@ -111,6 +111,7 @@ class StudentUser < ActiveRecord::Base
     hash.each do |key, value|
       cum += value
       hash[key] = cum
+
     end
 
     hash

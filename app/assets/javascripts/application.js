@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require twitter/bootstrap
+//= require bootstrap.min
 //= require bootstrap-switch
 //= require jquery-tablesorter
 //= require jquery.dragtable

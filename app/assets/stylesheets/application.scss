@@ -10,9 +10,16 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require bootstrap.min
  *= require bootstrap3-switch
  *= require jquery-ui
  *= require dragtable
+ *= require bizwrap/ionicons
+ *= require bizwrap/style
+ *= require bizwrap/flexslider
+ *= require bizwrap/animate
+ *= require bizwrap/_variables
+ *= require bizwrap/_mixins
  *= require_tree .
  *= require_self
  */
@@ -20,32 +27,39 @@
 
 @font-face {
  font-family: 'Glyphicons Halflings';
- src: url('/assets/fonts/glyphicons-halflings-regular.eot');
- src: url('/assets/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
- url('/assets/fonts/glyphicons-halflings-regular.woff') format('woff'),
- url('/assets/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
- url('/assets/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+ src: font-url('/assets/fonts/glyphicons-halflings-regular.eot');
+ src: font-url('/assets/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+ font-url('/assets/fonts/glyphicons-halflings-regular.woff') format('woff'),
+ font-url('/assets/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
+ font-url('/assets/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
  body{
-  background-color: #f1f1f1;
+  // background-color: #f1f1f1;
  }
 
 .success-sown{
 	background-color: #6BBD49;
+  color:#333333;
 }
 
 .danger-sown{
 	background-color:#D56464;
+  color:#333333;
 }
 
 .warning-sown{
 	background-color:#ECD76C;
+  color:#333333;
 }
 
 .form-label{
 	padding: 6px 12px 6px 0px;
 	font-weight: normal;
+}
+
+.verify_link{
+  color:#FFFFFF;
 }
 
 a:hover {
@@ -59,7 +73,6 @@ a:hover {
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  padding-top: 50px;
 }
 
 
@@ -91,7 +104,7 @@ body {
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
-    top: 51px;
+    top: 70px;
     bottom: 0;
     left: 0;
     z-index: 1000;
@@ -139,6 +152,10 @@ body {
 /*
  * Main content
  */
+
+.row_main{
+  padding-top:70px;
+}
 
 .main {
   padding: 30px 30px 30px 30px;

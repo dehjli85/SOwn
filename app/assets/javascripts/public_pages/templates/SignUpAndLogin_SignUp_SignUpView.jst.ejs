@@ -1,79 +1,115 @@
-<div class="row">
-	<div class="col-md-4 col-md-offset-4">
-		<div class="center">
-			<h4>Get Started as a <%= user_type %>!</h4>
-		</div>
-		<form class="form-horizontal" id="sign-up-form">
-			<div style="display:none">
-		    <input name="utf8" type="hidden" value="✓">
-		    <input name="authenticity_token" type="hidden" value="<%= $('meta[name="csrf-token"]').attr('content') %>">
-		  </div>
-		  <div class="form-group" ui-google-sign-up-div>					
-				<div class="col-md-9 col-md-offset-3">
-					<a id="signinButton" class='btn btn-block btn-primary btn-google-plus' ui-google-sign-up-button><i class="fa fa-google-plus"></i> Sign up with Google</a>					
-				</div>
-			</div>
-			
-			<div class="form-group" ui-or-div>
-				<div class="col-md-9 col-md-offset-3">
-					<center>OR</center>
-				</div>
-			</div>
+<header class="header-main">
+	<div class="navbar navbar-default sticky-nav sticky" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Sown To Grow</a>
+    	</div>
+          <div class="navbar-collapse collapse">
 
-			<div class="form-group" ui-create-account-div>					
-				<div class="col-md-9 col-md-offset-3">
-					<a class="btn btn-primary btn-block js-sign-up" ui-create-account-button>Create an account</a>
-				</div>
-			</div>
+            <ul class="nav navbar-nav navbar-right">
+                
+            </ul>
 
-			<div ui-standard-form-div style="display:none">
-				<div class="form-group" ui-first-name-form-group-div>
-					<label class="col-md-3 control-label">First Name:</label>
-					<div class="col-md-9" ui-first-name-input-div>
-						<input class="form-control" id="inputFirstName" name="user[first_name]" placeholder="Jane" type="text">					
-					</div>
-				</div>
-				<div class="form-group" ui-last-name-form-group-div>
-					<label class="col-md-3 control-label">Last Name:</label>
-					<div class="col-md-9" ui-last-name-input-div>
-						<input class="form-control" id="inputLastName" name="user[last_name]" placeholder="Doe" type="text">					
-					</div>
-				</div>
-				
-				<div class="form-group" ui-email-form-group-div>
-					<label class="col-md-3 control-label">Email:</label>
-					<div class="col-md-9" ui-email-input-div>
-						<input class="form-control" id="inputEmail" name="user[email]" placeholder="johndoe@example.com" type="email">					
-					</div>
-				</div>
-				<div class="form-group" ui-password-form-group-div>
-					<label class="col-md-3 control-label">Password:</label>
-					<div class="col-md-9" ui-password-input-div>
-						 <input class="form-control" id="inputPassword" name="user[password]" placeholder="*****" type="password">					
-					</div>
-				</div>
-				<div class="form-group">					
-					<div class="col-md-9 col-md-offset-3">
-						<input class="btn btn-primary btn-block js-sign-up" name="commit" type="submit" value="Sign Up" ui-sign-up-button>
-					</div>
-				</div>
-			</div>
-			
-			<div class="form-group">
-				<div class="col-md-9 col-md-offset-3">
-					<p>Already have an account?  <a href="/#login">Log in</a></p>
-				</div>
-			</div>
+          </div><!--/.nav-collapse -->
+      </div><!--/.container-->
+  </div><!--navigation end-->
+</header><!--header main end--> 
+<section id="content-region-3" class="padding-40 page-tree-bg">
+  <div class="container">
+      <h3 class="page-tree-text">
+          Create a new <%= user_type %> account!
+      </h3>
+  </div>
+</section><!--page-tree end here-->
+<div class="space-70"></div>
+<div class="container">
+  <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+          <div class="my-login-form">
+              <form>
+              <h4 class="heading-mini">Sign up</h4><hr>
+              <div class="row">
+              	<div>
+              		<div class="form-group form-group_sign-up" ui-google-sign-up-div>					
+										<div class="col-md-8 col-md-offset-2">
+											<a id="signinButton" class="btn btn-lg btn-block theme-btn-color btn-google-plus btn_sign-up" ui-google-sign-up-button><i class="fa fa-google-plus"></i> Sign up with Google</a>					
+										</div>
+									</div>
 
-		</form>
-		
+              		<div class="form-group form-group_sign-up" ui-or-div>
+										<div class="col-md-8 col-md-offset-2">
+											<div class="center">OR</div>
+										</div>
+									</div>
 
-			
-		
-	</div>
+									<div class="form-group form-group_sign-up" ui-create-account-div>					
+										<div class="col-md-8 col-md-offset-2">
+											<a class="btn btn-lg theme-btn-color btn-block js-sign-up btn_sign-up" ui-create-account-button>Create an account</a>
+										</div>
+									</div>	
+								</div>
+  								<div ui-standard-form-div style="display:none">
+                    <div class="form-group" ui-first-name-form-group-div>
+  										<div class="col-md-6 margin-btm-20" ui-first-name-input-div>
+  	                      <input type="text" class="form-control" placeholder="First Name..." id="inputFirstName" name="user[first_name]">
+  	                  </div>
+                    </div>
+                    <div class="form-group" ui-last-name-form-group-div>
+  	                  <div class="col-md-6 margin-btm-20" ui-last-name-input-div>
+                        <input type="text" class="form-control" placeholder="Last Name..." id="inputLastName" name="user[last_name]">
+                    	</div>
+                    </div>
+                    <div class="form-group" ui-email-form-group-div>
+                    	<div class="col-md-6 margin-btm-20" ui-email-input-div>
+                        <input type="email" class="form-control" placeholder="Email.." name="user[email]">
+                    	</div>
+                    </div>
+                    <div class="form-group" ui-password-form-group-div>
+                    	<div class="col-md-6 margin-btm-20" ui-password-input-div>
+                        <input type="password" class="form-control" placeholder="Password..." name="user[password]">
+                    	</div>
+                    </div>
+                    <div class="form-group">
+  										<div class="col-md-8 col-md-offset-2">
+                        <button type="submit" class="btn btn-lg btn-block theme-btn-color js-sign-up" ui-sign-up-button>Sign up</button>
+                    	</div>
+                    </div>
+  								</div>
+										
+										
+              </div>
+              <hr>
+              <div class="form-btm-link text-center">
+               <a href="#login">Already have an account? </a>
+              </div>
+          </form>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="space-70"></div><div class="space-30"></div>
 
 
-</div>  
-
+<div id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 margin-btm-20">
+                <div class="footer-col">
+                    <h3>contact info</h3>
+                    <p><i class="ion-home"></i> 515 Crofton Avenue Oakland, CA 94610 </p>
+                    <p><i class="ion-iphone"></i> (650) 485-5534</p>
+                    <p><i class="ion-email"></i> founders@sowntogrow.com</p>
+                </div>
+            </div><!--col-4 end-->
+        </div><!--footer main row end-->  
+    </div><!--container-->
+</div><!--footer main end-->
 
 
