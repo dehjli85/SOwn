@@ -509,7 +509,7 @@ h3.heading-sec {
 }
 
 .slider-overlay {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6);
   background-image: url("pattern.png");
   background-repeat: repeat;
   position: absolute;
