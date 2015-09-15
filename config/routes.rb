@@ -140,6 +140,7 @@ Rails.application.routes.draw do
   post 'admin/search_users' => 'admin#search_users'
   get 'admin/sign_out' => 'admin#sign_out'
   post 'admin/become_user' => 'admin#become_user'
+  get 'admin/summary_metrics' => 'admin#summary_metrics'
 
   root to: "public_pages#home"
   # root to: "public_pages#index"

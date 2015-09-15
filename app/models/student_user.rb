@@ -92,12 +92,18 @@ class StudentUser < ActiveRecord::Base
     students = StudentUser.where("email not like '%@sowntogrow.com%'")
     hash = {}
     students.each do |student|
-      week = student.created_at.strftime('(%Y) %W')
-      if(hash[week])
-        hash[week] += 1
+      year = student.created_at.strftime('%Y')
+      week = student.created_at.strftime('%W')
+      if hash[year]
+        if hash[year][week]
+          hash[year][week] += 1
+        else
+          hash[year][week] = 1
+        end
       else
-        hash[week] = 1
+        hash[year] = {}
       end
+
     end
 
     hash
@@ -105,16 +111,22 @@ class StudentUser < ActiveRecord::Base
 
   # return the cumulative number of "real" Student Users by week
   def self.cumulative_create_count_by_week
+
     hash = self.create_count_by_week
+    years = hash.keys.sort
 
     cum = 0
-    hash.each do |key, value|
-      cum += value
-      hash[key] = cum
+    years.each do |year|
 
+      weeks = hash[year].keys.sort
+      weeks.each do |week|
+        cum += hash[year][week]
+        hash[year][week] = cum
+      end
     end
 
     hash
+
   end
 
   
