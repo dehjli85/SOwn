@@ -110,29 +110,6 @@
   text-align: center;
 }
 
-// .table-bordered>thead>tr>th.activity_header, .table-bordered>thead>tr>td.activity_header{
-
-//   border-bottom-width: 0px;
-//   vertical-align:bottom;
-
-// }
-
-// .table-bordered>thead>tr>th.student_header, .table-bordered>thead>tr>td.student_header{
-
-//   border-bottom-width: 0px;
-//   min-width:150px; 
-//   vertical-align:bottom;
-//   text-align: right;
-
-// }
-
-// .table-bordered>thead>tr>th.th_bottom_row, .table-bordered>thead>tr>td.td_bottom_row{
-//   border-bottom: 2px solid #CCCCCC;
-// }
-
-// .table-bordered>thead>tr>th.th_left_col, .table-bordered>tbody>tr>td.td_left_col{
-//   border-right: 2px solid #CCCCCC;
-// }
 
 #perf_table{
   border: 2px solid #CCC;
@@ -142,6 +119,18 @@
   font-style: italic;
   font-weight: normal;
 }
+
+.score_input{
+  padding:0px;
+  border:none;
+}
+
+.table-bordered > tbody > tr > td.score_cell{
+  padding:0px;  
+
+}
+
+
 
 /*
  * TeacherApp Classrooms CSS
@@ -195,3 +184,16 @@ div.no_border{
   font-weight: bold;
   color: red;
  }
+
+ .score-table td{
+  padding: 0px 5px 0px 5px;
+}
+
+.score-table td input{
+  width:75px;
+  margin: 0px 0px 15px 0px;
+}
+
+#inputMinScore{
+  margin-bottom:0px;
+}
