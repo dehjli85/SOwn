@@ -4,11 +4,22 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 	
 	AdminApp.Controller = {
 
+		startAdminApp: function(subapp){
+			var adminHomeLayoutView = AdminApp.Controller.showAdminHomeLayout();
+
+			if(subapp == "users_index"){
+				AdminApp.Controller.showUsersIndex(adminHomeLayoutView);
+			}
+			else if(subapp == "metrics"){
+				AdminApp.Controller.showMetrics(adminHomeLayoutView);
+			}
+		},
+
 		showLoginButton: function(){
 
-			var mainView = new Admin.AdminApp.MainView();
+			var loginFormView = new Admin.AdminApp.LoginFormView();
 
-			Admin.rootView.mainRegion.show(mainView);		
+			Admin.rootView.mainRegion.show(loginFormView);		
 
 		},
 
@@ -32,12 +43,13 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 				if (data.login_response === 'success'){		    	
 					
 					Admin.navigate("users_index");
-					AdminApp.Controller.showUsersIndex();
+					var adminHomeLayoutView = AdminApp.Controller.showAdminHomeLayout();
+					AdminApp.Controller.showUsersIndex(adminHomeLayoutView);
 
 		    }
 		    else{
 		    	if (data.error === 'invalid-credentials') {
-		    		layoutView.flashErrorMessage({message_type: "error", error: "invalid-credentials", message: "Invalid Credentials. Try logging in again."});		    		
+		    		layoutView.flashMessage({message_type: "error", error: "invalid-credentials", message: "Invalid Credentials. Try logging in again."});		    		
 
 		    	}
 		    	
@@ -53,16 +65,74 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			});
 		},
 
-		showUsersIndex: function(){
+		showAdminHomeLayout: function(){
+			var adminHomeLayoutView = new Admin.AdminApp.AdminHomeLayoutView();
+			Admin.rootView.mainRegion.show(adminHomeLayoutView);			
+			return adminHomeLayoutView;
+		},
+
+		showUsersIndex: function(adminHomeLayoutView){
 
 			var model = new Backbone.Model({searchTerm: null})
 
 			var userIndexComposite = new Admin.AdminApp.UserIndexCompositeView({model: model});
-			Admin.rootView.mainRegion.show(userIndexComposite);
+			adminHomeLayoutView.mainAdminHomeRegion.show(userIndexComposite);
 					
 		},
 
-		searchUsers: function(userIndexComposite, searchForm, adminLayoutView){
+		showMetrics: function(adminHomeLayoutView){
+			
+			var getUrl = "/admin/summary_metrics";						
+
+			var jqxhr = $.get(getUrl, function(){
+
+			})
+			.done(function(data) {
+
+				console.log(data);
+
+				if (data.status === 'success'){		    
+					
+					//relabel data for bar graph view
+					var cumStudentUserCounts = data.cumulative_student_user_counts;
+					cumStudentUserCounts.map(function(d){d.x = d.week; d.y = d.count})
+
+					var studentUsersCountModel = new Backbone.Model({data: cumStudentUserCounts, labels:{x: "Week", y: "Student Users"}});
+
+					var studentsBarGraph = new Admin.AdminApp.Metrics.BarGraph({model: studentUsersCountModel});
+					adminHomeLayoutView.vizOne.show(studentsBarGraph);
+
+					studentsBarGraph.showBarGraph();
+
+					var cumStudentPerformanceCounts = data.cumulative_student_performance_counts;
+					cumStudentPerformanceCounts.map(function(d){d.x = d.week; d.y = d.count})
+
+					var studentPerformanceCountModel = new Backbone.Model({data: cumStudentPerformanceCounts, labels:{x: "Week", y: "Student Performances"}});
+
+					var studentPerformanceBarGraph = new Admin.AdminApp.Metrics.BarGraph({model: studentPerformanceCountModel});
+					adminHomeLayoutView.vizTwo.show(studentPerformanceBarGraph);
+
+					studentPerformanceBarGraph.showBarGraph();
+
+		    }
+		    else if (data.status == "error"){
+	    		adminHomeLayoutView.flashErrorMessage({message_type: "error", message: "Error: Unable to fetch summary metrics"});
+		    }
+
+	     	
+	     	
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+
+			
+		},
+
+		searchUsers: function(userIndexComposite, searchForm, adminHomeLayoutView){
 
 			var postUrl = "/admin/search_users";						
 			var postData = searchForm.serialize();
@@ -86,7 +156,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 		    else if (data.status == "error"){
 		    	if(data.message == "invalid-admin-user"){
 		    		console.log("display error message")
-		    		adminLayoutView.flashErrorMessage({message_type: "error", message: "Error: You are not logged in as in Admin User"});
+		    		adminHomeLayoutView.flashErrorMessage({message_type: "error", message: "Error: You are not logged in as in Admin User"});
 		    	}
 		    }
 
@@ -102,7 +172,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 
 		},
 
-		becomeUser: function(userModel, adminLayoutView){
+		becomeUser: function(userModel, adminHomeLayoutView){
 
 			var postUrl = "admin/become_user";
 			var postData = "user_id=" + userModel.attributes.id + "&user_type=" + userModel.attributes.user_type
@@ -114,7 +184,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 
 				if (data.status == 'success'){	
 
-					adminLayoutView.flashMessage({message_type: "success", message: "Session variable set.  Click <a href='/' target='_blank'>here</a> to proceed."});	    
+					adminHomeLayoutView.flashMessage({message_type: "success", message: "Session variable set.  Click <a href='/' target='_blank'>here</a> to proceed."});	    
 
 					if(userModel.attributes.user_type == "teacher")
 						window.open("teacher_home", "_blank");
@@ -125,7 +195,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 		    else if (data.status == "error"){
 		    	if(data.message == "invalid-admin-user"){
 		    		console.log("display error message")
-		    		adminLayoutView.flashMessage({message_type: "error", message: "Error: You are not logged in as in Admin User"});
+		    		adminHomeLayoutView.flashMessage({message_type: "error", message: "Error: You are not logged in as in Admin User"});
 		    	}
 		    }
 	     	

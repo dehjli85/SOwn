@@ -12,6 +12,41 @@ class StudentUser < ActiveRecord::Base
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
   validates :email, uniqueness: true
 
+  
+  ##################################################################################################
+  #
+  # Validations
+  #
+  ##################################################################################################
+
+  def password_valid?(pw)
+    Digest::SHA1.hexdigest(pw + self.salt.to_s).eql?(self.password_digest)
+  end
+
+  def password
+    @password
+  end
+
+  def password=(pw)
+    if !pw.nil? && !pw.strip.eql?("")
+      @password = pw
+      self.salt = (Random.new.rand*10000).to_i
+      self.password_digest = Digest::SHA1.hexdigest(pw + self.salt.to_s)
+    end
+  end
+
+  def has_password_or_external_authentication
+    if self.password_digest.nil? && self.provider.nil?
+      errors.add(:password, 'cannot be blank, or you must sign up with Google Authentication')
+    end
+  end
+
+  ##################################################################################################
+  #
+  # Model API Methods
+  #
+  ##################################################################################################
+
 	def self.from_omniauth_sign_up(auth)
   
     puts 'AUTH_HASH:\n' + auth.to_s
@@ -40,52 +75,64 @@ class StudentUser < ActiveRecord::Base
 
   end
 
+  # check if the user exists in the db.  If so, return the user, else return nil
   def self.from_omniauth_log_in(auth)
 
-    #check if the user exists in the db.  If so, return the user, else return nil
     where(auth.slice(:provider, :uid).to_hash).first      
 
   end
 
-  def password_valid?(pw)
-    Digest::SHA1.hexdigest(pw + self.salt.to_s).eql?(self.password_digest)
+  # return the number of "real" Student Users
+  def self.count
+    StudentUser.where("email not like '%@sowntogrow.com%'").count
   end
 
-  def password
-    @password
-  end
-
-  def password=(pw)
-    if !pw.nil? && !pw.strip.eql?("")
-      @password = pw
-      self.salt = (Random.new.rand*10000).to_i
-      self.password_digest = Digest::SHA1.hexdigest(pw + self.salt.to_s)
-    end
-  end
-
-  def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
-  end
-
-  def classroom_activities_performance(classroom_id)
-    sps = StudentPerformance.where({student_user_id: self.id})
-    matched_performances = Array.new
-    if !sps.nil?
-      sps.each do |sp|
-        if sp.activities_classrooms.classroom.id = classroom_id
-          matched_performances.push(sp)
-        end
-        return matched_performances
+  # return the number of "real" Student Users by week
+  def self.create_count_by_week
+    students = StudentUser.where("email not like '%@sowntogrow.com%'")
+    hash = {}
+    students.each do |student|
+      year = student.created_at.strftime('%Y')
+      week = student.created_at.strftime('%W')
+      if !hash[year]
+        hash[year] = {}
       end
-    else
-      return nil
+
+      if hash[year][week]
+        hash[year][week] += 1
+      else
+        hash[year][week] = 1
+      end
+
     end
+
+    array = []
+    years = hash.keys.sort
+    years.each_with_index do |year, i|
+      weeks = hash[year].keys.sort
+      weeks.each_with_index do |week, j|
+        array.push({year: years[i], week: weeks[j], count: hash[years[i]][weeks[j]]})
+      end
+    end
+
+    array
   end
 
-  def has_password_or_external_authentication
-    if self.password_digest.nil? && self.provider.nil?
-      errors.add(:password, 'can\'t be blank')
+  # return the cumulative number of "real" Student Users by week
+  def self.cumulative_create_count_by_week
+
+    array = self.create_count_by_week
+
+    cum = 0
+    array.each do |week|
+      cum += week[:count]
+      week[:count] = cum
     end
+
+    array
+
   end
+
+  
   
 end
