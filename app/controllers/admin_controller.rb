@@ -134,10 +134,14 @@ class AdminController < ApplicationController
 
 	def summary_metrics
 			cumulative_student_user_counts = StudentUser.cumulative_create_count_by_week
+			cumulative_teacher_user_counts = TeacherUser.cumulative_create_count_by_week
 			cumulative_student_performance_counts = StudentPerformance.cumulative_create_count_by_week
+			cumulative_activity_counts = Activity.cumulative_create_count_by_week
 			render json: {status: "success", 
 				cumulative_student_performance_counts: cumulative_student_performance_counts,
-				cumulative_student_user_counts: cumulative_student_user_counts}
+				cumulative_activity_counts: cumulative_activity_counts,
+				cumulative_student_user_counts: cumulative_student_user_counts,
+				cumulative_teacher_user_counts: cumulative_teacher_user_counts}
 	end
 
 

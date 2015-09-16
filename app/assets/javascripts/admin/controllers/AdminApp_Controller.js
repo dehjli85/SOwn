@@ -93,24 +93,47 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 
 				if (data.status === 'success'){		    
 					
-					//relabel data for bar graph view
+					//relabel student data for bar graph view, then display
 					var cumStudentUserCounts = data.cumulative_student_user_counts;
 					cumStudentUserCounts.map(function(d){d.x = d.week; d.y = d.count})
 
 					var studentUsersCountModel = new Backbone.Model({data: cumStudentUserCounts, labels:{x: "Week", y: "Student Users"}});
 
 					var studentsBarGraph = new Admin.AdminApp.Metrics.BarGraph({model: studentUsersCountModel});
-					adminHomeLayoutView.vizOne.show(studentsBarGraph);
+					adminHomeLayoutView.vizTwo.show(studentsBarGraph);
 
 					studentsBarGraph.showBarGraph();
 
+					//relabel student data for bar graph view, then display
+					var cumTeacherUserCounts = data.cumulative_teacher_user_counts;
+					cumTeacherUserCounts.map(function(d){d.x = d.week; d.y = d.count})
+
+					var teacherUsersCountModel = new Backbone.Model({data: cumTeacherUserCounts, labels:{x: "Week", y: "Teacher Users"}});
+
+					var teachersBarGraph = new Admin.AdminApp.Metrics.BarGraph({model: teacherUsersCountModel});
+					adminHomeLayoutView.vizOne.show(teachersBarGraph);
+
+					teachersBarGraph.showBarGraph();
+
+					//relabel student performance data for bar graph view, then display
+					var cumActivityCounts = data.cumulative_activity_counts;
+					cumActivityCounts.map(function(d){d.x = d.week; d.y = d.count})
+
+					var activityCountModel = new Backbone.Model({data: cumActivityCounts, labels:{x: "Week", y: "Activities"}});
+
+					var activityBarGraph = new Admin.AdminApp.Metrics.BarGraph({model: activityCountModel});
+					adminHomeLayoutView.vizThree.show(activityBarGraph);
+
+					activityBarGraph.showBarGraph();
+
+					//relabel student performance data for bar graph view, then display
 					var cumStudentPerformanceCounts = data.cumulative_student_performance_counts;
 					cumStudentPerformanceCounts.map(function(d){d.x = d.week; d.y = d.count})
 
 					var studentPerformanceCountModel = new Backbone.Model({data: cumStudentPerformanceCounts, labels:{x: "Week", y: "Student Performances"}});
 
 					var studentPerformanceBarGraph = new Admin.AdminApp.Metrics.BarGraph({model: studentPerformanceCountModel});
-					adminHomeLayoutView.vizTwo.show(studentPerformanceBarGraph);
+					adminHomeLayoutView.vizFour.show(studentPerformanceBarGraph);
 
 					studentPerformanceBarGraph.showBarGraph();
 
