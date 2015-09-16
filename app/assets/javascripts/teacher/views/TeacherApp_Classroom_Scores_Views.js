@@ -59,7 +59,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 
 	    this.model.attributes.proficiency = 
-	    	options.activitiesDue == 0 ? "-" : 100*this.model.attributes.proficient_count/this.model.attributes.activitiesDue;
+	    	this.model.attributes.activitiesDue == 0 ? "-" : Math.round(100*this.model.attributes.proficient_count/this.model.attributes.activitiesDue,1);
 
 	    if(this.model.attributes.proficiency >= 80) {
     		this.model.attributes.proficiency_color = 'success-sown';
