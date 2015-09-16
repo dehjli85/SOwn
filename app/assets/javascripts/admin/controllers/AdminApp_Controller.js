@@ -92,12 +92,27 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 				console.log(data);
 
 				if (data.status === 'success'){		    
+					
+					//relabel data for bar graph view
+					var cumStudentUserCounts = data.cumulative_student_user_counts;
+					cumStudentUserCounts.map(function(d){d.x = d.week; d.y = d.count})
 
-					var studentUsersCountModel = new Backbone.Model({data: data.cumulative_student_user_counts});
-					var barGraph = new Admin.AdminApp.Metrics.BarGraph({model: studentUsersCountModel});
-					adminHomeLayoutView.mainAdminHomeRegion.show(barGraph);
+					var studentUsersCountModel = new Backbone.Model({data: cumStudentUserCounts, labels:{x: "Week", y: "Student Users"}});
 
-					barGraph.showBarGraph();
+					var studentsBarGraph = new Admin.AdminApp.Metrics.BarGraph({model: studentUsersCountModel});
+					adminHomeLayoutView.vizOne.show(studentsBarGraph);
+
+					studentsBarGraph.showBarGraph();
+
+					var cumStudentPerformanceCounts = data.cumulative_student_performance_counts;
+					cumStudentPerformanceCounts.map(function(d){d.x = d.week; d.y = d.count})
+
+					var studentPerformanceCountModel = new Backbone.Model({data: cumStudentPerformanceCounts, labels:{x: "Week", y: "Student Performances"}});
+
+					var studentPerformanceBarGraph = new Admin.AdminApp.Metrics.BarGraph({model: studentPerformanceCountModel});
+					adminHomeLayoutView.vizTwo.show(studentPerformanceBarGraph);
+
+					studentPerformanceBarGraph.showBarGraph();
 
 		    }
 		    else if (data.status == "error"){

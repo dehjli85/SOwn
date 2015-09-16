@@ -94,38 +94,42 @@ class StudentUser < ActiveRecord::Base
     students.each do |student|
       year = student.created_at.strftime('%Y')
       week = student.created_at.strftime('%W')
-      if hash[year]
-        if hash[year][week]
-          hash[year][week] += 1
-        else
-          hash[year][week] = 1
-        end
-      else
+      if !hash[year]
         hash[year] = {}
+      end
+
+      if hash[year][week]
+        hash[year][week] += 1
+      else
+        hash[year][week] = 1
       end
 
     end
 
-    hash
+    array = []
+    years = hash.keys.sort
+    years.each_with_index do |year, i|
+      weeks = hash[year].keys.sort
+      weeks.each_with_index do |week, j|
+        array.push({year: years[i], week: weeks[j], count: hash[years[i]][weeks[j]]})
+      end
+    end
+
+    array
   end
 
   # return the cumulative number of "real" Student Users by week
   def self.cumulative_create_count_by_week
 
-    hash = self.create_count_by_week
-    years = hash.keys.sort
+    array = self.create_count_by_week
 
     cum = 0
-    years.each do |year|
-
-      weeks = hash[year].keys.sort
-      weeks.each do |week|
-        cum += hash[year][week]
-        hash[year][week] = cum
-      end
+    array.each do |week|
+      cum += week[:count]
+      week[:count] = cum
     end
 
-    hash
+    array
 
   end
 

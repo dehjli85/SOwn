@@ -8,53 +8,11 @@ Admin.module("AdminApp.Metrics", function(Metrics, Admin, Backbone, Marionette, 
 
 		showBarGraph: function(){
 
-			// var w = 500;
-			// var h = 200;
-
-			// var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
-   //      11, 12, 15, 20, 18, 17, 16, 18, 23, 25 ];
-
-   //  	var barPadding = 1;
-
-			// var svg = d3.select("[ui-bar-graph-div]")
-   //      .append("svg")
-   //      .attr("width", w)
-   //      .attr("height", h);
-
-   //    svg.selectAll("rect")
-			// 	.data(dataset)
-			// 	.enter()
-			// 	.append("rect")
-			// 	.attr("x", function(d, i) {
-		 //    	return i * (w / dataset.length);
-			// 	})
-			// 	.attr("y", function(d) {
-			//     return h - d*4;  //Height minus data value
-			// 	})
-			// 	.attr("width", w / dataset.length - barPadding)
-			// 	.attr("height", function(d) {
-			//     return d*4;  // <-- Times four!
-			// 	})
-			// 	.attr("fill", "teal");
 
 			var data = this.model.get("data");
-			var transformedData = [];
-			years = Object.keys(data);
-
-			for(var i = 0; i < years.length; i++){
-				weeks = Object.keys(data[years[i]]);
-
-				for(var j = 0; j < weeks.length; j++){
-					console.log(data[years[i]][weeks[j]]);
-					transformedData.push({year: years[i], week: weeks[j], count: data[years[i]][weeks[j]] })
-				}
-
-			}
-
-			console.log(transformedData);
 
 			var margin = {top: 20, right: 20, bottom: 30, left: 40},
-			    width = 500 - margin.left - margin.right,
+			    width = 450 - margin.left - margin.right,
 			    height = 200 - margin.top - margin.bottom;
 
 			var x = d3.scale.ordinal()
@@ -72,20 +30,25 @@ Admin.module("AdminApp.Metrics", function(Metrics, Admin, Backbone, Marionette, 
 			    .orient("left")
 			    .ticks(5);
 
-			var svg = d3.select("[ui-bar-graph-div]").append("svg")
+			var svg = d3.select(this.ui.barGraphDiv[0]).append("svg")
 			    .attr("width", width + margin.left + margin.right)
 			    .attr("height", height + margin.top + margin.bottom)
 			  .append("g")
 			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 			
-		  x.domain(transformedData.map(function(d) { return d.week; }));
-		  y.domain([0, d3.max(transformedData, function(d) { return d.count; })]);
+		  x.domain(data.map(function(d) { return d.x; }));
+		  y.domain([0, d3.max(data, function(d) { return d.y; })]);
 
 		  svg.append("g")
 		      .attr("class", "x axis")
 		      .attr("transform", "translate(0," + height + ")")
-		      .call(xAxis);
+		      .call(xAxis)
+	      .append("text")
+		      .attr("y", 6)
+		      .attr("dy", ".71em")
+		      .style("text-anchor", "end")
+		      .text(this.model.get("labels").x);
 
 		  svg.append("g")
 		      .attr("class", "y axis")
@@ -95,21 +58,30 @@ Admin.module("AdminApp.Metrics", function(Metrics, Admin, Backbone, Marionette, 
 		      .attr("y", 6)
 		      .attr("dy", ".71em")
 		      .style("text-anchor", "end")
-		      .text("Student Users");
+		      .text(this.model.get("labels").y);
 
-		  svg.selectAll(".bar")
-		      .data(transformedData)
-		    .enter().append("rect")
+		  var bar = svg.selectAll(".bar")
+		      .data(data)
+		    .enter().append("g")
+		    
+		    bar.append("rect")
 		      .attr("class", "bar")
-		      .attr("x", function(d) { return x(d.week); })
+		      .attr("x", function(d) { return x(d.x); })
 		      .attr("width", x.rangeBand())
-		      .attr("y", function(d) { return y(d.count); })
-		      .attr("height", function(d) { return height - y(d.count); });
+		      .attr("y", function(d) { return y(d.y); })
+		      .attr("height", function(d) { return height - y(d.y); });
+				
+				bar.append("text")
+		    	.text(function(d){return d.y})
+		      .attr("x", function(d) { return x(d.x) + x.rangeBand()/2; })
+		      .attr("y", function(d) { return y(d.y) + 5; })
+		      .attr("dy", ".71em")
+		    	.attr("fill", "white")
+		    	.attr("text-anchor", "middle");
+			    	// .attr("x", function(d) { return x(d.x); })
+				  // .attr("y", function(d) { return y(d.y); });
 
-			function type(d) {
-			  d.frequency = +d.frequency;
-			  return d;
-			}
+			
 
 		}
 	});

@@ -82,12 +82,16 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 		regions: {
 			sidebarRegion: "#sidebar_region",
 			mainAdminHomeRegion: "#main_admin_home_region",
-			alertRegion: "#alert_region"			
+			alertRegion: "#alert_region",
+			vizOne: "[ui-viz-one]",
+			vizTwo: "[ui-viz-two]",
+			vizThree: "[ui-viz-three]",
+			vizFour: "[ui-viz-four]"	
 		},
 
 		ui:{
 			usersIndexLink: "[ui-users-index-link]",
-			metricsLink: "[ui-metrics-link]"
+			metricsLink: "[ui-metrics-link]",
 		},
 
 		events:{
