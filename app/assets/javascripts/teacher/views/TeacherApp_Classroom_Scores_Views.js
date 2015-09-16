@@ -14,25 +14,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		}
 	});
 
-	Scores.TagView = Marionette.ItemView.extend({
-		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_Tag"],			
-		tagName: "li",
+	
 
-		ui: {
-			label: "a"
-		},
-
-		triggers: {
-			"click a":"filter:tag:classroom:scores:view"			
-		}
-		
-	});
-
-	Scores.TagCollectionView = Marionette.CollectionView.extend({
-		childView: Scores.TagView,
-		tagName: "ul",
-		className: "list-inline col-sm-12",		
-	});
+	
 
 	Scores.StudentPerformanceView = Marionette.ItemView.extend({
 		tagName: "tr",

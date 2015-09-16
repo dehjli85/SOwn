@@ -18,15 +18,8 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		},
 
 		events:{
-			"click .tag": "filterTag",
 			"click @ui.editLink": "goToEditPage",
 
-		},
-
-		filterTag: function(e){
-			var tagId = $(e.target).attr("name");
-			this.model.attributes.filterTagId = tagId;
-			this.triggerMethod("activities:index:filter:tag");
 		},
 
 		goToEditPage: function(e){
@@ -85,13 +78,10 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			this.model.attributes.collectionSize = this.collection.length;
 		}
 
-		
-
-
 	});	
 
-	Activities.IndexHeaderView = Marionette.ItemView.extend({
-		template: JST["teacher/templates/Activities/TeacherApp_Activities_IndexHeader"],					
+	Activities.IndexSearchBarView = Marionette.ItemView.extend({
+		template: JST["teacher/templates/Activities/TeacherApp_Activities_IndexSearchBar"],					
 		className: "col-md-12",
 		triggers: {
 			"submit [ui-search-form]":"activities:index:filter:search:term"
@@ -111,7 +101,8 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		template: JST["teacher/templates/Activities/TeacherApp_Activities_IndexLayout"],			
 		className: "col-md-12",
 		regions:{			
-			headerRegion: "#header_region",
+			searchBarRegion: "#search_bar_region",
+			tagsRegion: "#tags_region",
 			mainRegion: "#main_region",
 			modalRegion: "#activities_modal_region"
 		},
@@ -125,12 +116,12 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		onChildviewActivitiesIndexFilterTag: function(view){
 			var tagId = view.model.attributes.filterTagId;
-			TeacherAccount.TeacherApp.Activities.Controller.showIndexActivitiesCompositeView(this, tagId, null);
+			TeacherAccount.TeacherApp.Activities.Controller.showIndexActivitiesCompositeView(this,  null, tagId);
 		},
 
 		onChildviewActivitiesIndexFilterSearchTerm: function(view){
 			var searchTerm = view.ui.searchInput.val();
-			TeacherAccount.TeacherApp.Activities.Controller.showIndexActivitiesCompositeView(this, null, searchTerm);
+			TeacherAccount.TeacherApp.Activities.Controller.showIndexActivitiesCompositeView(this, searchTerm, null);
 		},
 
 		onChildviewOpenAssignActivitiesModal: function(view){
@@ -152,6 +143,27 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		onChildviewDeleteActivity: function(view){
 			this.ui.modalRegion.modal("hide");			
 			TeacherAccount.TeacherApp.Activities.Controller.deleteActivity(this, view.ui.activityForm);
+
+		},
+
+		onChildviewFilterTagClassroomScoresView: function(view){
+
+			//change the color of the tag
+			if(view.ui.label.hasClass("selected_tag")){
+				view.ui.label.removeClass("selected_tag");
+				
+				var index = $.inArray(view.model.attributes.id, this.model.attributes.tags);
+				this.model.attributes.tags.splice(index, 1);
+
+			}
+			else{
+
+				view.ui.label.addClass("selected_tag");
+				this.model.attributes.tags.push(view.model.attributes.id);
+
+			}
+
+			TeacherAccount.TeacherApp.Activities.Controller.showIndexActivitiesCompositeView(this,  null, this.model.attributes.tags);
 
 		}
 

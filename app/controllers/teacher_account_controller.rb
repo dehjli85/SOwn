@@ -412,6 +412,13 @@ class TeacherAccountController < ApplicationController
 	#
 	#################################################################################
 
+	# Return a JSON array of tags the teacher has created
+	def activities_tags
+		tags = ActivityTag.tags_for_teacher(@current_teacher_user.id)
+
+		render json: {status: "success" , tags: tags}
+	end
+
 	def teacher_activities_and_classroom_assignment
 
 		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
@@ -607,10 +614,12 @@ class TeacherAccountController < ApplicationController
 	# return json array of objects that represent different activities, each with the following properties
 	# => activityId, activityName, description, instructions, activityType, tags
 	# each of the properties is a string, except tags, which is an array of tag json objects with the following properties
-	# => tagId, name
+	# => tag_ids, name
 	def teacher_activities_and_tags
 
-		if(params[:searchTerm].nil? && params[:tagId].nil?)
+		tag_ids = params[:tag_ids] && !params[:tag_ids].eql?("[]") ? JSON.parse(params[:tag_ids]) : nil
+
+		if(params[:search_term].nil? && tag_ids.nil?)
 			
 			activities = Activity.where({teacher_user_id: @current_teacher_user.id}).as_json
 
@@ -618,20 +627,22 @@ class TeacherAccountController < ApplicationController
 				.where({teacher_user_id: @current_teacher_user.id})
 				.pluck(:id).as_json
 
-		elsif params[:tagId]
+		elsif tag_ids
 
 			activities = Activity.joins(:activity_tags)
 				.where({teacher_user_id: @current_teacher_user.id})
-				.where("activity_tags.id = ?", params[:tagId])
+				.where("activity_tags.id in (?)", tag_ids)
+				.distinct
 				.as_json
 
 			activity_ids = Activity.joins(:activity_tags)
 				.where({teacher_user_id: @current_teacher_user.id})
-				.where("activity_tags.id = ?", params[:tagId])
+				.where("activity_tags.id in (?)", tag_ids)
+				.distinct
 				.pluck(:id)
 				.as_json
 
-		elsif params[:searchTerm]
+		elsif params[:search_term]
 			
 			activities = Activity.joins(:activity_tags)
 				.where({teacher_user_id: @current_teacher_user.id})
@@ -659,6 +670,7 @@ class TeacherAccountController < ApplicationController
 		end
 
 		tags.each do |tag|
+			
 			index = activities_indices[tag["activity_id"]]			
 			activities[index]["tags"].push(tag)
 		end

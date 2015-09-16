@@ -94,6 +94,7 @@ Rails.application.routes.draw do
   post 'teacher/save_activities_sort_order' => 'teacher_account#save_activities_sort_order'
 
   # teacher/activities app routes
+  get 'teacher/activities_tags' => 'teacher_account#activities_tags'
   get 'teacher/teacher_activities_and_classroom_assignment' => 'teacher_account#teacher_activities_and_classroom_assignment'
   get 'teacher/teacher_activities_options' => 'teacher_account#teacher_activities_options'
   post 'teacher/save_teacher_activity_assignment_and_options' => 'teacher_account#save_teacher_activity_assignment_and_options'

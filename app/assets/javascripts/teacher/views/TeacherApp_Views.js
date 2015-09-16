@@ -157,4 +157,26 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 
 	});
 
+	TeacherApp.TagView = Marionette.ItemView.extend({
+		template: JST["teacher/templates/TeacherApp_Tag"],			
+		tagName: "li",
+
+		ui: {
+			label: "a"
+		},
+
+		triggers: {
+			"click a":"filter:tag:classroom:scores:view"			
+		}
+		
+	});
+
+	TeacherApp.TagCollectionView = Marionette.CollectionView.extend({
+		childView: TeacherApp.TagView,
+		tagName: "ul",
+		className: "list-inline col-sm-12",		
+	});
+
+	
+
 });
