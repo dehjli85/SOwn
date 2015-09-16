@@ -25,6 +25,9 @@
  */
 
 
+/**
+ * Glyphicons
+ */ 
 @font-face {
  font-family: 'Glyphicons Halflings';
  src: font-url('/assets/fonts/glyphicons-halflings-regular.eot');
@@ -33,10 +36,6 @@
  font-url('/assets/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
  font-url('/assets/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
-
- body{
-  // background-color: #f1f1f1;
- }
 
 .success-sown{
 	background-color: #6BBD49;
@@ -72,8 +71,6 @@ a:hover {
  */
 
 /* Move down content because we have a fixed navbar that is 50px tall */
-body {
-}
 
 
 /*
@@ -245,3 +242,7 @@ body {
   margin-top: 10px;
 }
 
+// make search buttons larger to match theme size of inputs
+.btn_search{
+  height:40px;
+}
