@@ -69,7 +69,7 @@
   padding: 0px;
 }
 
-.scores-table>thead>tr>th.scores-table__th_students{
+.scores-table>thead>tr>th.scores-table__students-header{
   font-weight: bold;
   vertical-align: bottom;
   text-align: left;
@@ -77,7 +77,7 @@
   padding: 5px;
 }
 
-.scores-table>thead>tr>th.scores-table__th_activity{
+.scores-table>thead>tr>th.scores-table__activity-header{
   vertical-align: top;
   text-align: center;
   min-width: 100px;
@@ -97,7 +97,7 @@
   height:100%;
 }
 
-.scores-table>thead>tr>th>div>div.scores-table__due-date{
+.scores-table>thead>tr>th>div>div.scores-table__due-date-div{
   font-weight: normal;
   font-style: italic;
   min-height: 30px;
@@ -105,11 +105,11 @@
   padding: 5px;
 }
 
-.scores-table>thead>tr>th>div>div.scores-table__due-date_label{
+.scores-table>thead>tr>th>div>div.scores-table__due-date-div_label{
   text-align: right;
 }
 
-.scores-table>thead>tr>th>div.scores-table__activity{
+.scores-table>thead>tr>th>div.scores-table__activity-div{
   font-weight: bold;
   padding: 5px;
 }

@@ -138,8 +138,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		events: {
 			// "dblclick .activity": "sortActivityHeader",
-			"click .sort_icon": "sortActivityHeader",
-			"mousedown .sort_icon": "stopPropagation",
+			"click .ui_scores-table__sort_icon": "sortActivityHeader",
 			"click @ui.studentHeader": "sortByName",
 			"click @ui.masteryHeader" : "sortByMastery"
 		},
@@ -235,8 +234,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 					persistState: function(table){
 						obj.saveActivitiesSortOrder(table, obj);
 					},
-					dragaccept: '.draggable',
-					maxMovingRows: 1
+					dragaccept: '.scores-table__activity-header_draggable',
+					maxMovingRows: 1,
+					dragHandle: '.scores-table__activity-name-div'
 				}
 			);
 		},
