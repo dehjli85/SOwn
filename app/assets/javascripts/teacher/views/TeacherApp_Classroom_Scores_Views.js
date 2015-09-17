@@ -132,11 +132,14 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		ui:{
 			studentHeader: "[ui-student-header]",
-			masteryHeader: "[ui-mastery-header]"
+			masteryHeader: "[ui-mastery-header]",
+
 		},
 
 		events: {
-			"dblclick .activity": "sortActivityHeader",
+			// "dblclick .activity": "sortActivityHeader",
+			"click .sort_icon": "sortActivityHeader",
+			"mousedown .sort_icon": "stopPropagation",
 			"click @ui.studentHeader": "sortByName",
 			"click @ui.masteryHeader" : "sortByMastery"
 		},
@@ -149,7 +152,8 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			this.collection.sort();
 		},
 
-		sortByMastery: function(){
+		sortByMastery: function(e){
+			e.preventDefault();
 			this.collection.comparator = function(item){
 				return -[parseInt(item.get("proficiency"))];
 				
@@ -157,9 +161,16 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			this.collection.sort();
 		},
 
+		stopPropagation: function(e){
+			console.log("mousedown");
+			e.stopPropagation();			
+		},
+
 		sortActivityHeader: function(e){
 			console.log(e);
-			index = parseInt($(e.target).attr("id").replace("header_",""));
+			e.preventDefault();
+
+			index = parseInt($(e.target).parent().attr("id").replace("header_",""));
 			
 			this.collection.comparator = function(item){
 				

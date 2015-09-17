@@ -81,6 +81,7 @@
   vertical-align: top;
   text-align: center;
   min-width: 100px;
+  height: 1px;
 }
 
 .scores-table>thead>tr>th.scores-table__th_activity_left-right-bordered, .scores-table>tbody>tr>td.scores-table__td_activity_left-right-bordered{
@@ -89,7 +90,14 @@
 
 }
 
-.scores-table>thead>tr>th>div.scores-table__due-date{
+.scores-table__flex-div{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  height:100%;
+}
+
+.scores-table>thead>tr>th>div>div.scores-table__due-date{
   font-weight: normal;
   font-style: italic;
   min-height: 30px;
@@ -97,7 +105,7 @@
   padding: 5px;
 }
 
-.scores-table>thead>tr>th>div.scores-table__due-date_label{
+.scores-table>thead>tr>th>div>div.scores-table__due-date_label{
   text-align: right;
 }
 
