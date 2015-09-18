@@ -468,7 +468,7 @@ class TeacherAccountController < ApplicationController
 		csv_string = CSV.generate do |csv|
 
 			# Due Dates Row
-			row = ["", "Due Date:"]
+			row = ["", "", "Due Date:"]
 			activities.each do |activity|
 				puts activity
 				row.push(activity["due_date"])
@@ -476,7 +476,7 @@ class TeacherAccountController < ApplicationController
 			csv << row
 
 			# Activity Name Row
-			row = ["Students", "% At Mastery"]
+			row = ["Student Local ID*",  "Students", "% At Mastery"]
 			activities.each do |activity|
 				row.push(activity["name"])
 			end
@@ -484,13 +484,17 @@ class TeacherAccountController < ApplicationController
 
 			# Each student's performances
 			students.each do |student|
-				row = [student["display_name"], student["mastery"]]
+				row = [student["local_id"], student["display_name"], student["mastery"]]
 				student["student_performance"].each do |performance|
-					row.push(performance["performance_pretty"])
+					row.push(!performance.nil? ? performance["performance_pretty"] : "")
 				end
 				csv << row
 			end
+
+			csv << ["*Students can set their Local ID in their \"Settings\""]
+
 		end
+
 
 		# respond_to do |format|
       # format.csv do 
