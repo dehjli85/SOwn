@@ -238,4 +238,27 @@ class StudentAccountController < ApplicationController
     
   end
 
+  #################################################################################
+  #
+  # Settings Methods
+  #
+  #################################################################################
+  def save_settings
+    
+    @current_student_user.local_id = params[:localId]
+
+    if @current_student_user.save
+
+      puts "after save current_student: #{@current_student_user}"
+
+      render json: {status: "success"}
+
+    else
+
+      render json: {status: "error", message: "unable-to-save-settings"}
+
+    end
+
+  end
+
 end

@@ -8,11 +8,13 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 		className: "navbar navbar-inverse navbar-fixed-top",
 
 		ui: {
-			switchAccountLink: "[ui-switch-account-link]"
+			switchAccountLink: "[ui-switch-account-link]",
+			settingsLink: "[ui-settings-link]"
 		},
 
 		triggers:{
 			"click @ui.switchAccountLink": "show:teacher:view",
+			"click @ui.settingsLink": "show:student:settings"
 		},
 
 		onShowTeacherView: function(){
@@ -62,8 +64,12 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 		},
 
 		onChildviewShowClassroomScores: function(view){
-			console.log(view.model);
 			StudentAccount.StudentApp.Main.Controller.startClassroomApp(view.model.get("classroom_id"), 'scores');
+		},
+
+		onChildviewShowStudentSettings: function(view){
+			StudentAccount.navigate("settings");
+			StudentAccount.StudentApp.Settings.Controller.showSettingsOptions();		
 		}
 		
 	});

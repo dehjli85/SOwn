@@ -4,7 +4,8 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 	StudentApp.Router = Marionette.AppRouter.extend({
 		appRoutes:{
 			"classrooms": "startClassroomsApp",			
-			"classroom/scores/:id": "showClassroomScores"
+			"classroom/scores/:id": "showClassroomScores",
+			"settings": "startSettingsApp"
 		}
 	});
 
@@ -28,6 +29,14 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 		showClassroomScores: function(id){
 			StudentApp.Main.Controller.startClassroomApp(id, "scores");			
 		},
+
+		/**
+		 * Settings Subapp
+		 */
+
+		startSettingsApp: function(){
+			StudentApp.Settings.Controller.showSettingsOptions();
+		}
 
 	};
 

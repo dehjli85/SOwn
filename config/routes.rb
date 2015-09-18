@@ -134,6 +134,8 @@ Rails.application.routes.draw do
   post 'student/save_student_performance' => 'student_account#save_student_performance'
   get 'student/activity_and_performances' => 'student_account#activity_and_performances'
 
+  # student/settings routes
+  post 'student/save_settings' => 'student_account#save_settings'
 
   # admin routes
   get 'admin' => 'admin#home'
