@@ -92,6 +92,7 @@ Rails.application.routes.draw do
   get 'teacher/student_performance' => 'teacher_account#student_performance'
   post 'teacher/save_verify' => 'teacher_account#save_verify'
   post 'teacher/save_activities_sort_order' => 'teacher_account#save_activities_sort_order'
+  get 'teacher/export_data' => 'teacher_account#export_data'
 
   # teacher/activities app routes
   get 'teacher/activities_tags' => 'teacher_account#activities_tags'

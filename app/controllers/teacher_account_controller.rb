@@ -1,6 +1,7 @@
 class TeacherAccountController < ApplicationController
 
 	require 'json'
+	require 'csv'
 
 	before_action :require_teacher_login_json, except: [:index]
 
@@ -404,6 +405,101 @@ class TeacherAccountController < ApplicationController
 		end
 
 		
+	end
+
+	def export_data
+		
+		tag_ids = params[:tag_ids] && !params[:tag_ids].eql?("[]") ? JSON.parse(params[:tag_ids]) : nil
+
+		classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]})
+			.first
+		
+		activities = Activity.activities_with_pairings(classroom.id, params[:search_term], tag_ids, true)
+		
+		performance_array = StudentPerformance.student_performances_with_verification(classroom.id, params[:search_term], tag_ids, nil, true)
+
+		proficient_counts = StudentPerformance.student_performance_proficiencies(classroom.id, params[:search_term], tag_ids, nil, true)
+
+		students = classroom.student_users.order("last_name ASC, first_name ASC").as_json	
+
+		# Organize the performance data by student
+
+		# create a lookup hash for student_id
+		# create an array to store th performances for each student
+		students_hash = {}
+		students.each_with_index do |student, index|
+			students_hash[student["id"].to_i] = index
+			student["student_performance"] = []
+			student["proficient_count"] = 0
+		end
+
+		# assign each performance to the correct student/activity
+		performance_array.each do |performance|
+
+			student_index = students_hash[performance["student_user_id"].to_i]
+			activities_index = performance["sort_order"].to_i
+
+			if students[student_index]["student_performance"][activities_index].nil? || students[student_index]["student_performance"][activities_index]["id"].to_i < performance["id"].to_i
+				students[student_index]["student_performance"][activities_index] = performance
+			end
+
+		end
+
+		# add proficient counts
+		proficient_counts.each do |student|
+			student_index = students_hash[student["student_user_id"].to_i]
+			students[student_index]["proficient_count"] = student["proficient_count"].to_i
+		end
+
+		# calculate mastery % for each student and add activities denominator counts 
+		students.each do |student|
+			activities_count = 0
+			activities.each_with_index do |activity, index|
+				puts activity
+				if (!activity["due_date"].nil? && activity["due_date"] < Time.now) || !student["student_performance"][index].nil?
+					activities_count += 1
+				end
+			end
+			student["activities_count"] = activities_count
+			student["mastery"] = ((student["proficient_count"].to_f/student["activities_count"].to_f)*100).round(0).to_s + "%"
+		end
+
+
+		csv_string = CSV.generate do |csv|
+
+			# Due Dates Row
+			row = ["", "Due Date:"]
+			activities.each do |activity|
+				puts activity
+				row.push(activity["due_date"])
+			end
+			csv << row
+
+			# Activity Name Row
+			row = ["Students", "% At Mastery"]
+			activities.each do |activity|
+				row.push(activity["name"])
+			end
+			csv << row
+
+			# Each student's performances
+			students.each do |student|
+				row = [student["display_name"], student["mastery"]]
+				student["student_performance"].each do |performance|
+					row.push(performance["performance_pretty"])
+				end
+				csv << row
+			end
+		end
+
+		# respond_to do |format|
+      # format.csv do 
+      	headers['Content-Disposition'] = "attachment; filename=\"data_export\""
+      	headers['Content-Type'] ||= 'text/csv'
+      	send_data csv_string
+      # end
+    # end
+
 	end
 
 	#################################################################################
