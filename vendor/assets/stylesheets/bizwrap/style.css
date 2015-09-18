@@ -46,7 +46,7 @@ a.hover-color {
 }
 
 a.hover-color:hover {
-  color: #0FAF97 !important;
+  color: #239236 !important;
 }
 
 img {
@@ -128,13 +128,13 @@ input[type='submit'] {
 ::-moz-selection {
   color: #fff;
   text-shadow: none;
-  background-color: #0FAF97;
+  background-color: #239236;
 }
 
 ::selection {
   color: #fff;
   text-shadow: none;
-  background-color: #0FAF97;
+  background-color: #239236;
 }
 
 p, blockquote {
@@ -365,17 +365,17 @@ h3.heading-sec {
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-  color: #0FAF97;
+  color: #239236;
   background-color: #fff;
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
   background-color: #fff;
-  color: #0FAF97;
+  color: #239236;
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-  color: #0FAF97;
+  color: #239236;
   background-color: transparent;
 }
 
@@ -414,7 +414,7 @@ h3.heading-sec {
   -moz-border-radius: 0px;
   -ms-border-radius: 0px;
   border-radius: 0px;
-  border-top: 2px solid #0FAF97 !important;
+  border-top: 2px solid #239236 !important;
 }
 
 .navbar .dropdown-menu li a {
@@ -432,7 +432,7 @@ h3.heading-sec {
 }
 
 .navbar .dropdown-menu li a:hover {
-  background: #0FAF97;
+  background: #239236;
   color: #fff;
 }
 
@@ -489,7 +489,7 @@ h3.heading-sec {
 
 .main-flex-slider .flex-control-paging li a.flex-active {
   background: transparent !important;
-  border: 2px solid #0FAF97;
+  border: 2px solid #239236;
 }
 
 .portfolio-details .flex-control-paging li a {
@@ -505,7 +505,7 @@ h3.heading-sec {
 
 .portfolio-details .flex-control-paging li a.flex-active {
   background: transparent !important;
-  border: 2px solid #0FAF97;
+  border: 2px solid #239236;
 }
 
 .slider-overlay {
@@ -562,7 +562,7 @@ h3.heading-sec {
 }
 
 .services-box i {
-  color: #0FAF97;
+  color: #239236;
   font-size: 44px;
   margin-bottom: 15px;
   display: inline-block;
@@ -574,7 +574,7 @@ h3.heading-sec {
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   border-radius: 50%;
-  border: 1px solid #0FAF97;
+  border: 1px solid #239236;
   -moz-transition: all 0.3s ease-in;
   -o-transition: all 0.3s ease-in;
   -webkit-transition: all 0.3s ease-in;
@@ -590,8 +590,8 @@ h3.heading-sec {
 }
 
 .services-box:hover i {
-  border-color: #0FAF97;
-  background-color: #0FAF97;
+  border-color: #239236;
+  background-color: #239236;
   color: #fff;
 }
 
@@ -603,7 +603,7 @@ h3.heading-sec {
   height: 80px;
   font-size: 34px;
   text-align: center;
-  background-color: #0FAF97;
+  background-color: #239236;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
@@ -625,7 +625,7 @@ h3.heading-sec {
   width: 50px;
 }
 .services-boxv2 .servicev2-icon i {
-  color: #0FAF97;
+  color: #239236;
   font-size: 30px;
 }
 .services-boxv2 .servicev2-text {
@@ -677,7 +677,7 @@ h3.heading-sec {
 
 #content-region-2 .flex-control-paging li a.flex-active {
   background: transparent !important;
-  border: 2px solid #0FAF97;
+  border: 2px solid #239236;
 }
 
 /*==========================portfolio ==========================*/
@@ -748,9 +748,9 @@ h4.portfolio-post-title {
 }
 
 .portfolio-filters li.active {
-  background-color: #0FAF97;
+  background-color: #239236;
   color: #fff;
-  border-color: #0FAF97;
+  border-color: #239236;
 }
 
 #grid .mix {
@@ -870,7 +870,7 @@ h4.portfolio-post-title {
 }
 
 .sidebar-box h4:first-letter {
-  border-bottom: 5px solid #0FAF97;
+  border-bottom: 5px solid #239236;
 }
 
 .widget-search .search-form {
@@ -1058,8 +1058,8 @@ h4.portfolio-post-title {
 
 /*theme color button*/
 .theme-btn-color {
-  background-color: #0FAF97;
-  border-color: #0FAF97;
+  background-color: #239236;
+  border-color: #239236;
   color: #fff;
 }
 
@@ -1111,7 +1111,7 @@ h4.portfolio-post-title {
 }
 
 .footer-col h3:first-letter {
-  border-bottom: 5px solid #0FAF97;
+  border-bottom: 5px solid #239236;
 }
 
 .footer-col p {
@@ -1157,8 +1157,8 @@ h4.portfolio-post-title {
 }
 
 .footer-col .social-btn li a i:hover {
-  background-color: #0FAF97;
-  border-color: #0FAF97;
+  background-color: #239236;
+  border-color: #239236;
 }
 
 .footer-bottom {
@@ -1193,7 +1193,7 @@ h4.portfolio-post-title {
 /****************breadcrumbs*********************************************/
 .page-tree-bg {
   background-image: url(../img/bread-bg.png);
-  background-color: #0FAF97;
+  background-color: #239236;
   padding: 100px 0;
   width: 100%;
   position: relative;
@@ -1215,15 +1215,15 @@ h3.page-tree-text {
 
 .pagination li a:hover {
   color: #fff;
-  background-color: #0FAF97;
-  border-color: #0FAF97;
+  background-color: #239236;
+  border-color: #239236;
 }
 
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
   z-index: 2;
   color: #fff;
-  background-color: #0FAF97;
-  border-color: #0FAF97;
+  background-color: #239236;
+  border-color: #239236;
   cursor: default;
 }
 
@@ -1234,7 +1234,7 @@ h3.page-tree-text {
 }
 
 .icon-list li i {
-  color: #0FAF97;
+  color: #239236;
   margin-right: 10px;
 }
 
@@ -1277,7 +1277,7 @@ h3.page-tree-text {
 }
 
 .hire-sec .services-icon i {
-  background-color: #0FAF97;
+  background-color: #239236;
   color: #fff;
   margin-bottom: 20px;
 }
@@ -1299,7 +1299,7 @@ h3.page-tree-text {
 
 .process-box i {
   font-size: 54px;
-  color: #0FAF97;
+  color: #239236;
   margin-bottom: 20px;
 }
 
@@ -1326,7 +1326,7 @@ h3.heading-progress {
 
 .progress-bar {
   line-height: 10px;
-  background: #0FAF97;
+  background: #239236;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   -ms-box-shadow: none;
@@ -1340,7 +1340,7 @@ h3.heading-progress {
 }
 
 .form-btm-link a {
-  color: #0FAF97;
+  color: #239236;
 }
 
 .form-btm-link a:hover {
@@ -1396,7 +1396,7 @@ h3.heading-progress {
 
 .pricing-rate {
   padding: 30px 10px;
-  background-color: #0FAF97;
+  background-color: #239236;
   text-align: center;
 }
 
@@ -1510,14 +1510,14 @@ h3.heading-progress {
 }
 
 .tabs .nav-tabs li.active a {
-  color: #0FAF97;
+  color: #239236;
   border-left-color: #eee;
   border-right-color: #eee;
   background: #fff;
 }
 
 .tabs .nav-tabs li.active a:after {
-  background: #0FAF97;
+  background: #239236;
 }
 
 .tabs .nav-tabs li.active a:before {
@@ -1769,7 +1769,7 @@ a.carousel-control i {
 /**************footer option css here********************/
 #footer-option {
   background: #121214;
-  border-top: 8px solid #0FAF97;
+  border-top: 8px solid #239236;
   margin-top: 50px;
   padding: 80px 0 0;
   position: relative;
@@ -1833,7 +1833,7 @@ a.carousel-control i {
 }
 
 .footer-nav li a:hover {
-  color: #0FAF97;
+  color: #239236;
 }
 
 .footer-copyright span {
@@ -1878,18 +1878,18 @@ a.carousel-control i {
 }
 
 .navbar-inverse .navbar-nav > li > a:hover {
-  color: #0FAF97;
+  color: #000000;
   background-color: transparent;
 }
 
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
-  color: #0FAF97;
+  color: #239236;
   background-color: transparent;
 }
 
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
   background-color: transparent;
-  color: #0FAF97;
+  color: #239236;
 }
 
 /******Version v1.2 css here********/
@@ -1898,7 +1898,7 @@ a.carousel-control i {
 }
 
 .mas-boxes-inner .mas-link {
-  color: #0FAF97;
+  color: #239236;
   display: inline-block;
   margin-bottom: 10px;
 }
@@ -1966,7 +1966,7 @@ body.boxed {
     -moz-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.16);
     -ms-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.16);
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.16);
-    border-top: 4px solid #0FAF97;
+    border-top: 4px solid #239236;
   }
 }
 .boxed-wrapper .navbar-default.sticky {
@@ -2041,7 +2041,7 @@ MULTI LEVEL DROPDOWN CSS
 }
 .cta-bg {
   padding: 50px 0;
-  background-color: #0FAF97;
+  background-color: #239236;
 }
 
 .cta-bg h3 {
