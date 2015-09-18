@@ -44,8 +44,8 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 		makeNavActive: function(e){
 			
 			if(!($(e.target).attr("data-target") == "#comingSoonModal")){
-				$('li').removeClass("active");
-				$(e.target).parent().addClass("active");	
+				$('li').removeClass("nav_active");
+				$(e.target).parent().addClass("nav_active");	
 			}
 			
 		}
