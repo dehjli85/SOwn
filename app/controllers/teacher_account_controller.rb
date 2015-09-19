@@ -455,7 +455,6 @@ class TeacherAccountController < ApplicationController
 		students.each do |student|
 			activities_count = 0
 			activities.each_with_index do |activity, index|
-				puts activity
 				if (!activity["due_date"].nil? && activity["due_date"] < Time.now) || !student["student_performance"][index].nil?
 					activities_count += 1
 				end
@@ -470,7 +469,6 @@ class TeacherAccountController < ApplicationController
 			# Due Dates Row
 			row = ["", "", "Due Date:"]
 			activities.each do |activity|
-				puts activity
 				row.push(activity["due_date"])
 			end
 			csv << row

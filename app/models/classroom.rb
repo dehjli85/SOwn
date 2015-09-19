@@ -165,39 +165,59 @@ class Classroom < ActiveRecord::Base
 	# => Greater than the max of Benchmark1 and Benchmark2 of the scored Activity
 	def percent_proficient_activities(student_user_id=nil)
 		
-		if student_user_id.nil?
-			student_user_ids = self.student_users.pluck(:id)
+		activities = Activity.activities_with_pairings(self.id)
+		proficient_counts = StudentPerformance.student_performance_proficiencies(self.id, nil, nil, student_user_id, true)
+		if student_user_id
+			students = self.student_users.where(id: student_user_id).as_json
+			performance_array = StudentPerformance.student_performances_with_verification(self.id, nil, nil, student_user_id, false)
 		else
-			student_user_ids = [student_user_id]
+			students = self.student_users.as_json
+			performance_array = StudentPerformance.student_performances_with_verification(self.id, nil, nil, student_user_id, true)
 		end
 
-		cap_ids = self.search_matched_pairings
-			.joins(:activity)
-			.where(hidden: false)
-			.where("due_date is not null and due_date < current_date")
-			.where("(activity_type = 'completion') 
-				or (activity_type = 'scored' and (benchmark1_score is not null or benchmark2_score is not null))")
-			.ids
+		students_hash = {}
+		students.each_with_index do |student, index|
+			students_hash[student["id"].to_i] = index
+			student["student_performance"] = []
+		end
 
-		total_activities = cap_ids.length * student_user_ids.length
-		
-		student_performances = StudentPerformance.joins(:activity)
-			.joins(:classroom_activity_pairing)
-			.where(classroom_activity_pairing_id: cap_ids)
-			.where('completed_performance = true or scored_performance > greatest(benchmark1_score, benchmark2_score)')
-			.where(student_user_id: student_user_ids)
-			.select("student_user_id, classroom_activity_pairing_id")
-			.distinct
+		# assign each performance to the correct student/activity
+		performance_array.each do |performance|
 
-		proficient_count = student_performances.length
+			student_index = students_hash[performance["student_user_id"].to_i]
+			activities_index = performance["sort_order"].to_i
 
-		if total_activities == 0
+			if students[student_index]["student_performance"][activities_index].nil? || students[student_index]["student_performance"][activities_index]["id"].to_i < performance["id"].to_i
+				students[student_index]["student_performance"][activities_index] = performance
+			end
+
+		end
+
+		# add proficient counts
+		overall_proficient_count = 0
+		proficient_counts.each do |student|
+			student_index = students_hash[student["student_user_id"].to_i]
+			overall_proficient_count += student["proficient_count"].to_i
+		end
+
+		# calculate overal mastery %
+		overall_activities_count = 0
+		students.each do |student|
+			activities.each_with_index do |activity, index|
+				if (!activity["due_date"].nil? && activity["due_date"] < Time.now) || !student["student_performance"][index].nil?
+					overall_activities_count += 1
+				end
+			end
+		end
+
+		if overall_activities_count == 0
 			return 0.0
-		elsif proficient_count > 0
-			return proficient_count.to_f / total_activities.to_f
+		elsif overall_proficient_count > 0
+			return overall_proficient_count.to_f / overall_activities_count.to_f
 		else
 			return 0.0
 		end
+
 
 	end
 
