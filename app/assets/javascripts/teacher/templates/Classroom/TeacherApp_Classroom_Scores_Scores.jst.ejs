@@ -8,22 +8,29 @@
       <thead>
         
         <tr>
-          <th class="scores-table__th_students" ui-student-header>Students</th>
-          <th class="scores-table__th_activity scores-table__th_activity_left-right-bordered">
-            <div class="scores-table__due-date scores-table__due-date_label">
-              Due Date:
-            </div>
-            <div class="scores-table scores-table__activity" ui-mastery-header>
-              % At Mastery
+          <th class="scores-table__students-header" ui-student-header>Students</th>
+          <th class="scores-table__activity-header scores-table__th_activity_left-right-bordered">
+            <div class="scores-table__flex-div">
+              <div class="scores-table__due-date-div scores-table__due-date-div_label">
+                Due Date:
+              </div>
+              <div class="scores-table scores-table__activity-div" >
+                <div>% At Mastery</div>
+                <div><a href="#" ui-mastery-header><i class="ion-arrow-down-a" class="sort_icon"></i></a></div>
+              </div>
             </div>
           </th>
           <% for(var i = 0; i < activities.length; i++){ %>
-              <th name="<%= activities[i].classroom_activity_pairing_id %>" class="scores-table__th_activity draggable " >
-                <div class="scores-table__due-date">
-                  <%= activities[i].due_date ?  moment(activities[i].due_date).format("MM/DD") : "" %>  
-                </div>
-                <div id="header_<%= i %>" class="scores-table scores-table__activity activity">
-                  <%= activities[i].name %>
+              <th name="<%= activities[i].classroom_activity_pairing_id %>" class="scores-table__activity-header scores-table__activity-header_draggable " >
+                <div class="scores-table__flex-div">
+
+                  <div class="scores-table__due-date-div">
+                    <%= activities[i].due_date ?  moment(activities[i].due_date).format("MM/DD") : "" %>  
+                  </div>
+                  <div class="scores-table scores-table__activity-div">                  
+                    <div class="scores-table__activity-name-div"><%= activities[i].name %></div>
+                    <div><a href="#" class="ui_scores-table__sort_icon" id="header_<%= i %>"><i class="ion-arrow-down-a"></i></a></div>
+                      </div>
                 </div>
               </th>             
           <% } %>

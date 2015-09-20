@@ -92,8 +92,10 @@ Rails.application.routes.draw do
   get 'teacher/student_performance' => 'teacher_account#student_performance'
   post 'teacher/save_verify' => 'teacher_account#save_verify'
   post 'teacher/save_activities_sort_order' => 'teacher_account#save_activities_sort_order'
+  get 'teacher/export_data' => 'teacher_account#export_data'
 
   # teacher/activities app routes
+  get 'teacher/activities_tags' => 'teacher_account#activities_tags'
   get 'teacher/teacher_activities_and_classroom_assignment' => 'teacher_account#teacher_activities_and_classroom_assignment'
   get 'teacher/teacher_activities_options' => 'teacher_account#teacher_activities_options'
   post 'teacher/save_teacher_activity_assignment_and_options' => 'teacher_account#save_teacher_activity_assignment_and_options'
@@ -132,6 +134,8 @@ Rails.application.routes.draw do
   post 'student/save_student_performance' => 'student_account#save_student_performance'
   get 'student/activity_and_performances' => 'student_account#activity_and_performances'
 
+  # student/settings routes
+  post 'student/save_settings' => 'student_account#save_settings'
 
   # admin routes
   get 'admin' => 'admin#home'
@@ -140,8 +144,10 @@ Rails.application.routes.draw do
   post 'admin/search_users' => 'admin#search_users'
   get 'admin/sign_out' => 'admin#sign_out'
   post 'admin/become_user' => 'admin#become_user'
+  get 'admin/summary_metrics' => 'admin#summary_metrics'
 
   root to: "public_pages#home"
+  # root to: "public_pages#index"
 
   resources :sessions, only: [:create, :destroy]
   resources :classroom

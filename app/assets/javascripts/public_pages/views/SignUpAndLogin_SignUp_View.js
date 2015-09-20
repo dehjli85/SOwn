@@ -4,7 +4,7 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 	
 	SignUp.SignUpView = Marionette.ItemView.extend({
 		template: JST["public_pages/templates/SignUpAndLogin_SignUp_SignUpView"], 
-		className: "container-fluid",
+		className: "container-fluid container-fluid_no-padding",
 
 		events:{
 			"click @ui.googleSignUpButton": "signUpWithGoogle",
@@ -32,7 +32,6 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 		},
 
 		triggers:{
-			"click input.ui-sign-up": "sign-up",
 			"click @ui.signUpButton": "sign:up"
 		},
 

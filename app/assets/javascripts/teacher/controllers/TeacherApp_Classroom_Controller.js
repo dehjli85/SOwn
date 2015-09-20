@@ -106,6 +106,38 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 		   
 			});	
 
+		},
+
+		exportData: function(classroomId){
+
+			var getUrl = "teacher/export_data?classroom_id=" + classroomId;
+			var jqxhr = $.get(getUrl, function(){
+				console.log('get request to get classroom data');
+			})
+			.done(function(data) {
+
+				if(data.status == "success"){
+
+					var classroom = new Backbone.Model(data.classroom);
+					classroom.attributes.errors = {};
+					classroom.attributes.editOrNew = "edit";
+					
+					var classroomView = new TeacherAccount.TeacherApp.ClassroomView({model:classroom});
+					classroomLayoutView.mainRegion.show(classroomView);
+					
+				}
+				else{
+
+				}
+				
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});	
+
 		}
 
 	}

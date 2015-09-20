@@ -8,7 +8,7 @@
       <td class="scores-table__score <%= student_performance[i].performance_color %>">
         <%= student_performance[i].performance_pretty %>
         <% if(student_performance[i].requires_verification == 't' && student_performance[i].verified != 't') {%>
-          <br /><a href="#" name="<%= student_performance[i].id%>" ui-verify-a>Verify</a> 
+          <br /><a href="#" name="<%= student_performance[i].id%>" class="verify_link" ui-verify-a>Verify</a> 
         <%}%>
       </td>
     <% } %>

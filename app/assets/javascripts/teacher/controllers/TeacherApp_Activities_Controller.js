@@ -7,37 +7,62 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		showActivitiesIndex: function(){			
 
 			//Create the Index Layout View
-			var indexLayoutView = new TeacherAccount.TeacherApp.Activities.IndexLayoutView();
+			var model = new Backbone.Model({tags: []});
+			var indexLayoutView = new TeacherAccount.TeacherApp.Activities.IndexLayoutView({model: model});
 			TeacherAccount.rootView.mainRegion.show(indexLayoutView);
 			
-			Activities.Controller.showIndexHeaderView(indexLayoutView);
+			Activities.Controller.showIndexSearchBarView(indexLayoutView);
+
+			Activities.Controller.showIndexTagCollectionView(indexLayoutView);
 
 			Activities.Controller.showIndexActivitiesCompositeView(indexLayoutView);
 
 			
 		},
 
-		showIndexHeaderView: function(indexLayoutView){
+		showIndexSearchBarView: function(indexLayoutView){
 
-			var headerView = new TeacherAccount.TeacherApp.Activities.IndexHeaderView();
-			indexLayoutView.headerRegion.show(headerView);
+			var searchBarView = new TeacherAccount.TeacherApp.Activities.IndexSearchBarView();
+			indexLayoutView.searchBarRegion.show(searchBarView);
 		},
 
-		showIndexActivitiesCompositeView: function(indexLayoutView, tagId, searchTerm){
+		showIndexTagCollectionView: function(indexLayoutView){
+			var jqxhr = $.get("/teacher/activities_tags", function(){
+				console.log('get request made');
+			})
+			.done(function(data) {
+				
+				var tagCollection = new Backbone.Collection(data.tags);
+
+				var tagCollectionView = new TeacherAccount.TeacherApp.TagCollectionView({collection: tagCollection});	     	
+				indexLayoutView.tagsRegion.show(tagCollectionView);
+				
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+		},
+
+		showIndexActivitiesCompositeView: function(indexLayoutView, searchTerm, tagIds ){
 
 			// create activity assignment view and add it to the layout
 			var getUrl = "/teacher/teacher_activities_and_tags?";
-			if(tagId != null){
-				getUrl += "tagId=" + tagId;
+			if(tagIds != null){
+				getUrl += "tag_ids=" + encodeURIComponent(JSON.stringify(tagIds));
 			}
 			if(searchTerm != null){
-				getUrl += "searchTerm=" + searchTerm;
+				getUrl += "search_term=" + searchTerm;
 			}
 			
 			var jqxhr = $.get(getUrl, function(){
 				console.log('get request for teacher activities and tags made');
 			})
 			.done(function(data) {
+
+				console.log(data);
 
 				var activitiesCollection = new TeacherAccount.TeacherApp.Activities.Models.IndexActivitiesCollection(data.activities);
 

@@ -17,4 +17,8 @@ class ActivityTag < ActiveRecord::Base
 	def hashed_name
 		'#' + name
 	end
+
+	def self.tags_for_teacher(teacher_user_id)
+		ActivityTag.joins(:activities).where("teacher_user_id = ?", teacher_user_id).order("name ASC").distinct
+	end
 end

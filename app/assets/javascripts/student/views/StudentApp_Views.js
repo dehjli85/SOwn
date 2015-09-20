@@ -5,14 +5,16 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 	StudentApp.HeaderView = Marionette.ItemView.extend({				
 		template: JST["student/templates/StudentApp_Header"],
 		tagName: "nav",
-		className: "navbar navbar-inverse navbar-fixed-top",
+		className: "navbar navbar-inverse navbar-fixed-top navbar-inverse_theme ",
 
 		ui: {
-			switchAccountLink: "[ui-switch-account-link]"
+			switchAccountLink: "[ui-switch-account-link]",
+			settingsLink: "[ui-settings-link]"
 		},
 
 		triggers:{
 			"click @ui.switchAccountLink": "show:teacher:view",
+			"click @ui.settingsLink": "show:student:settings"
 		},
 
 		onShowTeacherView: function(){
@@ -42,8 +44,8 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 		makeNavActive: function(e){
 			
 			if(!($(e.target).attr("data-target") == "#comingSoonModal")){
-				$('li').removeClass("active");
-				$(e.target).parent().addClass("active");	
+				$('li').removeClass("nav_active");
+				$(e.target).parent().addClass("nav_active");	
 			}
 			
 		}
@@ -62,8 +64,12 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 		},
 
 		onChildviewShowClassroomScores: function(view){
-			console.log(view.model);
 			StudentAccount.StudentApp.Main.Controller.startClassroomApp(view.model.get("classroom_id"), 'scores');
+		},
+
+		onChildviewShowStudentSettings: function(view){
+			StudentAccount.navigate("settings");
+			StudentAccount.StudentApp.Settings.Controller.showSettingsOptions();		
 		}
 		
 	});

@@ -2,6 +2,10 @@ class PublicPagesController < ApplicationController
 
 	skip_before_action :require_login
 
+	def index
+		
+	end
+	
 	def home
 		if !session[:teacher_user_id].nil?
 			redirect_to '/teacher_home'
@@ -275,7 +279,7 @@ class PublicPagesController < ApplicationController
 			render json: {status: "error", errors: student.errors}
 		end		
 	end
-	
+
 	def signout
 
 		session[:teacher_user_id] = nil

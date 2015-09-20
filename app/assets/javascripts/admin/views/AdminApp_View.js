@@ -20,28 +20,15 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 				this.alertRegion.show(view);
 			},
 
-			
-
-
-
-			onChildviewBecomeUser: function(view){
-				AdminApp.Controller.becomeUser(view.model, this);
-			},
-
-			onChildviewSearchUsers: function(view){
-				AdminApp.Controller.searchUsers(view, view.ui.searchForm, this );
-			}
-			
-
 	});
 
 	AdminApp.AlertView = Marionette.ItemView.extend({
 		template: JST["admin/templates/AdminApp_Alert"]
 	});
 
-	AdminApp.MainView = Marionette.LayoutView.extend({				
-			template: JST["admin/templates/AdminApp_Main"],
-			className: "container",
+	AdminApp.LoginFormView = Marionette.ItemView.extend({				
+			template: JST["admin/templates/AdminApp_LoginForm"],
+			className: "col-md-6 col-md-offset-3 my-login-form",
 
 			triggers: {
 				"click @ui.googleLogInButton": "log:in:with:google"
@@ -71,7 +58,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 
 	AdminApp.UserIndexCompositeView = Marionette.CompositeView.extend({
 			template: JST["admin/templates/AdminApp_UserIndexComposite"],
-			className: "col-md-8 col-md-offset-2",
+			className: "row",
 			childView: AdminApp.UserView,
 			childViewContainer: "tbody",
 
@@ -87,12 +74,54 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 				"submit @ui.searchForm": "searchUsers"
 			}
 
-			
-			
-
 	});
 
-	
+	AdminApp.AdminHomeLayoutView = Marionette.LayoutView.extend({
+		template: JST["admin/templates/AdminApp_AdminHomeLayout"],
+		className: "",
+		regions: {
+			sidebarRegion: "#sidebar_region",
+			mainAdminHomeRegion: "#main_admin_home_region",
+			alertRegion: "#alert_region",
+			vizOne: "[ui-viz-one]",
+			vizTwo: "[ui-viz-two]",
+			vizThree: "[ui-viz-three]",
+			vizFour: "[ui-viz-four]"	
+		},
+
+		ui:{
+			usersIndexLink: "[ui-users-index-link]",
+			metricsLink: "[ui-metrics-link]",
+		},
+
+		events:{
+			"click @ui.usersIndexLink": "showUsersIndex",
+			"click @ui.metricsLink": "showMetrics",
+		},
+
+		showUsersIndex: function(){
+			AdminApp.Controller.showUsersIndex(this);
+		},
+
+		showMetrics: function(){
+			AdminApp.Controller.showMetrics(this);
+		},
+
+		onChildviewBecomeUser: function(view){
+			AdminApp.Controller.becomeUser(view.model, this);
+		},
+
+		onChildviewSearchUsers: function(view){
+			AdminApp.Controller.searchUsers(view, view.ui.searchForm, this );
+		},
+
+		flashMessage: function(object){
+			var model = new Backbone.Model(object);
+			var view = new AdminApp.AlertView({model: model});
+			this.alertRegion.show(view);
+		},
+
+	})
 
 
 

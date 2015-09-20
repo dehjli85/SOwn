@@ -14,25 +14,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		}
 	});
 
-	Scores.TagView = Marionette.ItemView.extend({
-		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_Tag"],			
-		tagName: "li",
+	
 
-		ui: {
-			label: "a"
-		},
-
-		triggers: {
-			"click a":"filter:tag:classroom:scores:view"			
-		}
-		
-	});
-
-	Scores.TagCollectionView = Marionette.CollectionView.extend({
-		childView: Scores.TagView,
-		tagName: "ul",
-		className: "list-inline col-sm-12",		
-	});
+	
 
 	Scores.StudentPerformanceView = Marionette.ItemView.extend({
 		tagName: "tr",
@@ -148,11 +132,13 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		ui:{
 			studentHeader: "[ui-student-header]",
-			masteryHeader: "[ui-mastery-header]"
+			masteryHeader: "[ui-mastery-header]",
+
 		},
 
 		events: {
-			"dblclick .activity": "sortActivityHeader",
+			// "dblclick .activity": "sortActivityHeader",
+			"click .ui_scores-table__sort_icon": "sortActivityHeader",
 			"click @ui.studentHeader": "sortByName",
 			"click @ui.masteryHeader" : "sortByMastery"
 		},
@@ -165,7 +151,8 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			this.collection.sort();
 		},
 
-		sortByMastery: function(){
+		sortByMastery: function(e){
+			e.preventDefault();
 			this.collection.comparator = function(item){
 				return -[parseInt(item.get("proficiency"))];
 				
@@ -173,9 +160,16 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			this.collection.sort();
 		},
 
+		stopPropagation: function(e){
+			console.log("mousedown");
+			e.stopPropagation();			
+		},
+
 		sortActivityHeader: function(e){
 			console.log(e);
-			index = parseInt($(e.target).attr("id").replace("header_",""));
+			e.preventDefault();
+
+			index = parseInt($(e.target).parent().attr("id").replace("header_",""));
 			
 			this.collection.comparator = function(item){
 				
@@ -240,8 +234,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 					persistState: function(table){
 						obj.saveActivitiesSortOrder(table, obj);
 					},
-					dragaccept: '.draggable',
-					maxMovingRows: 1
+					dragaccept: '.scores-table__activity-header_draggable',
+					maxMovingRows: 1,
+					dragHandle: '.scores-table__activity-name-div'
 				}
 			);
 		},

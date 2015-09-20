@@ -164,7 +164,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				
 				var tagCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.TagCollection(data);
 
-				var tagCollectionView = new TeacherAccount.TeacherApp.Classroom.Scores.TagCollectionView({collection: tagCollection});	     	
+				var tagCollectionView = new TeacherAccount.TeacherApp.TagCollectionView({collection: tagCollection});	     	
 				scoresLayoutView.tagsRegion.show(tagCollectionView);
 				
 		  })

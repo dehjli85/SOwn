@@ -1,10 +1,28 @@
 // Place all the styles related to the public_pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #eee;
+
+h1.slider-text_h1{
+  text-transform: none;
+}
+
+span.slider-text__span_underline{
+  text-decoration: underline;
+}
+
+p.slider-text__p{
+  font-style: normal;
+  margin-bottom: 30px;
+}
+
+p.slide-btn_inline{
+  display: inline;
+  margin: 40px 10px 10px 10px;
+}
+
+h3.subtitle_sown{
+  font-style: normal;
+  color: #555555;
 }
 
 .role_select_div {
@@ -20,21 +38,41 @@ body {
   z-index: 2;
 }
 
+.header-main_pp{
+  max-height: 7vh;
+}
 
+.main-flex-slider_pp-full-page, .main-flex-slider_pp-full-page>ul>li>figure>img{
+  min-height: 93vh;
+}
+
+/*
+ * Sign Up Styles
+ */
+.page-tree-bg{
+  background-image: url("/assets/bizwrap/bread-bg.png")
+}
+
+.btn_sign-up{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.container-fluid_no-padding{
+  padding:0px;
+}
 /////SIGN UP PAGE STLES - BEGIN
 body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #eee;
+  // padding-top: 40px;
+  // padding-bottom: 40px;
+  // background-color: #eee;
 }
 
 .signin-div{
 	text-align:center;
 }
 .form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
+  
 }
 .form-signin .form-signin-heading,
 .form-signin .checkbox {

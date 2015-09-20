@@ -5,7 +5,7 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 	TeacherApp.HeaderView = Marionette.ItemView.extend({				
 		template: JST["teacher/templates/TeacherApp_Header"],
 		tagName: "nav",
-		className: "navbar navbar-inverse navbar-fixed-top",
+		className: "navbar navbar-inverse navbar-fixed-top navbar-inverse_theme",
 
 		ui: {
 			switchAccountLink: "[ui-switch-account-link]",
@@ -156,5 +156,27 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 
 
 	});
+
+	TeacherApp.TagView = Marionette.ItemView.extend({
+		template: JST["teacher/templates/TeacherApp_Tag"],			
+		tagName: "li",
+
+		ui: {
+			label: "a"
+		},
+
+		triggers: {
+			"click a":"filter:tag:classroom:scores:view"			
+		}
+		
+	});
+
+	TeacherApp.TagCollectionView = Marionette.CollectionView.extend({
+		childView: TeacherApp.TagView,
+		tagName: "ul",
+		className: "list-inline col-sm-12",		
+	});
+
+	
 
 });

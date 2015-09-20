@@ -4,7 +4,7 @@ PublicPages.module("SignUpAndLoginApp.Login", function(LoginApp, PublicPages, Ba
 	
 	LoginApp.Layout = Marionette.LayoutView.extend({				
 			template: JST["public_pages/templates/SignUpAndLogin_Login_Layout"],
-			className: "container",
+			className: "container-fluid container-fluid_no-padding",
 
 			regions:{
 				loginFormRegion: "#login-form-region",
@@ -34,6 +34,14 @@ PublicPages.module("SignUpAndLoginApp.Login", function(LoginApp, PublicPages, Ba
 			onChildviewLogInWithGoogle: function(view){				
 				LoginApp.Controller.logInWithGoogle(this);			
 			},			
+
+			onChildviewTeacherSignUp: function(view){
+				PublicPages.SignUpAndLoginApp.SignUp.Controller.showSignUpForm("Teacher");
+			},
+
+			onChildviewStudentSignUp: function(view){
+				PublicPages.SignUpAndLoginApp.SignUp.Controller.showSignUpForm("Student");
+			}
 				
 			
 	});
@@ -48,19 +56,23 @@ PublicPages.module("SignUpAndLoginApp.Login", function(LoginApp, PublicPages, Ba
 		
 		triggers:{
 			"click button.js-sign-in": "login:sign:in",
-			"click @ui.googleLogInButton": "log:in:with:google"
+			"click @ui.googleLogInButton": "log:in:with:google",
+			"click @ui.teacherSignUpLink": "teacher:sign:up",
+			"click @ui.studentSignUpLink": "student:sign:up",
 		},
 
 		events:{
 			"click @ui.signInAccountButton": "revealLoginForm",
-			"click @ui.googleLogInButton": "logInWithGoogle"
+			"click @ui.googleLogInButton": "logInWithGoogle",
 		},
 
 		ui:{
 			credentialsForm: '[ui-credentials-form]',
 			signInAccountButton: '[ui-sign-in-account-button]',
 			standardFormDiv: "[ui-standard-form-div]",
-			googleLogInButton: "[ui-google-log-in-button]"
+			googleLogInButton: "[ui-google-log-in-button]",
+			teacherSignUpLink: "[ui-teacher-sign-up-link]",
+			studentSignUpLink: "[ui-student-sign-up-link]"
 		},
 
 		revealLoginForm: function(){

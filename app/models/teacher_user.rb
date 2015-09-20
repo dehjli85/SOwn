@@ -67,8 +67,59 @@ class TeacherUser < ActiveRecord::Base
 
   def has_password_or_external_authentication
     if self.password_digest.nil? && self.provider.nil?
-      errors.add(:password, 'cannot be blank, or you must sign up with Google Authentication')
+      errors.add(:password, 'can\'t be blank')
     end
+  end
+
+  # return the number of "real" Student Users
+  def self.count
+    TeacherUser.where("email not like '%@sowntogrow.com%'").count
+  end
+
+  # return the number of "real" Student Users by week
+  def self.create_count_by_week
+    students = TeacherUser.where("email not like '%@sowntogrow.com%'")
+    hash = {}
+    students.each do |student|
+      year = student.created_at.strftime('%Y')
+      week = student.created_at.strftime('%W')
+      if !hash[year]
+        hash[year] = {}
+      end
+
+      if hash[year][week]
+        hash[year][week] += 1
+      else
+        hash[year][week] = 1
+      end
+
+    end
+
+    array = []
+    years = hash.keys.sort
+    years.each_with_index do |year, i|
+      weeks = hash[year].keys.sort
+      weeks.each_with_index do |week, j|
+        array.push({year: years[i], week: weeks[j], count: hash[years[i]][weeks[j]]})
+      end
+    end
+
+    array
+  end
+
+  # return the cumulative number of "real" Student Users by week
+  def self.cumulative_create_count_by_week
+
+    array = self.create_count_by_week
+
+    cum = 0
+    array.each do |week|
+      cum += week[:count]
+      week[:count] = cum
+    end
+
+    array
+
   end
   
 end

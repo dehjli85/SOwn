@@ -13,7 +13,8 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			"click @ui.editDataLink": "classroom:show:edit:scores",
 			"click @ui.editActivitiesLink": "classroom:show:edit:activities",
 			"click @ui.classroomCodeLink": "classroom:show:classroom:code",
-			"click @ui.editClassroomLink": "classroom:show:edit:classroom"
+			"click @ui.editClassroomLink": "classroom:show:edit:classroom",
+			// "click @ui.exportData": "classroom:export:data"
 		},
 
 		events:{
@@ -27,6 +28,7 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			editActivitiesLink: "[ui-edit-activities-a]",			
 			classroomCodeLink: "[ui-show-classroom-code-a]",
 			editClassroomLink: "[ui-edit-classroom-a]",
+			exportData: "[ui-export-data-a]",
 			lis: "li",
 		},
 
@@ -99,6 +101,12 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			TeacherAccount.navigate("classroom/edit_classroom/" + view.model.attributes.id);
 
 			TeacherAccount.TeacherApp.Classroom.Controller.showEditClassroom(this, view.model.attributes.id);
+
+		},
+
+		onChildViewClassroomExportData: function(view){
+
+			TeacherAccount.TeacherApp.Classroom.Controller.exportData(view.model.attributes.id);
 
 		}
 
