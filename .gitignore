@@ -19,6 +19,7 @@ pickle-email-*.html
 /db/prod_to_test.rb
 /db/prod_to_dev.rb
 prod_*
+*.DS_Store
 
 # TODO Comment out these rules if you are OK with secrets being uploaded to the repo
 config/initializers/secret_token.rb
