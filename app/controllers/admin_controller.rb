@@ -24,6 +24,8 @@ class AdminController < ApplicationController
 			authorization = ga.exchange_code(params[:authorization_code])
 			user_info = ga.get_user_info(authorization)
 
+			puts "User Info: #{user_info}"
+
 			if user_info.email.match(/.*@sowntogrow.com/)
 				session[:admin_user_id] = user_info.id							
 			end			
@@ -39,8 +41,9 @@ class AdminController < ApplicationController
 			end		
 		end
 
-		rescue
-			render json: {status: "error", message: "unknown-authentication-error"}	
+		rescue => error
+			puts error
+			render json: {status: "error", error: "unknown-authentication-error", message: "unknown-authentication-error"}	
 		end
 
 	end

@@ -40,6 +40,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			})
 			.done(function(data) {
 
+
 				if (data.login_response === 'success'){		    	
 					
 					Admin.navigate("users_index");
@@ -48,9 +49,14 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 
 		    }
 		    else{
+
+					console.log(data);
+
 		    	if (data.error === 'invalid-credentials') {
 		    		layoutView.flashMessage({message_type: "error", error: "invalid-credentials", message: "Invalid Credentials. Try logging in again."});		    		
-
+		    	}
+		    	else if (data.error === 'unknown-authentication-error') {
+		    		layoutView.flashMessage({message_type: "error", error: "unknown-authentication-error", message: "Unknown Authentication Error. Contact Dennis."});		    		
 		    	}
 		    	
 		    }
