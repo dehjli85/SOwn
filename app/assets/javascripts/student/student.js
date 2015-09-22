@@ -13,6 +13,10 @@ StudentAccount.getCurrentRoute = function(){
 };
 
 StudentAccount.on("start", function(){		
+
+	//hack for changing bg color on body
+	$('body').attr("style", "background-color:#f1f1f1");
+	
 	
 	if(!Backbone.History.started){		
 		Backbone.history.start();	

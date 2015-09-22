@@ -1,5 +1,7 @@
 TeacherAccount = new Marionette.Application();
 
+
+
 TeacherAccount.navigate = function(route, options){
 	options || (options = {});
 	Backbone.history.navigate(route, options);
@@ -13,6 +15,9 @@ TeacherAccount.getCurrentRoute = function(){
 };
 
 TeacherAccount.on("start", function(){		
+
+	//hack for changing bg color on body
+	$('body').attr("style", "background-color:#f1f1f1");
 	
 	if(!Backbone.History.started){		
 		Backbone.history.start();	
