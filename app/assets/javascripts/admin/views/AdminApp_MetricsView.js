@@ -86,4 +86,15 @@ Admin.module("AdminApp.Metrics", function(Metrics, Admin, Backbone, Marionette, 
 		}
 	});
 
+	Metrics.MetricsLayoutView = Marionette.LayoutView.extend({
+		template: JST["admin/templates/AdminApp_MetricsLayout"],
+			className: "row",
+			regions: {
+				vizOne: "[ui-viz-one]",
+				vizTwo: "[ui-viz-two]",
+				vizThree: "[ui-viz-three]",
+				vizFour: "[ui-viz-four]"	
+			},
+	});
+
 });

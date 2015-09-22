@@ -83,10 +83,6 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			sidebarRegion: "#sidebar_region",
 			mainAdminHomeRegion: "#main_admin_home_region",
 			alertRegion: "#alert_region",
-			vizOne: "[ui-viz-one]",
-			vizTwo: "[ui-viz-two]",
-			vizThree: "[ui-viz-three]",
-			vizFour: "[ui-viz-four]"	
 		},
 
 		ui:{
@@ -121,7 +117,9 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			this.alertRegion.show(view);
 		},
 
-	})
+	});
+
+
 
 
 
