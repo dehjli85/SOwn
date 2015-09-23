@@ -61,12 +61,19 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	  },
 
 	  ui:{
-	  	verifyLink: "[ui-verify-a]"
+	  	verifyLink: "[ui-verify-a]",
+	  	studentLink: "[ui-student-link]"
 	  },
 
 	  events:{
-	  	"click @ui.verifyLink": "triggerOpenVerifyModal"
+	  	"click @ui.verifyLink": "triggerOpenVerifyModal",
 	  },
+
+	  triggers:{
+	  	"click @ui.studentLink": "show:student:page"
+	  },
+
+
 
 	  triggerOpenVerifyModal: function(e){
 	  	e.preventDefault();
@@ -264,7 +271,19 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	    	this.triggerMethod("save:activities:sort:order");
 			}
 
-		}
+		},
+
+		onChildviewShowStudentPage: function(view){
+
+			var model = new Backbone.Model({searchTerm: null});
+			var studentsLayoutView = new TeacherAccount.TeacherApp.Students.StudentsLayoutView({model:model});
+			TeacherAccount.rootView.mainRegion.show(studentsLayoutView);
+
+			console.log(this.model);
+
+			TeacherAccount.TeacherApp.Students.Controller.showStudentView(studentsLayoutView, view.model.attributes.id, this.model.attributes.classroom.id);
+
+	  },
 
 	});
 
