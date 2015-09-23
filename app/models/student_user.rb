@@ -83,8 +83,18 @@ class StudentUser < ActiveRecord::Base
   end
 
   # return the number of "real" Student Users
-  def self.count
-    StudentUser.where("email not like '%@sowntogrow.com%'").count
+  # if a teacher_user_id is specified, returns the number of students in that teacher's classrooms
+  def self.count(teacher_user_id=nil)
+    if teacher_user_id.nil?
+      StudentUser.where("email not like '%@sowntogrow.com%'")
+        .count
+    else
+      StudentUser.joins(:classroom_student_users)
+        .joins(:classrooms)
+        .where("email not like '%@sowntogrow.com%'")
+        .where("teacher_user_id = ?", teacher_user_id)
+        .count
+    end
   end
 
   # return the number of "real" Student Users by week

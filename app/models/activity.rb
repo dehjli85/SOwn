@@ -235,13 +235,23 @@ class Activity < ActiveRecord::Base
 
   end
 
-  # return the number of performances from "real" Student Users
-  def self.count
+  # return the number of Activities from "real" Teacher Users
+  # if teacher_user_id is passed, filter on just that teacher_user_id
+  def self.count(teacher_user_id=nil)
     exclude_teacher_user_ids = TeacherUser.where("email like '%@sowntogrow.com%'").pluck(:id)
-    Activity.where("teacher_user_id not in (?)", exclude_teacher_user_ids).count
+
+    if teacher_user_id.nil?
+      Activity.where("teacher_user_id not in (?)", exclude_teacher_user_ids)
+      .count
+    else
+      Activity.where("teacher_user_id not in (?)", exclude_teacher_user_ids)
+      .where(teacher_user_id: teacher_user_id)
+      .count
+
+    end
   end
 
-  # return the number of performances from "real" Student Users by week
+  # return the number of Activities from "real" Teacher Users by week
   def self.create_count_by_week
     exclude_teacher_user_ids = TeacherUser.where("email like '%@sowntogrow.com%'").pluck(:id)
     activities = Activity.where("teacher_user_id not in (?)", exclude_teacher_user_ids)
@@ -274,7 +284,7 @@ class Activity < ActiveRecord::Base
     array
   end
   
-  # return the cumulative number of performances from "real" Student Users by week
+  # return the cumulative number of Activities from "real" Teacher Users by week
   def self.cumulative_create_count_by_week
     
     array = self.create_count_by_week

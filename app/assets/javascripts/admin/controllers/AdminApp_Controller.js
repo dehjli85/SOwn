@@ -4,7 +4,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 	
 	AdminApp.Controller = {
 
-		startAdminApp: function(subapp){
+		startAdminApp: function(subapp, userType, id){
 			var adminHomeLayoutView = AdminApp.Controller.showAdminHomeLayout();
 
 			if(subapp == "users_index"){
@@ -12,6 +12,9 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			}
 			else if(subapp == "metrics"){
 				AdminApp.Controller.showMetrics(adminHomeLayoutView);
+			}
+			else if(subapp == "user_metrics"){
+				AdminApp.Controller.showUserMetrics(adminHomeLayoutView, userType, id);
 			}
 		},
 
@@ -240,6 +243,90 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 		   
 			});
 
+		},
+
+		showUserMetrics: function(adminHomeLayoutView, userType, userId ){
+
+			Admin.navigate("user_metrics/" + user_typepe + "/" + userId);
+			var getUrl = "/admin/user_metrics?id=" + userId + "&userType=" + userType;						
+
+			var jqxhr = $.get(getUrl, function(){
+
+			})
+			.done(function(data) {
+
+				console.log(data);
+
+				if (data.status === 'success'){	
+
+					
+					if(userType == "teacher"){
+
+						var userModel = new Backbone.Model({display_name: data.teacher.display_name, user_type: "Teacher"});
+						var userMetricsLayoutView = new Admin.AdminApp.Metrics.UserMetricsLayoutView({model:userModel});
+						adminHomeLayoutView.mainAdminHomeRegion.show(userMetricsLayoutView);
+					
+
+						//Display classroom count
+						var classroomCountModel = new Backbone.Model({label: "Classrooms", number: data.classroom_counts});
+
+						var classroomNumberPanel = new Admin.AdminApp.Metrics.NumberPanelView({model: classroomCountModel});
+						userMetricsLayoutView.vizOne.show(classroomNumberPanel);
+
+						//Display activity count
+						var activityCountModel = new Backbone.Model({label: "Activities", number: data.activity_counts});
+
+						var activityNumberPanel = new Admin.AdminApp.Metrics.NumberPanelView({model: activityCountModel});
+						userMetricsLayoutView.vizTwo.show(activityNumberPanel );
+
+						//Display student user count
+						var studentUsersCountModel = new Backbone.Model({label: "Students", number: data.student_user_counts});
+
+						var studentsNumberPanel = new Admin.AdminApp.Metrics.NumberPanelView({model: studentUsersCountModel});
+						userMetricsLayoutView.vizThree.show(studentsNumberPanel);
+
+						//Display student performance counts
+						var studentPerformanceCountModel = new Backbone.Model({label: "Student Performances", number: data.student_performance_counts});
+
+						var studentPerformanceNumberPanel = new Admin.AdminApp.Metrics.NumberPanelView({model: studentPerformanceCountModel});
+						userMetricsLayoutView.vizFour.show(studentPerformanceNumberPanel);
+
+					}
+					else if (userType == "student"){
+					
+						var userModel = new Backbone.Model({display_name: data.student.display_name, user_type: "Student"});
+						var userMetricsLayoutView = new Admin.AdminApp.Metrics.UserMetricsLayoutView({model:userModel});
+						adminHomeLayoutView.mainAdminHomeRegion.show(userMetricsLayoutView);
+
+						//Display classroom count
+						var classroomCountModel = new Backbone.Model({label: "Classrooms", number: data.classroom_counts});
+
+						var classroomNumberPanel = new Admin.AdminApp.Metrics.NumberPanelView({model: classroomCountModel});
+						userMetricsLayoutView.vizOne.show(classroomNumberPanel);
+
+						//Display student performance counts
+						var studentPerformanceCountModel = new Backbone.Model({label: "Student Performances", number: data.student_performance_counts});
+
+						var studentPerformanceNumberPanel = new Admin.AdminApp.Metrics.NumberPanelView({model: studentPerformanceCountModel});
+						userMetricsLayoutView.vizTwo.show(studentPerformanceNumberPanel);
+
+					}
+					
+
+		    }
+		    else if (data.status == "error"){
+	    		adminHomeLayoutView.flashErrorMessage({message_type: "error", message: "Error: Unable to fetch summary metrics"});
+		    }
+
+	     	
+	     	
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
 		},
 
 	}	

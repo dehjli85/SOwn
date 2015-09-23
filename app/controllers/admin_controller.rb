@@ -147,5 +147,34 @@ class AdminController < ApplicationController
 				cumulative_teacher_user_counts: cumulative_teacher_user_counts}
 	end
 
+	def user_metrics
+		if params[:userType].eql?("teacher")
+			student_user_counts = StudentUser.count(params[:id])
+			student_performance_counts = StudentPerformance.count("teacher", params[:id])
+			activity_counts = Activity.count(params[:id])
+			classroom_counts = Classroom.count("teacher", params[:id])
+			teacher = TeacherUser.find(params[:id])
+
+			render json: {status: "success", 
+				teacher:teacher,
+				student_performance_counts: student_performance_counts,
+				activity_counts: activity_counts,
+				classroom_counts: classroom_counts,
+				student_user_counts: student_user_counts}
+
+		elsif params[:userType].eql?("student")
+			classroom_counts = Classroom.count("student", params[:id])
+			student_performance_counts = StudentPerformance.count("student", params[:id])
+			student = StudentUser.find(params[:id])
+
+			render json: {status: "success", 
+				student: student,
+				student_performance_counts: student_performance_counts,
+				classroom_counts: classroom_counts}
+
+		end
+
+	end
+
 
 end

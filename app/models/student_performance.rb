@@ -398,9 +398,30 @@ class StudentPerformance < ActiveRecord::Base
 	end
 
 	# return the number of performances from "real" Student Users
-  def self.count
-  	exclude_student_user_ids = StudentUser.where("email like '%@sowntogrow.com%'").pluck(:id)
-    StudentPerformance.where("student_user_id not in (?)", exclude_student_user_ids).count
+  def self.count(user_type=nil, id=nil)
+  	if user_type.nil?
+
+  		exclude_student_user_ids = StudentUser.where("email like '%@sowntogrow.com%'").pluck(:id)
+	    StudentPerformance.where("student_user_id not in (?)", exclude_student_user_ids)
+	    	.count
+  	
+  	elsif user_type.eql?("teacher")
+  	
+  		exclude_student_user_ids = StudentUser.where("email like '%@sowntogrow.com%'").pluck(:id)
+	    StudentPerformance.joins(:student_user)
+	    	.joins("inner join classroom_student_users csu on csu.student_user_id = student_performances.student_user_id")
+	    	.joins("inner join classrooms c on c.id = csu.classroom_id")
+        .where("c.teacher_user_id = ?", id)
+	    	.where("csu.student_user_id not in (?)", exclude_student_user_ids)
+	    	.count
+
+  	elsif user_type.eql?("student")
+  		exclude_student_user_ids = StudentUser.where("email like '%@sowntogrow.com%'").pluck(:id)
+	    StudentPerformance.where("student_user_id not in (?)", exclude_student_user_ids)
+	    	.where("student_user_id = ? ", id)
+	    	.count
+  	end
+  	
   end
 
 	# return the number of performances from "real" Student Users by week

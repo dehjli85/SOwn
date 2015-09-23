@@ -47,11 +47,13 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 		tagName: "tr",
 
 		ui:{
-			becomeUserLink: "[ui-become-user-link]"
+			becomeUserLink: "[ui-become-user-link]",
+			userMetricsLink: "[ui-user-metrics-link]"
 		},
 
 		triggers:{
-			"click @ui.becomeUserLink" : "become:user"
+			"click @ui.becomeUserLink" : "become:user",
+			"click @ui.userMetricsLink" : "show:user:metrics"
 		}
 
 	});
@@ -109,6 +111,10 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 
 		onChildviewSearchUsers: function(view){
 			AdminApp.Controller.searchUsers(view, view.ui.searchForm, this );
+		},
+
+		onChildviewShowUserMetrics: function(view){
+			AdminApp.Controller.showUserMetrics(this, view.model.attributes.user_type, view.model.attributes.id);
 		},
 
 		flashMessage: function(object){

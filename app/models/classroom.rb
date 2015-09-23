@@ -222,7 +222,30 @@ class Classroom < ActiveRecord::Base
 	end
 
 
-	
+	# return the number of classrooms from "real" Teacher Users
+  def self.count(user_type=nil, id=nil)
+
+  	exclude_teacher_user_ids = TeacherUser.where("email like '%@sowntogrow.com%'").pluck(:id)
+
+  	if user_type.nil?
+
+	    Classroom.where("teacher_user_id not in (?)", exclude_teacher_user_ids)
+	    	.count
+  	
+  	elsif user_type.eql?("teacher")
+  	
+	    Classroom.where("teacher_user_id not in (?)", exclude_teacher_user_ids)
+	    	.where(teacher_user_id: id)
+	    	.count
+
+  	elsif user_type.eql?("student")
+
+	    ClassroomStudentUser.where("student_user_id not in (?)", exclude_teacher_user_ids)
+	    	.where("student_user_id = ? ", id)
+	    	.count
+  	end
+  	
+  end
 
 
 end

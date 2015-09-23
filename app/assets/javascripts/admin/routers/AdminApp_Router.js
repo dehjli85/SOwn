@@ -3,7 +3,8 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 	AdminApp.Router = Marionette.AppRouter.extend({
 		appRoutes:{
 			"users_index": "showUsersIndex",
-			"metrics": "showMetrics"	
+			"metrics": "showMetrics",
+			"user_metrics/:userType/:id": "showUserMetrics"
 		}		
 	});
 
@@ -26,6 +27,11 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			Admin.navigate("metrics");
 			this.checkLoggedIn(function(){AdminApp.Controller.startAdminApp("metrics")});
 			
+		},
+
+		showUserMetrics: function(userType, id){
+			Admin.navigate("user_metrics/" + userType + "/" + id);
+			this.checkLoggedIn(function(){AdminApp.Controller.startAdminApp("user_metrics", userType, id)});
 		},
 
 		checkLoggedIn: function(handler){
