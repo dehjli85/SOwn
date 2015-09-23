@@ -62,7 +62,10 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 	};
 
 	Admin.on("index:home",function(){
-		API.checkLoggedIn(AdminApp.Controller.showUsersIndex);
+		API.checkLoggedIn(function(){
+			Admin.navigate("users_index");
+			AdminApp.Controller.startAdminApp("users_index");
+		});
 	});
 
 	Admin.addInitializer(function(){
