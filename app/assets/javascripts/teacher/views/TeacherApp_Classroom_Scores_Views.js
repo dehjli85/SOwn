@@ -133,7 +133,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		ui:{
 			studentHeader: "[ui-student-header]",
 			masteryHeader: "[ui-mastery-header]",
-
+			newActivityButton: "[ui-new-activity-button]",
+			saveNewActivityButton: "[ui-save-new-activity-button]",
+			newActivityForm: "[ui-new-activity-form]"
 		},
 
 		events: {
@@ -141,6 +143,10 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			"click .ui_scores-table__sort_icon": "sortActivityHeader",
 			"click @ui.studentHeader": "sortByName",
 			"click @ui.masteryHeader" : "sortByMastery"
+		},
+
+		triggers:{
+			"click @ui.saveNewActivityButton": "save:new:activity"
 		},
 
 		sortByName: function(){
@@ -331,6 +337,10 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 	    TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveActivitiesSortOrder(this, view, view.model.attributes.activitiesSortOrder);
 
+		},
+
+		onChildviewSaveNewActivity: function(view){
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveNewActivity(view.ui.newActivityForm, this);
 		}
 
 	});

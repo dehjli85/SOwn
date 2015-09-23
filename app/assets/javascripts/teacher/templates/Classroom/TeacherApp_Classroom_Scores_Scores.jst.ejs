@@ -1,47 +1,54 @@
 <% if(((searchTerm == null || searchTerm == "") && tagIds == null ) && (activities == null || activities.length == 0)){ %>
   <div class="alert alert-warning">
-    You haven't assigned any activities for your students to work on yet!  Get started by clicking the "Activities" link on the left or the "Edit Activites" link above!
+    You haven't assigned any activities for your students to work on yet! Get started by <a href="#classroom/scores/<%= classroom.id %>" data-toggle="modal" data-target="#activityModal">creating a new activity</a>, or assigning an existing activity by clicking the "Edit Activites" link above!
   </div>
 <% }else{ %>
-  <form ui-activities-header-form>
-    <table id="perf_table" class="table table-condensed table-bordered small scores-table" style="table-layout:fixed; width:inherit; padding-top:10px;">
-      <thead>
-        
-        <tr>
-          <th class="scores-table__students-header" ui-student-header>Students</th>
-          <th class="scores-table__activity-header scores-table__th_activity_left-right-bordered">
-            <div class="scores-table__flex-div">
-              <div class="scores-table__due-date-div scores-table__due-date-div_label">
-                Due Date:
-              </div>
-              <div class="scores-table scores-table__activity-div" >
-                <div>% At Mastery</div>
-                <div><a href="#" ui-mastery-header><i class="ion-arrow-down-a" class="sort_icon"></i></a></div>
-              </div>
-            </div>
-          </th>
-          <% for(var i = 0; i < activities.length; i++){ %>
-              <th name="<%= activities[i].classroom_activity_pairing_id %>" class="scores-table__activity-header scores-table__activity-header_draggable " >
-                <div class="scores-table__flex-div">
-
-                  <div class="scores-table__due-date-div">
-                    <%= activities[i].due_date ?  moment(activities[i].due_date).format("MM/DD") : "" %>  
-                  </div>
-                  <div class="scores-table scores-table__activity-div">                  
-                    <div class="scores-table__activity-name-div"><%= activities[i].name %></div>
-                    <div><a href="#" class="ui_scores-table__sort_icon" id="header_<%= i %>"><i class="ion-arrow-down-a"></i></a></div>
-                      </div>
-                </div>
-              </th>             
-          <% } %>
+  <div class="button_div">
+    <button class="btn btn-primary" ui-new-activity-button data-toggle="modal" data-target="#activityModal">New Activity</button>
+  </div>
+  <div>
+    <form ui-activities-header-form>
+      <table id="perf_table" class="table table-condensed table-bordered small scores-table" style="table-layout:fixed; width:inherit; padding-top:10px;">
+        <thead>
           
-        </tr>
-      </thead>
-      <tbody>    
+          <tr>
+            <th class="scores-table__students-header" ui-student-header>Students</th>
+            <th class="scores-table__activity-header scores-table__th_activity_left-right-bordered">
+              <div class="scores-table__flex-div">
+                <div class="scores-table__due-date-div scores-table__due-date-div_label">
+                  Due Date:
+                </div>
+                <div class="scores-table scores-table__activity-div" >
+                  <div>% At Mastery</div>
+                  <div><a href="#" ui-mastery-header><i class="ion-arrow-down-a" class="sort_icon"></i></a></div>
+                </div>
+              </div>
+            </th>
+            <% for(var i = 0; i < activities.length; i++){ %>
+                <th name="<%= activities[i].classroom_activity_pairing_id %>" class="scores-table__activity-header scores-table__activity-header_draggable " >
+                  <div class="scores-table__flex-div">
 
-      </tbody>
-    </table>
-  </form>
+                    <div class="scores-table__due-date-div">
+                      <%= activities[i].due_date ?  moment(activities[i].due_date).format("MM/DD") : "" %>  
+                    </div>
+                    <div class="scores-table scores-table__activity-div">                  
+                      <div class="scores-table__activity-name-div"><%= activities[i].name %></div>
+                      <div><a href="#" class="ui_scores-table__sort_icon" id="header_<%= i %>"><i class="ion-arrow-down-a"></i></a></div>
+                        </div>
+                  </div>
+                </th>             
+            <% } %>
+            
+          </tr>
+        </thead>
+        <tbody>    
+
+        </tbody>
+      </table>
+    </form>
+  </div>
+
+  
 
   <% if(collectionSize == null || collectionSize == 0){ %> 
     <div class="alert alert-warning">
@@ -50,3 +57,37 @@
   <% } %>
 
 <% } %>
+
+<div class="modal fade" id="activityModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">New Activity</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form form-horizontal" ui-new-activity-form>
+            <div class="form-group">
+              <label class="col-md-4 control-label">Activity Name:</label>
+              <div class="col-md-8">
+                <input class="form-control" id="inputName" name="activity[name]" placeholder="" type="text" value="" ui-name-input>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4 control-label">Activity Type:</label>
+              <div class="col-md-4">
+                <select class="form-control" id="activity_type_selector" name="activity[activity_type]" ui-activity-type-select>
+                  <option value="completion">Completion</option>
+                  <option value="scored">Scored</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" ui-save-new-activity-button>Save</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->

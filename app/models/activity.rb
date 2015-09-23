@@ -70,10 +70,10 @@ class Activity < ActiveRecord::Base
     end     
 
     # description abbreviation
-    @description_abbreviated = description[0..25] + (description.length > 26 ? '...' : '')
+    @description_abbreviated = description.nil? ? "" : description[0..25] + (description.length > 26 ? '...' : '')
 
     # instructions abbreviation    
-    @instructions_abbreviated = instructions[0..25] + (instructions.length > 26 ? '...' : '')
+    @instructions_abbreviated = instructions.nil? ? "" : instructions[0..25] + (instructions.length > 26 ? '...' : '')
 
   end
 
