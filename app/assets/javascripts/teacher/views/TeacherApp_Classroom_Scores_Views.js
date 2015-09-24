@@ -22,28 +22,11 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		tagName: "tr",
 		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_StudentPerformance"],
 		initialize : function (options) {
+
 			this.model.attributes.activities = options.activities;
 	    this.model.attributes.activitiesCount = options.activities.length;	    
 
-	    this.model.attributes.activitiesDue = options.activitiesDue;
-	    //count activities with a due date or a performance
-	    activitiesIds = [];
-	    for(var i = 0; i < this.model.attributes.activities.length; i++){
-	    	if(this.model.attributes.activities[i].due_date != null && this.model.attributes.activities[i].due_date != ""){
-	    		activitiesIds.push(this.model.attributes.activities[i].id);
-	    	}
-	    }
-	    for(var i = 0; i < this.model.attributes.student_performance.length; i++){
-	    	if(this.model.attributes.student_performance[i] != null){
-		    	activitiesIds.push(this.model.attributes.student_performance[i].activity_id);
-	    	}
-	    }
-
-	    this.model.attributes.activitiesDue = $.unique(activitiesIds).length
-
-
-	    this.model.attributes.proficiency = 
-	    	this.model.attributes.activitiesDue == 0 ? "-" : Math.round(100*this.model.attributes.proficient_count/this.model.attributes.activitiesDue,1);
+    	this.model.attributes.proficiency = this.model.attributes.mastery_percentage == null ? "-" : Math.round(100*this.model.attributes.mastery_percentage,1);
 
 	    if(this.model.attributes.proficiency >= 80) {
     		this.model.attributes.proficiency_color = 'success-sown';
@@ -334,6 +317,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 			}
 
+			console.log(this.model.attributes.tags);
 			if(this.model.get("readOrEdit") == "read")
 				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomScores(this, this.model.attributes.classroomId, null, this.model.attributes.tags);
 			else if(this.model.get("readOrEdit") == "edit")

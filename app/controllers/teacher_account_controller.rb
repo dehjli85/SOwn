@@ -1,4 +1,4 @@
-class TeacherAccountController < ApplicationController
+	class TeacherAccountController < ApplicationController
 
 	require 'json'
 	require 'csv'
@@ -184,7 +184,7 @@ class TeacherAccountController < ApplicationController
 		# Organize the performance data by student
 
 		# create a lookup hash for student_id
-		# create an array to store th performances for each student
+		# create an array to store the performances for each student
 		students_hash = {}
 		students.each_with_index do |student, index|
 			students_hash[student["id"].to_i] = index
@@ -192,11 +192,17 @@ class TeacherAccountController < ApplicationController
 			student["proficient_count"] = 0
 		end
 
+		# create a lookup hash for activity_id
+		activities_hash = {}
+		activities.each_with_index do |activity, index|
+			activities_hash[activity["id"].to_i] = index
+		end
+
 		# assign each performance to the correct student/activity
 		performance_array.each do |performance|
 
 			student_index = students_hash[performance["student_user_id"].to_i]
-			activities_index = performance["sort_order"].to_i
+			activities_index = activities_hash[performance["activity_id"].to_i].to_i
 
 			if students[student_index]["student_performance"][activities_index].nil? || students[student_index]["student_performance"][activities_index]["id"].to_i < performance["id"].to_i
 				students[student_index]["student_performance"][activities_index] = performance
@@ -204,23 +210,28 @@ class TeacherAccountController < ApplicationController
 
 		end
 
-		# add proficient counts
+		# set proficient counts
 		proficient_counts.each do |student|
 			student_index = students_hash[student["student_user_id"].to_i]
 			students[student_index]["proficient_count"] = student["proficient_count"].to_i
 		end
 
-		# count activities due
-		activities_due = 0
-		activities.each do |activity|
-			if !activity["due_date"].nil? && Date.parse(activity["due_date"]).to_time < Time.now
-				activities_due += 1
+		# count activities denominator and calculate mastery % for each student
+		students.each do |student|
+
+			mastery_denominator = 0
+			activities.each_with_index do |activity, index|
+				if ((!activity["due_date"].nil? && activity["due_date"] < Time.now) || 
+					(!student["student_performance"][index].nil? && !student["student_performance"][index]["performance_pretty"].nil?))
+					mastery_denominator += 1
+				end
+				student["mastery_denominator"] = mastery_denominator
+				student["mastery_percentage"] = student["proficient_count"].to_f/student["mastery_denominator"].to_f
 			end
+
 		end
 
-
-
-		render json: {status: "success", students_with_performance: students, activities: activities, classroom: classroom, activities_due: activities_due}
+		render json: {status: "success", students_with_performance: students, activities: activities, classroom: classroom}
 
 	end
 

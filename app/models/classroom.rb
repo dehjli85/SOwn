@@ -200,7 +200,7 @@ class Classroom < ActiveRecord::Base
 			overall_proficient_count += student["proficient_count"].to_i
 		end
 
-		# calculate overal mastery %
+		# calculate overall mastery %
 		overall_activities_count = 0
 		students.each do |student|
 			activities.each_with_index do |activity, index|

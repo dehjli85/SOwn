@@ -344,7 +344,11 @@ class StudentPerformance < ActiveRecord::Base
 		arguments = [nil, classroomId]
 		
 		sql = 'SELECT student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, 
-						COUNT(DISTINCT CASE WHEN completed_performance = true or scored_performance > greatest(benchmark1_score, benchmark2_score) THEN "classroom_activity_pairings"."id" ELSE NULL END) AS proficient_count
+						COUNT(DISTINCT CASE 
+							WHEN (a.activity_type = \'completion\' and completed_performance = true) 
+								OR (a.activity_type = \'scored\' and scored_performance > greatest(benchmark1_score, benchmark2_score)) THEN "classroom_activity_pairings"."id" 
+							ELSE NULL END) 
+						AS proficient_count
 					FROM "student_performances" 
 					INNER JOIN "student_users" ON "student_users"."id" = "student_performances"."student_user_id" 
 					INNER JOIN "classroom_student_users" ON "classroom_student_users"."student_user_id" = "student_users"."id" and "classroom_student_users"."classroom_id" = ?
@@ -391,7 +395,6 @@ class StudentPerformance < ActiveRecord::Base
 
 		sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, arguments)
 		student_proficiencies = ActiveRecord::Base.connection.execute(sanitized_query).to_a
-
 
     return student_proficiencies
 
