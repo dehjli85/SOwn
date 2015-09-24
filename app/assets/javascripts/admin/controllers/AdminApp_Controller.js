@@ -247,7 +247,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 
 		showUserMetrics: function(adminHomeLayoutView, userType, userId ){
 
-			Admin.navigate("user_metrics/" + user_typepe + "/" + userId);
+			Admin.navigate("user_metrics/" + userType + "/" + userId);
 			var getUrl = "/admin/user_metrics?id=" + userId + "&userType=" + userType;						
 
 			var jqxhr = $.get(getUrl, function(){
