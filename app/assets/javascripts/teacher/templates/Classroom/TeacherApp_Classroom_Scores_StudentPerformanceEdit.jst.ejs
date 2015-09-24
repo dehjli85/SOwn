@@ -1,4 +1,4 @@
-  <td class="score_cell"><%= display_name %></td>
+  <td class="name_cell"><%= display_name %></td>
   <% for( var i = 0; i < parentActivities.length; i++){ %>
 
 
@@ -8,7 +8,8 @@
         
         
       <% }else if(parentActivities[i].activity_type === 'completion' ){ %>
-        <select id="studentPerformance_<%= parentActivities[i].classroom_activity_pairing_id %>_<%= id %>" name="studentPerformance[<%= parentActivities[i].classroom_activity_pairing_id %>][<%= id %>]">
+        <select id="studentPerformance_<%= parentActivities[i].classroom_activity_pairing_id %>_<%= id %>" name="studentPerformance[<%= parentActivities[i].classroom_activity_pairing_id %>][<%= id %>]"
+          class="completion_input">
           <option></option>
           <option value="true" <% if(student_performance[i] && student_performance[i].completed_performance=='t'){ %> selected="selected" <%}%> >Completed</option>
           <option value="false" <% if(student_performance[i] && student_performance[i].completed_performance =='f'){ %> selected="selected" <%}%> >Not Completed</option>

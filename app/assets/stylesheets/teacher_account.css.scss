@@ -69,6 +69,8 @@
   margin: 10px 0px 10px 0px;
 }
 
+
+//CLASSROOM SCORES STYLES
 .scores-table>thead>tr>th{
   padding: 0px;
 }
@@ -132,16 +134,37 @@
   font-weight: normal;
 }
 
-.score_input{
-  padding:0px;
+input.score_input, select.completion_input{
+  padding:5px;
   border:none;
+  width: 100%;
+  height:100%;
+  text-align: center;
 }
+
 
 .table-bordered > tbody > tr > td.score_cell{
   padding:0px;  
+  vertical-align: middle;
+}
+
+.table-bordered > tbody > tr > td.name_cell{
+  padding:0px 5px 0px 5px;  
+  min-width: 150px;
+  vertical-align: middle;
+  height:100%;
 
 }
 
+//CLASSROOM EDIT SCORES STYLES
+.activity-header_right{
+  text-align: right;
+  padding: 5px;
+}
+
+.due-date-label{
+  text-align: right;
+}
 
 
 /*
