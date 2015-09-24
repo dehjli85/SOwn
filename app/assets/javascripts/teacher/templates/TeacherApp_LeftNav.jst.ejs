@@ -1,5 +1,12 @@
   <ul class="nav nav-sidebar">
-    <li id="home" ui-nav-classroom class="<%= subapp == "classroom" ? "nav_active" : "" %>"><a href="#classrooms">Classrooms</a></li>        
+    <li id="home" ui-nav-classroom class="<%= subapp == "classroom" ? "nav_active" : "" %>">
+    	<a href="#classrooms">Classrooms<i class="ion-arrow-left-b menu-toggle-arrow" ui-classrooms-toggle-arrow></i></a>
+    	<ul class="nav nav-sidebar__classrooms-ul" style="display:none" ui-classroom-sub-ul>
+    		<% for(var i = 0; i < classrooms.length; i++){ %>
+    			<li class=""><a href="#" class="ui-classroom-link" id="<%= classrooms[i].id%>"><%= classrooms[i].name %></a></li>
+    		<% } %>
+    	</ul>
+    </li>        
     <li id="activities" ui-nav-activities  class="<%= subapp == "activities" ? "nav_active" : "" %>"><a href="#activities">Activities</a></li>
     <li id="students" ui-nav-students  class="<%= subapp == "students" ? "nav_active" : "" %>"><a href="#" data-toggle="modal">Students</a></li>
     

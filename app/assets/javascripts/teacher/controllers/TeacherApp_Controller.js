@@ -18,9 +18,23 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 				TeacherAccount.rootView.headerRegion.show(headerView);
 
 				// create the left nav
-				var leftNavModel = new Backbone.Model({subapp: subapp});
-				var leftNav = new TeacherAccount.TeacherApp.LeftNavView({model:leftNavModel});
-				TeacherAccount.rootView.leftNavRegion.show(leftNav);
+				var jqxhr = $.get("/classrooms_summary", function(){
+					console.log('get request made for teacher user data');
+				})
+				.done(function(data) {
+
+					// create the left nav
+					var leftNavModel = new Backbone.Model({subapp: subapp, classrooms: data.classrooms});
+					var leftNav = new TeacherAccount.TeacherApp.LeftNavView({model:leftNavModel});
+					TeacherAccount.rootView.leftNavRegion.show(leftNav);
+					
+			  })
+			  .fail(function() {
+			  	console.log("error");
+			  })
+			  .always(function() {
+			   
+				});
 				
 		  })
 		  .fail(function() {

@@ -29,18 +29,45 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 		className: "col-sm-3 col-md-2 sidebar",
 
 		events: {
-			"click li" : "makeNavActive"
+			"click li" : "makeNavActive",
+			"click @ui.classroomsToggleArrow": "toggleClassrooms",
+			"click .ui-classroom-link": "showClassroom"
 		},
 
 		triggers:{
 			"click @ui.navActivities": "start:activities:app",
-			"click @ui.navStudents": "start:students:app"
+			"click @ui.navStudents": "start:students:app",
 		},
 
 		ui:{
 			navClassroom: "[ui-nav-classroom]",
 			navActivities: "[ui-nav-activities]",
-			navStudents: "[ui-nav-students]"
+			navStudents: "[ui-nav-students]",
+			classroomSubUl: "[ui-classroom-sub-ul]",
+			classroomsToggleArrow: "[ui-classrooms-toggle-arrow]"
+		},
+
+		toggleClassrooms: function(e){
+			e.preventDefault();
+
+			if(this.ui.classroomsToggleArrow.hasClass("ion-arrow-left-b")){
+				this.ui.classroomsToggleArrow.removeClass("ion-arrow-left-b");
+				this.ui.classroomsToggleArrow.addClass("ion-arrow-down-b");
+				this.ui.classroomSubUl.attr("style", "display:block");
+
+			}
+			else if(this.ui.classroomsToggleArrow.hasClass("ion-arrow-down-b")){
+				this.ui.classroomsToggleArrow.removeClass("ion-arrow-down-b");
+				this.ui.classroomsToggleArrow.addClass("ion-arrow-left-b");
+				this.ui.classroomSubUl.attr("style", "display:none");
+
+
+			}
+		},
+
+		showClassroom: function(e){
+			e.preventDefault();
+			TeacherAccount.TeacherApp.Main.Controller.startClassroomApp($(e.target).attr("id"), "scores");
 		},
 
 		makeNavActive: function(e){

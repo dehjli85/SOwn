@@ -129,7 +129,7 @@ a:hover {
 .nav-sidebar > li.nav_active{
 	font-weight: 700;
 }
-.nav-sidebar > li > a {
+.nav-sidebar > li > a, .nav-sidebar__classrooms-ul > li > a {
   padding: 10px 0 10px 15px;
   padding-left: 20px;
   color: #555;
@@ -140,9 +140,36 @@ a:hover {
 }
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover,
-.nav-sidebar > .active > a:focus {
+.nav-sidebar > .active > a:focus,
+.nav-sidebar__classrooms-ul > .active > a,
+.nav-sidebar__classrooms-ul > .active > a:hover,
+.nav-sidebar__classrooms-ul > .active > a:focus, {
   color: #fff;
   background-color: #428bca;
+}
+
+/*
+ * Sidebar submenu 
+ */
+
+.nav-sidebar__classrooms-ul{
+  overflow: hidden;
+  display:block;
+}
+
+.nav-sidebar__classrooms-ul > li{
+  list-style: none;
+  display:block;
+}
+
+.nav-sidebar__classrooms-ul > li > a{
+  padding: 10px 0px 10px 30px;
+}
+
+
+.menu-toggle-arrow{
+  position: absolute;
+  right:15px;
 }
 
 
