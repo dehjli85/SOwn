@@ -56,6 +56,7 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 
 			TeacherAccount.TeacherApp.Classroom.Controller.showClassroomHeader(classroomLayoutView,classroomId, subapp);
 
+
 			if (subapp === 'scores'){				
 
 				TeacherAccount.TeacherApp.Classroom.Controller.startScoresApp(classroomLayoutView,"read");	
@@ -76,6 +77,10 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 				TeacherAccount.TeacherApp.Classroom.Controller.showEditClassroom(classroomLayoutView,classroomId);	
 					
 			}
+
+			if(TeacherAccount.rootView.leftNavRegion.currentView)
+				TeacherAccount.rootView.leftNavRegion.currentView.openClassroomSubmenu(classroomId);
+
 			
 		},
 

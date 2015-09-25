@@ -51,23 +51,39 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			e.preventDefault();
 
 			if(this.ui.classroomsToggleArrow.hasClass("ion-arrow-left-b")){
-				this.ui.classroomsToggleArrow.removeClass("ion-arrow-left-b");
-				this.ui.classroomsToggleArrow.addClass("ion-arrow-down-b");
-				this.ui.classroomSubUl.attr("style", "display:block");
-
+				this.openClassroomSubmenu();
 			}
 			else if(this.ui.classroomsToggleArrow.hasClass("ion-arrow-down-b")){
-				this.ui.classroomsToggleArrow.removeClass("ion-arrow-down-b");
-				this.ui.classroomsToggleArrow.addClass("ion-arrow-left-b");
-				this.ui.classroomSubUl.attr("style", "display:none");
+				this.closeClassroomSubmenu();
+			}
 
+		},
 
+		openClassroomSubmenu: function(classroomId){
+			this.ui.classroomsToggleArrow.removeClass("ion-arrow-left-b");
+			this.ui.classroomsToggleArrow.addClass("ion-arrow-down-b");
+			this.ui.classroomSubUl.attr("style", "display:block");
+
+			if(classroomId != null){
+				$('.ui-classroom-link').removeClass("nav_active");
+				$('#classroom_' + classroomId).addClass("nav_active");
+			}
+		},
+
+		closeClassroomSubmenu: function(classroomId){
+			this.ui.classroomsToggleArrow.removeClass("ion-arrow-down-b");
+			this.ui.classroomsToggleArrow.addClass("ion-arrow-left-b");
+			this.ui.classroomSubUl.attr("style", "display:none");
+
+			if(classroomId != null){
+				$('.ui-classroom-link').removeClass("nav_active");
+				$('#classroom_' + classroomId).addClass("nav_active");
 			}
 		},
 
 		showClassroom: function(e){
 			e.preventDefault();
-			TeacherAccount.TeacherApp.Main.Controller.startClassroomApp($(e.target).attr("id"), "scores");
+			TeacherAccount.TeacherApp.Main.Controller.startClassroomApp($(e.target).attr("id").replace("classroom_",""), "scores");
 		},
 
 		makeNavActive: function(e){

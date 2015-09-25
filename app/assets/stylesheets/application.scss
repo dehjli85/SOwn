@@ -126,7 +126,7 @@ a:hover {
   margin-bottom: 20px;
   margin-left: -20px;
 }
-.nav-sidebar > li.nav_active{
+.nav-sidebar > li.nav_active, .nav-sidebar__classrooms-ul > li > a.nav_active{
 	font-weight: 700;
 }
 .nav-sidebar > li > a, .nav-sidebar__classrooms-ul > li > a {
