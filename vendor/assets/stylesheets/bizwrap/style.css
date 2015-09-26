@@ -182,7 +182,7 @@ iframe, fieldset {
   box-shadow: 0px 1px 2px #999;
 }
 
-select,
+/*select,
 textarea,
 input[type="text"],
 input[type="password"],
@@ -219,7 +219,7 @@ input[type="color"],
   -webkit-transition: all 0.3s ease-in;
   transition: all 0.3s ease-in;
 }
-
+*/
 textarea:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,
