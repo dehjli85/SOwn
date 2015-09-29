@@ -2,7 +2,7 @@
 <ul class="nav_ul" ui-ul>
   <li class="nav_li <% if(subapp === 'scores') {%>nav_active <%}%>" role="presentation"><a href="#" ui-scores-a>Scores</a></li>
   <li class="nav_li <% if(subapp === 'edit_activities') {%>nav_active <%}%>"  role="presentation" ><a href="#" ui-edit-activities-a> Edit Activities</a></li>
-  <li class="nav_li <% if(subapp === 'add_students') {%>nav_active<%}%>" role="presentation"><a href="#" data-toggle="modal" data-target="#comingSoonModal">Add Students</a></li>
+  <!--<li class="nav_li <% if(subapp === 'add_students') {%>nav_active<%}%>" role="presentation"><a href="#" data-toggle="modal" data-target="#comingSoonModal">Add Students</a></li>-->
   <li class="nav_li <% if(subapp === 'edit_scores') {%>nav_active<%}%>" role="presentation" ><a href="#" ui-edit-data-a>Edit Data</a></li>
   <li class="nav_li <% if(subapp === 'export_data') {%>nav_active<%}%>"  role="presentation"><a href="/teacher/export_data?classroom_id=<%= id %>" target="_blank" data-toggle="modal" ui-export-data-a>Export Data</a></li>
   <li class="nav_li <% if(subapp === 'edit_classroom') {%>nav_active<%}%>"  role="presentation"><a href="#" ui-edit-classroom-a>Edit Classroom Details</a></li>
