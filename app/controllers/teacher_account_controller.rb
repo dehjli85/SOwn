@@ -827,6 +827,9 @@
 		end
 	end
 
+
+	# Given an Activity ID, returns a JSON object representing the Activity.  
+	# Return JSON object also includes Classroom, Classroom Activivty Pairing, and Activity Tag data
 	def activity
 
 		@activity = Activity.where({teacher_user_id: @current_teacher_user.id, id: params[:activity_id]}).first
@@ -836,6 +839,22 @@
 			activity_hash = @activity.serializable_hash
 			
 			activity_hash["tags"] = @activity.activity_tags.to_a.map(&:serializable_hash)
+
+			classrooms = Classroom.where(teacher_user_id: @current_teacher_user.id).as_json
+			classroom_ids = Classroom.where(teacher_user_id: @current_teacher_user.id).pluck(:id)
+			pairings_hash = ClassroomActivityPairing.where("classroom_id" => classroom_ids).where("activity_id" => @activity["id"]).as_json
+
+			classroom_indices = Hash.new
+			classrooms.each_with_index do |classroom, index|
+				classroom_indices[classroom["id"]] = index
+			end
+
+			pairings_hash.each do |pairing|
+				index = classroom_indices[pairing["classroom_id"]]
+				classrooms[index]["classroom_activity_pairing"] = pairing
+			end
+
+			activity_hash["classrooms"] = classrooms
 
 			render json: {status: "success", activity: activity_hash}
 
@@ -902,6 +921,10 @@
 		end
 	end
 
+	# Returns a json object with following fields:
+	# => status of the request
+	# => field representing all of the teacher's classrooms
+	# => field representing the Activity of the specified activity_id
 	def classroom_assignments
 		@activity = Activity.where({teacher_user_id: @current_teacher_user.id, id: params[:activity_id]}).first.serializable_hash
 

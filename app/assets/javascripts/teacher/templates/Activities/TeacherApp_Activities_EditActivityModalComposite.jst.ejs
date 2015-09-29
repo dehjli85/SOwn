@@ -1,7 +1,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <h4 class="modal-title">New Activity</h4>
+      <h4 class="modal-title"><%= activity_status %> Activity</h4>
     </div>
     <div class="modal-body">
       <form class="form form-horizontal" ui-activity-form>
@@ -9,7 +9,7 @@
           <label class="col-md-4 control-label">Activity Name:</label>
           <div class="col-md-8">
             <% if(errors.name != null){%><div class="field_with_errors"><%}%>
-            <input class="form-control input-xs" id="inputName" name="activity[name]" placeholder="" type="text" value="" ui-name-input>
+            <input class="form-control input-xs" id="inputName" name="activity[name]" placeholder="" type="text" value="<%= name %>" ui-name-input>
             <% if(errors.name != null){%>
               <label class="control-label" for="inputName">Name <%= errors.name[0] %></label>
               </div>
@@ -28,8 +28,8 @@
         <hr>
         <div class="tabs">
           <ul class="nav nav-tabs" ui-activity-tabs>
-              <li class="ui-tab-header active" ui-score-color-tab-header><a href="#score_colors" data-toggle="tab">Score Colors</a></li>
-              <li class="ui-tab-header"><a href="#optional_fields" data-toggle="tab" ui-optional-fields-tab-header>Optional Fields</a></li>
+              <li class="ui-tab-header <% if(activity_type == "scored") {%> active <%}%>" <% if(activity_type == "completion") {%> style="display:none" <%}%> ui-score-color-tab-header><a href="#score_colors" data-toggle="tab">Score Colors</a></li>
+              <li class="ui-tab-header <% if(activity_type == "completion") {%> active <%}%>"><a href="#optional_fields" data-toggle="tab" ui-optional-fields-tab-header>Optional Fields</a></li>
               <li class="ui-tab-header"><a href="#activity_tags" data-toggle="tab">Tags</a></li>
               <li class="ui-tab-header"><a href="#assign" data-toggle="tab">Assign</a></li>
           </ul>
@@ -159,7 +159,7 @@
                   <% for(var i=0; i< classrooms.length; i++){%>
                     <div class="checkbox">
                       <label>
-                        <input <% if(classrooms[i].classroom_activity_pairing_id || (classroomId == classrooms[i].id && activity_status == "New" )){ %>checked="checked" <%}%> id="classroom_hash_<%= i %>" name="classroom_hash[<%= i %>]" type="checkbox" value="<%= classrooms[i].id %>"> 
+                        <input <% if(classrooms[i].classroom_activity_pairing || (classroomId == classrooms[i].id && activity_status == "New" )){ %>checked="checked" <%}%> id="classroom_hash_<%= i %>" name="classroom_hash[<%= i %>]" type="checkbox" value="<%= classrooms[i].id %>"> 
                         <%= classrooms[i].name %>             
                       </label>
                     </div>

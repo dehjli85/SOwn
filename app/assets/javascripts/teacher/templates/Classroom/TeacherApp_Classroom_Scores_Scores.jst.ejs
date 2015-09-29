@@ -26,7 +26,9 @@
             </th>
             <% for(var i = 0; i < activities.length; i++){ %>
                 <th name="<%= activities[i].classroom_activity_pairing_id %>" class="scores-table__activity-header scores-table__activity-header_draggable " >
+
                   <div class="scores-table__flex-div">
+
                     <div class="scores-table__due-date-and-drag-div">
                       <div class="scores-table__due-date-div">
                         <%= activities[i].due_date ?  moment(activities[i].due_date).format("MM/DD") : "" %>  
@@ -35,14 +37,18 @@
                         <i class="ion-drag scores-table__drag-icon"></i>
                       </div>
                     </div>
+
                     <div class="scores-table scores-table__activity-div">                  
                       <div class="scores-table__activity-name-div">
-                        <%= activities[i].name %>
+                        <a href="#" class="ui-activity-name-link" id="ui-activity-name-link-<%= activities[i].id %>">
+                          <%= activities[i].name %>
+                        </a>
                       </div>
                       <div>
                         <a href="#" class="ui_scores-table__sort_icon" id="header_<%= i %>"><i class="ion-arrow-down-a"></i></a>
                       </div>
                     </div>
+
                   </div>
                 </th>             
             <% } %>

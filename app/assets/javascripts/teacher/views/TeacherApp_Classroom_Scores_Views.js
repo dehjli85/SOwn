@@ -131,12 +131,13 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			// "dblclick .activity": "sortActivityHeader",
 			"click .ui_scores-table__sort_icon": "sortActivityHeader",
 			"click @ui.studentHeader": "sortByName",
-			"click @ui.masteryHeader" : "sortByMastery"
+			"click @ui.masteryHeader" : "sortByMastery",
+			"click .ui-activity-name-link": "openEditActivityDialog"
 		},
 
 		triggers:{
 			"click @ui.saveNewActivityButton": "save:new:activity",
-			"click @ui.newActivityButton": "open:edit:activity:dialog"
+			"click @ui.newActivityButton": "open:new:activity:dialog",
 		},
 
 		sortByName: function(){
@@ -238,7 +239,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		saveActivitiesSortOrder: function(table, scoresView){
-	    console.log(table);
 
 			var index = 0;
 			//loop through each <th> tag in the table
@@ -248,11 +248,8 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	      	index++;
 	      } 
 	    }); 
-	    gtable = table
 	    scoresView.model.set("activitiesSortOrder", table.sortOrder);
-	    console.log(scoresView.model);
 			if((scoresView.model.get("searchTerm") == null || scoresView.model.get("searchTerm") == "") && (scoresView.model.get("tagIds") == null || scoresView.model.get("tagIds").length == 0)){
-				console.log("try to save sort order");
 	    	this.triggerMethod("save:activities:sort:order");
 			}
 
@@ -264,11 +261,19 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			var studentsLayoutView = new TeacherAccount.TeacherApp.Students.StudentsLayoutView({model:model});
 			TeacherAccount.rootView.mainRegion.show(studentsLayoutView);
 
-			console.log(this.model);
-
 			TeacherAccount.TeacherApp.Students.Controller.showStudentView(studentsLayoutView, view.model.attributes.id, this.model.attributes.classroom.id);
 
 	  },
+
+	  openEditActivityDialog:function(e){
+	  	
+	  	e.preventDefault();
+
+	  	var activityId = $(e.target).attr("id").replace("ui-activity-name-link-","");
+	  	this.model.set("activityId", activityId);
+
+	  	this.triggerMethod("open:edit:activity:dialog");
+	  }
 
 	});
 
@@ -348,13 +353,22 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		// 	TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveNewActivity(view.ui.newActivityForm, this);
 		// },
 
-		onChildviewOpenEditActivityDialog: function(view){
+		onChildviewOpenNewActivityDialog: function(view){
 			TeacherAccount.TeacherApp.Classroom.Scores.Controller.openEditActivityDialog(this);
+		},
+
+		onChildviewOpenEditActivityDialog: function(view){
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.openEditActivityDialog(this, view.model.get("activityId"));
 		},
 
 		onChildviewSaveActivity: function(view){
 			view.setModelAttributes();
-			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveNewActivity(this, view);
+			if(view.model.get("activity_status") == "New"){
+				TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveNewActivity(this, view);
+			}
+			else if(view.model.get("activity_status") == "Edit"){
+				TeacherAccount.TeacherApp.Classroom.Scores.Controller.updateActivity(this, view);
+			}
 		}
 
 	});
