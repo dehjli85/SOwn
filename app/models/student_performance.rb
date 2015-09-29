@@ -80,21 +80,21 @@ class StudentPerformance < ActiveRecord::Base
 			if scored_performance.nil? || (benchmark1_score.nil? && benchmark2_score.nil?) || min_score.nil? || max_score.nil?
 				return 'none'
 			elsif !benchmark2_score.nil? && benchmark1_score.nil?
-				if scored_performance <= max_score && scored_performance > benchmark2_score
+				if scored_performance <= max_score && scored_performance >= benchmark2_score
 					return 'success-sown'
 				else
 					return 'warning-sown'
 				end
 			elsif !benchmark1_score.nil? && benchmark2_score.nil?
-				if scored_performance <= max_score && scored_performance > benchmark1_score
+				if scored_performance <= max_score && scored_performance >= benchmark1_score
 					return 'success-sown'
 				else
 					return 'danger-sown'
 				end
 			elsif !benchmark1_score.nil? && !benchmark2_score.nil?
-				if scored_performance <= max_score && scored_performance > benchmark2_score
+				if scored_performance <= max_score && scored_performance >= benchmark2_score
 					return 'success-sown'
-				elsif scored_performance <= benchmark2_score && scored_performance > benchmark1_score
+				elsif scored_performance < benchmark2_score && scored_performance >= benchmark1_score
 					return 'warning-sown'
 				else					
 					return 'danger-sown'
