@@ -28,11 +28,15 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 			standardFormDiv: "[ui-standard-form-div]",
 			createAccountButton: "[ui-create-account-button]",
 			createAccountDiv: "[ui-create-account-div]",
-			signUpButton: "[ui-sign-up-button]"
+			signUpButton: "[ui-sign-up-button]",
+			termsOfServiceLink: "[ui-terms-of-service-link]",
+			prviacyLink: "[ui-privacy-link]",
 		},
 
 		triggers:{
-			"click @ui.signUpButton": "sign:up"
+			"click @ui.signUpButton": "sign:up",
+			"click @ui.privacyLink": "show:privacy:policy",
+			"click @ui.termsOfServiceLink": "show:terms:of:service"
 		},
 
 		onSignUp: function(args){			

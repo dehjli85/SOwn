@@ -11,6 +11,16 @@ PublicPages.module("SignUpAndLoginApp.Home", function(Home, PublicPages, Backbon
 
 			PublicPages.rootView.mainRegion.show(mainView);		
 
+		},
+
+		showTermsOfService: function(){
+			var termsOfServiceView = new PublicPages.SignUpAndLoginApp.Home.TermsOfServiceView();
+			PublicPages.rootView.mainRegion.show(termsOfServiceView);
+		},
+
+		showPrivacyPolicy: function(){
+			var privacyView = new PublicPages.SignUpAndLoginApp.Home.PrivacyPolicyView();
+			PublicPages.rootView.mainRegion.show(privacyView);
 		}
 
 	}	
