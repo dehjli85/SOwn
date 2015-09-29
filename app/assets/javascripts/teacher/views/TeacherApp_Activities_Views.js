@@ -298,7 +298,91 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		},
 
 		showErrors: function(errors){
-			this.model.attributes.errors = errors;
+			this.model.set("errors", errors);
+			this.render();
+
+		},
+
+		childViewOptions: function(model, index){			
+			return {index: index}
+		},
+
+		onChildviewRemoveTagFromCollection: function(view){
+			this.collection.remove(view.model);
+		}
+
+	});	
+
+	Activities.EditActivityModalCompositeView = Marionette.CompositeView.extend({
+		template: JST["teacher/templates/Activities/TeacherApp_Activities_EditActivityModalComposite"],
+		tagName: "div",
+		className: "modal-dialog",
+		childView: Activities.EditActivityTagView,
+		childViewContainer: "ul#tagDisplayList",
+		ui:{
+			activityForm: "[ui-activity-form]",
+			scoreRangeDiv: "[ui-score-range-div]",
+			scoreRangeHeader: "[ui-score-color-tab-header]",
+			optionalFieldsHeader: "[ui-optional-fields-tab-header]",
+			activityTypeSelect: "[ui-activity-type-select]",
+			addTagsButton: "[ui-add-tags-button]", 
+			tagInput: "[ui-tag-input]",
+			nameInput: "[ui-name-input]",
+			descriptionInput: "[ui-description-input]",
+			instructionsInput: "[ui-instructions-input]",			
+			maxScoreInput: "[ui-max-score-input]",
+			minScoreInput: "[ui-min-score-input]",
+			benchmark1ScoreInput: "[ui-benchmark-one-score-input]",
+			benchmark2ScoreInput: "[ui-benchmark-two-score-input]",
+			assignmentForm: "[ui-assignment-form]",
+			saveButton: "[ui-save-button]"
+		},
+
+		events:{
+			"change @ui.activityTypeSelect": "toggleScoreRangeDiv",
+			"click @ui.addTagsButton": "addTag",
+			"submit @ui.activityForm": "addTag",
+		},
+
+		triggers:{
+			"click @ui.saveButton": "save:activity"
+		},
+
+		toggleScoreRangeDiv: function(){
+			console.log(this.ui.activityTypeSelect.val());
+			if(this.ui.activityTypeSelect.val() == 'scored'){
+				this.ui.scoreRangeHeader.attr("style", "display:block");
+			}
+			else{
+				this.ui.scoreRangeHeader.attr("style", "display:none");	
+				this.ui.optionalFieldsHeader.tab('show')
+			}
+		},
+
+		addTag: function(e){
+			e.preventDefault();
+			if(this.ui.tagInput.val().trim() != ""){
+				var tagModel = {name: this.ui.tagInput.val().replace(/ /g,""), index: this.model.attributes.tagCount};
+				this.collection.push(tagModel);
+				this.model.set("tagCount", this.model.get("tagCount") +1);
+			}
+			this.ui.tagInput.val("");
+		},
+
+
+		setModelAttributes: function(){
+			this.model.set("name", this.ui.nameInput.val());
+			this.model.set("description", this.ui.descriptionInput.val());
+			this.model.set("instructions", this.ui.instructionsInput.val());
+			this.model.set("activity_type", this.ui.activityTypeSelect.val());
+			this.model.set("max_score", this.ui.maxScoreInput.val());
+			this.model.set("min_score", this.ui.minScoreInput.val());
+			this.model.set("benchmark1_score", this.ui.benchmark1ScoreInput.val());
+			this.model.set("benchmark2_score", this.ui.benchmark2ScoreInput.val());
+		},
+
+		showErrors: function(errors){
+			this.model.set("errors", errors);
 			this.render();
 
 		},
@@ -314,3 +398,4 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 	});	
 
 });
+

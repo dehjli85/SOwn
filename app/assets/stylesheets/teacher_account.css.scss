@@ -104,7 +104,7 @@
   height:100%;
 }
 
-.scores-table>thead>tr>th>div>div.scores-table__due-date-div{
+.scores-table>thead>tr>th>div.scores-table__flex-div>div.scores-table__due-date-and-drag-div>div.scores-table__due-date-div{
   font-weight: normal;
   font-style: italic;
   min-height: 30px;
@@ -112,8 +112,13 @@
   padding: 5px;
 }
 
-.scores-table>thead>tr>th>div>div.scores-table__due-date-div_label{
+.scores-table>thead>tr>th>div.scores-table__flex-div>div.scores-table__due-date-div_label{
   text-align: right;
+  font-weight: normal;
+  font-style: italic;
+  min-height: 30px;
+  border-bottom: 1px solid #DDDDDD;
+  padding: 5px;
 }
 
 .scores-table>thead>tr>th>div.scores-table__activity-div{
@@ -221,14 +226,38 @@ div.no_border{
   color: red;
  }
 
- .score-table td{
-  padding: 0px 5px 0px 5px;
+ .score-table > tbody > tr > td{
+  padding: 1px 5px 0px 5px;
+  height: 50px;
 }
 
-.score-table td input{
-  width:75px;
-  margin: 0px 0px 15px 0px;
+.score-table > tbody > tr > td > input.form-control{
+  width:50px;
+  margin: 0px 0px 2px 0px;
+  height:20px;
 }
+
+.score-table__cut-off-cell{
+  border-bottom: 1px solid black;
+}
+
+.score-table__label-cell_bottom{
+  vertical-align: bottom;
+}
+
+.score-table__label-cell_top{
+  vertical-align: top;
+}
+
+.score-table__input-cell_bottom{
+  vertical-align: bottom;
+}
+
+.score-table__input-cell_top{
+  vertical-align: top;
+}
+
+
 
 #inputMinScore{
   margin-bottom:0px;

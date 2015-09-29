@@ -88,7 +88,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 				name: "",
 				description: "",
 				instructions: "",
-				activity_type: "completion",
+				activity_type: "scored",
 				activity_status: "New",
 				max_score: "",
 				benchmark1_score: "",

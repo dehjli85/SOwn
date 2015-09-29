@@ -124,7 +124,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			studentHeader: "[ui-student-header]",
 			masteryHeader: "[ui-mastery-header]",
 			newActivityButton: "[ui-new-activity-button]",
-			saveNewActivityButton: "[ui-save-new-activity-button]",
 			newActivityForm: "[ui-new-activity-form]"
 		},
 
@@ -136,7 +135,8 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		triggers:{
-			"click @ui.saveNewActivityButton": "save:new:activity"
+			"click @ui.saveNewActivityButton": "save:new:activity",
+			"click @ui.newActivityButton": "open:edit:activity:dialog"
 		},
 
 		sortByName: function(){
@@ -205,11 +205,11 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			this.model.attributes.collectionSize = this.collection.length;
 
 			//create a data structure for storing the sorted list of activities
-			this.model.attributes.activitiesSortOrder = [];
-			for(var i=0; i < this.model.attributes.activities.length; i++){
-				this.model.attributes.activitiesSortOrder[i] = this.model.attributes.activities[i].classroom_activity_pairing_id;
+			var activitiesSortOrder = [];
+			for(var i=0; i < this.model.get("activities").length; i++){
+				activitiesSortOrder[i] = this.model.get("activities")[i].classroom_activity_pairing_id
 			}
-
+			this.model.set("activitiesSortOrder", activitiesSortOrder);
 
 		},
 
@@ -232,24 +232,26 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 					},
 					dragaccept: '.scores-table__activity-header_draggable',
 					maxMovingRows: 1,
-					dragHandle: '.scores-table__activity-name-div'
+					dragHandle: '.scores-table__drag-icon'
 				}
 			);
 		},
 
-		saveActivitiesSortOrder: function(table, obj){
+		saveActivitiesSortOrder: function(table, scoresView){
+	    console.log(table);
 
 			var index = 0;
 			//loop through each <th> tag in the table
 			table.el.find('th').each(function(i) { 
-	      if($(this).hasClass('draggable')) { //ignore the rows without and id
+	      if($(this).hasClass('scores-table__activity-header_draggable')) { //ignore the rows without an id
 	      	table.sortOrder["classroom_activities_sorted[" + index +"]"]=$(this).attr("name");
 	      	index++;
 	      } 
 	    }); 
-	    obj.model.attributes.activitiesSortOrder = table.sortOrder;
-	    console.log(obj.model);
-			if((obj.model.attributes.searchTerm == null || obj.model.attributes.searchTerm == "") && (obj.model.attributes.tagIds == null || obj.model.attributes.tagIds.length == 0)){
+	    gtable = table
+	    scoresView.model.set("activitiesSortOrder", table.sortOrder);
+	    console.log(scoresView.model);
+			if((scoresView.model.get("searchTerm") == null || scoresView.model.get("searchTerm") == "") && (scoresView.model.get("tagIds") == null || scoresView.model.get("tagIds").length == 0)){
 				console.log("try to save sort order");
 	    	this.triggerMethod("save:activities:sort:order");
 			}
@@ -338,12 +340,21 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		onChildviewSaveActivitiesSortOrder: function(view){
 
-	    TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveActivitiesSortOrder(this, view, view.model.attributes.activitiesSortOrder);
+	    TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveActivitiesSortOrder(this, view, view.model.get("activitiesSortOrder"));
 
 		},
 
-		onChildviewSaveNewActivity: function(view){
-			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveNewActivity(view.ui.newActivityForm, this);
+		// onChildviewSaveNewActivity: function(view){
+		// 	TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveNewActivity(view.ui.newActivityForm, this);
+		// },
+
+		onChildviewOpenEditActivityDialog: function(view){
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.openEditActivityDialog(this);
+		},
+
+		onChildviewSaveActivity: function(view){
+			view.setModelAttributes();
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveNewActivity(this, view);
 		}
 
 	});
