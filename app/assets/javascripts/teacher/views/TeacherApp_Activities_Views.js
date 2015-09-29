@@ -14,18 +14,29 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		triggers:{
 			"click @ui.assignLink": "open:assign:activities:modal",
-			"click @ui.deleteLink": "open:delete:activity:modal"
+			"click @ui.deleteLink": "open:delete:activity:modal",
 		},
 
 		events:{
-			"click @ui.editLink": "goToEditPage",
+			// "click @ui.editLink": "goToEditPage",
+			"click @ui.editLink": "openEditActivityDialog"
 
 		},
 
 		goToEditPage: function(e){
 			var activityId = $(e.target).attr("name").replace("activity_","");
 			TeacherAccount.TeacherApp.Activities.Controller.showEditActivity(activityId);
-		}
+		},
+
+		openEditActivityDialog:function(e){
+	  	
+	  	e.preventDefault();
+
+	  	var activityId = $(e.target).attr("name").replace("activity_","");
+	  	this.model.set("activityId", activityId);
+
+	  	this.triggerMethod("open:edit:activity:dialog");
+	  }
 
 	});
 
@@ -152,6 +163,10 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		onChildviewOpenNewActivityDialog: function(view){
 			TeacherAccount.TeacherApp.Activities.Controller.openEditActivityDialog(this);
+		},
+
+		onChildviewOpenEditActivityDialog: function(view){
+			TeacherAccount.TeacherApp.Activities.Controller.openEditActivityDialog(this, view.model.get("activityId"));
 		},
 
 		onChildviewSaveActivity: function(view){
