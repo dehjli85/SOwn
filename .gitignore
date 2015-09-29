@@ -20,6 +20,8 @@ pickle-email-*.html
 /db/prod_to_dev.rb
 prod_*
 *.DS_Store
+.elasticbeanstalk
+db/migrate_to_aws.rb
 
 # TODO Comment out these rules if you are OK with secrets being uploaded to the repo
 config/initializers/secret_token.rb
