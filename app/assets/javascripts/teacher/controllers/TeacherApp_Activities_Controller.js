@@ -81,104 +81,96 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		},
 
+		openEditActivityDialog: function(indexLayoutView, activityId){
 
-		showNewActivity: function(){
+			// This is a new Activity
+			if(activityId == null){
 
-			var activity = new TeacherAccount.TeacherApp.Activities.Models.Activity({
-				name: "",
-				description: "",
-				instructions: "",
-				activity_type: "scored",
-				activity_status: "New",
-				max_score: "",
-				benchmark1_score: "",
-				benchmark2_score: "",
-				min_score: "",
-				tagCount: 0, 
-				link: "",
-				errors: {}
-			});
+				var getUrl = "/classrooms_summary";
+				var jqxhr = $.get(getUrl, function(){
+					console.log('get request made');
+				})
+				.done(function(data) {
 
-			
-			var collection = new TeacherAccount.TeacherApp.Activities.Models.TagCollection([]);
-			var editActivityCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityCompositeView({model:activity, collection: collection});
-			TeacherAccount.rootView.mainRegion.show(editActivityCompositeView);
+					if(data.status == "success"){
 
-		},
 
-		showEditActivity: function(id){
+						var model = new Backbone.Model({
+							id:"",
+							name: "",
+							activity_type: "scored",
+							description: "",
+							instructions: "",
+							link: "",
+							activity_status: "New",
+							max_score: "",
+							benchmark1_score: "",
+							benchmark2_score: "",
+							min_score: "",
+							tagCount: 0, 
+							errors: {},
+							classrooms: data.classrooms,
+							classroomId: null
+						});
 
-			// create activity assignment view and add it to the layout
-			var getUrl = "/teacher/activity?activity_id=" + id;			
-			
-			var jqxhr = $.get(getUrl, function(){
-				console.log('get request for teacher activity');
-			})
-			.done(function(data) {
 
-				console.log(data);
+						var collection = new TeacherAccount.TeacherApp.Activities.Models.TagCollection([]);
 
-				if(data.status == "success"){
-
-					var activity = new TeacherAccount.TeacherApp.Activities.Models.Activity(data.activity);
-					activity.attributes.tagCount = data.activity.tags.length;
-					activity.attributes.errors = {};
-					activity.attributes.activity_status = "Edit";
-
-					var collection = new TeacherAccount.TeacherApp.Activities.Models.TagCollection(data.activity.tags);
-					var editActivityCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityCompositeView({model:activity, collection: collection});
-					console.log(collection);
-					console.log(editActivityCompositeView);
-					TeacherAccount.rootView.mainRegion.show(editActivityCompositeView);	
-				}
-
-		  })
-		  .fail(function() {
-		  	console.log("error");
-		  })
-		  .always(function() {
-		   
-			});			
-			
-			
-		},
-
-		// saveNewActivity: function(editActivityCompositeView){
-
-		// 	var postUrl = "/teacher/save_new_activity";
-		// 	var jqxhr = $.post(postUrl, editActivityCompositeView.ui.activityForm.serialize(), function(){
-		// 		console.log('post request to save new activity');
-		// 	})
-		// 	.done(function(data) {
-
-		// 		console.log(data);
-		// 		if(data.status == "success"){
-		// 			//show a success message, render the edit activity page
-		// 			// console.log("success")
-		// 			Activities.Controller.showActivitiesIndex();
-
-		// 			var alertModel = new TeacherAccount.Models.Alert({alertClass: "alert-success", message: "Activity successfully saved!"});
-		// 			var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
-		// 			TeacherAccount.navigate("activities/index")
-		// 			TeacherAccount.rootView.alertRegion.show(alertView);
+						var editActivityModalCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityModalCompositeView({model: model, collection: collection});
+						
+						indexLayoutView.modalRegion.show(editActivityModalCompositeView);
+						indexLayoutView.ui.modalRegion.modal("show");
+							
+					}
 					
-		// 		}
-		// 		else{
-		// 			//show an error message
-		// 			editActivityCompositeView.showErrors(data.errors);
-		// 		}
+					
+			  })
+			  .fail(function() {
+			  	console.log("error");
+			  })
+			  .always(function() {
+			   
+				});	
 
-				
-				
-				
-		//   })
-		//   .fail(function() {
-		//   	console.log("error");
-		//   })
-		//   .always(function() {
-		   
-		// 	});	
-		// },
+			}
+			// This is an existing Activity
+			else{
+				var getUrl = "/teacher/activity?activity_id=" + activityId;
+				var jqxhr = $.get(getUrl, function(){
+					console.log('get request made');
+				})
+				.done(function(data) {
+
+					if(data.status == "success"){
+
+						var model = new Backbone.Model(data.activity);
+						model.set("errors", {});
+						model.set("tagCount", 0);
+						model.set("activity_status", "Edit");
+						model.set("classroomId", null);
+
+
+						var collection = new Backbone.Collection(data.activity.tags);
+
+						var editActivityModalCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityModalCompositeView({model: model, collection: collection});
+						
+						indexLayoutView.modalRegion.show(editActivityModalCompositeView);
+						indexLayoutView.ui.modalRegion.modal("show");
+							
+					}
+					
+					
+			  })
+			  .fail(function() {
+			  	console.log("error");
+			  })
+			  .always(function() {
+			   
+				});	
+
+			}
+		
+		},
 
 		saveNewActivity: function(indexLayoutView, editActivityModalCompositeView){
 			var postUrl = "/teacher/save_new_activity";
@@ -248,40 +240,6 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			});	
 		},
 
-		// updateActivity: function(editActivityCompositeView){
-
-		// 	var postUrl = "/teacher/update_activity/" + editActivityCompositeView.model.get("id")
-		// 	var jqxhr = $.post(postUrl, editActivityCompositeView.ui.activityForm.serialize(), function(){
-		// 		console.log('post request to update activity');
-		// 	})
-		// 	.done(function(data) {
-
-		// 		console.log(data);
-		// 		if(data.status == "success"){
-					
-		// 			Activities.Controller.showActivitiesIndex();
-
-		// 			var alertModel = new TeacherAccount.Models.Alert({alertClass: "alert-success", message: "Activity successfully saved!"});
-		// 			var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
-		// 			TeacherAccount.navigate("activities/index")
-		// 			TeacherAccount.rootView.alertRegion.show(alertView);
-		// 		}
-		// 		else{
-		// 			//show an error message
-		// 			editActivityCompositeView.showErrors(data.errors);
-		// 		}
-
-				
-				
-				
-		//   })
-		//   .fail(function() {
-		//   	console.log("error");
-		//   })
-		//   .always(function() {
-		   
-		// 	});	
-		// },
 
 		updateActivity: function(indexLayoutView, editActivityModalCompositeView){
 			var postUrl = "/teacher/update_activity/" + editActivityModalCompositeView.model.get("id");
@@ -318,9 +276,6 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 						else{
 							//show an error message
 						}
-
-						
-						
 						
 				  })
 				  .fail(function() {
@@ -329,8 +284,6 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 				  .always(function() {
 				   
 					});	
-
-
 					
 				}
 				else{
@@ -339,9 +292,6 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 				}
 
-				
-				
-				
 		  })
 		  .fail(function() {
 		  	console.log("error");
@@ -487,96 +437,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		},
 
-		openEditActivityDialog: function(indexLayoutView, activityId){
-
-			// This is a new Activity
-			if(activityId == null){
-
-				var getUrl = "/classrooms_summary";
-				var jqxhr = $.get(getUrl, function(){
-					console.log('get request made');
-				})
-				.done(function(data) {
-
-					if(data.status == "success"){
-
-
-						var model = new Backbone.Model({
-							id:"",
-							name: "",
-							activity_type: "scored",
-							description: "",
-							instructions: "",
-							link: "",
-							activity_status: "New",
-							max_score: "",
-							benchmark1_score: "",
-							benchmark2_score: "",
-							min_score: "",
-							tagCount: 0, 
-							errors: {},
-							classrooms: data.classrooms,
-							classroomId: null
-						});
-
-
-						var collection = new TeacherAccount.TeacherApp.Activities.Models.TagCollection([]);
-
-						var editActivityModalCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityModalCompositeView({model: model, collection: collection});
-						
-						indexLayoutView.modalRegion.show(editActivityModalCompositeView);
-						indexLayoutView.ui.modalRegion.modal("show");
-							
-					}
-					
-					
-			  })
-			  .fail(function() {
-			  	console.log("error");
-			  })
-			  .always(function() {
-			   
-				});	
-
-			}
-			// This is an existing Activity
-			else{
-				var getUrl = "/teacher/activity?activity_id=" + activityId;
-				var jqxhr = $.get(getUrl, function(){
-					console.log('get request made');
-				})
-				.done(function(data) {
-
-					if(data.status == "success"){
-
-						var model = new Backbone.Model(data.activity);
-						model.set("errors", {});
-						model.set("tagCount", 0);
-						model.set("activity_status", "Edit");
-						model.set("classroomId", null);
-
-
-						var collection = new Backbone.Collection(data.activity.tags);
-
-						var editActivityModalCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityModalCompositeView({model: model, collection: collection});
-						
-						indexLayoutView.modalRegion.show(editActivityModalCompositeView);
-						indexLayoutView.ui.modalRegion.modal("show");
-							
-					}
-					
-					
-			  })
-			  .fail(function() {
-			  	console.log("error");
-			  })
-			  .always(function() {
-			   
-				});	
-
-			}
 		
-		}
 
 	}
 

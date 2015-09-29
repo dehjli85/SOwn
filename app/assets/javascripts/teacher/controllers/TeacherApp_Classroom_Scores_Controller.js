@@ -271,55 +271,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		},
 
-		// saveNewActivity: function(activityForm, scoresLayoutView){
-		// 	var postUrl = "/teacher/save_new_activity";
-		// 	var jqxhr = $.post(postUrl, activityForm.serialize(), function(){
-		// 		console.log('post request to save new activity');
-		// 	})
-		// 	.done(function(data) {
-
-		// 		console.log(data);
-		// 		if(data.status == "success"){
-
-		// 			var postUrl = "/teacher/save_teacher_activity_assignment_and_options"
-		// 			var postParams = "classroom_id=" + scoresLayoutView.model.attributes.classroomId 
-		// 				+ "&activity_id=" + data.activity.id
-		// 				+ "&assigned=true" ;
-
-		// 			var jqxhr2 = $.post(postUrl, postParams, function(){
-		// 				console.log('get request for classroom activities made');
-		// 			})
-		// 			.done(function(data) {
-
-		// 				$('.modal-backdrop').remove(); //This is a hack, don't know why the backdrop isn't going away
-  //  					$('body').removeClass('modal-open'); //This is a hack, don't know why the backdrop isn't going away
-
-		// 				var alertModel = new TeacherAccount.Models.Alert({alertClass: "alert-success", message: "Activity successfully saved!"});
-		// 				var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
-
-		// 				Scores.Controller.showClassroomScores(scoresLayoutView, scoresLayoutView.model.attributes.classroomId, null, []);
-						
-		// 		  })
-		// 		  .fail(function() {
-		// 		  	console.log("error");
-		// 		  })
-		// 		  .always(function() {
-				   
-		// 			});			
-					
-		// 		}
-		// 		else{
-		// 			//show an error message
-		// 			var alertModel = new TeacherAccount.Models.Alert({alertClass: "alert-danger", message: "Error saving activity!"});
-		// 			var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
-
-		// 		}
-
-				
-				
-				
-		//   })
-		// },
+		
 
 		openEditActivityDialog: function(scoresLayoutView, activityId){
 
