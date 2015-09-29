@@ -91,6 +91,10 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			searchInput: "[ui-search-input]",
 			searchButton: "[ui-search-button]",
 			createActivityButton: "[ui-create-activity-button]"
+		},
+
+		triggers:{
+			"click @ui.createActivityButton": "open:new:activity:dialog"
 		}
 		
 	});
@@ -144,6 +148,20 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			this.ui.modalRegion.modal("hide");			
 			TeacherAccount.TeacherApp.Activities.Controller.deleteActivity(this, view.ui.activityForm);
 
+		},
+
+		onChildviewOpenNewActivityDialog: function(view){
+			TeacherAccount.TeacherApp.Activities.Controller.openEditActivityDialog(this);
+		},
+
+		onChildviewSaveActivity: function(view){
+			view.setModelAttributes();
+			if(view.model.get("activity_status") == "New"){
+				TeacherAccount.TeacherApp.Activities.Controller.saveNewActivity(this, view);
+			}
+			else if(view.model.get("activity_status") == "Edit"){
+				TeacherAccount.TeacherApp.Activities.Controller.updateActivity(this, view);
+			}
 		},
 
 		onChildviewFilterTagClassroomScoresView: function(view){
