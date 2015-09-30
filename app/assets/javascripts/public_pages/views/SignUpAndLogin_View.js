@@ -10,7 +10,16 @@ PublicPages.module("SignUpAndLoginApp", function(SignUpAndLoginApp, PublicPages,
 				alertRegion: "#alert_region"
 			},
 
-			onChildviewHomeLogin: function(){				
+			ui:{
+				loginButton: "[ui-login-button]",				
+			},
+
+			triggers:{
+				"click @ui.loginButton" : "home:login",				
+			},
+
+
+			onHomeLogin: function(){				
 				PublicPages.SignUpAndLoginApp.Login.Controller.showLoginForm();
 			},
 
