@@ -5,7 +5,9 @@ PublicPages.module("SignUpAndLoginApp", function(SignUpAndLoginApp, PublicPages,
 			"login": "showLoginForm",
 			"home": "showActionButtons",
 			"sign_up_teacher": "showTeacherSignUpForm",
-			"sign_up_student": "showStudentSignUpForm"
+			"sign_up_student": "showStudentSignUpForm",
+			"privacy": "showPrivacy",
+			"terms_of_service": "showTermsOfService"
 		}		
 	});
 
@@ -29,6 +31,16 @@ PublicPages.module("SignUpAndLoginApp", function(SignUpAndLoginApp, PublicPages,
 		showStudentSignUpForm: function(){
 			SignUpAndLoginApp.SignUp.Controller.showSignUpForm("Student");
 			console.log("route to student signup was triggered");
+		},
+
+		showTermsOfService: function(){
+			console.log("route to terms of service was triggered");
+			SignUpAndLoginApp.Home.Controller.showTermsOfService();
+		},
+
+		showPrivacy: function(){
+			SignUpAndLoginApp.Home.Controller.showPrivacyPolicy();
+			console.log("route to privacy was triggered");
 		}
 	};
 

@@ -28,15 +28,29 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 			standardFormDiv: "[ui-standard-form-div]",
 			createAccountButton: "[ui-create-account-button]",
 			createAccountDiv: "[ui-create-account-div]",
-			signUpButton: "[ui-sign-up-button]"
+			signUpButton: "[ui-sign-up-button]",
+			termsOfServiceLink: "[ui-terms-of-service-link]",
+			privacyLink: "[ui-privacy-link]",
+			privacyTosCheckbox: "[ui-privacy-tos-checkbox]",
+			tosPrivacyFormGroup:"[ui-tos-privacy-form-group-div]",
+			tosPrivacyInputDiv: "[ui-tos-privacy-input-div]"
 		},
 
 		triggers:{
-			"click @ui.signUpButton": "sign:up"
+			"click @ui.signUpButton": "sign:up",
+			"click @ui.privacyLink": "show:privacy:policy",
+			"click @ui.termsOfServiceLink": "show:terms:of:service"
 		},
 
-		onSignUp: function(args){			
-			PublicPages.SignUpAndLoginApp.SignUp.Controller.signUp(this);
+		onSignUp: function(args){		
+			if(this.ui.privacyTosCheckbox.prop("checked"))	{
+				PublicPages.SignUpAndLoginApp.SignUp.Controller.signUp(this);
+			}
+			else{
+				errors = {};
+				errors.tos_privacy = ["You must agree to the Terms of Service and Privacy Policy to sign up"];
+				this.showErrors(errors);
+			}
 		},
 
 
@@ -63,6 +77,10 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 				this.ui.passwordFormGroup.addClass("has-error");
 				$('<label class="control-label error-label" for="inputPassword">Password ' + jsonErrors.password[0] + '</label>').appendTo(this.ui.passwordInputDiv);
 			}
+			if(jsonErrors.tos_privacy){
+				this.ui.tosPrivacyFormGroup.addClass("has-error");
+				$('<label class="control-label error-label" for="inputTosPrivacy">' + jsonErrors.tos_privacy[0] + '</label>').appendTo(this.ui.tosPrivacyInputDiv);
+			}
 		},
 
 		signUpWithGoogle: function(e){
@@ -78,6 +96,8 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 			this.ui.lastNameFormGroup.removeClass("has-error");
 			this.ui.emailFormGroup.removeClass("has-error");
 			this.ui.passwordFormGroup.removeClass("has-error");
+			this.ui.tosPrivacyFormGroup.removeClass("has-error");
+
 		}
 
 		

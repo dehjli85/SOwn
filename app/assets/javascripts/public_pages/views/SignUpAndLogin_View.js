@@ -10,7 +10,16 @@ PublicPages.module("SignUpAndLoginApp", function(SignUpAndLoginApp, PublicPages,
 				alertRegion: "#alert_region"
 			},
 
-			onChildviewHomeLogin: function(){				
+			ui:{
+				loginButton: "[ui-login-button]",				
+			},
+
+			triggers:{
+				"click @ui.loginButton" : "home:login",				
+			},
+
+
+			onHomeLogin: function(){				
 				PublicPages.SignUpAndLoginApp.Login.Controller.showLoginForm();
 			},
 
@@ -20,12 +29,23 @@ PublicPages.module("SignUpAndLoginApp", function(SignUpAndLoginApp, PublicPages,
 
 			onChildviewHomeStudentSignUp: function(){
 				PublicPages.SignUpAndLoginApp.SignUp.Controller.showSignUpForm("Student");
-			}
+			},
+
+			onChildviewShowTermsOfService:function(view){
+				PublicPages.navigate("terms_of_service");
+				PublicPages.SignUpAndLoginApp.Home.Controller.showTermsOfService();
+			},
+
+			onChildviewShowPrivacyPolicy:function(view){
+				PublicPages.SignUpAndLoginApp.Home.Controller.showPrivacyPolicy();
+			},
 
 	});
 
 	SignUpAndLoginApp.AlertView = Marionette.ItemView.extend({
 		template: JST["public_pages/templates/SignUpAndLogin_Alert"]
 	});
+
+	
 
 });
