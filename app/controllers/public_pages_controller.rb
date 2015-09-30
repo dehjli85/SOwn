@@ -289,4 +289,12 @@ class PublicPagesController < ApplicationController
 		
 	end
 
+	def privacy
+		redirect_to '/#privacy'
+	end
+
+	def terms_of_service
+		redirect_to '/#terms_of_service'
+	end
+
 end

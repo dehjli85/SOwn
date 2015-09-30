@@ -71,6 +71,9 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback', to: 'public_pages#google_auth_callback'
   get 'signout', to: 'public_pages#signout', as: 'signout'
   get 'auth/failure', to: redirect('/')
+
+  get 'privacy' => 'public_pages#privacy'
+  get 'terms_of_service' => 'public_pages#terms_of_service'
   
   # teacher routes
   get 'teacher_home' => 'teacher_account#index'
