@@ -346,7 +346,7 @@ class StudentPerformance < ActiveRecord::Base
 		sql = 'SELECT student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, 
 						COUNT(DISTINCT CASE 
 							WHEN (a.activity_type = \'completion\' and completed_performance = true) 
-								OR (a.activity_type = \'scored\' and scored_performance > greatest(benchmark1_score, benchmark2_score)) THEN "classroom_activity_pairings"."id" 
+								OR (a.activity_type = \'scored\' and scored_performance >= greatest(benchmark1_score, benchmark2_score)) THEN "classroom_activity_pairings"."id" 
 							ELSE NULL END) 
 						AS proficient_count
 					FROM "student_performances" 
