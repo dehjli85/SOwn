@@ -104,6 +104,12 @@
   height:100%;
 }
 
+@-moz-document url-prefix() { 
+  .scores-table__flex-div {
+    height:auto;
+  }
+}
+
 .scores-table>thead>tr>th>div.scores-table__flex-div>div.scores-table__due-date-and-drag-div>div.scores-table__due-date-div{
   font-weight: normal;
   font-style: italic;
