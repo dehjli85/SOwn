@@ -6,9 +6,10 @@
   <div class="button_div">
     <button class="btn btn-primary" ui-new-activity-button data-toggle="modal" data-target="#activityModal">New Activity</button>
   </div>
-  <div>
+  <div style="overflow-x: scroll;" ui-table-container>
     <form ui-activities-header-form>
-      <table id="perf_table" class="table table-condensed table-bordered small scores-table" style="table-layout:fixed; width:inherit; padding-top:10px;">
+      <div ui-frozen-columns-container style=""></div>
+      <table id="perf_table" class="table table-condensed table-bordered small scores-table" style="table-layout:fixed; width:inherit; padding-top:10px;" ui-scores-table>
         <thead>
           
           <tr>

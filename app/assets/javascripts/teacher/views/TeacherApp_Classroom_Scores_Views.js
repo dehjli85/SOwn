@@ -124,7 +124,10 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			studentHeader: "[ui-student-header]",
 			masteryHeader: "[ui-mastery-header]",
 			newActivityButton: "[ui-new-activity-button]",
-			newActivityForm: "[ui-new-activity-form]"
+			newActivityForm: "[ui-new-activity-form]",
+			scoresTable: "[ui-scores-table]",
+			tableContainer: "[ui-table-container]",
+			frozenColumnsContainer: "[ui-frozen-columns-container]"
 		},
 
 		events: {
@@ -157,10 +160,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			this.collection.sort();
 		},
 
-		stopPropagation: function(e){
-			console.log("mousedown");
-			e.stopPropagation();			
-		},
 
 		sortActivityHeader: function(e){
 			console.log(e);
@@ -217,16 +216,20 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		onRender: function(){
 			if(this.model.attributes.searchTerm == null && this.model.attributes.tagId == null)
 				this.initializeDragTable();
+
+			
 		},
 
 		onShow: function(){
 			if(this.model.attributes.searchTerm == null && this.model.attributes.tagId == null)
 				this.initializeDragTable();
+
+			this.freezeStudentNameColumn();
 		},
 
 		initializeDragTable: function(){
 			var obj = this;
-			$('#perf_table').dragtable(
+			this.ui.scoresTable.dragtable(
 				{
 					persistState: function(table){
 						obj.saveActivitiesSortOrder(table, obj);
@@ -237,6 +240,56 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				}
 			);
 		},
+
+		freezeStudentNameColumn: function(){
+			
+			// $(document).ready(function(){
+			var tableContainer = this.ui.tableContainer;
+			var frozenColumnsContainer = this.ui.frozenColumnsContainer;
+
+			
+
+			var table = this.ui.scoresTable;
+			var trs = table.find('tr');
+
+			frozenColumnsContainer.css("position:relative");
+			frozenColumnsContainer.css("top", table.position().top);
+		  frozenColumnsContainer.css("left", table.position().left-1);
+
+			for(var i = 0; i < trs.length; i++){
+    
+		    //get the first column cell
+				var columns = $(trs[i]).find("td,th");
+				var col1 = $(columns[0]);
+				
+		    //create a new div for the cell
+		    var divCell = $('<div>' + col1.html() + '</div>');
+			    
+				//add the div to the body
+		    divCell.appendTo(this.ui.frozenColumnsContainer);
+		    
+		    //set the position, width, and height of the div on top of the original cell
+		    divCell.css("position", "absolute");
+		    divCell.css("top", col1.position().top);
+		    // divCell.css("left", col1.position().left+50);
+		    divCell.css("left", col1.position().left-1);
+
+		    
+
+		    //style the cell
+				divCell.css("background-color", "#FFFFFF");
+				divCell.css("border","1px solid #CCCCCC");    
+				divCell.css("padding", "5px");
+				divCell.css("font-size", "12px");
+
+			  // divCell.offset({top: col1.offset().top, left: col1.offset().left-1})
+		    divCell.outerWidth(col1.outerWidth());
+		    divCell.height(col1.height());  
+
+			}
+		// });
+
+	  },
 
 		saveActivitiesSortOrder: function(table, scoresView){
 
@@ -273,7 +326,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	  	this.model.set("activityId", activityId);
 
 	  	this.triggerMethod("open:edit:activity:dialog");
-	  }
+	  },
+
+	  
 
 	});
 
