@@ -7,10 +7,14 @@ class PublicPagesController < ApplicationController
 	end
 	
 	def home
-		if !session[:teacher_user_id].nil?
-			redirect_to '/teacher_home'
-		elsif !session[:student_user_id].nil?
-			redirect_to '/student_home'
+
+		if(!flash[:notice].eql?('privacy') && !flash[:notice].eql?('terms_of_service') )
+
+			if !session[:teacher_user_id].nil?
+				redirect_to '/teacher_home'
+			elsif !session[:student_user_id].nil?
+				redirect_to '/student_home'
+			end
 		end
 			
 	end
@@ -287,6 +291,16 @@ class PublicPagesController < ApplicationController
     session[:admin_user_id] = nil
     redirect_to root_path
 		
+	end
+
+	def privacy
+		flash[:notice] = 'privacy'
+		redirect_to '/#privacy' 
+	end
+
+	def terms_of_service
+		flash[:notice] = 'terms_of_service'
+		redirect_to '/#terms_of_service'
 	end
 
 end
