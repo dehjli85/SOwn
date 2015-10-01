@@ -22,5 +22,6 @@
 //= require backbone
 //= require backbone.marionette
 //= require moment
+//= require tableHeadFixer
 //= require_tree .
 
