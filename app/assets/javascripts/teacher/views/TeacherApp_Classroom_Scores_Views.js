@@ -23,22 +23,24 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_StudentPerformance"],
 		initialize : function (options) {
 
-			this.model.attributes.activities = options.activities;
-	    this.model.attributes.activitiesCount = options.activities.length;	    
+			this.model.set("classroomId", options.classroomId);
 
-    	this.model.attributes.proficiency = this.model.attributes.mastery_percentage == null ? "-" : Math.round(100*this.model.attributes.mastery_percentage,1);
+			this.model.set("activities", options.activities);
+	    this.model.set("activitiesCount",  options.activities.length);	    
 
-	    if(this.model.attributes.proficiency >= 80) {
-    		this.model.attributes.proficiency_color = 'success-sown';
+    	this.model.set("proficiency", this.model.get("mastery_percentage") == null ? "-" : Math.round(100*this.model.get("mastery_percentage"),1));
+
+	    if(this.model.get("proficiency") >= 80) {
+    		this.model.set("proficiency_color", 'success-sown');
     	}
-	    else if(this.model.attributes.proficiency >= 60) {
-    		this.model.attributes.proficiency_color = 'warning-sown';
+	    else if(this.model.get("proficiency") >= 60) {
+    		this.model.set("proficiency_color", 'warning-sown');
     	}
-	    else if(this.model.attributes.proficiency < 60) {
-    		this.model.attributes.proficiency_color = 'danger-sown';
+	    else if(this.model.get("proficiency") < 60) {
+    		this.model.set("proficiency_color", 'danger-sown');
     	}
     	else{
-	    		this.model.attributes.proficiency_color = 'none';
+	    		this.model.set("proficiency_color", 'none');
     	}
 
 	  },
@@ -115,8 +117,8 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		childViewContainer: "tbody",
 		childViewOptions: function(model, index){			
 			return {
-				activities: this.model.attributes.activities,
-
+				activities: this.model.get("activities"),
+				classroomId: this.model.get("classroom").id
 			}
 		},
 
@@ -224,8 +226,17 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			if(this.model.attributes.searchTerm == null && this.model.attributes.tagId == null)
 				this.initializeDragTable();
 
-			this.freezeStudentNameColumn();
 		},
+
+		onDomRefresh: function(){
+			var obj = this;
+
+			// totally a hack... there's some race condition happening that will mess up the sizes of the divs
+			// in the freezeStudentNameColumn function
+			setTimeout(function(){obj.freezeStudentNameColumn()}, 1000);
+
+		},
+
 
 		initializeDragTable: function(){
 			var obj = this;
@@ -243,11 +254,8 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		freezeStudentNameColumn: function(){
 			
-			// $(document).ready(function(){
 			var tableContainer = this.ui.tableContainer;
 			var frozenColumnsContainer = this.ui.frozenColumnsContainer;
-
-			
 
 			var table = this.ui.scoresTable;
 			var trs = table.find('tr');
@@ -263,8 +271,10 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				var col1 = $(columns[0]);
 				
 		    //create a new div for the cell
-		    var divCell = $('<div>' + col1.html() + '</div>');
-			    
+		    var divCell = $('<div></div>');
+		    var innerDiv =$('<div>' + col1.html() + '</div>'); 
+		    innerDiv.appendTo(divCell);
+
 				//add the div to the body
 		    divCell.appendTo(this.ui.frozenColumnsContainer);
 		    
@@ -277,17 +287,73 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		    
 
 		    //style the cell
-				divCell.css("background-color", "#FFFFFF");
-				divCell.css("border","1px solid #CCCCCC");    
-				divCell.css("padding", "5px");
-				divCell.css("font-size", "12px");
+				divCell.css({"background-color": "#FFFFFF",
+					"border-bottom": "1px solid #CCCCCC",    
+					"border-right": "1px solid #CCCCCC",    
+					"border-left": "2px solid #CCCCCC",    
+					"padding": "5px",
+					"font-size": "12px"});
 
-			  // divCell.offset({top: col1.offset().top, left: col1.offset().left-1})
-		    divCell.outerWidth(col1.outerWidth());
-		    divCell.height(col1.height());  
+				if(i == 0){
+		    	innerDiv.css({"position": "absolute", "bottom": "5px", "display": "table-cell"});
+		    	divCell.css({"border-top": "1px solid #CCCCCC"});
+				}
+
+		    divCell.outerWidth(col1.outerWidth()+2);
+		    divCell.outerHeight(col1.outerHeight());  
 
 			}
-		// });
+
+	  },
+
+	  freezeStudentNameColumn2: function(){
+			
+			var tableContainer = this.ui.tableContainer;
+			var frozenColumnsContainer = this.ui.frozenColumnsContainer;
+
+			var table = this.ui.scoresTable;
+			var trs = table.find('tr');
+
+			tableContainer.css("position:relative");
+
+			var totalHeight = 0;
+
+			for(var i = 0; i < trs.length; i++){
+    
+		    //get the first column cell
+				var columns = $(trs[i]).find("td,th");
+				var col1 = $(columns[0]);
+				var col2 = $(columns[3]);
+
+				console.log(col2);
+				
+		    //create a new div for the cell
+			    
+				//add the div to the body
+		    
+		    //set the position, width, and height of the div on top of the original cell
+		    col1.css("position", "absolute");
+		    col1.css("top", tableContainer.position().top + totalHeight);
+		    // divCell.css("left", col1.position().left+50);
+		    col1.css("left", tableContainer.position().left-1);
+		    col1.height(col2.height());
+		    col1.width(200);
+		    col1.css("background-color", "#FFF");
+		    col1.css("visibility", "hidden");
+
+		    totalHeight += col1.outerHeight();
+
+		    for(var j = 1; j < columns.length; j++){
+		    	var cell = $(columns[j]);
+		    	cell.css("position", "relative");
+		    	cell.css("left", 200)
+		    }
+		    
+		    //style the cell
+
+			  // divCell.offset({top: col1.offset().top, left: col1.offset().left-1})
+
+			}
 
 	  },
 
