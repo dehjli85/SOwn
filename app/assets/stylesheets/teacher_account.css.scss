@@ -52,7 +52,18 @@
 }
 
 
+.left-nav-bottom{
+  z-index: 1001;
+  padding: 0px;
+  position:fixed;
+  bottom:0px;
+}
 
+.black-inverse-div{
+  background-color: #000000;
+  color: #FFFFFF;
+  padding: 15px;
+}
 
 
 /*
