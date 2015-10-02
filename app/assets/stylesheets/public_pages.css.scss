@@ -12,12 +12,21 @@ span.slider-text__span_underline{
 
 p.slider-text__p{
   font-style: normal;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+}
+
+p.slider-text__p_margin-top{
+  font-style: normal;
+  margin-top: 50px;
 }
 
 p.slide-btn_inline{
   display: inline;
   margin: 40px 10px 10px 10px;
+}
+
+.slide-btn_no-margin{
+  margin-top: 0px
 }
 
 h3.subtitle_sown{
@@ -55,6 +64,17 @@ h5.heading-mini{
   margin-top: 20px;
   margin-bottom: 10px; 
 }
+
+.col-md-offset-4-5{
+  margin-left:37.5%;
+}
+
+div.sign-up-btn-div{
+ display:flex; 
+ justify-content:space-between;
+}
+
+
 
 /*
  * Sign Up Styles
