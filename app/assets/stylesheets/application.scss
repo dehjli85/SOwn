@@ -37,6 +37,10 @@
  font-url('/assets/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
+.success-icon-sown{
+  color: rgba(73, 136, 63, 1.0);
+}
+
 .success-sown{
 	background-color: #49883F;
   color:#FFFFFF;
@@ -49,6 +53,21 @@
 
 .warning-sown{
 	background-color:#EACD46;
+  color:#FFFFFF;
+}
+
+.success-sown_student{
+  background-color: rgba(73, 136, 63, 1.0);
+  color:#FFFFFF;
+}
+
+.warning-sown_student{
+  background-color: rgba(73, 136, 63, 0.85);
+  color:#FFFFFF;
+}
+
+.danger-sown_student{
+  background-color: rgba(73, 136, 63, 0.5);
   color:#FFFFFF;
 }
 

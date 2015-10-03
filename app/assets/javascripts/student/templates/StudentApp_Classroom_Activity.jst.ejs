@@ -6,7 +6,7 @@
 	<td><%= due_date != null ? moment(due_date).format('MM/DD/YYYY') : '' %></td>
 
 	<% if(student_performances[0]){ %>
-		<td class="center <%= student_performances[0].performance_color %>">
+		<td class="center <%= student_performances[0].performance_color %>_student">
 			<%= student_performances[0].performance_pretty %>
 			<% if(student_performances[0].requires_verification == 't'  && student_performances[0].verified != 't'){ %>
 				<br>Unverified
@@ -17,7 +17,7 @@
 	<%}%>
 
 	<% if(student_performances[1]){ %>
-	<td class="center <%= student_performances[1].performance_color %>">
+	<td class="center <%= student_performances[1].performance_color %>_student">
 		<%= student_performances[1].performance_pretty %>
 		<% if(student_performances[1].requires_verification == 't' && student_performances[1].verified != 't'){%>
 			<br>Unverified
@@ -28,7 +28,7 @@
 	<%}%>
 
 	<% if(student_performances[2]){ %>
-	<td class="center <%= student_performances[2].performance_color %>">
+	<td class="center <%= student_performances[2].performance_color %>_student">
 		<%= student_performances[2].performance_pretty %>
 		<% if (student_performances[2].requires_verification == 't' && student_performances[2].verified != 't'){ %>
 			<br>Unverified

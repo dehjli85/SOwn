@@ -197,9 +197,48 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	     		console.log(data);
 	     	if(data.status == "success"){
 
-	     		var activity_pairing_performances = new Backbone.Model({activity: data.activity, classroom_activity_pairing: data.classroom_activity_pairing, performances:data.performances, errors:{}});
-	     		var seeAllModal = new StudentAccount.StudentApp.Classroom.SeeAllModalView({model: activity_pairing_performances});
+	     		var activity_pairing_performances = new Backbone.Model({activity: data.activity});
+	     		var seeAllModal = new StudentAccount.StudentApp.Classroom.SeeAllModalView2({model: activity_pairing_performances});
 	     		classroomLayoutView.modalRegion.show(seeAllModal);
+
+					if (data.activity.activity_type == 'scored'){
+
+		     		var modelData = [];
+		     		var index = 1;
+
+						data.performances.map(function(item){
+
+		     			//set color of bars
+							var color = "rgba(73, 136, 63, 1.0)";
+							if(item.performance_color == "danger-sown")
+								color = "rgba(73, 136, 63, .5)";
+							else if(item.performance_color == 'warning-sown')
+								color = "rgba(73, 136, 63, .85)";
+
+							//set data depending on activity type
+							modelData.push({x: index, y: item.performance_pretty, color: color})
+							index++;
+
+						});	     	
+
+						var modelLabels = {x: "Attempt", y: "Score"};
+
+						var model = new Backbone.Model({data:modelData, labels: modelLabels});
+
+						var barGraphView = new StudentAccount.StudentApp.Classroom.BarGraphView({model: model});
+
+
+
+						seeAllModal.graphRegion.show(barGraphView);
+					}
+					else if (data.activity.activity_type == 'completion'){
+						
+						var model = new Backbone.Model({performances: data.performances});
+						var completionTableView = new StudentAccount.StudentApp.Classroom.CompletionTableView({model: model});
+
+						seeAllModal.graphRegion.show(completionTableView);
+
+					}
 
 					
 	     	}
