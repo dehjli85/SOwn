@@ -608,7 +608,26 @@
 			# was assigned, needs to be unassigned
 			elsif (params[:assigned].nil? || params[:assigned].eql?('false')) && !@classroom_activity_pairing.nil?
 
-				#TODO: under this scenario, should we get rid of all the verifications?  They effectively go away because if it gets reassigned, it will be with a different classroom_activity_pairing_id
+				# delete the verifications
+				verifications = StudentPerformanceVerification.where(classroom_activity_pairing_id: @classroom_activity_pairing.id)
+				verifications.each do |verification|
+					verification.destroy
+				end
+
+				# delete the student performances
+				student_performances = StudentPerformance.where(classroom_activity_pairing_id: @classroom_activity_pairing.id)
+				student_performances.each do |performance|
+					performance.destroy
+				end
+
+				# delete re-order all the activities
+				other_classroom_activity_pairings = ClassroomActivityPairing.where(classroom_id: @classroom_activity_pairing.classroom_id).where('id <> ?', @classroom_activity_pairing.id).order('sort_order ASC')
+				other_classroom_activity_pairings.each_with_index do |cap, index|
+					cap.sort_order = index
+					cap.save
+				end
+
+				# delete the pairing
 				if @classroom_activity_pairing.destroy
 					@classroom_activity_pairing = nil
 					assignment_status = 'success-unassign'

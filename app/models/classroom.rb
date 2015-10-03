@@ -200,15 +200,22 @@ class Classroom < ActiveRecord::Base
 			overall_proficient_count += student["proficient_count"].to_i
 		end
 
+		puts activities
+		
 		# calculate overall mastery %
 		overall_activities_count = 0
 		students.each do |student|
 			activities.each_with_index do |activity, index|
+					# puts "student: #{student['display_name']}, activity: #{activity['name']}, performance:#{student["student_performance"][index]} "				
 				if (!activity["due_date"].nil? && activity["due_date"] < Time.now) || !student["student_performance"][index].nil?
+					# puts "yes"
 					overall_activities_count += 1
 				end
 			end
 		end
+
+		puts "overall_proficient_count: #{overall_proficient_count}"
+		puts "overall_activities_count: #{overall_activities_count}"
 
 		if overall_activities_count == 0
 			return 0.0
