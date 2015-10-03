@@ -347,7 +347,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 	/*
  * This view requires a model with the following attributes:
- *	=> data: json object with fields (arrays) "x" and "y" 
+ *	=> data: json object with fields (arrays) "x", "y", and "color"
  *  => labels: json object with fields (strings) "x" and "y"
  */
 Classroom.BarGraphView = Marionette.ItemView.extend({
@@ -361,9 +361,9 @@ Classroom.BarGraphView = Marionette.ItemView.extend({
 		},
 
 		/*
-		 * height
-		 * width
-		 * color array
+		 * Any object can be passed with the following fields and types
+		 * height: integer representing pixel height of the bar graph
+		 * width: integer representing pixel width of the bar graph
 		 */
 		showBarGraph: function(config_obj){
 
