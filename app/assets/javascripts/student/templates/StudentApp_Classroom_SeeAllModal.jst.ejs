@@ -6,33 +6,8 @@
   <div class="modal-body" ui-body-div>
     
 
-      <% if(activity.activity_type == "scored"){ %>
-
-        <div id="lineGraphDiv"></div>
-
-      <% } %>
-
-      <table class="table table-bordered table-condensed">
-        <thead>
-          <tr>
-            <th>Attempt #:</th>
-            <% for(var i = 0; i<performances.length; i++){ %>
-              <td><%= i %></td>
-            <% } %> 
-          </tr>            
-        </thead>
-        <tbody>
-          <tr>
-            <th>Scores:</th>
-            <% for(var i = 0; i<performances.length; i++){ %>
-              <td class="<%= performances[i].performance_color %>"><%= performances[i].performance_pretty%></td>
-            <% } %> 
-          </tr>            
-        </tbody>
-      </table>
-
-      
-      
+      <div ui-bar-graph-region></div>
+      <div ui-data-table-region></div>
 
   </div>
   <div class="modal-footer" ui-footer-div>    

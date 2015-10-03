@@ -330,8 +330,8 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 	});
 
-	Classroom.SeeAllModalView2 = Marionette.LayoutView.extend({
-		template: JST ["student/templates/StudentApp_Classroom_SeeAllModal2"],
+	Classroom.SeeAllModalView = Marionette.LayoutView.extend({
+		template: JST ["student/templates/StudentApp_Classroom_SeeAllModal"],
 		className: "modal-dialog",
 		
 		regions:{
@@ -445,123 +445,6 @@ Classroom.BarGraphView = Marionette.ItemView.extend({
 		template: JST["student/templates/StudentApp_Classroom_CompletionTable"],		
 	});
 
-	// Classroom.SeeAllModalView = Marionette.ItemView.extend({
-	// 	template: JST ["student/templates/StudentApp_Classroom_SeeAllModal"],
-	// 	className: "modal-dialog",
-
-	// 	ui:{
-	// 		saveButton: "[ui-save-button]",
-	// 		performanceForm: "[ui-performance-form]"
-	// 	},
-
-	// 	triggers:{
-	// 		"click @ui.saveButton": "save:performance"
-	// 	},
-
-	// 	initialize: function(options){
-	// 		this.$el.attr("role","document");			
-
-	// 		this.setShowLineGraph();
-	// 	},
-
-	// 	setShowLineGraph: function(){
-	// 		if(this.model.get("activity").activity_type == "scored"){
-	// 			this.model.attributes.showLineGraph = true;
-	// 		}
-	// 		else{
-	// 			this.model.attributes.showLineGraph = false;
-	// 		}
-	// 	},
-
-	// 	onShow: function(){
-	// 		if(this.model.get("showLineGraph")){
-	// 			this.showLineGraph();
-	// 		}
-	// 	},
-
-		
-
-	// 	showLineGraph: function(){
-
-	// 		var margin = {top: 30, right: 20, bottom: 30, left: 50},
-	// 		    width = 500 - margin.left - margin.right,
-	// 		    height = 270 - margin.top - margin.bottom;
-
-	// 		// Parse the date / time
-	// 		// var parseDate = d3.time.format("%d-%b-%y").parse;
-	// 		var parseDate = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
-
-	// 		// Set the ranges
-	// 		// var x = d3.time.scale().range([0, width]);
-	// 		var x = d3.scale.linear().range([0, width]);
-
-	// 		var y = d3.scale.linear().range([height, 0]);
-
-	// 		// Define the axes
-	// 		var xAxis = d3.svg.axis().scale(x)
-	// 		    .orient("bottom").ticks(5);
-
-	// 		var yAxis = d3.svg.axis().scale(y)
-	// 		    .orient("left").ticks(5);
-
-	// 		// Define the line
-	// 		var valueline = d3.svg.line()
-	// 		    // .x(function(d) { return x(d.performance_date); })
-	// 		    .x(function(d) { return x(d.attemptNumber); })
-	// 		    .y(function(d) { return y(d.scored_performance); });
-			    
-	// 		// Adds the svg canvas
-	// 		var svg = d3.select('#lineGraphDiv')
-	// 		    .append("svg")
-	// 		        .attr("width", width + margin.left + margin.right)
-	// 		        .attr("height", height + margin.top + margin.bottom)
-	// 		    .append("g")
-	// 		        .attr("transform", 
-	// 		              "translate(" + margin.left + "," + margin.top + ")");
-
-	// 		// Get the data
-	// 		data = this.model.attributes.performances;
-			
-	// 		// data.forEach(function(d){
-	// 		// 	d.performance_date = parseDate(d.performance_date);
-	// 		// });
-
-	// 		for(var i = 0; i< data.length; i++){
-	// 			data[i].attemptNumber = i;
-	// 		}
-
-	//     // x.domain(d3.extent(data, function(d) { return d.performance_date; }));
-	//     x.domain(d3.extent(data, function(d) { return d.attemptNumber; }));
-	//     y.domain([0, d3.max(data, function(d) { return d.scored_performance; })]);
-
-	//     // Add the valueline path.
-	//     svg.append("path")
-	//         .attr("class", "line line_graph_path")
-	//         .attr("d", valueline(data));
-
-	//     // Add the scatterplot
-	//     svg.selectAll("dot")
-	//         .data(data)
-	//       .enter().append("circle")
-	//         .attr("r", 3.5)
-	//         // .attr("cx", function(d) { return x(d.performance_date); })
-	//         .attr("cx", function(d) { return x(d.attemptNumber); })	        
-	//         .attr("cy", function(d) { return y(d.scored_performance); });
-
-	//     // Add the X Axis
-	//     svg.append("g")
-	//         .attr("class", "x axis line_graph_axis")
-	//         .attr("transform", "translate(0," + height + ")")
-	//         .call(xAxis);
-
-	//     // Add the Y Axis
-	//     svg.append("g")
-	//         .attr("class", "y axis line_graph_axis")
-	//         .call(yAxis);
-
-	// 	}
-
-	// });
 
 	Classroom.ActivityDetailsModalView = Marionette.ItemView.extend({
 		template: JST ["student/templates/StudentApp_Classroom_ActivityDetailsModal"],

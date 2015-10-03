@@ -198,7 +198,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	     	if(data.status == "success"){
 
 	     		var activity_pairing_performances = new Backbone.Model({activity: data.activity});
-	     		var seeAllModal = new StudentAccount.StudentApp.Classroom.SeeAllModalView2({model: activity_pairing_performances});
+	     		var seeAllModal = new StudentAccount.StudentApp.Classroom.SeeAllModalView({model: activity_pairing_performances});
 	     		classroomLayoutView.modalRegion.show(seeAllModal);
 
 					if (data.activity.activity_type == 'scored'){
@@ -209,11 +209,11 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 						data.performances.map(function(item){
 
 		     			//set color of bars
-							var color = "rgba(73, 136, 63, 1.0)";
+							var color = "#49883F";
 							if(item.performance_color == "danger-sown")
-								color = "rgba(73, 136, 63, .5)";
+								color = "#B14F51";
 							else if(item.performance_color == 'warning-sown')
-								color = "rgba(73, 136, 63, .85)";
+								color = "#EACD46";
 
 							//set data depending on activity type
 							modelData.push({x: index, y: item.performance_pretty, color: color})
