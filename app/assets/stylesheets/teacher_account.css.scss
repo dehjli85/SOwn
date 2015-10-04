@@ -82,7 +82,9 @@
 }
 
 
-//CLASSROOM SCORES STYLES
+/*
+ * CLASSROOM SCORES STYLES
+ */ 
 .scores-table>thead>tr>th{
   padding: 0px;
 }
@@ -179,7 +181,19 @@ input.score_input, select.completion_input{
 
 }
 
-//CLASSROOM EDIT SCORES STYLES
+ul.scores-button-ul{
+  list-style: none;
+  padding: 0px;
+}
+
+ul.scores-button-ul > li{
+  display: inline;
+  padding-right: 15px;
+}
+
+/*
+ * CLASSROOM EDIT SCORES STYLES
+ */
 .activity-header_right{
   text-align: right;
   padding: 5px;

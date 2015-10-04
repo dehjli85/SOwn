@@ -1,0 +1,9 @@
+<td>
+	<%= name%>
+</td>
+<td>
+	<input type="checkbox" name="activities[<%= id %>]" <%= classroom_activity_pairing != null ? 'checked="checked"' : '' %> ui-assign-checkbox>
+</td>
+<td>
+	<input type="date" class="form-control" name="" value="<%= classroom_activity_pairing && classroom_activity_pairing != null ?  moment( classroom_activity_pairing.due_date).format("YYYY-MM-DD") : "" %>" <%= classroom_activity_pairing == null ? 'disabled' : '' %> ui-due-date-input>
+</td>

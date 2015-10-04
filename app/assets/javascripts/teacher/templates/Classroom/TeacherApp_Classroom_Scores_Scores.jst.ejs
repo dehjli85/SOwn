@@ -4,7 +4,15 @@
   </div>
 <% }else{ %>
   <div class="button_div">
-    <button class="btn btn-primary" ui-new-activity-button data-toggle="modal" data-target="#activityModal">New Activity</button>
+    <ul class="scores-button-ul">
+      <li>
+        <button class="btn btn-primary" ui-new-activity-button>New Activity</button>
+      </li>
+      <li>
+        <button class="btn btn-primary" ui-assign-activities-button>Assign Activities</button>
+      </li>
+    </ul>
+    
   </div>
   <div style="overflow-x: scroll;" ui-table-container>
     <form ui-activities-header-form>

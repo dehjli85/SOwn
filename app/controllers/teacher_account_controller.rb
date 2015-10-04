@@ -545,6 +545,10 @@
 		
 	end
 
+	def activities
+		
+	end
+
 	def teacher_activities_options
 
 		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
@@ -743,6 +747,9 @@
 	# => activityId, activityName, description, instructions, activityType, tags
 	# each of the properties is a string, except tags, which is an array of tag json objects with the following properties
 	# => tag_ids, name
+	# if a classroom_id is passed, each activity will also have a field for classroom_activity_pairing. This field will be:
+	# => nil if this activity hasn't been assigned to the specified Classroom
+	# => an object representing the Classroom Activity Pairing
 	def teacher_activities_and_tags
 
 		tag_ids = params[:tag_ids] && !params[:tag_ids].eql?("[]") ? JSON.parse(params[:tag_ids]) : nil
@@ -795,12 +802,21 @@
 		activities.each_with_index do |activity, index|
 			activities_indices[activity["id"]] = index
 			activity["tags"] = Array.new
+			activity["classroom_activity_pairing"] = nil
 		end
 
 		tags.each do |tag|
 			
 			index = activities_indices[tag["activity_id"]]			
 			activities[index]["tags"].push(tag)
+		end
+
+		if params[:classroom_id]
+			caps = ClassroomActivityPairing.where(classroom_id: params[:classroom_id]).as_json
+			caps.each do |cap|
+				index = activities_indices[cap["activity_id"]]
+				activities[index]["classroom_activity_pairing"] = cap
+			end
 		end
 
 		render json: {status: "success", activities: activities}

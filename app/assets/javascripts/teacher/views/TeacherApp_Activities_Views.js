@@ -332,7 +332,41 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			this.collection.remove(view.model);
 		}
 
-	});	
+	});
+
+	Activities.ActivityAssignView = Marionette.ItemView.extend({
+		template: JST["teacher/templates/Activities/TeacherApp_Activities_ActivityAssign"],
+		tagName: "tr",
+
+		ui:{
+			assignedCheckbox: "[ui-assign-checkbox]",
+			dueDateInput: "[ui-due-date-input]"
+		},
+
+		events:{
+			"click @ui.assignedCheckbox": "toggleDueDate"
+		},
+
+		toggleDueDate: function(e){
+			console.log("hello");
+			if(this.ui.assignedCheckbox.prop("checked")){
+				this.ui.dueDateInput.removeAttr("disabled");
+			}else{
+				this.ui.dueDateInput.attr("disabled", "");
+			}
+		}
+
+	});
+
+	Activities.ClassroomAssignActivitiesModalCompositeView = Marionette.CompositeView.extend({
+		template: JST["teacher/templates/Activities/TeacherApp_Activities_ClassroomAssignActivitiesModalComposite"],
+		tagName: "div",
+		className: "modal-dialog",
+		childView: Activities.ActivityAssignView,
+		childViewContainer: "tbody",		
+	});
+
+	
 
 });
 

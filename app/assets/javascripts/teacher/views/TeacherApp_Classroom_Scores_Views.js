@@ -126,6 +126,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			studentHeader: "[ui-student-header]",
 			masteryHeader: "[ui-mastery-header]",
 			newActivityButton: "[ui-new-activity-button]",
+			assignActivitiesButton: "[ui-assign-activities-button]",
 			newActivityForm: "[ui-new-activity-form]",
 			scoresTable: "[ui-scores-table]",
 			tableContainer: "[ui-table-container]",
@@ -133,7 +134,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		events: {
-			// "dblclick .activity": "sortActivityHeader",
 			"click .ui_scores-table__sort_icon": "sortActivityHeader",
 			"click @ui.studentHeader": "sortByName",
 			"click @ui.masteryHeader" : "sortByMastery",
@@ -141,8 +141,8 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		triggers:{
-			"click @ui.saveNewActivityButton": "save:new:activity",
 			"click @ui.newActivityButton": "open:new:activity:dialog",
+			"click @ui.assignActivitiesButton": "open:assign:activities:dialog",
 		},
 
 		sortByName: function(){
@@ -480,6 +480,11 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		onChildviewOpenEditActivityDialog: function(view){
 			TeacherAccount.TeacherApp.Classroom.Scores.Controller.openEditActivityDialog(this, view.model.get("activityId"));
+		},
+
+		onChildviewOpenAssignActivitiesDialog: function(view){
+			console.log("hello");
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.openAssignActivitiesDialog(this);
 		},
 
 		onChildviewSaveActivity: function(view){

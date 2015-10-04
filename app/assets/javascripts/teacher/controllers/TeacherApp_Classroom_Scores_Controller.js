@@ -366,6 +366,40 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		},
 
+		openAssignActivitiesDialog: function(scoresLayoutView){
+
+			var getUrl = "/teacher/teacher_activities_and_tags?classroom_id=" + scoresLayoutView.model.get("classroomId");
+			var jqxhr = $.get(getUrl, function(){
+				console.log('get request made');
+			})
+			.done(function(data) {
+
+				if(data.status == "success"){
+
+					console.log(data);
+
+					var collection = new Backbone.Collection(data.activities);
+
+					var classroomAssignActivitiesModalCompositeView = new TeacherAccount.TeacherApp.Activities.ClassroomAssignActivitiesModalCompositeView({collection: collection});
+					
+					scoresLayoutView.modalRegion.show(classroomAssignActivitiesModalCompositeView);
+					scoresLayoutView.ui.modalRegion.modal("show");
+						
+				}
+				
+				
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});	
+
+			
+
+		},
+
 		saveNewActivity: function(scoresLayoutView, editActivityModalCompositeView){
 			var postUrl = "/teacher/save_new_activity";
 			var jqxhr = $.post(postUrl, editActivityModalCompositeView.ui.activityForm.serialize(), function(){
