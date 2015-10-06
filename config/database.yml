@@ -59,7 +59,6 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: SOwn_test
   encoding: utf8
   database: <%= ENV['RDS_DB_NAME'] %>
   username: <%= ENV['RDS_USERNAME'] %>
@@ -88,7 +87,6 @@ test:
 #
 production:
   <<: *default
-  database: SOwn_production
   encoding: utf8
   database: <%= ENV['RDS_DB_NAME'] %>
   username: <%= ENV['RDS_USERNAME'] %>
