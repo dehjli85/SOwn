@@ -51,8 +51,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			})
 			.done(function(data) {
 
-				console.log(data);
-
 				if(data.status == "success"){
 
 					// //create a new composite view for the table
@@ -69,8 +67,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 					console.log(data);
 				}
 				
-				
-	     	
 		  })
 		  .fail(function() {
 		  	console.log("error");
@@ -112,8 +108,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 				var editScoresView = new TeacherAccount.TeacherApp.Classroom.Scores.EditScoresView({collection: studentPerformancesCollection, model:classroomAndActivitiesModel});
 				scoresLayoutView.scoresRegion.show(editScoresView);
-
-				
 	     	
 		  })
 		  .fail(function() {
@@ -133,7 +127,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				console.log('get request made');
 			})
 			.done(function(data) {
-				
 				
 				if(data.status == "success"){
 					
@@ -203,7 +196,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 					scoresLayoutView.ui.modalRegion.modal("show");
 						
 				}
-				
 				
 		  })
 		  .fail(function() {
@@ -286,7 +278,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 					if(data.status == "success"){
 
-
 						var model = new Backbone.Model({
 							id:"",
 							name: "",
@@ -305,7 +296,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 							classroomId: scoresLayoutView.model.get("classroomId")
 						});
 
-
 						var collection = new TeacherAccount.TeacherApp.Activities.Models.TagCollection([]);
 
 						var editActivityModalCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityModalCompositeView({model: model, collection: collection});
@@ -314,7 +304,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 						scoresLayoutView.ui.modalRegion.modal("show");
 							
 					}
-					
 					
 			  })
 			  .fail(function() {
@@ -351,7 +340,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 							
 					}
 					
-					
 			  })
 			  .fail(function() {
 			  	console.log("error");
@@ -361,8 +349,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				});	
 
 			}
-			
-			
 
 		},
 
@@ -387,7 +373,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 						
 				}
 				
-				
 		  })
 		  .fail(function() {
 		  	console.log("error");
@@ -395,8 +380,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		  .always(function() {
 		   
 			});	
-
-			
 
 		},
 
@@ -436,9 +419,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 							//show an error message
 						}
 
-						
-						
-						
 				  })
 				  .fail(function() {
 				  	console.log("error");
@@ -446,19 +426,15 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				  .always(function() {
 				   
 					});	
-
-
 					
 				}
 				else{
+					
 					//show an error message
 					editActivityModalCompositeView.showErrors(data.errors);
 
 				}
 
-				
-				
-				
 		  })
 		  .fail(function() {
 		  	console.log("error");
@@ -503,9 +479,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 						else{
 							//show an error message
 						}
-
-						
-						
 						
 				  })
 				  .fail(function() {
@@ -515,17 +488,12 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				   
 					});	
 
-
-					
 				}
 				else{
 					//show an error message
 					editActivityModalCompositeView.showErrors(data.errors);
 
 				}
-
-				
-				
 				
 		  })
 		  .fail(function() {
@@ -534,6 +502,52 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		  .always(function() {
 		   
 			});	
+		},
+
+		saveClassroomActivityAssignments: function(scoresLayoutView, assignmentForm){
+
+			// post request to save data
+			var postUrl = "/teacher/save_activity_assignments";
+			var postData = assignmentForm.serialize() + "&classroom_id=" + scoresLayoutView.model.get("classroomId");
+			var jqxhr = $.post(postUrl, postData, function(){
+				console.log('post request to save activity assignments for classroom ' + scoresLayoutView.model.get("classroomId"));
+			})
+			.done(function(data) {
+
+				console.log(data);
+
+				if(data.status == "success"){
+
+					var alertModel = new TeacherAccount.Models.Alert({alertClass: "alert-success", message: "Activities Assigned!"});
+					var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
+					
+					TeacherAccount.rootView.alertRegion.show(alertView);
+
+					Scores.Controller.showClassroomScores(scoresLayoutView, scoresLayoutView.model.get("classroomId"), null, []);
+
+					scoresLayoutView.ui.modalRegion.modal("hide");
+					scoresLayoutView.modalRegion.empty();
+
+				}
+				
+				else{
+
+					//show an error message
+					var alertModel = new TeacherAccount.Models.Alert({alertClass: "alert-danger", message: "Error assigning activities..."});
+					var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
+					
+					TeacherAccount.rootView.alertRegion.show(alertView);
+
+				}
+
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});	
+
 		}
 	}
 

@@ -33,10 +33,11 @@ class Classroom < ActiveRecord::Base
 
 	# Returns an array of distinct Tags for Activities in the Classroom
   # includeHidden can be passed to indicate whether hidden activities should be returned (default is true)  
-	def tags(includeHidden=true)
+  # includeArchived can be passed to indicate whether archived activities should be returned (default is true)  
+	def tags(includeHidden=true, includeArchived=true)
 		
 		#Get all the activities ids for the classroom and put them into an array
-		activities = Activity.activities_with_pairings(self.id, nil, nil, includeHidden)
+		activities = Activity.activities_with_pairings(self.id, nil, nil, includeHidden, includeArchived)
 	 	activity_id_array = Array.new
 	 	activities.each do |a| activity_id_array.push(a["id"].to_i) end
 
@@ -125,7 +126,7 @@ class Classroom < ActiveRecord::Base
 	# Activities hidden from the Student User are excluded
 	def activities_and_performances(student_user_id, search_hash={search_term: nil, tag_ids: nil })
 
-		unsorted_activities = Activity.activities_with_pairings(self.id, search_hash[:search_term], search_hash[:tag_ids], false)
+		unsorted_activities = Activity.activities_with_pairings(self.id, search_hash[:search_term], search_hash[:tag_ids], false, false)
 		
 		# Sort activities based on their sort order		
 		# Sorting is necessary because some activities may get filtered out based on searching or being hidden
@@ -137,7 +138,7 @@ class Classroom < ActiveRecord::Base
     end
 
     # Get all Student Performances for the Student User in the Classroom (excluding hidden Activities)
-    performances_array = StudentPerformance.student_performances_with_verification(self.id, search_hash[:search_term], search_hash[:tag_ids], student_user_id, false)
+    performances_array = StudentPerformance.student_performances_with_verification(self.id, search_hash[:search_term], search_hash[:tag_ids], student_user_id, false, false)
     performances_array.each do |performance|
 
       sort_order = performance["sort_order"].to_i
@@ -163,17 +164,22 @@ class Classroom < ActiveRecord::Base
 	# Proficient level is:
 	# => Completed for completion Activity
 	# => Greater than the max of Benchmark1 and Benchmark2 of the scored Activity
+	# If no student_user_id is provided, then returns for all students
 	def percent_proficient_activities(student_user_id=nil)
 		
-		activities = Activity.activities_with_pairings(self.id)
-		proficient_counts = StudentPerformance.student_performance_proficiencies(self.id, nil, nil, student_user_id, true)
 		if student_user_id
+			proficient_counts = StudentPerformance.student_performance_proficiencies(self.id, nil, nil, student_user_id, false, false)
+			activities = Activity.activities_with_pairings(self.id, nil, nil, false, false)
 			students = self.student_users.where(id: student_user_id).as_json
-			performance_array = StudentPerformance.student_performances_with_verification(self.id, nil, nil, student_user_id, false)
+			performance_array = StudentPerformance.student_performances_with_verification(self.id, nil, nil, student_user_id, false, false)
 		else
+			proficient_counts = StudentPerformance.student_performance_proficiencies(self.id, nil, nil, student_user_id, true, false)
+			activities = Activity.activities_with_pairings(self.id, nil, nil, true, false)
 			students = self.student_users.as_json
-			performance_array = StudentPerformance.student_performances_with_verification(self.id, nil, nil, student_user_id, true)
+			performance_array = StudentPerformance.student_performances_with_verification(self.id, nil, nil, student_user_id, true, false)
 		end
+
+
 
 		students_hash = {}
 		students.each_with_index do |student, index|
@@ -200,14 +206,14 @@ class Classroom < ActiveRecord::Base
 			overall_proficient_count += student["proficient_count"].to_i
 		end
 
-		puts activities
-		
 		# calculate overall mastery %
 		overall_activities_count = 0
 		students.each do |student|
 			activities.each_with_index do |activity, index|
-					# puts "student: #{student['display_name']}, activity: #{activity['name']}, performance:#{student["student_performance"][index]} "				
-				if (!activity["due_date"].nil? && activity["due_date"] < Time.now) || !student["student_performance"][index].nil?
+				activities_index = activity["sort_order"].to_i
+
+					puts "student: #{student['display_name']}, activity: #{activity['name']}, performance:#{student["student_performance"][activities_index]} "				
+				if (!activity["due_date"].nil? && activity["due_date"] < Time.now) || !student["student_performance"][activities_index].nil?
 					# puts "yes"
 					overall_activities_count += 1
 				end

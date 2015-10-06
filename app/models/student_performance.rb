@@ -220,7 +220,7 @@ class StudentPerformance < ActiveRecord::Base
   #  includeHidden: boolean argument that determines whether Student Performances for Activities assigned to Classrooms but are hidden should be returned.  Method by default returns all Activities.
   #
   # WARNING: searchTerm and tagId cannot be used together.  If both are passed to the method, searchTerm will be used and tagId will be ignored
-	def self.student_performances_with_verification(classroomId, searchTerm=nil, tagIds=nil, studentUserId=nil, includeHidden=true)
+	def self.student_performances_with_verification(classroomId, searchTerm=nil, tagIds=nil, studentUserId=nil, includeHidden=true, includeArchived=true)
 
 		if Classroom.where(id: classroomId).empty?
       return nil
@@ -280,6 +280,10 @@ class StudentPerformance < ActiveRecord::Base
 			sql += ' AND classroom_activity_pairings.hidden = false'
 		end
 
+		if !includeArchived
+			sql += ' AND classroom_activity_pairings.archived = false'
+		end
+
 		sql	+= ' ORDER BY id DESC'		
 
 		arguments[0] = sql
@@ -329,7 +333,7 @@ class StudentPerformance < ActiveRecord::Base
   #
   # WARNING: searchTerm and tagId cannot be used together.  If both are passed to the method, searchTerm will be used and tagId will be ignored
   # WARNING: only returns proficiences for Student Users who have tracked  at least 1 Activity
-	def self.student_performance_proficiencies(classroomId, searchTerm=nil, tagIds=nil, studentUserId=nil, includeHidden=false)
+	def self.student_performance_proficiencies(classroomId, searchTerm=nil, tagIds=nil, studentUserId=nil, includeHidden=false, includeArchived=false)
 
 		if Classroom.where(id: classroomId).empty?
       return nil
@@ -387,6 +391,10 @@ class StudentPerformance < ActiveRecord::Base
 
 		if !includeHidden
 			sql += ' AND classroom_activity_pairings.hidden = false'
+		end
+
+		if !includeArchived
+			sql += ' AND classroom_activity_pairings.archived = false'
 		end
 
 		sql	+= ' GROUP BY student_users.id, student_users.display_name, student_users.last_name'		

@@ -284,8 +284,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		    // divCell.css("left", col1.position().left+50);
 		    divCell.css("left", col1.position().left-1);
 
-		    
-
 		    //style the cell
 				divCell.css({"background-color": "#FFFFFF",
 					"border-bottom": "1px solid #CCCCCC",    
@@ -349,10 +347,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		    	cell.css("left", 200)
 		    }
 		    
-		    //style the cell
-
-			  // divCell.offset({top: col1.offset().top, left: col1.offset().left-1})
-
 			}
 
 	  },
@@ -393,8 +387,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 	  	this.triggerMethod("open:edit:activity:dialog");
 	  },
-
-	  
 
 	});
 
@@ -465,14 +457,12 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		onChildviewSaveActivitiesSortOrder: function(view){
-
-	    TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveActivitiesSortOrder(this, view, view.model.get("activitiesSortOrder"));
-
+	    	TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveActivitiesSortOrder(this, view, view.model.get("activitiesSortOrder"));
 		},
 
-		// onChildviewSaveNewActivity: function(view){
-		// 	TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveNewActivity(view.ui.newActivityForm, this);
-		// },
+		onChildviewSaveClassroomActivityAssignments: function(view){
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveClassroomActivityAssignments(this, view.ui.assignmentForm);
+		},
 
 		onChildviewOpenNewActivityDialog: function(view){
 			TeacherAccount.TeacherApp.Classroom.Scores.Controller.openEditActivityDialog(this);
@@ -483,7 +473,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		onChildviewOpenAssignActivitiesDialog: function(view){
-			console.log("hello");
 			TeacherAccount.TeacherApp.Classroom.Scores.Controller.openAssignActivitiesDialog(this);
 		},
 

@@ -129,7 +129,7 @@ class StudentAccountController < ApplicationController
       .where("classroom_student_users.student_user_id = ?", @current_student_user.id)
       .first
 
-    render json: @classroom.tags(false).to_json
+    render json: @classroom.tags(false, false).to_json
     
   end
 

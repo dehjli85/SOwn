@@ -158,7 +158,7 @@
 
 		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
 
-		render json: @classroom.tags.to_json
+		render json: @classroom.tags(true, false).to_json
 		
 	end
 
@@ -173,11 +173,11 @@
 		classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]})
 			.first
 		
-		activities = Activity.activities_with_pairings(classroom.id, params[:search_term], tag_ids, true)
+		activities = Activity.activities_with_pairings(classroom.id, params[:search_term], tag_ids, true, false)
 		
-		performance_array = StudentPerformance.student_performances_with_verification(classroom.id, params[:search_term], tag_ids, nil, true)
+		performance_array = StudentPerformance.student_performances_with_verification(classroom.id, params[:search_term], tag_ids, nil, true, false)
 
-		proficient_counts = StudentPerformance.student_performance_proficiencies(classroom.id, params[:search_term], tag_ids, nil, true)
+		proficient_counts = StudentPerformance.student_performance_proficiencies(classroom.id, params[:search_term], tag_ids, nil, true, false)
 
 		students = classroom.student_users.order("last_name ASC, first_name ASC").as_json	
 
@@ -239,6 +239,8 @@
 		
 		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
 
+		errors = Array.new
+
 		due_date_hash = params[:due_date]
 		due_date_hash.each do |cap_id, date|
 			
@@ -253,7 +255,6 @@
 
 		student_performance_hash = params[:studentPerformance]
 
-		errors = Array.new
 
 		student_performance_hash.each do |cap_id, student_activity_performances|
 
@@ -425,11 +426,11 @@
 		classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]})
 			.first
 		
-		activities = Activity.activities_with_pairings(classroom.id, params[:search_term], tag_ids, true)
+		activities = Activity.activities_with_pairings(classroom.id, params[:search_term], tag_ids, true, false)
 		
-		performance_array = StudentPerformance.student_performances_with_verification(classroom.id, params[:search_term], tag_ids, nil, true)
+		performance_array = StudentPerformance.student_performances_with_verification(classroom.id, params[:search_term], tag_ids, nil, true, false)
 
-		proficient_counts = StudentPerformance.student_performance_proficiencies(classroom.id, params[:search_term], tag_ids, nil, true)
+		proficient_counts = StudentPerformance.student_performance_proficiencies(classroom.id, params[:search_term], tag_ids, nil, true, false)
 
 		students = classroom.student_users.order("last_name ASC, first_name ASC").as_json	
 
@@ -1025,6 +1026,84 @@
 
 		end
 		
+	end
+
+	# Given an Classroom ID (classroom_id) and a set of Activity IDs, create/deletes Classroom Activity Pairings appropriately
+	# => if a passed Activity ID doesn't not have a corresponding Classroom Activity Pairing, a new one is create)
+	# => if a Classroom Activity Pairing exists, but the corresponding Activity ID is not passed, then the Clasroom Activity Pairing is deleted
+	def save_activity_assignments
+		
+		# Bad Classroom id passed
+		if !params[:classroom_id] || Classroom.where(id: params[:classroom_id]).where(teacher_user_id: @current_teacher_user.id).first.nil?
+			
+			render json: {status: "error", message: "classroom does not exist"}
+
+		# Good Classroom id passed
+		else
+
+			# Create an array to store any errors
+			errors = Array.new
+
+			# Get Classroom Activity Pairings 
+			caps = ClassroomActivityPairing.where(classroom_id: params[:classroom_id])
+
+			# Delete all (Student Performance and Student Performance Verifications include) that did not have a matching Activity ID passed
+			caps.each do |cap|
+
+				if !params[:activities].to_h.has_key?(cap.activity_id.to_s)
+
+					puts "Deleting activity: #{cap.activity_id}"
+
+					performances = StudentPerformance.where(classroom_activity_pairing_id: cap.id)
+					performances.each do |performance|
+						if(!performance.destroy)
+							errors.push(performance.errors)
+						end
+					end
+
+					verfications = StudentPerformanceVerification.where(classroom_activity_pairing_id: cap.id)
+					verfications.each do |verification|
+						if(!verification.destroy)
+							errors.push(verification.errors)
+						end
+					end
+
+					if(!cap.destroy)
+						errors.push(cap.errors)
+					end
+
+				end
+
+			end
+
+			# Create Classroom Activity Pairing for any activities that don't have one
+			# Update Classroom Activity Pairing fields for all activities passed
+			params[:activities].to_h.each do |activity_id, activity_hash|
+				
+				cap = ClassroomActivityPairing.where(classroom_id: params[:classroom_id]).where(activity_id: activity_id).first
+				if cap.nil?
+					cap = ClassroomActivityPairing.new({classroom_id: params[:classroom_id], activity_id: activity_id, sort_order: ClassroomActivityPairing.max_sort_order(params[:classroom_id]) + 1})
+					if(!cap.save)
+						errors.push(cap.errors)
+					end
+				end
+
+				if !cap.update_attributes({due_date: activity_hash["due_date"], hidden: activity_hash["hidden"] || false, archived: activity_hash["archived"] || false})
+					errors.push(cap.errors)
+				end
+
+			end
+
+			if errors.empty?
+				render json: {status: "success"}
+			else
+				puts errors
+				render json: {status: "error", errors: errors}
+			end
+
+		end
+
+
 	end
 
 	def student_performance_count

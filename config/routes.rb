@@ -110,6 +110,7 @@ Rails.application.routes.draw do
   post 'teacher/assign_activities' => 'teacher_account#assign_activities'
   get 'teacher/student_performance_count' => 'teacher_account#student_performance_count'
   post 'teacher/delete_activity' => 'teacher_account#delete_activity'
+  post 'teacher/save_activity_assignments' => 'teacher_account#save_activity_assignments'
 
   # teacher/students app routes
   get 'teacher/students' => 'teacher_account#students'

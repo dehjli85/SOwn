@@ -1,9 +1,18 @@
 <td>
 	<%= name%>
 </td>
-<td>
-	<input type="checkbox" name="activities[<%= id %>]" <%= classroom_activity_pairing != null ? 'checked="checked"' : '' %> ui-assign-checkbox>
+<td class="center">
+	<input type="checkbox" name="activities[<%= id %>][classroom_activity_pairing_id]" 
+		value="<%= classroom_activity_pairing != null ? classroom_activity_pairing.id : '' %>" <%= classroom_activity_pairing != null ? 'checked="checked"' : '' %> ui-assign-checkbox>
 </td>
-<td>
-	<input type="date" class="form-control" name="" value="<%= classroom_activity_pairing && classroom_activity_pairing != null ?  moment( classroom_activity_pairing.due_date).format("YYYY-MM-DD") : "" %>" <%= classroom_activity_pairing == null ? 'disabled' : '' %> ui-due-date-input>
+<td class="center">
+	<input type="checkbox" name="activities[<%= id %>][hidden]" 
+		value="true" <%= classroom_activity_pairing != null && classroom_activity_pairing.hidden ? 'checked="checked"' : '' %> <%= classroom_activity_pairing == null ? 'disabled' : '' %> ui-hide-checkbox>
+</td>
+<td class="center">
+	<input type="checkbox" name="activities[<%= id %>][archived]" 
+		value="true" <%= classroom_activity_pairing != null && classroom_activity_pairing.archived ? 'checked="checked"' : '' %> <%= classroom_activity_pairing == null ? 'disabled' : '' %> ui-archive-checkbox>
+</td>
+<td class="center">
+	<input type="date" class="form-control" name="activities[<%= id %>][due_date]" value="<%= classroom_activity_pairing && classroom_activity_pairing != null ?  moment( classroom_activity_pairing.due_date).format("YYYY-MM-DD") : "" %>" <%= classroom_activity_pairing == null ? 'disabled' : '' %> ui-due-date-input>
 </td>

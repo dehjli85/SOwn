@@ -137,7 +137,7 @@ class Activity < ActiveRecord::Base
     return a
   end
 
-  def self.activities_with_pairings(classroomId, searchTerm=nil, tagIds=nil, includeHidden=true)
+  def self.activities_with_pairings(classroomId, searchTerm=nil, tagIds=nil, includeHidden=true, includeArchived=true)
 
     if Classroom.where(id: classroomId).empty?
       return nil
@@ -172,6 +172,10 @@ class Activity < ActiveRecord::Base
 
     if !includeHidden
       sql += ' AND cap.hidden = false'
+    end
+
+    if !includeArchived
+      sql += ' AND cap.archived = false'
     end
 
     if tag_array

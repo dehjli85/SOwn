@@ -340,19 +340,25 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		ui:{
 			assignedCheckbox: "[ui-assign-checkbox]",
-			dueDateInput: "[ui-due-date-input]"
+			dueDateInput: "[ui-due-date-input]",
+			hiddenCheckbox: "[ui-hide-checkbox]",
+			archivedCheckbox: "[ui-archive-checkbox]",
 		},
 
 		events:{
-			"click @ui.assignedCheckbox": "toggleDueDate"
+			"click @ui.assignedCheckbox": "toggleExtraFields"
 		},
 
-		toggleDueDate: function(e){
+		toggleExtraFields: function(e){
 			console.log("hello");
 			if(this.ui.assignedCheckbox.prop("checked")){
 				this.ui.dueDateInput.removeAttr("disabled");
+				this.ui.hiddenCheckbox.removeAttr("disabled");
+				this.ui.archivedCheckbox.removeAttr("disabled");
 			}else{
 				this.ui.dueDateInput.attr("disabled", "");
+				this.ui.hiddenCheckbox.attr("disabled", "");
+				this.ui.archivedCheckbox.attr("disabled", "");
 			}
 		}
 
@@ -363,7 +369,46 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		tagName: "div",
 		className: "modal-dialog",
 		childView: Activities.ActivityAssignView,
-		childViewContainer: "tbody",		
+		childViewContainer: "tbody",	
+
+		initialize: function(){
+			this.sort();
+			
+		},
+
+		onShow: function(){
+			$(".ion-help-circled").tooltip();
+		},
+
+
+
+		sort: function(){
+			this.collection.comparator = function(a, b){
+				if (a.get("classroom_activity_pairing") && b.get("classroom_activity_pairing")){
+					return a.get("classroom_activity_pairing").sort_order > b.get("classroom_activity_pairing").sort_order ? 1 : -1
+				}
+				if(!a.get("classroom_activity_pairing") && !b.get("classroom_activity_pairing")){
+					return a.get("name") < b.get("name") ? -1 : 1;
+				}
+				if(a.get("classroom_activity_pairing"))
+					return -1;
+				if(b.get("classroom_activity_pairing")){
+					return 1;
+				}
+
+			}
+
+			this.collection.sort();
+		},
+
+		ui:{
+			assignmentForm: "[ui-assignment-form]",
+			saveButton: "[ui-save-button]"
+		},
+
+		triggers:{
+			"click @ui.saveButton": "save:classroom:activity:assignments"
+		}
 	});
 
 	
