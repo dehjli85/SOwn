@@ -89,5 +89,9 @@ test:
 production:
   <<: *default
   database: SOwn_production
-  username: SOwn
-  password: <%= ENV['SOWN_DATABASE_PASSWORD'] %>
+  encoding: utf8
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>
