@@ -85,11 +85,19 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+
+### THESE WILL BE USED WHEN PRODUCTION DEPLOYED TO AWS
+# production:
+#   <<: *default
+#   encoding: utf8
+#   database: <%= ENV['RDS_PROD_DB_NAME'] %>
+#   username: <%= ENV['RDS_PROD_USERNAME'] %>
+#   password: <%= ENV['RDS_PROD_PASSWORD'] %>
+#   host: <%= ENV['RDS_PROD_HOSTNAME'] %>
+#   port: <%= ENV['RDS_PROD_PORT'] %>
+
 production:
   <<: *default
-  encoding: utf8
-  database: <%= ENV['RDS_PROD_DB_NAME'] %>
-  username: <%= ENV['RDS_PROD_USERNAME'] %>
-  password: <%= ENV['RDS_PROD_PASSWORD'] %>
-  host: <%= ENV['RDS_PROD_HOSTNAME'] %>
-  port: <%= ENV['RDS_PROD_PORT'] %>
+  database: SOwn_production
+  username: SOwn
+  password: <%= ENV['SOWN_DATABASE_PASSWORD'] %>
