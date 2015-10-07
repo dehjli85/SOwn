@@ -89,11 +89,15 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		ui:{
 			studentHeader: "[ui-student-header]",
-			studentPerformanceForm: "[ui-scores-form]"
+			studentPerformanceForm: "[ui-scores-form]",
+			saveButton: "[ui-save-button]",
+			scoresTable: "[ui-scores-table]",
+			tableContainer: "[ui-table-container]",
+			frozenColumnsContainer: "[ui-frozen-columns-container]"
 		},
 
 		triggers:{
-			"submit @ui.studentPerformanceForm": "saveClassroomScores"
+			"click @ui.saveButton": "save:classroom:scores"
 		},
 
 		initialize: function(){
@@ -102,7 +106,73 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				this.model = new Backbone.Model({});
 			}
 			this.model.attributes.collectionSize = this.collection.length;
-		}
+		},
+
+		onDomRefresh: function(){
+			var obj = this;
+
+			// totally a hack... there's some race condition happening that will mess up the sizes of the divs
+			// in the freezeStudentNameColumn function
+			setTimeout(function(){obj.freezeStudentNameColumn()}, 1000);
+
+		},
+
+		freezeStudentNameColumn: function(){
+			
+			var tableContainer = this.ui.tableContainer;
+			var frozenColumnsContainer = this.ui.frozenColumnsContainer;
+
+			var table = this.ui.scoresTable;
+			var trs = table.find('tr');
+
+			frozenColumnsContainer.css("position:relative");
+			frozenColumnsContainer.css("top", table.position().top);
+		  frozenColumnsContainer.css("left", table.position().left-1);
+
+			for(var i = 0; i < trs.length; i++){
+    
+		    //get the first column cell
+				var columns = $(trs[i]).find("td,th");
+				var col1 = $(columns[0]);
+				
+		    //create a new div for the cell
+		    var divCell = $('<div></div>');
+		    var innerDiv =$('<div>' + col1.html() + '</div>'); 
+		    innerDiv.appendTo(divCell);
+
+				//add the div to the body
+		    divCell.appendTo(this.ui.frozenColumnsContainer);
+		    
+		    //set the position, width, and height of the div on top of the original cell
+		    divCell.css("position", "absolute");
+		    divCell.css("top", col1.position().top+1);
+		    // divCell.css("left", col1.position().left+50);
+		    divCell.css("left", col1.position().left-1);
+
+		    //style the cell
+				divCell.css({"background-color": "#FFFFFF",
+					"border-bottom": "1px solid #CCCCCC",    
+					"border-right": "1px solid #CCCCCC",    
+					"border-left": "2px solid #CCCCCC",    
+					"padding": "5px",
+					"font-size": "12px"});
+
+				if(i == 0){
+		    	innerDiv.css({"position": "absolute", "bottom": "2px", "display": "table-cell", "right": "5px"});
+		    	divCell.css({"border-bottom": "2px solid #CCCCCC"});
+				}
+				if(i == 1){
+		    	innerDiv.css({"position": "absolute", "bottom": "2px", "display": "table-cell", "right": "5px", "font-style": "italic"});
+		    	divCell.css({"border-bottom": "2px solid #CCCCCC"});
+				}
+
+
+		    divCell.outerWidth(col1.outerWidth()+2);
+		    divCell.outerHeight(col1.outerHeight());  
+
+			}
+
+	  },
 
 		
 
@@ -280,73 +350,28 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		    
 		    //set the position, width, and height of the div on top of the original cell
 		    divCell.css("position", "absolute");
-		    divCell.css("top", col1.position().top);
+		    divCell.css("top", col1.position().top+1);
 		    // divCell.css("left", col1.position().left+50);
 		    divCell.css("left", col1.position().left-1);
 
 		    //style the cell
 				divCell.css({"background-color": "#FFFFFF",
-					"border-bottom": "1px solid #CCCCCC",    
-					"border-right": "1px solid #CCCCCC",    
-					"border-left": "2px solid #CCCCCC",    
+					"border-bottom": "1px solid #DDD",    
+					"border-right": "2px solid #DDD",    
+					"border-left": "2px solid #DDD",    
 					"padding": "5px",
 					"font-size": "12px"});
 
 				if(i == 0){
 		    	innerDiv.css({"position": "absolute", "bottom": "5px", "display": "table-cell"});
-		    	divCell.css({"border-top": "1px solid #CCCCCC"});
+		    	divCell.css({"border-bottom": "2px solid #DDD"});
+		    	// divCell.css({"border-top": "1px solid #CCCCCC"});
+
 				}
 
 		    divCell.outerWidth(col1.outerWidth()+2);
 		    divCell.outerHeight(col1.outerHeight());  
 
-			}
-
-	  },
-
-	  freezeStudentNameColumn2: function(){
-			
-			var tableContainer = this.ui.tableContainer;
-			var frozenColumnsContainer = this.ui.frozenColumnsContainer;
-
-			var table = this.ui.scoresTable;
-			var trs = table.find('tr');
-
-			tableContainer.css("position:relative");
-
-			var totalHeight = 0;
-
-			for(var i = 0; i < trs.length; i++){
-    
-		    //get the first column cell
-				var columns = $(trs[i]).find("td,th");
-				var col1 = $(columns[0]);
-				var col2 = $(columns[3]);
-
-				console.log(col2);
-				
-		    //create a new div for the cell
-			    
-				//add the div to the body
-		    
-		    //set the position, width, and height of the div on top of the original cell
-		    col1.css("position", "absolute");
-		    col1.css("top", tableContainer.position().top + totalHeight);
-		    // divCell.css("left", col1.position().left+50);
-		    col1.css("left", tableContainer.position().left-1);
-		    col1.height(col2.height());
-		    col1.width(200);
-		    col1.css("background-color", "#FFF");
-		    col1.css("visibility", "hidden");
-
-		    totalHeight += col1.outerHeight();
-
-		    for(var j = 1; j < columns.length; j++){
-		    	var cell = $(columns[j]);
-		    	cell.css("position", "relative");
-		    	cell.css("left", 200)
-		    }
-		    
 			}
 
 	  },

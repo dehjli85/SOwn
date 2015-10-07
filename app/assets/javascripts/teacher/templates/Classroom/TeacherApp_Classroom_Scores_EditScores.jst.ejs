@@ -3,38 +3,51 @@
     You haven't created and activities for your students to work on yet!  Get started by clicking the "Activities" link on the left and create your first activity!
   </div>
 <% }else{ %>
+  
+  <% if(collectionSize != 0){ %> 
+    
+    <div class="button_div">
+      <ul class="scores-button-ul">
+        <li>
+          <button class="btn btn-primary" ui-save-button>Save Changes</button>
+        </li>
+        <li>
+          <button class="btn" ui-assign-activities-button>Cancel</button>
+        </li>
+      </ul>
+      
+    </div>
 
-  <form class="form" ui-scores-form>
+  <% } %> 
 
-    <% if(collectionSize != 0){ %> 
-      <button class="btn btn-primary" style="margin-bottom:10px">Save Changes</button>
-    <% } %> 
+  <div style="overflow-x: scroll;" ui-table-container>
+    <form class="form" ui-scores-form>
+      <input type="hidden" name="classroom_id" value="<%= classroom.id %>">
+      <div ui-frozen-columns-container style=""></div>
+      <table id="perf_table" class="table table-condensed table-bordered small scores-table" style="table-layout:fixed; width:inherit; padding-top:10px;" ui-scores-table>
+        <thead>        
+          <tr>
+            <th class="activity-header activity-header_right" ui-student-header>Activity:</th>
+            <% for(var i = 0; i < activities.length; i++){ %>
+                <th class="activity_header" style="" id="header_<%= i %>"><%= activities[i].name %></th>             
+            <% } %>
+          </tr>
+          <tr>
+            <th class="student_header due_date due-date-label">Due Date:</th>
+            <% for(var i = 0; i < activities.length; i++){ %>
+                <td style="" id="header_<%= i %>" name="<%= activities[i].classroom_activity_pairing_id %>" class="due_date" >
+                  <input type="date" class="form-control" name="due_date[<%= activities[i].classroom_activity_pairing_id %>]" value="<%= activities[i].due_date ?  moment( activities[i].due_date).format("YYYY-MM-DD") : "" %>"/>
+                </td>             
+            <% } %>
+          </tr>
+        </thead>
+        <tbody>    
 
-    <input type="hidden" name="classroom_id" value="<%= classroom.id %>">
+        </tbody>
+      </table>
 
-    <table id="perf_table" class="table table-condensed table-bordered small scores-table" style="table-layout:fixed; width:inherit; padding-top:10px;">
-      <thead>        
-        <tr>
-          <th class="activity-header activity-header_right" ui-student-header>Activity:</th>
-          <% for(var i = 0; i < activities.length; i++){ %>
-              <th class="activity_header" style="" id="header_<%= i %>"><%= activities[i].name %></th>             
-          <% } %>
-        </tr>
-        <tr>
-          <th class="student_header due_date due-date-label">Due Date:</th>
-          <% for(var i = 0; i < activities.length; i++){ %>
-              <td style="" id="header_<%= i %>" name="<%= activities[i].classroom_activity_pairing_id %>" class="due_date" >
-                <input type="date" class="form-control" name="due_date[<%= activities[i].classroom_activity_pairing_id %>]" value="<%= activities[i].due_date ?  moment( activities[i].due_date).format("YYYY-MM-DD") : "" %>"/>
-              </td>             
-          <% } %>
-        </tr>
-      </thead>
-      <tbody>    
-
-      </tbody>
-    </table>
-
-  </form>
+    </form>
+  </div>
 
   <% if(collectionSize == null || collectionSize == 0){ %> 
     <div class="alert alert-warning">

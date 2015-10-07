@@ -130,6 +130,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				
 				if(data.status == "success"){
 					
+					TeacherAccount.navigate("classroom/scores/" + scoresLayoutView.model.get("classroomId"));
 					Scores.Controller.showClassroomScores(scoresLayoutView, scoresLayoutView.model.get("classroomId"), scoresLayoutView.model.attributes.searchTerm, scoresLayoutView.model.attributes.tagId);
 
 				}
