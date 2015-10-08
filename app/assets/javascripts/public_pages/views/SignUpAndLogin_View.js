@@ -12,10 +12,17 @@ PublicPages.module("SignUpAndLoginApp", function(SignUpAndLoginApp, PublicPages,
 
 			ui:{
 				loginButton: "[ui-login-button]",				
+				teacherSignUpButton: "[ui-teacher-sign-up-button]",
+				studentSignUpButton: "[ui-student-sign-up-button]",
 			},
 
 			triggers:{
 				"click @ui.loginButton" : "home:login",				
+			},
+
+			events:{
+				"click @ui.teacherSignUpButton": "onChildviewHomeTeacherSignUp",
+				"click @ui.studentSignUpButton": "onChildviewHomeStudentSignUp"
 			},
 
 

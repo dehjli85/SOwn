@@ -2,9 +2,33 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+/* 
+ * HOME STYLES
+ */
+
+// HEADER STYLES
+@media (min-width: 768px){
+  li.navbar-collapse__sm-only-li{
+    display:none;
+  }
+}
+
+.header-main_pp{
+  max-height: 7vh;
+}
+
+// SLIDER STYLES
 h1.slider-text_h1{
   text-transform: none;
 }
+
+h3.subtitle_sown{
+  font-style: normal;
+  color: #555555;
+}
+
+
 
 span.slider-text__span_underline{
   text-decoration: underline;
@@ -13,13 +37,39 @@ span.slider-text__span_underline{
 p.slider-text__p{
   font-style: normal;
   margin-bottom: 10px;
+  font-family: Roboto, sans-serif;
 }
 
 p.slider-text__p_margin-top{
   font-style: normal;
   margin-top: 50px;
+  font-family: Roboto, sans-serif;
 }
 
+
+@media (max-width: 768px){
+  .slider-text__p {
+      display: none;
+  }
+
+  div.slide-btn_inline, div.slide-btn_no-margin{
+    display: none;
+  }
+}
+
+@media (min-width: 768px){
+  .col-sm-offset-4-5{
+    margin-left:37.5%;
+  }  
+
+
+  .main-flex-slider_pp-full-page, .main-flex-slider_pp-full-page>ul>li>figure>img{
+    min-height: 93vh;
+  }
+}
+
+
+// SLIDER BUTTON STYLES
 p.slide-btn_inline{
   display: inline;
   margin: 40px 10px 10px 10px;
@@ -29,9 +79,25 @@ p.slide-btn_inline{
   margin-top: 0px
 }
 
-h3.subtitle_sown{
-  font-style: normal;
-  color: #555555;
+a.btn-white_less-padding{
+  padding: 14px 10px;
+  background-color: transparent;
+    color: #fff;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    border-radius: 0px;
+    border: 2px solid #fff;
+}
+
+a.btn-white_less-padding:hover{
+  background-color: #fff;
+  color: #222;
+}
+
+// SERVICES BOXES
+div.services-box > p{
+  font-size: 16px;
 }
 
 .role_select_div {
@@ -39,21 +105,7 @@ h3.subtitle_sown{
   padding: 15px;
   margin: 0 auto;
 }
-.form_select_div .role_select_heading{
-  margin-bottom: 10px;
-  text-align:center;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
 
-.header-main_pp{
-  max-height: 7vh;
-}
-
-.main-flex-slider_pp-full-page, .main-flex-slider_pp-full-page>ul>li>figure>img{
-  min-height: 93vh;
-}
 
 h4.heading-mini_margin-top{
   margin-top: 30px;
@@ -63,10 +115,6 @@ h4.heading-mini_margin-top{
 h5.heading-mini{
   margin-top: 20px;
   margin-bottom: 10px; 
-}
-
-.col-md-offset-4-5{
-  margin-left:37.5%;
 }
 
 div.sign-up-btn-div{
@@ -82,20 +130,12 @@ a.white-link{
   color:#FFFFFF;
 }
 
-a.btn-white_less-padding{
-  padding: 14px 10px;
-  background-color: transparent;
-    color: #fff;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    -ms-border-radius: 0px;
-    border-radius: 0px;
-    border: 2px solid #fff;
-}
+
 
 /*
- * Sign Up Styles
+ * Sign Up and Log In Styles
  */
+
 .page-tree-bg{
   background-image: url("/assets/bizwrap/bread-bg.png")
 }
@@ -108,19 +148,15 @@ a.btn-white_less-padding{
 .container-fluid_no-padding{
   padding:0px;
 }
-/////SIGN UP PAGE STLES - BEGIN
-body {
-  // padding-top: 40px;
-  // padding-bottom: 40px;
-  // background-color: #eee;
-}
 
 .signin-div{
 	text-align:center;
 }
-.form-signin {
-  
+
+.form-signin .form-control:focus {
+  z-index: 2;
 }
+
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
   margin-bottom: 10px;
