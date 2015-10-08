@@ -317,7 +317,8 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 					},
 					dragaccept: '.scores-table__activity-header_draggable',
 					maxMovingRows: 1,
-					dragHandle: '.scores-table__drag-icon'
+					dragHandle: '.scores-table__drag-icon', 
+					scrollContainer: this.ui.tableContainer
 				}
 			);
 		},

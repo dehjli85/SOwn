@@ -74,7 +74,8 @@
       beforeStart: $.noop,         // returning FALSE will stop the execution chain.
       beforeMoving: $.noop,
       beforeReorganize: $.noop,
-      beforeStop: $.noop
+      beforeStop: $.noop,
+      scrollContainer: null,
     },
     originalTable: {
       el: null,
@@ -232,7 +233,10 @@
       // one extra px on right and left side
       totalWidth += 2
 
+      this.options.scrollContainer.css("position:relative");
       var sortableHtml = '<ul class="dragtable-sortable" style="position:absolute; width:' + totalWidth + 'px;">';
+
+
       // assemble the needed html
       thtb.find('> tr > th').each(function(i, v) {
         var width_li = $(this).outerWidth();
@@ -256,6 +260,18 @@
       });
       sortableHtml += '</ul>';
       this.sortableTable.el = this.originalTable.el.before(sortableHtml).prev();
+      console.log(this.sortableTable.el);
+            // event handling to deal with scrolling
+      
+      var _this = this;
+      if(this.options.scrollContainer){
+        this.sortableTable.el.css({"position":"absolute", "left": this.options.scrollContainer.position().left-this.options.scrollContainer.scrollLeft() + "px"});
+        this.options.scrollContainer.scroll(function(){
+          _this.sortableTable.el.css("left", _this.options.scrollContainer.position().left-_this.options.scrollContainer.scrollLeft() + "px");
+          console.log($(_this.sortableTable.el).css("left"));
+        })
+      }  
+
       // set width if necessary
       this.sortableTable.el.find('> li > table').each(function(i, v) {
         $(this).css('width', widthArr[i] + 'px');
