@@ -151,7 +151,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 
 		    }
 		    else if (data.status == "error"){
-	    		adminHomeLayoutView.flashErrorMessage({message_type: "error", message: "Error: Unable to fetch summary metrics"});
+	    		adminHomeLayoutView.flashMessage({message_type: "error", message: "Error: Unable to fetch summary metrics"});
 		    }
 
 	     	
@@ -191,7 +191,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 		    else if (data.status == "error"){
 		    	if(data.message == "invalid-admin-user"){
 		    		console.log("display error message")
-		    		adminHomeLayoutView.flashErrorMessage({message_type: "error", message: "Error: You are not logged in as in Admin User"});
+		    		adminHomeLayoutView.flashMessage({message_type: "error", message: "Error: You are not logged in as in Admin User"});
 		    	}
 		    }
 
@@ -315,7 +315,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 
 		    }
 		    else if (data.status == "error"){
-	    		adminHomeLayoutView.flashErrorMessage({message_type: "error", message: "Error: Unable to fetch summary metrics"});
+	    		adminHomeLayoutView.flashMessage({message_type: "error", message: "Error: Unable to fetch summary metrics"});
 		    }
 
 	     	
