@@ -30,6 +30,11 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			StudentAccount.StudentApp.Classroom.Controller.openTrackModal(this,view.model.get("classroom_activity_pairing_id"));
 		},
 
+		onChildviewActivitiesLayoutShowSetGoalModal: function(view){
+			this.ui.modalRegion.modal("show");
+			StudentAccount.StudentApp.Classroom.Controller.openSetGoalModal(this, view.model.get("classroom_activity_pairing_id"));
+		},
+
 		onChildviewSavePerformance: function(view){
 			StudentAccount.StudentApp.Classroom.Controller.savePerformance(this, view, view.ui.performanceForm);
 		},
@@ -81,13 +86,15 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		ui:{
 			trackButton: "[ui-track-button]",
 			seeAllButton: "[ui-see-all-a]",
-			nameLink: "[ui-name-a]"
+			nameLink: "[ui-name-a]",
+			setGoalLink: "[ui-set-goal-link]"
 		},
 
 		triggers:{
 			"click @ui.trackButton": "activities:layout:show:track:modal",
 			"click @ui.seeAllButton": "activities:layout:show:see:all:modal",
-			"click @ui.nameLink": "activities:layout:show:activity:details:modal"
+			"click @ui.nameLink": "activities:layout:show:activity:details:modal",
+			"click @ui.setGoalLink": "activities:layout:show:set:goal:modal",
 		}
 		
 	});

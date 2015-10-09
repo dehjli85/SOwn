@@ -4,15 +4,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 	Classroom.Controller = {
 
-		// startClassroomApp: function(classroomId, subapp){
-			
-		// 	var classroomLayoutView = Classroom.Controller.showClassroomLayout(classroomId);
-
-		// 	StudentAccount.StudentApp.Classroom.Controller.showClassroomHeader(classroomLayout,classroomId, subapp);
-
-
-		// },
-
 		showClassroomLayout: function(classroomId){
 			var classroom = new Backbone.Model({classroomId: classroomId, tags: []})
 			var layoutView = new StudentAccount.StudentApp.Classroom.LayoutView({model: classroom});			
@@ -80,12 +71,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		},
 
 		showClassroomScores: function(classroomLayoutView, classroomId, searchTerm, tagIds){			
-
-			//show search bar
-			// Classroom.Controller.showClassroomSearchBarView(classroomLayoutView, searchTerm);
-   		
-   		// Classroom.Controller.showClassroomTagCollectionView(classroomLayoutView, classroomId);
-
+			
    		//show scores view
    		var getURL = "/student/classroom_activities_and_performances?classroom_id=" + classroomId 
 			if(searchTerm){
@@ -106,8 +92,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			.done(function(data) {
 	     		console.log(data);
 	     	if(data.status == "success"){
-
-	     		console.log(data);
 
 					var activities = new StudentAccount.StudentApp.Classroom.Models.ActivityCollection(data.activities);
 					var activityCompositeView = new StudentAccount.StudentApp.Classroom.ActivitiesCompositeView({collection:activities});
@@ -142,7 +126,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 					
 	     	}
 	     	
-	     	
 		  })
 		  .fail(function() {
 		  	console.log("error");
@@ -167,7 +150,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	     		classroomLayoutView.modalRegion.empty();
 
 	     		Classroom.Controller.showClassroomScores(classroomLayoutView, classroomLayoutView.model.get("classroomId"), classroomLayoutView.model.get("searchTerm"), classroomLayoutView.model.get("tags"));
-	     		
 
 	     	}
 	     	else if(data.status == "error"){
@@ -175,7 +157,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	     		trackModalView.render();
 
 	     	}
-	     	
 	     	
 		  })
 		  .fail(function() {
@@ -227,7 +208,68 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 						var barGraphView = new StudentAccount.StudentApp.Classroom.BarGraphView({model: model});
 
+						seeAllModal.graphRegion.show(barGraphView);
+					}
+					else if (data.activity.activity_type == 'completion'){
+						
+						var model = new Backbone.Model({performances: data.performances});
+						var completionTableView = new StudentAccount.StudentApp.Classroom.CompletionTableView({model: model});
 
+						seeAllModal.graphRegion.show(completionTableView);
+
+					}
+					
+	     	}
+	     	
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+
+		},
+
+		openSetGoalModal: function(classroomLayoutView, classroomActivityPairingId){
+
+			var getURL = "/student/activity_and_performances?classroom_activity_pairing_id=" + classroomActivityPairingId;
+			var jqxhr = $.get(getURL, function(){
+				console.log('get request for classroom model');
+			})
+			.done(function(data) {
+	     		console.log(data);
+	     	if(data.status == "success"){
+
+	     		var activity_pairing_performances = new Backbone.Model({activity: data.activity});
+	     		var seeAllModal = new StudentAccount.StudentApp.Classroom.SeeAllModalView({model: activity_pairing_performances});
+	     		classroomLayoutView.modalRegion.show(seeAllModal);
+
+					if (data.activity.activity_type == 'scored'){
+
+		     		var modelData = [];
+		     		var index = 1;
+
+						data.performances.map(function(item){
+
+		     			//set color of bars
+							var color = "#49883F";
+							if(item.performance_color == "danger-sown")
+								color = "#B14F51";
+							else if(item.performance_color == 'warning-sown')
+								color = "#EACD46";
+
+							//set data depending on activity type
+							modelData.push({x: index, y: item.performance_pretty, color: color})
+							index++;
+
+						});	     	
+
+						var modelLabels = {x: "Attempt", y: "Score"};
+
+						var model = new Backbone.Model({data:modelData, labels: modelLabels});
+
+						var barGraphView = new StudentAccount.StudentApp.Classroom.BarGraphView({model: model});
 
 						seeAllModal.graphRegion.show(barGraphView);
 					}
@@ -239,10 +281,8 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 						seeAllModal.graphRegion.show(completionTableView);
 
 					}
-
 					
 	     	}
-	     	
 	     	
 		  })
 		  .fail(function() {

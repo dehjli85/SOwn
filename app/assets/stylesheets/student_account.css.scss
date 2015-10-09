@@ -15,6 +15,19 @@
 }
 
 /*
+ * Classroom Scores Table Styles
+ */
+.student-scores-table__actions-header{
+    min-width: 225px;
+    text-align: center;
+}
+
+.student-scores-table > tbody > tr > td.student-scores-table__action-cell{
+    text-align: center;
+    vertical-align: middle;
+}
+
+/*
  * Classroom Styles (Scorebar)
  */
 #classroom_search_region{
