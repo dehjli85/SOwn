@@ -1088,6 +1088,19 @@
 					end
 				end
 
+				# Update the sort_order if the activity is being archived/unarchived
+				if !cap.archived && activity_hash["archived"]
+					cap.sort_order = -1
+					if(!cap.save)
+						errors.push(cap.errors)
+					end
+				elsif cap.archived && !activity_hash["archived"]
+					cap.sort_order = ClassroomActivityPairing.max_sort_order(params[:classroom_id]) + 1
+					if(!cap.save)
+						errors.push(cap.errors)
+					end
+				end
+
 				if !cap.update_attributes({due_date: activity_hash["due_date"], hidden: activity_hash["hidden"] || false, archived: activity_hash["archived"] || false})
 					errors.push(cap.errors)
 				end

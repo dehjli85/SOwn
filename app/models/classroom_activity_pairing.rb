@@ -48,7 +48,7 @@ class ClassroomActivityPairing < ActiveRecord::Base
     
     # Check that all of the pairings are from the same classroom and includes all of them
     classroom_id = ClassroomActivityPairing.find(sorted_cap_ids[0]).classroom_id
-    cap_ids = ClassroomActivityPairing.where(classroom_id: classroom_id).pluck(:id).sort
+    cap_ids = ClassroomActivityPairing.where(classroom_id: classroom_id).where(archived: false).pluck(:id).sort
     if !sorted_cap_ids.sort.eql?(cap_ids)
       puts "Incomplete ClassroomActivityPairing Set Error"
       raise "Incomplete ClassroomActivityPairing Set Error"
