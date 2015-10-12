@@ -305,6 +305,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	     	if(data.status == "success"){
 
 	     		var activityModel = new Backbone.Model(data.activity);
+	     		activityModel.set("classroom_activity_pairing", data.classroom_activity_pairing);
 	     		var activityDetailsModalView = new StudentAccount.StudentApp.Classroom.ActivityDetailsModalView({model: activityModel});
 	     		classroomLayoutView.modalRegion.show(activityDetailsModalView);
 

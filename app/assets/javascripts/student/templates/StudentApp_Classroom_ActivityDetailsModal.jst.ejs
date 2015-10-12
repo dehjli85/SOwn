@@ -23,6 +23,15 @@
         </div>
       <% } %>
 
+      <% if(classroom_activity_pairing != null && classroom_activity_pairing.due_date != null){ %>
+        <div class="form-group"> 
+          <label for="inputDueDate" class="col-sm-4 control-label">Due Date:</label>           
+          <div class="col-sm-8">
+            <div class="control-label" style="text-align:left"><%= moment(classroom_activity_pairing.due_date).format("MM/DD/YY") %></div>
+          </div>
+        </div>
+      <% } %>
+
       <% if(link != null && link != ""){ %>
         <div class="form-group"> 
           <label for="inputScoredPerformance" class="col-sm-4 control-label">Link:</label>           
