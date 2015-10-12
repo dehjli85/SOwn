@@ -20,7 +20,8 @@ PublicPages.module("SignUpAndLoginApp.Home", function(Home, PublicPages, Backbon
 
 			events: {
 				"click @ui.videoDiv1": "playVideo1",
-				"click @ui.videoDiv2": "playVideo2"
+				"click @ui.videoDiv2": "playVideo2",
+				"hover @ui.videoDiv1": "changePlayDivColors"
 			},
 
 			playVideo1: function(e){
@@ -34,6 +35,10 @@ PublicPages.module("SignUpAndLoginApp.Home", function(Home, PublicPages, Backbon
 				this.ui.videoDiv2.removeClass("video");
 				this.ui.videoDiv2.html('<iframe width="854" height="480" src="https://www.youtube.com/embed/EBgvhohDFDE?autoplay=1" frameborder="0" allowfullscreen></iframe>');
 			},
+
+			changePlayDivColors: function(e){
+				console.log("hello");
+			}
 			
 	});
 
