@@ -95,7 +95,49 @@ a.btn-white_less-padding:hover{
   color: #222;
 }
 
+
+// VIDEO STYLES
+
+div.video {
+    position:relative;
+    cursor:pointer;
+    
+}
+div.video:before {
+    content:'';
+    position:absolute;
+    top:43.2%;
+    left:47.3%;
+    height:60px;
+    width:85px;
+    border-radius:10px;
+    border:1px solid #000;
+    text-align:center;
+    line-height:30px;
+    background:#FFFFFF;
+    transition:all 200ms ease-in;
+}
+div.video:after {
+    content:'';
+    position:absolute;
+    top:47.3%;
+    left:50.4%;
+    display:inline-block;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-left: 12px solid #239236;
+    border-bottom: 6px solid transparent;
+}
+div.video:hover:before {
+    background:#239236;
+}
+div.video:hover:after {
+    border-left: 12px solid #FFFFFF;
+}
+
 // SERVICES BOXES
+
 div.services-box > p{
   font-size: 16px;
 }
