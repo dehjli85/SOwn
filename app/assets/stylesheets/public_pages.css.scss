@@ -169,7 +169,41 @@ a.white-link{
   color:#FFFFFF;
 }
 
+// EARLY RESULTS
 
+i.early-results-icon{
+  background-color: inherit;
+  color: #239236;
+  border: 0px;
+  font-size: 120px;
+  width:100%;
+}
+
+div.early-results-number-overlay{
+  position:absolute;
+  width:14%;
+  top:50%;
+  left:40%;
+  color:#FFFFFF;
+}
+
+div.services-icon{
+  position: relative;
+  text-align: center;
+}
+
+div.early-results-row{
+  display:flex;
+}
+
+div.services-text{
+  align-self:center;
+  font-size: 18px;
+}
+
+div.features > p{
+  font-size: 18px;
+}
 
 /*
  * Sign Up and Log In Styles
