@@ -95,7 +95,46 @@ a.btn-white_less-padding:hover{
   color: #222;
 }
 
+
+// VIDEO STYLES
+div.video{
+  position: relative;
+  
+}
+
+.play-div{
+  padding: 0px;
+  width: 14%;
+  height:10%;
+  left: 43%;
+  top:45%;
+  border-radius:10px;
+  border:1px solid #000;
+  text-align: center;
+  background: #FFFFFF;
+  position:absolute;
+  cursor: pointer;
+  // left:528px;
+  // top:247px;
+  color: #239236;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.play-icon{
+  font-size: 24px;
+  z-index: 100;
+}
+
+.play-div:hover{
+  background-color: #239236;
+  color: #FFFFFF;
+}
+
+
 // SERVICES BOXES
+
 div.services-box > p{
   font-size: 16px;
 }
@@ -130,7 +169,51 @@ a.white-link{
   color:#FFFFFF;
 }
 
+// EARLY RESULTS
 
+i.early-results-icon{
+  background-color: inherit;
+  color: #239236;
+  border: 0px;
+  font-size: 120px;
+  width:100%;
+}
+
+div.early-results-number-overlay{
+  position:absolute;
+  width:14%;
+  top:50%;
+  left:40%;
+  color:#FFFFFF;
+}
+
+div.services-icon{
+  position: relative;
+  text-align: center;
+}
+
+div.early-results-row{
+  display:flex;
+}
+
+div.services-text{
+  align-self:center;
+  font-size: 18px;
+}
+
+div.features > p{
+  font-size: 18px;
+}
+
+// STEPS
+h3.steps-h3{
+  margin-bottom: 10px;
+}
+
+h4.steps-h4{
+  margin-bottom: 30px;
+  text-align: center;
+}
 
 /*
  * Sign Up and Log In Styles
