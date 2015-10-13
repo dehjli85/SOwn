@@ -782,13 +782,13 @@
 			
 			activities = Activity.joins(:activity_tags)
 				.where({teacher_user_id: @current_teacher_user.id})
-				.where("lower(activity_tags.name) like ? or lower(activities.name) like ? or lower(activities.description) like ?", "%#{params[:searchTerm].downcase}%", "%#{params[:searchTerm].downcase}%", "%#{params[:searchTerm].downcase}%")
+				.where("lower(activity_tags.name) like ? or lower(activities.name) like ? or lower(activities.description) like ?", "%#{params[:search_term].downcase}%", "%#{params[:search_term].downcase}%", "%#{params[:search_term].downcase}%")
 				.distinct
 				.as_json			
 
 			activity_ids = Activity.joins(:activity_tags)
 				.where({teacher_user_id: @current_teacher_user.id})
-				.where("lower(activity_tags.name) like ? or lower(activities.name) like ? or lower(activities.description) like ?", "%#{params[:searchTerm].downcase}%", "%#{params[:searchTerm].downcase}%", "%#{params[:searchTerm].downcase}%")				
+				.where("lower(activity_tags.name) like ? or lower(activities.name) like ? or lower(activities.description) like ?", "%#{params[:search_term].downcase}%", "%#{params[:search_term].downcase}%", "%#{params[:search_term].downcase}%")				
 				.pluck(:id)
 				.as_json
 
