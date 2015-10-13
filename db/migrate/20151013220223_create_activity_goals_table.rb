@@ -5,6 +5,7 @@ class CreateActivityGoalsTable < ActiveRecord::Migration
     	t.integer :student_user_id
     	t.float :score_goal
     	t.datetime :goal_date
+    	t.timestamps
     end
   end
 end
