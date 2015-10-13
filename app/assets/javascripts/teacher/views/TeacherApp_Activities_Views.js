@@ -90,7 +90,8 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		template: JST["teacher/templates/Activities/TeacherApp_Activities_IndexSearchBar"],					
 		className: "col-md-12",
 		triggers: {
-			"submit [ui-search-form]":"activities:index:filter:search:term"
+			"submit [ui-search-form]":"activities:index:filter:search:term",
+			"click @ui.createActivityButton": "open:new:activity:dialog"
 		},
 
 		ui: {
@@ -99,10 +100,6 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			createActivityButton: "[ui-create-activity-button]"
 		},
 
-		triggers:{
-			"click @ui.createActivityButton": "open:new:activity:dialog"
-		}
-		
 	});
 
 	
