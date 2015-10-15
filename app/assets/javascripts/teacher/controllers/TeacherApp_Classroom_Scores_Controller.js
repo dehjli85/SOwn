@@ -184,9 +184,11 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 			var getUrl = "/teacher/student_performance?student_performance_id=" + studentPerformanceId;
 			var jqxhr = $.get(getUrl, function(){
-				console.log('get request made');
+				console.log('get request made to get verify modal data');
 			})
 			.done(function(data) {
+
+				console.log(data);
 
 				if(data.status == "success"){
 					
