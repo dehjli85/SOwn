@@ -1,18 +1,22 @@
-<table class="table table-bordered">
-	<thead>
-		<tr>
-			<th>Attempt:</th>
-			<% for(var i = 0; i < performances.length; i++){ %>
-				<td><%= moment(performances[i].performance_date).format("MM/DD") %></td>
-			<% } %>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Completed?</td>
-			<% for(var i = 0; i < performances.length; i++){ %>
-				<td><i class="<%= performances[i].completed_performance ? 'ion-checkmark-circled success-icon-sown' : 'ion-close-circled' %>" style="font-size:20px"></i> </td>
-			<% } %>
-		</tr>
-	</tbody>
-</table>
+<% if(performances.length == 0){ %>
+	<div class="well">You haven't entered any data yet...</div>
+<% } else { %>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Attempt:</th>
+				<% for(var i = 0; i < performances.length; i++){ %>
+					<td><%= moment(performances[i].performance_date).format("MM/DD") %></td>
+				<% } %>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Completed?</td>
+				<% for(var i = 0; i < performances.length; i++){ %>
+					<td><i class="<%= performances[i].completed_performance ? 'ion-checkmark-circled success-icon-sown' : 'ion-close-circled' %>" style="font-size:20px"></i> </td>
+				<% } %>
+			</tr>
+		</tbody>
+	</table>
+<% } %>

@@ -4,6 +4,9 @@
 <div ui-bar-graph-div>
 	<div style="display:flex; align-items:center">
 		<div ui-range-graph-div></div>
+		<% if(data == null || data.length == 0){ %>
+			<div class="well" style="width:100%">You haven't entered any data yet...</div>
+		<% } %>
 		<div ui-performance-graph-div></div>
 	</div>
 </div>

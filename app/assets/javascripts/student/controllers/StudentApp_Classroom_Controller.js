@@ -262,7 +262,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	     		var setGoalModalView = new StudentAccount.StudentApp.Classroom.SetGoalModalView({model: model});
 	     		classroomLayoutView.modalRegion.show(setGoalModalView);
 
-	     		if(data.performances.length > 0){
 
 	     			if (data.activity.activity_type == 'scored'){
 
@@ -308,13 +307,16 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 						}
 						else if (data.activity.activity_type == 'completion'){
 							
-							var model = new Backbone.Model({performances: data.performances});
-							var completionTableView = new StudentAccount.StudentApp.Classroom.CompletionTableView({model: model});
 
-							setGoalModalView.graphRegion.show(completionTableView);
+							if(data.performances.length != 0){
+								var model = new Backbone.Model({performances: data.performances});
+									
+								var completionTableView = new StudentAccount.StudentApp.Classroom.CompletionTableView({model: model});
+
+								setGoalModalView.graphRegion.show(completionTableView);
+							}
 
 						}	
-	     		}
 					
 	     	}
 	     	
@@ -371,6 +373,8 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			.done(function(data) {
 	     		console.log(data);
 	     	if(data.status == "success"){
+					classroomLayoutView.ui.modalRegion.modal("hide");
+
 					var alertModel = new Backbone.Model({message: "Activity Goal Saved!", alertClass: "alert-success"});
 					var alertView = new StudentAccount.StudentApp.AlertView({model: alertModel});
 					StudentAccount.rootView.alertRegion.show(alertView);					

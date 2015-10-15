@@ -74,7 +74,9 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		},
 
 		onChildviewSaveNewActivityGoal: function(setGoalModalView){
-			StudentAccount.StudentApp.Classroom.Controller.saveNewActivityGoal(this, setGoalModalView.ui.goalForm);
+			if(!setGoalModalView.goalEmpty()){
+				StudentAccount.StudentApp.Classroom.Controller.saveNewActivityGoal(this, setGoalModalView.ui.goalForm);
+			}
 		}
 
 
@@ -387,6 +389,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			"click @ui.saveButton": "save:new:activity:goal"
 		},
 
+
 		initialize: function(options){
 			this.$el.attr("role","document");			
 		},
@@ -408,6 +411,10 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			this.ui.goalDateLink.css("display", "none");
 			this.ui.goalDateInput.css("display", "inline");
 		},
+
+		goalEmpty: function(){
+			return this.ui.scoreGoalInput.val().trim().length == 0 && this.ui.goalDateInput.val().trim().length == 0;
+		}
 
 
 	});
@@ -431,7 +438,7 @@ Classroom.SetGoalBarGraphView = Marionette.ItemView.extend({
 				height: this.model.get("height"),
 				score_range: this.model.get("score_range")
 			}
-
+			console.log(config_obj);
 			this.showBarGraph(config_obj);
 		},
 
@@ -444,325 +451,210 @@ Classroom.SetGoalBarGraphView = Marionette.ItemView.extend({
 		showBarGraph: function(config_obj){
 
 			// CREATE THE SCORE RANGE GRAPH
+			if(config_obj.score_range.min_score != null && config_obj.score_range.max_score != null){
+				var margin_range = {top: 20, right: 20, bottom: 30, left: 40},
+				    width_range = 150 - margin_range.left - margin_range.right,
+				    height_range = (config_obj && config_obj.height ? config_obj.height : 200) - margin_range.top - margin_range.bottom;
 
-			var margin_range = {top: 20, right: 20, bottom: 30, left: 40},
-			    width_range = 150 - margin_range.left - margin_range.right,
-			    height_range = (config_obj && config_obj.height ? config_obj.height : 200) - margin_range.top - margin_range.bottom;
+				var x_range = d3.scale.ordinal()
+				    .rangeRoundBands([0, width_range], .1);
 
-			var x_range = d3.scale.ordinal()
-			    .rangeRoundBands([0, width_range], .1);
+				var y_range = d3.scale.linear()
+				    .range([height_range, 0]);
 
-			var y_range = d3.scale.linear()
-			    .range([height_range, 0]);
+				var xAxis_range = d3.svg.axis()
+				    .scale(x_range)
+				    .orient("bottom");
 
-			var xAxis_range = d3.svg.axis()
-			    .scale(x_range)
-			    .orient("bottom");
+				var yAxis_range = d3.svg.axis()
+				    .scale(y_range)
+				    .orient("left")
+				    .ticks(5);
 
-			var yAxis_range = d3.svg.axis()
-			    .scale(y_range)
-			    .orient("left")
-			    .ticks(5);
+				var svg_range = d3.select(this.ui.rangeGraphDiv[0]).append("svg")
+				    .attr("width", width_range + margin_range.left + margin_range.right)
+				    .attr("height", height_range + margin_range.top + margin_range.bottom)
+				  .append("g")
+				    .attr("transform", "translate(" + margin_range.left + "," + margin_range.top + ")");
 
-			var svg_range = d3.select(this.ui.rangeGraphDiv[0]).append("svg")
-			    .attr("width", width_range + margin_range.left + margin_range.right)
-			    .attr("height", height_range + margin_range.top + margin_range.bottom)
-			  .append("g")
-			    .attr("transform", "translate(" + margin_range.left + "," + margin_range.top + ")");
+				x_range.domain(["Range"]);
 
-			x_range.domain(["Range"]);
+				console.log(config_obj.score_range.min_score);
+				y_range.domain([config_obj.score_range.min_score, config_obj.score_range.max_score]);
 
-			y_range.domain([0, config_obj.score_range.max_score]);
+				var g = svg_range.append("g");
+			  
 
-			var g = svg_range.append("g");
+			  // create the red bar
+			  if(config_obj.score_range.min_score != null && config_obj.score_range.max_score != null && (config_obj.score_range.benchmark1_score != null || config_obj.score_range.benchmark2_score != null)){
+			  	g.append("rect")
+		  		.attr("class", "bar")
+		  		.attr("x", x_range("Range"))
+		  		.attr("width", x_range.rangeBand())
+		  		.attr("y", y_range(config_obj.score_range.benchmark1_score ? config_obj.score_range.benchmark1_score : config_obj.score_range.benchmark2_score))
+		  		.attr("fill", "#B14F51")
+		  		.attr("height", y_range(config_obj.score_range.min_score) - y_range(config_obj.score_range.benchmark1_score ? config_obj.score_range.benchmark1_score : config_obj.score_range.benchmark2_score))	
+			  }
 		  	
-	  	g.append("rect")
-	  		.attr("class", "bar")
-	  		.attr("x", x_range("Range"))
-	  		.attr("width", x_range.rangeBand())
-	  		.attr("y", y_range(config_obj.score_range.benchmark1_score))
-	  		.attr("fill", "#B14F51")
-	  		.attr("height", height_range - y_range(config_obj.score_range.benchmark1_score - config_obj.score_range.min_score))
 
-	  	g.append("rect")
-	  		.attr("class", "bar")
-	  		.attr("x", x_range("Range"))
-	  		.attr("width", x_range.rangeBand())
-	  		.attr("y", y_range(config_obj.score_range.benchmark2_score))
-	  		.attr("fill", "#EACD46")
-	  		.attr("height", height_range - y_range(config_obj.score_range.benchmark2_score - config_obj.score_range.benchmark1_score))
-	  	
-	  	g.append("rect")
-	  		.attr("class", "bar")
-	  		.attr("x", x_range("Range"))
-	  		.attr("width", x_range.rangeBand())
-	  		.attr("y", y_range(config_obj.score_range.max_score))
-	  		.attr("fill", "#49883F")
-	  		.attr("height", height_range - y_range(config_obj.score_range.max_score - config_obj.score_range.benchmark2_score))
+		  	// create the yellow bar
+			  if(config_obj.score_range.min_score != null && config_obj.score_range.max_score != null && config_obj.score_range.benchmark1_score != null && config_obj.score_range.benchmark2_score != null){
+			  	g.append("rect")
+			  		.attr("class", "bar")
+			  		.attr("x", x_range("Range"))
+			  		.attr("width", x_range.rangeBand())
+			  		.attr("y", y_range(config_obj.score_range.benchmark2_score))
+			  		.attr("fill", "#EACD46")
+			  		.attr("height", y_range(config_obj.score_range.benchmark1_score) - y_range(config_obj.score_range.benchmark2_score))
+		  	}
+		  	
+		  	// create the green bar
+			  if(config_obj.score_range.min_score != null && config_obj.score_range.max_score != null){
+			  	g.append("rect")
+			  		.attr("class", "bar")
+			  		.attr("x", x_range("Range"))
+			  		.attr("width", x_range.rangeBand())
+			  		.attr("y", y_range(config_obj.score_range.max_score))
+			  		.attr("fill", "#49883F")
+			  		.attr("height", y_range(config_obj.score_range.benchmark2_score ? config_obj.score_range.benchmark2_score : (config_obj.score_range.benchmark1_score ? config_obj.score_range.benchmark1_score : config_obj.score_range.min_score)) - y_range(config_obj.score_range.max_score))
+				}
+
+				// show min_score text
+			  if(config_obj.score_range.min_score != null){
+					g.append("text")
+			    	.text(config_obj.score_range.min_score)
+			  		.attr("x", x_range("Range") + x_range.rangeBand()/2)
+			  		.attr("y", y_range(config_obj.score_range.min_score) - 12)
+			  		.attr("dy", ".71em")
+			    	.attr("fill", "black")
+			    	.attr("text-anchor", "middle");
+				}
+
+				// show benchmark_1 text
+			  if(config_obj.score_range.benchmark1_score != null){
+					g.append("text")
+			    	.text(config_obj.score_range.benchmark1_score)
+			  		.attr("x", x_range("Range") + x_range.rangeBand()/2)
+			  		.attr("y", y_range(config_obj.score_range.benchmark1_score) - 12 )
+			  		.attr("dy", ".71em")
+			    	.attr("fill", "black")
+			    	.attr("text-anchor", "middle");
+			  }
+
+				// show benchmark_2 text
+			  if(config_obj.score_range.benchmark2_score != null){
+			    g.append("text")
+			    	.text(config_obj.score_range.benchmark2_score)
+			  		.attr("x", x_range("Range") + x_range.rangeBand()/2)
+			  		.attr("y", y_range(config_obj.score_range.benchmark2_score) - 12 )
+			  		.attr("dy", ".71em")
+			    	.attr("fill", "black")
+			    	.attr("text-anchor", "middle");
+				}
+
+		    // show the max_score text
+			  if(config_obj.score_range.max_score != null){
+			   	g.append("text")
+			    	.text(config_obj.score_range.max_score)
+			  		.attr("x", x_range("Range") + x_range.rangeBand()/2)
+			  		.attr("y", y_range(config_obj.score_range.max_score)  - 12)
+			  		.attr("dy", ".71em")
+			    	.attr("fill", "black")
+			    	.attr("text-anchor", "middle");
+				}
+
+		    // show the x-axis
+		   	svg_range.append("g")
+			      .attr("class", "x axis")
+			      .attr("transform", "translate(0," + height_range + ")")
+			      .call(xAxis_range)
+		      .append("text")
+			      .attr("y", 6)
+			      .attr("dy", ".71em")
+			      .style("text-anchor", "end")
+			}
 			
-			g.append("text")
-	    	.text(config_obj.score_range.min_score)
-	  		.attr("x", x_range("Range") + x_range.rangeBand()/2)
-	  		.attr("y", y_range(config_obj.score_range.min_score) - 12)
-	  		.attr("dy", ".71em")
-	    	.attr("fill", "black")
-	    	.attr("text-anchor", "middle");
-
-			g.append("text")
-	    	.text(config_obj.score_range.benchmark1_score)
-	  		.attr("x", x_range("Range") + x_range.rangeBand()/2)
-	  		.attr("y", y_range(config_obj.score_range.benchmark1_score) - 12 )
-	  		.attr("dy", ".71em")
-	    	.attr("fill", "black")
-	    	.attr("text-anchor", "middle");
-
-	    g.append("text")
-	    	.text(config_obj.score_range.benchmark2_score)
-	  		.attr("x", x_range("Range") + x_range.rangeBand()/2)
-	  		.attr("y", y_range(config_obj.score_range.benchmark2_score) - 12 )
-	  		.attr("dy", ".71em")
-	    	.attr("fill", "black")
-	    	.attr("text-anchor", "middle");
-
-	   	g.append("text")
-	    	.text(config_obj.score_range.max_score)
-	  		.attr("x", x_range("Range") + x_range.rangeBand()/2)
-	  		.attr("y", y_range(config_obj.score_range.max_score)  - 12)
-	  		.attr("dy", ".71em")
-	    	.attr("fill", "black")
-	    	.attr("text-anchor", "middle");
-
-	   	svg_range.append("g")
-		      .attr("class", "x axis")
-		      .attr("transform", "translate(0," + height_range + ")")
-		      .call(xAxis_range)
-	      .append("text")
-		      .attr("y", 6)
-		      .attr("dy", ".71em")
-		      .style("text-anchor", "end")
-
 		 	// CREATE THE PERFORMANCE GRAPH
-
 		  var data = this.model.get("data");
 
-			var margin = {top: 20, right: 20, bottom: 30, left: 40},
-			    width = (config_obj && config_obj.width ? config_obj.width : 450) - margin.left - margin.right,
-			    height = (config_obj && config_obj.height ? config_obj.height : 200) - margin.top - margin.bottom;
+		  if(data.length > 0){
+		  	var margin = {top: 20, right: 20, bottom: 30, left: 40},
+				    width = (config_obj && config_obj.width ? config_obj.width : 450) - margin.left - margin.right,
+				    height = (config_obj && config_obj.height ? config_obj.height : 200) - margin.top - margin.bottom;
 
-			var x = d3.scale.ordinal()
-			    .rangeRoundBands([0, width], .1);
+				var x = d3.scale.ordinal()
+				    .rangeRoundBands([0, width], .1);
 
-			var y = d3.scale.linear()
-			    .range([height_range, 0]);
-			    // .range([height, 0]);
+				var y = d3.scale.linear()
+				    .range([height_range, 0]);
+				    // .range([height, 0]);
 
-			var xAxis = d3.svg.axis()
-			    .scale(x)
-			    .orient("bottom");
+				var xAxis = d3.svg.axis()
+				    .scale(x)
+				    .orient("bottom");
 
-			var yAxis = d3.svg.axis()
-			    .scale(y)
-			    .orient("left")
-			    .ticks(5);
+				var yAxis = d3.svg.axis()
+				    .scale(y)
+				    .orient("left")
+				    .ticks(5);
 
-			var svg = d3.select(this.ui.performanceGraphDiv[0]).append("svg")
-			    .attr("width", width + margin.left + margin.right)
-			    .attr("height", height + margin.top + margin.bottom)
-			  .append("g")
-			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+				var svg = d3.select(this.ui.performanceGraphDiv[0]).append("svg")
+				    .attr("width", width + margin.left + margin.right)
+				    .attr("height", height + margin.top + margin.bottom)
+				  .append("g")
+				    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-			
-		  x.domain(data.map(function(d) { return d.x; }));
-		  if (config_obj.score_range.max_score) {
-		  	y.domain([0, config_obj.score_range.max_score]);
+				
+			  x.domain(data.map(function(d) { return d.x; }));
+			  if (config_obj.score_range.max_score && config_obj.score_range.min_score) {
+			  	y.domain([config_obj.score_range.min_score, config_obj.score_range.max_score]);
+			  }
+			  else{
+				  y.domain([0, d3.max(data, function(d) { return d.y; })]);
+			  }
+
+			  svg.append("g")
+			      .attr("class", "x axis")
+			      .attr("transform", "translate(0," + height + ")")
+			      .call(xAxis)
+		      .append("text")
+			      .attr("y", 6)
+			      .attr("dy", ".71em")
+			      .style("text-anchor", "end")
+			      .text(this.model.get("labels").x);
+
+			  svg.append("g")
+			      .attr("class", "y axis")
+			      .call(yAxis)
+			    // .append("text")
+			    //   .attr("transform", "rotate(-90)")
+			    //   .attr("y", 6)
+			    //   .attr("dy", ".71em")
+			    //   .style("text-anchor", "end")
+			    //   .text(this.model.get("labels").y);
+
+			  var bar = svg.selectAll(".bar")
+			      .data(data)
+			    .enter().append("g");
+			    
+			    bar.append("rect")
+			      .attr("class", "bar")
+			      .attr("x", function(d) { return x(d.x); })
+			      .attr("width", x.rangeBand())
+			      .attr("y", function(d) { return y(d.y); })
+			      .attr("fill", function(d) { return d.color; })
+			      .attr("height", function(d) { return height - y(d.y); });
+					
+					bar.append("text")
+			    	.text(function(d){return d.y})
+			      .attr("x", function(d) { return x(d.x) + x.rangeBand()/2; })
+			      .attr("y", function(d) { return y(d.y) + 5; })
+			      .attr("dy", ".71em")
+			    	.attr("fill", "white")
+			    	.attr("text-anchor", "middle");
+
 		  }
-		  else{
-			  y.domain([0, d3.max(data, function(d) { return d.y; })]);
-		  }
-
-		  svg.append("g")
-		      .attr("class", "x axis")
-		      .attr("transform", "translate(0," + height + ")")
-		      .call(xAxis)
-	      .append("text")
-		      .attr("y", 6)
-		      .attr("dy", ".71em")
-		      .style("text-anchor", "end")
-		      .text(this.model.get("labels").x);
-
-		  svg.append("g")
-		      .attr("class", "y axis")
-		      .call(yAxis)
-		    // .append("text")
-		    //   .attr("transform", "rotate(-90)")
-		    //   .attr("y", 6)
-		    //   .attr("dy", ".71em")
-		    //   .style("text-anchor", "end")
-		    //   .text(this.model.get("labels").y);
-
-		  var bar = svg.selectAll(".bar")
-		      .data(data)
-		    .enter().append("g");
-		    
-		    bar.append("rect")
-		      .attr("class", "bar")
-		      .attr("x", function(d) { return x(d.x); })
-		      .attr("width", x.rangeBand())
-		      .attr("y", function(d) { return y(d.y); })
-		      .attr("fill", function(d) { return d.color; })
-		      .attr("height", function(d) { return height - y(d.y); });
-				
-				bar.append("text")
-		    	.text(function(d){return d.y})
-		      .attr("x", function(d) { return x(d.x) + x.rangeBand()/2; })
-		      .attr("y", function(d) { return y(d.y) + 5; })
-		      .attr("dy", ".71em")
-		    	.attr("fill", "white")
-		    	.attr("text-anchor", "middle");
-
-		  // if(config_obj.score_range){
-		  // 	var g = svg.append("g");
-		  	
-		  // 	g.append("rect")
-		  // 		.attr("class", "bar")
-		  // 		.attr("x", x("Range"))
-		  // 		.attr("width", x.rangeBand())
-		  // 		.attr("y", y(config_obj.score_range.benchmark1_score))
-		  // 		.attr("fill", "#B14F51")
-		  // 		.attr("height", height - y(config_obj.score_range.benchmark1_score - config_obj.score_range.min_score))
-
-		  	
-
-		  // 	g.append("rect")
-		  // 		.attr("class", "bar")
-		  // 		.attr("x", x("Range"))
-		  // 		.attr("width", x.rangeBand())
-		  // 		.attr("y", y(config_obj.score_range.benchmark2_score))
-		  // 		.attr("fill", "#EACD46")
-		  // 		.attr("height", height - y(config_obj.score_range.benchmark2_score - config_obj.score_range.benchmark1_score))
-
-		  	
-		  // 	g.append("rect")
-		  // 		.attr("class", "bar")
-		  // 		.attr("x", x("Range"))
-		  // 		.attr("width", x.rangeBand())
-		  // 		.attr("y", y(config_obj.score_range.max_score))
-		  // 		.attr("fill", "#49883F")
-		  // 		.attr("height", height - y(config_obj.score_range.max_score - config_obj.score_range.benchmark2_score))
-				
-				// g.append("text")
-		  //   	.text(config_obj.score_range.benchmark1_score)
-		  // 		.attr("x", x("Range") + x.rangeBand()/2)
-		  // 		.attr("y", y(config_obj.score_range.benchmark1_score) - 15)
-		  // 		.attr("dy", ".71em")
-		  //   	.attr("fill", "black")
-		  //   	.attr("text-anchor", "middle");
-
-		  //   g.append("text")
-		  //   	.text(config_obj.score_range.benchmark2_score)
-		  // 		.attr("x", x("Range") + x.rangeBand()/2)
-		  // 		.attr("y", y(config_obj.score_range.benchmark2_score) - 15)
-		  // 		.attr("dy", ".71em")
-		  //   	.attr("fill", "black")
-		  //   	.attr("text-anchor", "middle");
-
-		  // }
-
-		}
-	});
-
-/*
- * This view requires a model with the following attributes:
- *	=> data: json object with fields (arrays) "x", "y", and "color"
- *  => labels: json object with fields (strings) "x" and "y"
- */
-Classroom.PerformanceBarGraphView = Marionette.ItemView.extend({
-		template: JST["student/templates/StudentApp_Classroom_PerformanceBarGraph"],
-		ui:{
-			barGraphDiv: "[ui-bar-graph-div]"
-		},
-
-		onShow: function(){
-			this.showBarGraph();
-		},
-
-		/*
-		 * Any object can be passed with the following fields and types
-		 * height: integer representing pixel height of the bar graph
-		 * width: integer representing pixel width of the bar graph
-		 */
-		showBarGraph: function(config_obj){
-
-			var data = this.model.get("data");
-
-			var margin = {top: 20, right: 20, bottom: 30, left: 40},
-			    width = (config_obj && config_obj.height ? config_obj.height : 450) - margin.left - margin.right,
-			    height = (config_obj && config_obj.height ? config_obj.height : 200) - margin.top - margin.bottom;
-
-			var x = d3.scale.ordinal()
-			    .rangeRoundBands([0, width], .1);
-
-			var y = d3.scale.linear()
-			    .range([height, 0]);
-
-			var xAxis = d3.svg.axis()
-			    .scale(x)
-			    .orient("bottom");
-
-			var yAxis = d3.svg.axis()
-			    .scale(y)
-			    .orient("left")
-			    .ticks(5);
-
-			var svg = d3.select(this.ui.barGraphDiv[0]).append("svg")
-			    .attr("width", width + margin.left + margin.right)
-			    .attr("height", height + margin.top + margin.bottom)
-			  .append("g")
-			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
 			
-		  x.domain(data.map(function(d) { return d.x; }));
-		  y.domain([0, d3.max(data, function(d) { return d.y; })]);
-
-		  svg.append("g")
-		      .attr("class", "x axis")
-		      .attr("transform", "translate(0," + height + ")")
-		      .call(xAxis)
-	      .append("text")
-		      .attr("y", 6)
-		      .attr("dy", ".71em")
-		      .style("text-anchor", "end")
-		      .text(this.model.get("labels").x);
-
-		  svg.append("g")
-		      .attr("class", "y axis")
-		      .call(yAxis)
-		    .append("text")
-		      .attr("transform", "rotate(-90)")
-		      .attr("y", 6)
-		      .attr("dy", ".71em")
-		      .style("text-anchor", "end")
-		      .text(this.model.get("labels").y);
-
-		  var bar = svg.selectAll(".bar")
-		      .data(data)
-		    .enter().append("g")
-		    
-		    bar.append("rect")
-		      .attr("class", "bar")
-		      .attr("x", function(d) { return x(d.x); })
-		      .attr("width", x.rangeBand())
-		      .attr("y", function(d) { return y(d.y); })
-		      .attr("fill", function(d) { return d.color; })
-		      .attr("height", function(d) { return height - y(d.y); });
-				
-				bar.append("text")
-		    	.text(function(d){return d.y})
-		      .attr("x", function(d) { return x(d.x) + x.rangeBand()/2; })
-		      .attr("y", function(d) { return y(d.y) + 5; })
-		      .attr("dy", ".71em")
-		    	.attr("fill", "white")
-		    	.attr("text-anchor", "middle");
 
 		}
 	});

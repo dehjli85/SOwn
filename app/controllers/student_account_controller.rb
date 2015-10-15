@@ -270,7 +270,11 @@ class StudentAccountController < ApplicationController
     if goal_save && reflection_save
       render json: {status: "success", activity_goal: activity_goal, activity_goal_reflection: activity_goal_reflection}
     else
-      puts goal_save
+      if !goal_save
+        activity_goal.errors.each do |error|
+          puts "#{error}"
+        end
+      end
       if !reflection_save
         activity_goal_reflection.errors.each do |error|
           puts "#{error}"
