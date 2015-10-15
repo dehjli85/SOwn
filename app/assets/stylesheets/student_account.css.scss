@@ -27,6 +27,8 @@
     vertical-align: middle;
 }
 
+
+
 /*
  * Classroom Styles (Scorebar)
  */
@@ -73,19 +75,20 @@
 }
 
 /*
- * Classroom Styles (See All Modal Line Graph)
+ * Classroom Styles (Set Goal Modal)
  */
-
-.line_graph_path { 
-    stroke: steelblue;
-    stroke-width: 2;
-    fill: none;
+form.goal-form .goal-p{
+    display: inline;
+    line-height: 50px;
 }
 
-.line_graph_axis .line_graph_path,
-.line_graph_axis line {
-    fill: none;
-    stroke: grey;
-    stroke-width: 1;
-    shape-rendering: crispEdges;
+form.goal-form input{
+    height: 40px;
+    vertical-align: middle;
+    text-align: center;
+    line-height: normal;
+}
+
+form.goal-form input.score-input{
+    width:75px;
 }

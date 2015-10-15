@@ -73,6 +73,11 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			StudentAccount.StudentApp.Classroom.Controller.showClassroomScores(this, this.model.attributes.classroomId, null, this.model.attributes.tags);
 		},
 
+		onChildviewSaveNewActivityGoal: function(setGoalModalView){
+			StudentAccount.StudentApp.Classroom.Controller.saveNewActivityGoal(this, setGoalModalView.ui.goalForm);
+		}
+
+
 		
 	});
 
@@ -352,13 +357,327 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 	});
 
-	/*
+	Classroom.SetGoalModalView = Marionette.LayoutView.extend({
+		template: JST ["student/templates/StudentApp_Classroom_SetGoalModal"],
+		className: "modal-dialog",
+		
+		regions:{
+			graphRegion: "[ui-bar-graph-region]",
+			goalRegion: "[ui-goal-region]"
+		},
+
+		ui:{
+			saveButton: "[ui-save-button]",
+			goalForm: "[ui-goal-form]",
+			addReflectionLink: "[ui-add-reflection-link]",
+			reflectionDiv: "[ui-reflection-div]",
+			scoreGoalInput: "[ui-score-goal-input]",
+			scoreGoalLink: "[ui-score-goal-link]",
+			goalDateInput: "[ui-goal-date-input]",
+			goalDateLink: "[ui-goal-date-link]",
+		},
+
+		events:{
+			"click @ui.addReflectionLink": "revealReflectionDiv",
+			"click @ui.scoreGoalLink": "revealScoreGoalInput",
+			"click @ui.goalDateLink": "revealGoalDateInput"
+		},
+
+		triggers:{
+			"click @ui.saveButton": "save:new:activity:goal"
+		},
+
+		initialize: function(options){
+			this.$el.attr("role","document");			
+		},
+
+		revealReflectionDiv: function(e){
+			e.preventDefault();
+			this.ui.reflectionDiv.css("display", "block");
+			this.ui.addReflectionLink.css("display","none");
+		},
+
+		revealScoreGoalInput: function(e){
+			e.preventDefault();
+			this.ui.scoreGoalLink.css("display", "none");
+			this.ui.scoreGoalInput.css("display", "inline");
+		},
+
+		revealGoalDateInput: function(e){
+			e.preventDefault();
+			this.ui.goalDateLink.css("display", "none");
+			this.ui.goalDateInput.css("display", "inline");
+		},
+
+
+	});
+
+/*
  * This view requires a model with the following attributes:
  *	=> data: json object with fields (arrays) "x", "y", and "color"
  *  => labels: json object with fields (strings) "x" and "y"
  */
-Classroom.BarGraphView = Marionette.ItemView.extend({
-		template: JST["student/templates/StudentApp_Classroom_BarGraph"],
+Classroom.SetGoalBarGraphView = Marionette.ItemView.extend({
+		template: JST["student/templates/StudentApp_Classroom_SetGoalBarGraph"],
+		ui:{
+			barGraphDiv: "[ui-bar-graph-div]",
+			rangeGraphDiv: "[ui-range-graph-div]",
+			performanceGraphDiv: "[ui-performance-graph-div]"
+		},
+
+		onShow: function(){
+			var config_obj = {
+				width: this.model.get("width"),
+				height: this.model.get("height"),
+				score_range: this.model.get("score_range")
+			}
+
+			this.showBarGraph(config_obj);
+		},
+
+		/*
+		 * Any object can be passed with the following fields and types
+		 * height: integer representing pixel height of the bar graph
+		 * width: integer representing pixel width of the bar graph
+		 * score_range: JSON object with fields min_score, benchmark1_score, benchmark2_score, and maximum_score
+		 */
+		showBarGraph: function(config_obj){
+
+			// CREATE THE SCORE RANGE GRAPH
+
+			var margin_range = {top: 20, right: 20, bottom: 30, left: 40},
+			    width_range = 150 - margin_range.left - margin_range.right,
+			    height_range = (config_obj && config_obj.height ? config_obj.height : 200) - margin_range.top - margin_range.bottom;
+
+			var x_range = d3.scale.ordinal()
+			    .rangeRoundBands([0, width_range], .1);
+
+			var y_range = d3.scale.linear()
+			    .range([height_range, 0]);
+
+			var xAxis_range = d3.svg.axis()
+			    .scale(x_range)
+			    .orient("bottom");
+
+			var yAxis_range = d3.svg.axis()
+			    .scale(y_range)
+			    .orient("left")
+			    .ticks(5);
+
+			var svg_range = d3.select(this.ui.rangeGraphDiv[0]).append("svg")
+			    .attr("width", width_range + margin_range.left + margin_range.right)
+			    .attr("height", height_range + margin_range.top + margin_range.bottom)
+			  .append("g")
+			    .attr("transform", "translate(" + margin_range.left + "," + margin_range.top + ")");
+
+			x_range.domain(["Range"]);
+
+			y_range.domain([0, config_obj.score_range.max_score]);
+
+			var g = svg_range.append("g");
+		  	
+	  	g.append("rect")
+	  		.attr("class", "bar")
+	  		.attr("x", x_range("Range"))
+	  		.attr("width", x_range.rangeBand())
+	  		.attr("y", y_range(config_obj.score_range.benchmark1_score))
+	  		.attr("fill", "#B14F51")
+	  		.attr("height", height_range - y_range(config_obj.score_range.benchmark1_score - config_obj.score_range.min_score))
+
+	  	g.append("rect")
+	  		.attr("class", "bar")
+	  		.attr("x", x_range("Range"))
+	  		.attr("width", x_range.rangeBand())
+	  		.attr("y", y_range(config_obj.score_range.benchmark2_score))
+	  		.attr("fill", "#EACD46")
+	  		.attr("height", height_range - y_range(config_obj.score_range.benchmark2_score - config_obj.score_range.benchmark1_score))
+	  	
+	  	g.append("rect")
+	  		.attr("class", "bar")
+	  		.attr("x", x_range("Range"))
+	  		.attr("width", x_range.rangeBand())
+	  		.attr("y", y_range(config_obj.score_range.max_score))
+	  		.attr("fill", "#49883F")
+	  		.attr("height", height_range - y_range(config_obj.score_range.max_score - config_obj.score_range.benchmark2_score))
+			
+			g.append("text")
+	    	.text(config_obj.score_range.min_score)
+	  		.attr("x", x_range("Range") + x_range.rangeBand()/2)
+	  		.attr("y", y_range(config_obj.score_range.min_score) - 12)
+	  		.attr("dy", ".71em")
+	    	.attr("fill", "black")
+	    	.attr("text-anchor", "middle");
+
+			g.append("text")
+	    	.text(config_obj.score_range.benchmark1_score)
+	  		.attr("x", x_range("Range") + x_range.rangeBand()/2)
+	  		.attr("y", y_range(config_obj.score_range.benchmark1_score) - 12 )
+	  		.attr("dy", ".71em")
+	    	.attr("fill", "black")
+	    	.attr("text-anchor", "middle");
+
+	    g.append("text")
+	    	.text(config_obj.score_range.benchmark2_score)
+	  		.attr("x", x_range("Range") + x_range.rangeBand()/2)
+	  		.attr("y", y_range(config_obj.score_range.benchmark2_score) - 12 )
+	  		.attr("dy", ".71em")
+	    	.attr("fill", "black")
+	    	.attr("text-anchor", "middle");
+
+	   	g.append("text")
+	    	.text(config_obj.score_range.max_score)
+	  		.attr("x", x_range("Range") + x_range.rangeBand()/2)
+	  		.attr("y", y_range(config_obj.score_range.max_score)  - 12)
+	  		.attr("dy", ".71em")
+	    	.attr("fill", "black")
+	    	.attr("text-anchor", "middle");
+
+	   	svg_range.append("g")
+		      .attr("class", "x axis")
+		      .attr("transform", "translate(0," + height_range + ")")
+		      .call(xAxis_range)
+	      .append("text")
+		      .attr("y", 6)
+		      .attr("dy", ".71em")
+		      .style("text-anchor", "end")
+
+		 	// CREATE THE PERFORMANCE GRAPH
+
+		  var data = this.model.get("data");
+
+			var margin = {top: 20, right: 20, bottom: 30, left: 40},
+			    width = (config_obj && config_obj.width ? config_obj.width : 450) - margin.left - margin.right,
+			    height = (config_obj && config_obj.height ? config_obj.height : 200) - margin.top - margin.bottom;
+
+			var x = d3.scale.ordinal()
+			    .rangeRoundBands([0, width], .1);
+
+			var y = d3.scale.linear()
+			    .range([height_range, 0]);
+			    // .range([height, 0]);
+
+			var xAxis = d3.svg.axis()
+			    .scale(x)
+			    .orient("bottom");
+
+			var yAxis = d3.svg.axis()
+			    .scale(y)
+			    .orient("left")
+			    .ticks(5);
+
+			var svg = d3.select(this.ui.performanceGraphDiv[0]).append("svg")
+			    .attr("width", width + margin.left + margin.right)
+			    .attr("height", height + margin.top + margin.bottom)
+			  .append("g")
+			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			
+		  x.domain(data.map(function(d) { return d.x; }));
+		  if (config_obj.score_range.max_score) {
+		  	y.domain([0, config_obj.score_range.max_score]);
+		  }
+		  else{
+			  y.domain([0, d3.max(data, function(d) { return d.y; })]);
+		  }
+
+		  svg.append("g")
+		      .attr("class", "x axis")
+		      .attr("transform", "translate(0," + height + ")")
+		      .call(xAxis)
+	      .append("text")
+		      .attr("y", 6)
+		      .attr("dy", ".71em")
+		      .style("text-anchor", "end")
+		      .text(this.model.get("labels").x);
+
+		  svg.append("g")
+		      .attr("class", "y axis")
+		      .call(yAxis)
+		    // .append("text")
+		    //   .attr("transform", "rotate(-90)")
+		    //   .attr("y", 6)
+		    //   .attr("dy", ".71em")
+		    //   .style("text-anchor", "end")
+		    //   .text(this.model.get("labels").y);
+
+		  var bar = svg.selectAll(".bar")
+		      .data(data)
+		    .enter().append("g");
+		    
+		    bar.append("rect")
+		      .attr("class", "bar")
+		      .attr("x", function(d) { return x(d.x); })
+		      .attr("width", x.rangeBand())
+		      .attr("y", function(d) { return y(d.y); })
+		      .attr("fill", function(d) { return d.color; })
+		      .attr("height", function(d) { return height - y(d.y); });
+				
+				bar.append("text")
+		    	.text(function(d){return d.y})
+		      .attr("x", function(d) { return x(d.x) + x.rangeBand()/2; })
+		      .attr("y", function(d) { return y(d.y) + 5; })
+		      .attr("dy", ".71em")
+		    	.attr("fill", "white")
+		    	.attr("text-anchor", "middle");
+
+		  // if(config_obj.score_range){
+		  // 	var g = svg.append("g");
+		  	
+		  // 	g.append("rect")
+		  // 		.attr("class", "bar")
+		  // 		.attr("x", x("Range"))
+		  // 		.attr("width", x.rangeBand())
+		  // 		.attr("y", y(config_obj.score_range.benchmark1_score))
+		  // 		.attr("fill", "#B14F51")
+		  // 		.attr("height", height - y(config_obj.score_range.benchmark1_score - config_obj.score_range.min_score))
+
+		  	
+
+		  // 	g.append("rect")
+		  // 		.attr("class", "bar")
+		  // 		.attr("x", x("Range"))
+		  // 		.attr("width", x.rangeBand())
+		  // 		.attr("y", y(config_obj.score_range.benchmark2_score))
+		  // 		.attr("fill", "#EACD46")
+		  // 		.attr("height", height - y(config_obj.score_range.benchmark2_score - config_obj.score_range.benchmark1_score))
+
+		  	
+		  // 	g.append("rect")
+		  // 		.attr("class", "bar")
+		  // 		.attr("x", x("Range"))
+		  // 		.attr("width", x.rangeBand())
+		  // 		.attr("y", y(config_obj.score_range.max_score))
+		  // 		.attr("fill", "#49883F")
+		  // 		.attr("height", height - y(config_obj.score_range.max_score - config_obj.score_range.benchmark2_score))
+				
+				// g.append("text")
+		  //   	.text(config_obj.score_range.benchmark1_score)
+		  // 		.attr("x", x("Range") + x.rangeBand()/2)
+		  // 		.attr("y", y(config_obj.score_range.benchmark1_score) - 15)
+		  // 		.attr("dy", ".71em")
+		  //   	.attr("fill", "black")
+		  //   	.attr("text-anchor", "middle");
+
+		  //   g.append("text")
+		  //   	.text(config_obj.score_range.benchmark2_score)
+		  // 		.attr("x", x("Range") + x.rangeBand()/2)
+		  // 		.attr("y", y(config_obj.score_range.benchmark2_score) - 15)
+		  // 		.attr("dy", ".71em")
+		  //   	.attr("fill", "black")
+		  //   	.attr("text-anchor", "middle");
+
+		  // }
+
+		}
+	});
+
+/*
+ * This view requires a model with the following attributes:
+ *	=> data: json object with fields (arrays) "x", "y", and "color"
+ *  => labels: json object with fields (strings) "x" and "y"
+ */
+Classroom.PerformanceBarGraphView = Marionette.ItemView.extend({
+		template: JST["student/templates/StudentApp_Classroom_PerformanceBarGraph"],
 		ui:{
 			barGraphDiv: "[ui-bar-graph-div]"
 		},

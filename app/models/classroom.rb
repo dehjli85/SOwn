@@ -134,19 +134,27 @@ class Classroom < ActiveRecord::Base
 		sorted_activities = Array.new
     unsorted_activities.each do |activity|
       activity["student_performances"] = Array.new
+      activity["activity_goals"] = Array.new
       sorted_activities[activity["sort_order"].to_i] = activity
     end
 
     # Get all Student Performances for the Student User in the Classroom (excluding hidden Activities)
+    # and link them to the correct activity
     performances_array = StudentPerformance.student_performances_with_verification(self.id, search_hash[:search_term], search_hash[:tag_ids], student_user_id, false, false)
     performances_array.each do |performance|
 
       sort_order = performance["sort_order"].to_i
-
-      if sorted_activities[sort_order]["student_performances"].nil?
-        sorted_activities[sort_order]["student_performances"] = Array.new
-      end
       sorted_activities[sort_order]["student_performances"].push(performance)
+
+    end
+
+    # Get all the Activity Goals for the Student User in the Classroom (excluding hidden Activities)
+    # and link them to the correct activity
+    activity_goals = ActivityGoal.student_goals(self.id, search_hash[:search_term], search_hash[:tag_ids], student_user_id, false, false)
+    activity_goals.each do |goal|
+    	goal["goal_met"] = ActivityGoal.goal_met(goal["id"])
+      sort_order = goal["sort_order"].to_i
+      sorted_activities[sort_order]["activity_goals"].push(goal)
 
     end
 

@@ -2,8 +2,8 @@
 	<thead>
 		<tr>
 			<th>Attempt:</th>
-			<% for(var i = 1; i <= performances.length; i++){ %>
-				<td><%= i %></td>
+			<% for(var i = 0; i < performances.length; i++){ %>
+				<td><%= moment(performances[i].performance_date).format("MM/DD") %></td>
 			<% } %>
 		</tr>
 	</thead>

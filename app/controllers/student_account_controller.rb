@@ -197,13 +197,18 @@ class StudentAccountController < ApplicationController
 
         performances = StudentPerformance.where({classroom_activity_pairing_id: classroom_activity_pairing.id, student_user_id: @current_student_user.id}).order("created_at ASC").as_json
 
+        activity_goal = ActivityGoal.where(student_user_id: @current_student_user.id).where(classroom_activity_pairing_id: classroom_activity_pairing.id).order("id DESC").first.as_json
+        if activity_goal
+          activity_goal["activity_goal_reflections"] = ActivityGoalReflection.where(activity_goal_id: activity_goal["id"])
+        end
+
         performances.each do |performance|
           performance["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activity.activity_type, performance["scored_performance"], performance["completed_performance"])
           performance["performance_color"] = StudentPerformance.performance_color_no_active_record(activity.activity_type, activity.benchmark1_score, activity.benchmark2_score, activity.min_score, activity.max_score, performance["scored_performance"], performance["completed_performance"])
 
         end
 
-        render json: {status: "success", activity: activity, classroom_activity_pairing: classroom_activity_pairing, performances: performances}
+        render json: {status: "success", activity: activity, classroom_activity_pairing: classroom_activity_pairing, performances: performances, activity_goal: activity_goal}
 
       else
 
@@ -236,6 +241,44 @@ class StudentAccountController < ApplicationController
 
     end
     
+  end
+
+  def save_new_activity_goal
+
+    # find the Activity Goal if it exists, if it doesn't, create a new one with the passed parameters
+    activity_goal = ActivityGoal.where({student_user_id: @current_student_user.id, classroom_activity_pairing_id: params[:activity_goal][:classroom_activity_pairing_id]}).first 
+    if !activity_goal 
+      activity_goal = ActivityGoal.new(params.require(:activity_goal).permit(:score_goal, :goal_date, :classroom_activity_pairing_id))
+    else
+      activity_goal.update_attributes({score_goal: params[:activity_goal][:score_goal], goal_date: params[:activity_goal][:goal_date], score_goal: params[:activity_goal][:score_goal]})
+    end
+    
+
+    # set the Student User ID, and save it
+    activity_goal.student_user_id = @current_student_user.id
+    goal_save = activity_goal.save
+
+    # If an Activity Goal Reflection was passed, create a new Activity Goal Reflection and save it
+    activity_goal_reflection = nil
+    reflection_save = !params[:reflection] || params[:reflection].strip.empty?
+    if !reflection_save
+      activity_goal_reflection = ActivityGoalReflection.new({activity_goal_id: activity_goal.id, student_user_id: @current_student_user.id, reflection: params[:reflection], reflection_date: Time.now})
+      reflection_save = activity_goal_reflection.save
+    end
+
+    # Render the appropriate JSON, based on whether the Activity Goal and the Activity Goal Reflection were successfully saved
+    if goal_save && reflection_save
+      render json: {status: "success", activity_goal: activity_goal, activity_goal_reflection: activity_goal_reflection}
+    else
+      puts goal_save
+      if !reflection_save
+        activity_goal_reflection.errors.each do |error|
+          puts "#{error}"
+        end
+      end
+      render json: {status: "error", activity_goal: activity_goal, activity_goal_reflection: activity_goal_reflection}
+    end
+
   end
 
   #################################################################################

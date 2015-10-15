@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013220223) do
+ActiveRecord::Schema.define(version: 20151014014306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,7 +31,17 @@ ActiveRecord::Schema.define(version: 20151013220223) do
     t.string   "link"
   end
 
-  create_table "activity_goals_tables", force: true do |t|
+  create_table "activity_goal_reflections", force: true do |t|
+    t.integer  "activity_goal_id"
+    t.integer  "student_user_id"
+    t.integer  "teacher_user_id"
+    t.string   "reflection"
+    t.datetime "reflection_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "activity_goals", force: true do |t|
     t.integer  "classroom_activity_pairing_id"
     t.integer  "student_user_id"
     t.float    "score_goal"

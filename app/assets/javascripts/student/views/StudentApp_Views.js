@@ -79,7 +79,7 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 		className: "alert center",
 
 		initialize: function(){
-			this.$el.addClass(this.model.attributes.alertClass);
+			this.$el.addClass(this.model.get("alertClass"));
 		}
 	});
 

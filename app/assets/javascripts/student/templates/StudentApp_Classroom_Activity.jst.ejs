@@ -3,7 +3,49 @@
 		<a href="#" ui-name-a><%= name %></a>
 	</td>
 	<td><%= instructions %></td>
-	<td></td>
+	<td class="center">
+		
+		<a href="#" ui-set-goal-link>
+
+			<% if(activity_goals[0]){ %>
+
+				<% if(activity_type == "scored"){ %>
+
+					<%= activity_goals[0].score_goal + ' by ' +  moment(activity_goals[0].goal_date).format("MM/DD") %> 
+
+					<% if(activity_goals[0].goal_met){ %> 
+						<br/><i class="ion-star" style="color:#49883F"></i>
+					<% } %>
+					
+					<% if(new Date(activity_goals[0].goal_date) < new Date() && !activity_goals[0].goal_met){ %> 
+						<br/><i class="ion-star" style="color:#CCCCCC"></i>
+					<% } %>
+
+				<% } else if(activity_type == "completion" && activity_goals[0]){ %>
+
+					Complete by <%= moment(activity_goals[0].goal_date).format("MM/DD") %> 
+
+					<% if(activity_goals[0].goal_met){ %> 
+						<br/><i class="ion-star" style="color:#49883F"></i>
+					<% } %>
+					
+					<% if(new Date(activity_goals[0].goal_date) < new Date() && !activity_goals[0].goal_met){ %> 
+						<br/><i class="ion-star" style="color:#CCCCCC"></i>
+					<% } %>
+
+				<% }  %>
+
+			<% } else { %>
+
+				Set Goal
+
+			<% } %>
+
+		</a>
+
+
+
+	</td>
 
 	<% if(student_performances[0]){ %>
 		<td class="center <%= student_performances[0].performance_color %>">
@@ -36,5 +78,4 @@
 	<%}%>
 
 	<td class="student-scores-table__action-cell" ><a class="btn btn-primary btn-xs" href="#" ui-track-button>Track</a></td>
-	<td class="student-scores-table__action-cell" ><a href="#" ui-set-goal-link>Set Goal</a></td>
-	<td class="student-scores-table__action-cell" ><a href="#" ui-see-all-a>See All</a></td>
+	<td class="student-scores-table__action-cell" ><a class="btn btn-primary btn-xs" href="#" ui-see-all-a>See All</a></td>

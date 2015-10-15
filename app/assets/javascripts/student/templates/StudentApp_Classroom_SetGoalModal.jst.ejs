@@ -1,7 +1,7 @@
 <div class="modal-content">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h5 class="modal-title" id="myModalLabel" ui-title>Set Goal for: <b><%= activity.name %></b></h5>
+    <h5 class="modal-title" id="myModalLabel" ui-title>Goal for: <b><%= activity.name %></b></h5>
   </div>
   <div class="modal-body" ui-body-div>
     
@@ -9,14 +9,107 @@
       <div ui-bar-graph-region></div>
       <div ui-data-table-region></div>
       <div ui-goal-region>
-        <h2>Set a Goal:</h2>
-        <form class="form-inline goal-form" >
-          <p>I want to score a <input type="text" name="score_goal" class="score-input"> on <b><%= activity.name %></b> by <input type="date" name="goal_date"> .</p>
+
+        
+
+        <form class="form-inline goal-form" ui-goal-form>
+
+          <input type="hidden" name="activity_goal[classroom_activity_pairing_id]" value="<%= classroom_activity_pairing.id%>">
+
+          <% if(activity_goal) {%>
+              
+              <h4>My Goal:</h4>
+              
+              <div class="<%= activity_goal ? 'well' : ''%>">
+
+                <p class="goal-p">
+                  I will 
+
+                  <% if(activity.activity_type == "scored"){ %>
+
+                    score <a href="#" ui-score-goal-link><%= activity_goal.score_goal %></a>
+                    <input type="text" name="activity_goal[score_goal]" class="score-input" value="<%= activity_goal.score_goal %>" style="display:none; text-align:center;" ui-score-goal-input> on
+
+                  <% }else{ %>
+                    complete 
+                  <% } %>
+                  
+                  <b><%= activity.name %></b> by 
+
+                  <a href="#" ui-goal-date-link><%= activity_goal ? moment(activity_goal.goal_date).format("MM/DD/YY") : ''%></a>
+                    <input type="date" name="activity_goal[goal_date]" value="<%= moment(activity_goal.goal_date).format('YYYY-MM-DD')%>" style="display:none"  ui-goal-date-input>.
+                </p>
+
+              </div>
+
+              <% if( new Date(activity_goal.goal_date) < new Date() || activity_goal.goal_met ){%>
+                
+                <div>
+
+                  <h4>Reflections:</h4>
+
+                  <p>
+                    <b><%= activity_goal.goal_met ? 'Congratulations! You met' : 'You did not meet' %> your goal!</b>
+                  </p>
+
+                  <% if(activity_goal.activity_goal_reflections.length > 0 ){ %> 
+                    <% for(var i=0; i < activity_goal.activity_goal_reflections.length; i++){ %> 
+                      <div class="well">
+                        <p>
+                          <%= activity_goal.activity_goal_reflections[i].reflection %>
+                        </p>
+                      </div>
+                    <% } %>
+                  <% } %>
+
+                  
+                </div>
+
+                <div>
+                  <a href="#" ui-add-reflection-link style="<%= activity_goal.activity_goal_reflections.length == 0 ? 'display:none' : '' %>">Add Reflection</a>
+
+                  <div ui-reflection-div style="<%= activity_goal.activity_goal_reflections.length > 0 ? 'display:none' : '' %>">
+                    <p>
+                        Add a reflection on why you <%= activity_goal.goal_met ? 'met' : 'did not meet' %> your goal.  What would you do the same next time?  What would you do differently next time?
+                    </p>
+                    <textarea class="form-control" rows="3" name="reflection" style="width:100%;"></textarea>
+                  </div>
+                </div>
+
+              <% } %>
+
+
+          <% }else { %>
+            <h4>Set New Goal:</h4>
+
+            <div>
+              <p class="goal-p">
+                  I will 
+
+                  <% if(activity.activity_type == "scored"){ %>
+
+                    score <input type="text" name="activity_goal[score_goal]" class="score-input" ui-score-goal-input> on
+
+                  <% }else{ %>
+                    complete 
+                  <% } %>
+                  
+                  <b><%= activity.name %></b> by 
+
+                  <input type="date" name="activity_goal[goal_date]" ui-goal-date-input>.
+
+                 </p>
+            </div>
+
+          <% } %>
+            
+
         </form>
       </div>
 
   </div>
   <div class="modal-footer" ui-footer-div>    
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	        
+    <button class="btn btn-primary" ui-save-button data-dismiss="modal">Save</button>
+    <button class="btn btn-default" data-dismiss="modal">Close</button>	        
   </div>
 </div>
