@@ -135,6 +135,20 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			}
 		},
 
+		setShowScoreBar: function(){
+			if(this.model.get("activity").activity_type == "scored" 
+				&& this.model.get("activity").max_score != null
+				&& this.model.get("activity").min_score != null
+				&& (this.model.get("activity").benchmark1_score != null || this.model.get("activity").benchmark2_score != null)){
+
+				this.model.set("showScoreBar",  true);
+
+			}
+			else{
+				this.model.set("showScoreBar", false);
+			}
+		},
+
 		showScoreBar: function(){
 
 			var dataset, colours;
@@ -193,6 +207,8 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		    }
 			}
 
+			var obj = this;
+
 			var margins = {
 				    top: 12,
 				    left: 20,
@@ -200,21 +216,21 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 				    bottom: 24
 				},				
 				width = 400 - margins.left - margins.right ,
-				    height = 100 - margins.top - margins.bottom,				    
-				    series = dataset.map(function (d) {
-				        return d.name;
-				    }),
-				    dataset = dataset.map(function (d) {
-				        return d.data.map(function (o, i) {
-				            // Structure it so that your numeric
-				            // axis (the stacked amount) is y
-				            return {
-				                y: o.count,
-				                x: o.month
-				            };
-				        });
-				    }),
-				    stack = d3.layout.stack();
+		    height = 100 - margins.top - margins.bottom,				    
+		    series = dataset.map(function (d) {
+		        return d.name;
+		    }),
+		    dataset = dataset.map(function (d) {
+		        return d.data.map(function (o, i) {
+		            // Structure it so that your numeric
+		            // axis (the stacked amount) is y
+		            return {
+		                x: o.month,
+		                y: o.count		                
+		            };
+		        });
+		    }),
+		    stack = d3.layout.stack();
 
 				stack(dataset);
 
@@ -239,8 +255,13 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 				            return d.x + d.x0;
 				        });
 				    }),
+				    xMin = d3.min(dataset, function (group) {
+				        return d3.min(group, function (d) {
+				            return d.x + d.x0;
+				        });
+				    }),
 				    xScale = d3.scale.linear()
-				        .domain([0, xMax])
+				        .domain([this.model.get("activity").min_score, this.model.get("activity").max_score])
 				        .range([0, width]),
 				    months = dataset[0].map(function (d) {
 				        return d.y;
@@ -270,7 +291,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 				        .enter()
 				        .append('rect')
 				        .attr('x', function (d) {
-				        return xScale(d.x0);
+				        return xScale(d.x0 + obj.model.get("activity").min_score);
 				    })
 				        .attr('y', function (d, i) {
 				        return yScale(d.y);
@@ -279,7 +300,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 				        return yScale.rangeBand();
 				    })
 				        .attr('width', function (d) {
-				        return xScale(d.x);
+				        return xScale(d.x + obj.model.get("activity").min_score);
 				    })
 				        .on('mouseover', function (d) {
 				        var xPos = parseFloat(d3.select(this).attr('x')) + parseFloat(d3.select(this).attr('width')) / 2 + width / 2;
@@ -311,22 +332,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 						    .attr('class', 'axis')
 						    .call(yAxis);
 	
-		},
-
-		setShowScoreBar: function(){
-			if(this.model.get("activity").activity_type == "scored" 
-				&& this.model.get("activity").max_score != null
-				&& this.model.get("activity").min_score != null
-				&& (this.model.get("activity").benchmark1_score != null || this.model.get("activity").benchmark2_score != null)){
-
-				this.model.attributes.showScoreBar = true;
-
-			}
-			else{
-				this.model.attributes.showScoreBar = false;
-			}
 		}
-
 
 	});
 
