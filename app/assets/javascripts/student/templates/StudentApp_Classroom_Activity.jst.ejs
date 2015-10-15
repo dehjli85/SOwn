@@ -11,7 +11,9 @@
 
 				<% if(activity_type == "scored"){ %>
 
-					<%= activity_goals[0].score_goal + ' by ' +  moment(activity_goals[0].goal_date).format("MM/DD") %> 
+					<%= activity_goals[0].score_goal %> 
+
+					<%= activity_goals[0].goal_date ? ' by ' +  moment(activity_goals[0].goal_date).format("MM/DD") : '' %> 
 
 					<% if(activity_goals[0].goal_met){ %> 
 						<br/><i class="ion-star" style="color:#49883F"></i>

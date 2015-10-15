@@ -36,8 +36,12 @@
                   
                   <b><%= activity.name %></b> by 
 
-                  <a href="#" ui-goal-date-link><%= activity_goal ? moment(activity_goal.goal_date).format("MM/DD/YY") : ''%></a>
+                  <% if(activity_goal.goal_date){ %>
+                    <a href="#" ui-goal-date-link><%= activity_goal ? moment(activity_goal.goal_date).format("MM/DD/YY") : ''%></a>
                     <input type="date" name="activity_goal[goal_date]" value="<%= moment(activity_goal.goal_date).format('YYYY-MM-DD')%>" style="display:none"  ui-goal-date-input>.
+                  <% }else{ %>
+                    <input type="date" name="activity_goal[goal_date]" value="<%= moment(activity_goal.goal_date).format('YYYY-MM-DD')%>"  ui-goal-date-input>.
+                  <% } %>
                 </p>
 
               </div>
