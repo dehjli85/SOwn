@@ -492,26 +492,26 @@ Classroom.SetGoalBarGraphView = Marionette.ItemView.extend({
 			  
 
 			  // create the red bar
-			  if(config_obj.score_range.min_score != null && config_obj.score_range.max_score != null && (config_obj.score_range.benchmark1_score != null || config_obj.score_range.benchmark2_score != null)){
+			  if(config_obj.score_range.min_score != null && config_obj.score_range.max_score != null && config_obj.score_range.benchmark1_score != null ){
 			  	g.append("rect")
 		  		.attr("class", "bar")
 		  		.attr("x", x_range("Range"))
 		  		.attr("width", x_range.rangeBand())
 		  		.attr("y", y_range(config_obj.score_range.benchmark1_score ? config_obj.score_range.benchmark1_score : config_obj.score_range.benchmark2_score))
 		  		.attr("fill", "#B14F51")
-		  		.attr("height", y_range(config_obj.score_range.min_score) - y_range(config_obj.score_range.benchmark1_score ? config_obj.score_range.benchmark1_score : config_obj.score_range.benchmark2_score))	
+		  		.attr("height", y_range(config_obj.score_range.min_score) - y_range(config_obj.score_range.benchmark1_score))	
 			  }
 		  	
 
 		  	// create the yellow bar
-			  if(config_obj.score_range.min_score != null && config_obj.score_range.max_score != null && config_obj.score_range.benchmark1_score != null && config_obj.score_range.benchmark2_score != null){
+			  if(config_obj.score_range.min_score != null && config_obj.score_range.max_score != null && config_obj.score_range.benchmark2_score != null){
 			  	g.append("rect")
 			  		.attr("class", "bar")
 			  		.attr("x", x_range("Range"))
 			  		.attr("width", x_range.rangeBand())
 			  		.attr("y", y_range(config_obj.score_range.benchmark2_score))
 			  		.attr("fill", "#EACD46")
-			  		.attr("height", y_range(config_obj.score_range.benchmark1_score) - y_range(config_obj.score_range.benchmark2_score))
+			  		.attr("height", y_range(config_obj.score_range.benchmark1_score != null ? config_obj.score_range.benchmark1_score : config_obj.score_range.min_score) - y_range(config_obj.score_range.benchmark2_score))
 		  	}
 		  	
 		  	// create the green bar
