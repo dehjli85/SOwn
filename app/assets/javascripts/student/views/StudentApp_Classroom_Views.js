@@ -178,7 +178,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		    	}
 		    ];
 
-		    colours = ["#D56464","#ECD76C","#6BBD49"];
+		    colours = ["#B14F51","#EACD46","#49883F"];
 
 			}else{
 				var benchmark = this.model.get("activity").benchmark1_score != null ? this.model.get("activity").benchmark1_score : this.model.get("activity").benchmark2_score;
@@ -199,11 +199,11 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		    	}
 		    ];
 
-		    colours = [null ,"#6BBD49"];
+		    colours = [null ,"#49883F"];
 		    if(this.model.get("activity").benchmark1_score == null){
-		    	colours[0] = "#ECD76C";
+		    	colours[0] = "#EACD46";
 		    }else{
-		    	colours[0] = "#D56464";
+		    	colours[0] = "#B14F51";
 		    }
 			}
 
