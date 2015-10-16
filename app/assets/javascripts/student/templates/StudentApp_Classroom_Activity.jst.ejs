@@ -16,11 +16,11 @@
 					<%= activity_goals[0].goal_date ? ' by ' +  moment(activity_goals[0].goal_date).format("MM/DD") : '' %> 
 
 					<% if(activity_goals[0].goal_met){ %> 
-						<br/><i class="ion-star" style="color:#49883F"></i>
+						<br/><i class="ion-flag" style="color:#49883F"></i>
 					<% } %>
 					
 					<% if(activity_goals[0].goal_date != null && new Date(activity_goals[0].goal_date) < new Date() && !activity_goals[0].goal_met){ %> 
-						<br/><i class="ion-star" style="color:#CCCCCC"></i>
+						<br/><i class="ion-flag" style="color:#CCCCCC"></i>
 					<% } %>
 
 				<% } else if(activity_type == "completion" && activity_goals[0]){ %>
@@ -28,11 +28,11 @@
 					Complete by <%= moment(activity_goals[0].goal_date).format("MM/DD") %> 
 
 					<% if(activity_goals[0].goal_met){ %> 
-						<br/><i class="ion-star" style="color:#49883F"></i>
+						<br/><i class="ion-flag" style="color:#49883F"></i>
 					<% } %>
 					
 					<% if(new Date(activity_goals[0].goal_date) < new Date() && !activity_goals[0].goal_met){ %> 
-						<br/><i class="ion-star" style="color:#CCCCCC"></i>
+						<br/><i class="ion-flag" style="color:#CCCCCC"></i>
 					<% } %>
 
 				<% }  %>
