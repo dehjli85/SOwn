@@ -14,10 +14,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		}
 	});
 
-	
-
-	
-
 	Scores.StudentPerformanceView = Marionette.ItemView.extend({
 		tagName: "tr",
 		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_StudentPerformance"],
@@ -62,7 +58,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 	  triggerOpenVerifyModal: function(e){
 	  	e.preventDefault();
-	  	this.model.attributes.studentPerformanceId = $(e.target).attr("name");
+	  	this.model.set("studentPerformanceId", $(e.target).attr("name"));
 	  	this.triggerMethod("scores:layout:open:verify:modal");
 	  }
 	});
@@ -72,7 +68,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_StudentPerformanceEdit"],
 
 		initialize : function (options) {
-	    this.model.attributes.parentActivities = options.activities;
+	    this.model.set("parentActivities", options.activities);
 
 	  }
 	});
@@ -84,7 +80,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		childView: Scores.StudentPerformanceEditView,
 		childViewContainer: "tbody",
 		childViewOptions: function(model, index){			
-			return {activities: this.model.attributes.activities}
+			return {activities: this.model.get("activities")}
 		},
 
 		ui:{
@@ -105,7 +101,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			if(this.model == null){
 				this.model = new Backbone.Model({});
 			}
-			this.model.attributes.collectionSize = this.collection.length;
+			this.model.set("collectionSize", this.collection.length);
 		},
 
 		onDomRefresh: function(){
@@ -166,7 +162,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		    	divCell.css({"border-bottom": "2px solid #CCCCCC"});
 				}
 
-
 		    divCell.outerWidth(col1.outerWidth()+2);
 		    divCell.outerHeight(col1.outerHeight());  
 
@@ -174,9 +169,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 	  },
 
-		
-
-		
 	})
 
 	Scores.ScoresView = Marionette.CompositeView.extend({
@@ -274,7 +266,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			if(this.model == null){
 				this.model = new Backbone.Model({});
 			}
-			this.model.attributes.collectionSize = this.collection.length;
+			this.model.set("collectionSize", this.collection.length);
 
 			//create a data structure for storing the sorted list of activities
 			var activitiesSortOrder = [];
@@ -286,14 +278,14 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		onRender: function(){
-			if(this.model.attributes.searchTerm == null && this.model.attributes.tagId == null)
+			if(this.model.get("searchTerm") == null && this.model.get("tagId") == null)
 				this.initializeDragTable();
 
 			
 		},
 
 		onShow: function(){
-			if(this.model.attributes.searchTerm == null && this.model.attributes.tagId == null)
+			if(this.model.get("searchTerm") == null && this.model.get("tagId") == null)
 				this.initializeDragTable();
 
 		},
@@ -400,7 +392,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			var studentsLayoutView = new TeacherAccount.TeacherApp.Students.StudentsLayoutView({model:model});
 			TeacherAccount.rootView.mainRegion.show(studentsLayoutView);
 
-			TeacherAccount.TeacherApp.Students.Controller.showStudentView(studentsLayoutView, view.model.attributes.id, this.model.attributes.classroom.id);
+			TeacherAccount.TeacherApp.Students.Controller.showStudentView(studentsLayoutView, view.model.get("id"), this.model.get("classroom").id);
 
 	  },
 
