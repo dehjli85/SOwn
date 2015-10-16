@@ -6,7 +6,6 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Header"],					
 		tagName: "div",		
 		className:"col-md-12",
-		// model: TeacherAccount.TeacherApp.Classroom.Models.Classroom,
 
 		triggers: {
 			"click @ui.scoresLink": "classroom:show:scores",
@@ -14,7 +13,6 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			"click @ui.editActivitiesLink": "classroom:show:edit:activities",
 			"click @ui.classroomCodeLink": "classroom:show:classroom:code",
 			"click @ui.editClassroomLink": "classroom:show:edit:classroom",
-			// "click @ui.exportData": "classroom:export:data"
 		},
 
 		events:{
@@ -104,13 +102,6 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 
 		},
 
-		onChildViewClassroomExportData: function(view){
-
-			TeacherAccount.TeacherApp.Classroom.Controller.exportData(view.model.attributes.id);
-
-		}
-
-		
 	});
 
 	
