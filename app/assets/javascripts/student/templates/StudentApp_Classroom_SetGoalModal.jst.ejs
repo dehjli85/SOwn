@@ -46,7 +46,7 @@
 
               </div>
 
-              <% if( new Date(activity_goal.goal_date) < new Date() || activity_goal.goal_met ){%>
+              <% if( ( activity_goal.goal_date != null && new Date(activity_goal.goal_date) < new Date()) || activity_goal.goal_met ){%>
                 
                 <div>
 

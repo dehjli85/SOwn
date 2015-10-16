@@ -19,7 +19,7 @@
 						<br/><i class="ion-star" style="color:#49883F"></i>
 					<% } %>
 					
-					<% if(new Date(activity_goals[0].goal_date) < new Date() && !activity_goals[0].goal_met){ %> 
+					<% if(activity_goals[0].goal_date != null && new Date(activity_goals[0].goal_date) < new Date() && !activity_goals[0].goal_met){ %> 
 						<br/><i class="ion-star" style="color:#CCCCCC"></i>
 					<% } %>
 
