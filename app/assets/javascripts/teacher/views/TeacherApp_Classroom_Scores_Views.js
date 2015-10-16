@@ -200,7 +200,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			newActivityForm: "[ui-new-activity-form]",
 			scoresTable: "[ui-scores-table]",
 			tableContainer: "[ui-table-container]",
-			frozenColumnsContainer: "[ui-frozen-columns-container]"
+			frozenColumnsContainer: "[ui-frozen-columns-container]",
 		},
 
 		events: {
