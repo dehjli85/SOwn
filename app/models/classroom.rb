@@ -220,16 +220,12 @@ class Classroom < ActiveRecord::Base
 			activities.each_with_index do |activity, index|
 				activities_index = activity["sort_order"].to_i
 
-					puts "student: #{student['display_name']}, activity: #{activity['name']}, performance:#{student["student_performance"][activities_index]} "				
 				if (!activity["due_date"].nil? && activity["due_date"] < Time.now) || !student["student_performance"][activities_index].nil?
 					# puts "yes"
 					overall_activities_count += 1
 				end
 			end
 		end
-
-		puts "overall_proficient_count: #{overall_proficient_count}"
-		puts "overall_activities_count: #{overall_activities_count}"
 
 		if overall_activities_count == 0
 			return 0.0

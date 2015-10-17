@@ -36,18 +36,18 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 			var getURL = "/teacher/classroom_activities_and_performances?classroom_id=" + classroomId 
 			if(searchTerm){
-				scoresLayoutView.model.attributes.searchTerm = searchTerm;
-				scoresLayoutView.model.attributes.tagIds = null;
+				scoresLayoutView.model.set("searchTerm", searchTerm);
+				scoresLayoutView.model.set("tagIds", null);
 				getURL +=  "&search_term=" + encodeURIComponent(searchTerm);
 			}
 			if(tagIds){
-				scoresLayoutView.model.attributes.searchTerm = null;
-				scoresLayoutView.model.attributes.tagIds = tagIds;
+				scoresLayoutView.model.set("searchTerm", null);
+				scoresLayoutView.model.set("tagIds", tagIds);
 				getURL +=  "&tag_ids=" + encodeURIComponent(JSON.stringify(tagIds));
 			}
 
 			var jqxhr = $.get(getURL, function(){
-				console.log('get request made: ' + scoresLayoutView.model.attributes.classroomId);
+				console.log('get request made: ' + scoresLayoutView.model.get("classroomId"));
 			})
 			.done(function(data) {
 
@@ -55,10 +55,11 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 					// //create a new composite view for the table
 					var classroomAndActivitiesModel = new Backbone.Model({activities:data.activities, classroom: data.classroom});
-					classroomAndActivitiesModel.attributes.searchTerm = searchTerm;
-					classroomAndActivitiesModel.attributes.tagIds = tagIds;
+					classroomAndActivitiesModel.set("searchTerm", searchTerm);
+					classroomAndActivitiesModel.set("tagIds", tagIds);
 
-					var studentPerformancesCollection = new TeacherAccount.TeacherApp.Classroom.Scores.Models.StudentPerformanceCollection(data.students_with_performance);
+					var studentPerformancesCollection = new Backbone.Collection(data.students_with_performance);
+					console.log(studentPerformancesCollection);
 					var scoresView = new TeacherAccount.TeacherApp.Classroom.Scores.ScoresView({collection: studentPerformancesCollection, model:classroomAndActivitiesModel});
 					scoresLayoutView.scoresRegion.show(scoresView);
 

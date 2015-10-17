@@ -174,6 +174,8 @@
 			.first
 		
 		activities = Activity.activities_with_pairings(classroom.id, params[:search_term], tag_ids, true, false)
+
+		activity_goals = ActivityGoal.student_goals(classroom.id, params[:search_term], tag_ids, nil, true, false)
 		
 		performance_array = StudentPerformance.student_performances_with_verification(classroom.id, params[:search_term], tag_ids, nil, true, false)
 
@@ -190,6 +192,7 @@
 			students_hash[student["id"].to_i] = index
 			student["student_performance"] = []
 			student["proficient_count"] = 0
+			student["activity_goals"] = []
 		end
 
 		# create a lookup hash for activity_id
@@ -198,7 +201,7 @@
 			activities_hash[activity["id"].to_i] = index
 		end
 
-		# assign each performance to the correct student/activity
+		# assign each Performance to the correct Student/Activity
 		performance_array.each do |performance|
 
 			student_index = students_hash[performance["student_user_id"].to_i]
@@ -208,6 +211,14 @@
 				students[student_index]["student_performance"][activities_index] = performance
 			end
 
+		end
+
+		# assign each Activity Goal to the correct Student/Activity
+		activity_goals.each do |goal|
+			student_index = students_hash[goal["student_user_id"].to_i]
+			activities_index = activities_hash[goal["activity_id"].to_i]
+    	goal["goal_met"] = ActivityGoal.goal_met(goal["id"])
+			students[student_index]["activity_goals"][activities_index] = goal
 		end
 
 		# set proficient counts

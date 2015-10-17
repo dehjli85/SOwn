@@ -296,8 +296,6 @@ class StudentAccountController < ApplicationController
 
     if @current_student_user.save
 
-      puts "after save current_student: #{@current_student_user}"
-
       render json: {status: "success"}
 
     else
