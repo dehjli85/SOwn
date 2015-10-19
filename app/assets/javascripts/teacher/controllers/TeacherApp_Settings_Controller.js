@@ -11,7 +11,7 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 				console.log('get request made for teacher user data');
 			})
 			.done(function(data) {
-	     	
+					     	
 	     	//fetch user model and create header
 	     	var user = new Backbone.Model({teacher: data.teacher, student: data.student});
 				var settingsLayoutView = new TeacherAccount.TeacherApp.Settings.SettingsLayoutView({model:user});

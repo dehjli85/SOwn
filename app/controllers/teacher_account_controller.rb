@@ -52,13 +52,11 @@
 
 	def save_settings
 
-		@current_teacher_user.default_view_student = params[:default_view_student]
-
-		puts "current_teacher: #{@current_teacher_user.default_view_student}"
+		# @current_teacher_user.default_view_student = params[:default_view_student]
+		@current_teacher_user.assign_attributes(params.require(:teacher_user).permit(:first_name, :last_name, :gender, :salutation))
+		@current_teacher_user.display_name = @current_teacher_user.first_name + ' ' + @current_teacher_user.last_name
 
 		if @current_teacher_user.save
-
-			puts "after save current_teacher: #{@current_teacher_user.default_view_student}"
 
 			render json: {status: "success"}
 

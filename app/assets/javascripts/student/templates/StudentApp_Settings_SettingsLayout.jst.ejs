@@ -2,6 +2,31 @@
 <div class="row">
 	<div class="col-md-12 col-sm-12">
 		<form class="form-horizontal" ui-settings-form>
+
+			<div class="form-group">
+		    <label for="inputFirstName" class="col-sm-12 col-md-3 control-label">First Name:</label>
+		    <div class="col-sm-12 col-md-9">
+		      <input type="text" class="form-control" id="inputFirstName" name="student_user[first_name]" value="<%= student.first_name %>">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="inputLastName" class="col-sm-12 col-md-3 control-label">Last Name:</label>
+		    <div class="col-sm-12 col-md-9">
+		      <input type="text" class="form-control" id="inputLastName" name="student_user[last_name]" value="<%= student.last_name %>">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="inputGender" class="col-sm-12 col-md-3 control-label">Gender:</label>
+		    <div class="col-sm-12 col-md-9">
+		    	<select class="form-control" name="student_user[gender]">
+		    		<option></option>
+		    		<option <%= student.gender == 'F' ? 'selected="selected"' : '' %> >F</option>
+		    		<option <%= student.gender == 'M' ? 'selected="selected"' : '' %> >M</option>
+		    	</select>
+		  	</div>
+		  </div>
 		  
 		  <% if(teacher != null && student != null) { %>
 			  <div class="form-group">
@@ -24,7 +49,7 @@
 		  	<div class="form-group">
 		    	<label for="localId" class="col-md-3 control-label">Student ID:</label>
 		    	<div class="col-md-4">
-		      	<input type="text" class="form-control" name="localId" value="<%= student.local_id%>">  
+		      	<input type="text" class="form-control" name="student_user[local_id]" value="<%= student.local_id%>">  
 		    	</div>
 		    	<div class="col-md-4">
 		    		<i class="ion-help-circled icon-lg icon_theme" data-toggle="tooltip" data-placement="right" data-original-title="Your District/School ID. Allows your teacher to identify you."></i>

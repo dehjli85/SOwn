@@ -14,7 +14,8 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 			deleteButton: "[ui-delete-button]",
 			modalDiv: "[ui-modal-div]",
 			defaultViewSelect: "[ui-default-view-select]",
-			settingsForm: "[ui-settings-form]"
+			settingsForm: "[ui-settings-form]",
+			saveButton: "[ui-save-button]"
 		},
 
 		events:{
@@ -23,7 +24,7 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 
 		triggers:{
 			"click @ui.deleteButton": "delete:teacher:account",
-			"submit @ui.settingsForm": "save:settings"
+			"click @ui.saveButton": "save:settings"
 		},
 
 		showVerifyDeleteModal: function(e){

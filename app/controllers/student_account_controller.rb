@@ -41,7 +41,7 @@ class StudentAccountController < ApplicationController
       
     
     classrooms_hash = classrooms.joins(:teacher_user)
-      .select("teacher_users.display_name", "classrooms.id as classroom_id", "classrooms.name")
+      .select("teacher_users.display_name", "teacher_users.first_name", "teacher_users.last_name", "teacher_users.salutation", "classrooms.id as classroom_id", "classrooms.name")
       .as_json
 
     classrooms.each_with_index do |classroom, index|
@@ -108,7 +108,7 @@ class StudentAccountController < ApplicationController
 
     if !classrooms.empty?
     
-      classroom = classrooms.joins(:teacher_user).select("classrooms.id","teacher_users.display_name", "classrooms.name").first.serializable_hash
+      classroom = classrooms.joins(:teacher_user).select("classrooms.id","teacher_users.display_name", "teacher_users.first_name", "teacher_users.last_name", "teacher_users.salutation", "classrooms.name").first.serializable_hash
       
       render json: {status: "success", classroom: classroom}
     
@@ -298,8 +298,10 @@ class StudentAccountController < ApplicationController
   #
   #################################################################################
   def save_settings
-    
-    @current_student_user.local_id = params[:localId]
+
+    # @current_teacher_user.default_view_student = params[:default_view_student]
+    @current_student_user.assign_attributes(params.require(:student_user).permit(:first_name, :last_name, :gender, :local_id))
+    @current_student_user.display_name = @current_student_user.first_name + ' ' + @current_student_user.last_name
 
     if @current_student_user.save
 
@@ -310,6 +312,9 @@ class StudentAccountController < ApplicationController
       render json: {status: "error", message: "unable-to-save-settings"}
 
     end
+    
+    @current_student_user.local_id = params[:localId]
+
 
   end
 
