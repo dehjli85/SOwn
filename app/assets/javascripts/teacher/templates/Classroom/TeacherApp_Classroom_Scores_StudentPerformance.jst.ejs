@@ -16,27 +16,48 @@
 
           <% if(!activity_goals[i].goal_met){ %> 
 
-            <% if(activity_goals[i].activity_type == "scored" && activity_goals[i].goal_date != null && new Date(activity_goals[i].goal_date) < new Date()  ){ %>
+            <% if(activity_goals[i].activity_type == "scored") { %> 
+                
+                <% if(activity_goals[i].goal_date != null && new Date(activity_goals[i].goal_date) < new Date()) { %>
 
-              <a href="#" class="goal-link_not-met">
-                <i class="ion-trophy" name="<%= activity_goals[i].id%>" ui-goal-a></i>
-              </a> 
+                <a href="#" class="goal-link_not-met">
+                  <i class="ion-trophy" name="<%= activity_goals[i].classroom_activity_pairing_id %>" ui-goal-a></i>
+                </a> 
 
-            <% } else if(activity_goals[i].activity_type == "completion" && new Date(activity_goals[i].goal_date) < new Date()){ %>
+              <% } else if(activity_goals[i].goal_date != null) { %>
+
+                <a href="#" class="goal-link_waiting-no-score">
+                  <i class="ion-ios-clock-outline" name="<%= activity_goals[i].classroom_activity_pairing_id %>" ui-goal-a></i>
+                </a> 
+
+              <% } %>
+
+            <% } else if(activity_goals[i].activity_type == "completion") { %>
               
-              <a href="#" class="goal-link_not-met">
-                <i class="ion-trophy" name="<%= activity_goals[i].id%>" ui-goal-a></i>
-              </a> 
+              <% if (new Date(activity_goals[i].goal_date) < new Date()){ %>
+              
+                <a href="#" class="goal-link_not-met">
+                  <i class="ion-trophy" name="<%= activity_goals[i].classroom_activity_pairing_id %>" ui-goal-a></i>
+                </a> 
+
+              <% } else { %>
+
+                <a href="#" class="goal-link_not-met">
+                  <i class="ion-ios-clock-outline" name="<%= activity_goals[i].classroom_activity_pairing_id %>" ui-goal-a></i>
+                </a> 
+
+              <% } %>
+
 
             <% } %>
 
           <% } %>
-
+        
         <% } %>
 
       </td>
     
-    <% }else{ %>
+    <% } else { %>
     
       <td class="scores-table__score <%= student_performance[i].performance_color %>">
 
@@ -44,8 +65,8 @@
 
         <% if(student_performance[i].requires_verification == 't' && student_performance[i].verified != 't') {%>
 
-          <a href="#" class="verify_link">
-            <i class="ion-checkmark-circled" name="<%= student_performance[i].id%>" ui-verify-a></i>
+          <a href="#" class="verify_link"  ui-verify-a>
+            <i class="ion-checkmark-circled" name="<%= student_performance[i].id%>"></i>
           </a> 
 
         <%}%>
@@ -55,22 +76,42 @@
           <% if(activity_goals[i].goal_met){ %> 
 
             <a href="#" class="goal-link">
-              <i class="ion-trophy" name="<%= activity_goals[i].id%>" ui-goal-a></i>
+              <i class="ion-trophy" name="<%= activity_goals[i].classroom_activity_pairing_id%>" ui-goal-a></i>
             </a>
 
           <% } else { %> 
             
-            <% if(activity_goals[i].activity_type == "scored" && activity_goals[i].goal_date != null && new Date(activity_goals[i].goal_date) < new Date()  ){ %>
+            <% if(activity_goals[i].activity_type == "scored"){ %> 
 
-              <a href="#" class="goal-link_not-met">
-                <i class="ion-trophy" name="<%= activity_goals[i].id%>" ui-goal-a></i>
-              </a> 
+              <% if (activity_goals[i].goal_date != null && new Date(activity_goals[i].goal_date) < new Date()  ){ %>
 
-            <% } else if(activity_goals[i].activity_type == "completion" && new Date(activity_goals[i].goal_date) < new Date()){ %>
+                <a href="#" class="goal-link_not-met">
+                  <i class="ion-trophy" name="<%= activity_goals[i].classroom_activity_pairing_id %>" ui-goal-a></i>
+                </a> 
+
+              <% } else if(activity_goals[i].goal_date != null) { %>
+
+                <a href="#" class="goal-link">
+                  <i class="ion-ios-clock-outline" name="<%= activity_goals[i].classroom_activity_pairing_id %>" ui-goal-a></i>
+                </a> 
+
+              <% } %>
+
+            <% } else if(activity_goals[i].activity_type == "completion"){ %> 
+
+              <% if (new Date(activity_goals[i].goal_date) < new Date()){ %>
               
-              <a href="#" class="goal-link_not-met">
-                <i class="ion-trophy" name="<%= activity_goals[i].id%>" ui-goal-a></i>
-              </a> 
+                <a href="#" class="goal-link_not-met">
+                  <i class="ion-trophy" name="<%= activity_goals[i].classroom_activity_pairing_id %>"  ui-goal-a></i>
+                </a> 
+
+              <% } else { %>
+
+                <a href="#" class="goal-link">
+                  <i class="ion-ios-clock-outline" name="<%= activity_goals[i].classroom_activity_pairing_id %>" ui-goal-a></i>
+                </a> 
+
+              <% } %>
 
             <% } %>
 

@@ -55,19 +55,25 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 	});
 
 	Classroom.LayoutView = Marionette.LayoutView.extend({
+
 		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Layout"],			
+		className: "col-md-12",
+
 		regions:{
 			headerRegion: "#classroom_header_region",
 			mainRegion: '#classroom_main_region', 
-			alertRegion: "#classroom_alert_region"
+			alertRegion: "#classroom_alert_region",
+			modalRegion: "#classroom_modal_region"
 		},
 
-		className: "col-md-12",
+		ui:{
+			modalRegion: "#classroom_modal_region"
+		},
+
 
 		onChildviewClassroomShowScores: function(view){
 
 			TeacherAccount.navigate('classroom/scores/' + view.model.attributes.id);
-
 			TeacherAccount.TeacherApp.Classroom.Scores.Controller.startScoresApp(this, "read");
 
 		},
@@ -75,7 +81,6 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 		onChildviewClassroomShowEditScores: function(view){
 			
 			TeacherAccount.navigate('classroom/edit_scores/' + view.model.attributes.id);
-
 			TeacherAccount.TeacherApp.Classroom.Scores.Controller.startScoresApp(this, "edit");
 
 		},
@@ -89,7 +94,6 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 		onChildviewClassroomShowEditActivities: function(view){
 
 			TeacherAccount.navigate("classroom/edit_activities/" + view.model.attributes.id);
-
 			TeacherAccount.TeacherApp.Classroom.Controller.showClassroomEditActivities(this, view.model.attributes.id);
 
 		},
@@ -97,10 +101,19 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 		onChildviewClassroomShowEditClassroom: function(view){
 
 			TeacherAccount.navigate("classroom/edit_classroom/" + view.model.attributes.id);
-
 			TeacherAccount.TeacherApp.Classroom.Controller.showEditClassroom(this, view.model.attributes.id);
 
 		},
+
+		onChildviewClassroomLayoutShowGoalModal: function(scoresLayoutView, studentPerformanceView){
+			
+			TeacherAccount.TeacherApp.Classroom.Scores.Controller.showGoalModal(this, scoresLayoutView, studentPerformanceView);
+
+		},
+
+		
+
+		
 
 	});
 

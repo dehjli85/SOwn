@@ -220,7 +220,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 						var model = new Backbone.Model({data:modelData, labels: modelLabels, score_range: scoreRangeObj});
 
-						var barGraphView = new StudentAccount.StudentApp.Classroom.SetGoalBarGraphView({model: model});
+						var barGraphView = new StudentAccount.StudentApp.Classroom.PerformanceBarGraphView({model: model});
 
 						seeAllModal.graphRegion.show(barGraphView);
 
@@ -250,7 +250,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 			var getURL = "/student/activity_and_performances?classroom_activity_pairing_id=" + classroomActivityPairingId;
 			var jqxhr = $.get(getURL, function(){
-				console.log('get request for classroom model');
+				console.log('get request for data for goal modal');
 			})
 			.done(function(data) {
 
@@ -301,7 +301,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 							var model = new Backbone.Model({data:modelData, labels: modelLabels, score_range: scoreRangeObj});
 
-							var barGraphView = new StudentAccount.StudentApp.Classroom.SetGoalBarGraphView({model: model});
+							var barGraphView = new StudentAccount.StudentApp.Classroom.PerformanceBarGraphView({model: model});
 
 							setGoalModalView.graphRegion.show(barGraphView);
 						}

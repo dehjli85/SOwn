@@ -1,0 +1,115 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title" id="myModalLabel" ui-title>Goal for: <b><%= activity.name %></b></h5>
+  </div>
+  <div class="modal-body" ui-body-div>
+    
+
+      <div ui-bar-graph-region></div>
+      <div ui-data-table-region></div>
+      <div ui-goal-region>
+
+        
+
+        <form class="form-inline goal-form" ui-goal-form>
+
+          <input type="hidden" name="activity_goal[classroom_activity_pairing_id]" value="<%= classroom_activity_pairing.id%>">
+
+          <% if(activity_goal) {%>
+              
+              <h4><%= first_name%>&#39;s Goal:</h4>
+              
+              <div class="<%= activity_goal ? 'well' : ''%>">
+
+                <p class="goal-p">
+                  I will 
+
+                  <% if(activity.activity_type == "scored"){ %>
+
+                    score <b><%= activity_goal.score_goal %></b> on
+
+                  <% }else{ %>
+                    complete 
+                  <% } %>
+                  
+                  <b><%= activity.name %></b> 
+
+                  <% if(activity_goal.goal_date){ %>
+                    by <b><%= activity_goal ? moment(activity_goal.goal_date).format("MM/DD/YY") : ''%></b>.                  
+                  <% } %>
+                </p>
+
+              </div>
+
+              <% if( ( activity_goal.goal_date != null && new Date(activity_goal.goal_date) < new Date()) || activity_goal.goal_met ){%>
+                
+                <div>
+
+                  <h4>Reflections:</h4>
+
+                  <p>
+                    <b><%= first_name %> <%= activity_goal.goal_met ? 'met' : 'did not meet' %> his/her goal!</b>
+                  </p>
+
+                  <% if(activity_goal.activity_goal_reflections.length > 0 ){ %> 
+                    <% for(var i=0; i < activity_goal.activity_goal_reflections.length; i++){ %> 
+                      <div class="well">
+                        <p>
+                          <%= activity_goal.activity_goal_reflections[i].reflection %>
+                        </p>
+                      </div>
+                    <% } %>
+                  <% } %>
+
+                  
+                </div>
+
+                <div>
+                  <a href="#" ui-add-reflection-link style="<%= activity_goal.activity_goal_reflections.length == 0 ? 'display:none' : '' %>">Add Reflection</a>
+
+                  <div ui-reflection-div style="<%= activity_goal.activity_goal_reflections.length > 0 ? 'display:none' : '' %>">
+                    <p>
+                        <%= activity_goal.goal_met ? 'Congratulate ' + first_name + ' on meeting his/her goal! ' : '' %>What could <%= first_name %> do differently next time? Do you agree with <%= first_name %>&#39;s reflections?
+                    </p>
+                    <textarea class="form-control" rows="3" name="reflection" style="width:100%;"></textarea>
+                  </div>
+                </div>
+
+              <% } %>
+
+
+          <% }else { %>
+            <h4>Set New Goal:</h4>
+
+            <div>
+              <p class="goal-p">
+                  I will 
+
+                  <% if(activity.activity_type == "scored"){ %>
+
+                    score <input type="text" name="activity_goal[score_goal]" class="score-input" ui-score-goal-input> on
+
+                  <% }else{ %>
+                    complete 
+                  <% } %>
+                  
+                  <b><%= activity.name %></b> by 
+
+                  <input type="date" name="activity_goal[goal_date]" ui-goal-date-input>.
+
+                 </p>
+            </div>
+
+          <% } %>
+            
+
+        </form>
+      </div>
+
+  </div>
+  <div class="modal-footer" ui-footer-div>    
+    <button class="btn btn-primary" ui-save-button data-dismiss="modal">Save</button>
+    <button class="btn btn-default" data-dismiss="modal">Close</button>	        
+  </div>
+</div>

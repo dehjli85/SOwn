@@ -47,9 +47,11 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			}
 
 			var jqxhr = $.get(getURL, function(){
-				console.log('get request made: ' + scoresLayoutView.model.get("classroomId"));
+				console.log('get request made for classroom scores data: ' + scoresLayoutView.model.get("classroomId"));
 			})
 			.done(function(data) {
+
+				console.log(data);
 
 				if(data.status == "success"){
 
@@ -552,6 +554,101 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		   
 			});	
 
+		},
+
+		showGoalModal: function(classroomLayoutView, classroomScoresLayoutView, studentPerformanceView){
+
+			console.log(studentPerformanceView.model.attributes);
+			// get request to get data for the modal
+			var getURL = "/teacher/activity_and_performances?classroom_activity_pairing_id=" + studentPerformanceView.model.get("classroomActivityPairingId") + "&student_user_id=" + studentPerformanceView.model.get("id");
+			var jqxhr = $.get(getURL, function(){
+				console.log('get request for data for goal modal');
+			})
+			.done(function(data) {
+
+     		console.log(data);
+
+	     	if(data.status == "success"){
+
+	     		var model = studentPerformanceView.model.clone();
+	     		model.set("activity", data.activity);
+	     		model.set("classroom_activity_pairing", data.classroom_activity_pairing);
+	     		model.set("activity_goal", data.activity_goal);
+
+	     		var setGoalModalView = new TeacherAccount.TeacherApp.Classroom.Scores.SetGoalModalView({model: model});
+
+	     		classroomLayoutView.modalRegion.show(setGoalModalView);
+	     		classroomLayoutView.ui.modalRegion.modal("show");
+
+	     			if (data.activity.activity_type == 'scored'){
+
+			     		var modelData = [];
+			     		var index = 1;
+
+			     		var dates = [];
+			     		var counter = 1;
+							data.performances.map(function(item){
+
+			     			//set color of bars
+								var color = "#49883F";
+								if(item.performance_color == "danger-sown")
+									color = "#B14F51";
+								else if(item.performance_color == 'warning-sown')
+									color = "#EACD46";
+
+								//set data depending on activity type
+								var next = moment(item.performance_date).format("MM/DD");
+								if($.inArray(moment(item.performance_date).format("MM/DD"), dates) >=  0){
+									counter++;
+									next += " (" + counter + ")";
+								}
+								else{
+									counter = 1;
+								}
+								dates.push(moment(item.performance_date).format("MM/DD"));
+
+								modelData.push({x: next, y: item.performance_pretty, color: color})
+								index++;
+
+							});	 
+
+							var modelLabels = {x: "Attempt", y: "Score"};
+
+							var scoreRangeObj = {min_score: data.activity.min_score, benchmark1_score: data.activity.benchmark1_score, benchmark2_score: data.activity.benchmark2_score, max_score: data.activity.max_score};
+
+							// var model = new Backbone.Model({data:modelData, labels: modelLabels, score_range: scoreRangeObj});
+		     			var model = studentPerformanceView.model.clone();
+		     			model.set("data", modelData);
+		     			model.set("labels",  modelLabels);
+		     			model.set("score_range", scoreRangeObj);
+
+							var barGraphView = new TeacherAccount.TeacherApp.Classroom.Scores.PerformanceBarGraphView({model: model});
+
+							setGoalModalView.graphRegion.show(barGraphView);
+						}
+						else if (data.activity.activity_type == 'completion'){
+							
+
+							if(data.performances.length != 0){
+								var model = new Backbone.Model({performances: data.performances});
+									
+								var completionTableView = new TeacherAccount.TeacherApp.Classroom.ScoresCompletionTableView({model: model});
+
+								setGoalModalView.graphRegion.show(completionTableView);
+							}
+
+						}	
+					
+	     	}
+	     	
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+			
 		}
 	}
 

@@ -419,7 +419,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		},
 
 		goalEmpty: function(){
-			return this.ui.scoreGoalInput.val().trim().length == 0 && this.ui.goalDateInput.val().trim().length == 0;
+			return this.ui.scoreGoalInput.val() &&  this.ui.scoreGoalInput.val().trim().length == 0 && this.ui.goalDateInput.val().trim().length == 0;
 		}
 
 
@@ -430,8 +430,8 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
  *	=> data: json object with fields (arrays) "x", "y", and "color"
  *  => labels: json object with fields (strings) "x" and "y"
  */
-Classroom.SetGoalBarGraphView = Marionette.ItemView.extend({
-		template: JST["student/templates/StudentApp_Classroom_SetGoalBarGraph"],
+Classroom.PerformanceBarGraphView = Marionette.ItemView.extend({
+		template: JST["student/templates/StudentApp_Classroom_PerformanceBarGraph"],
 		ui:{
 			barGraphDiv: "[ui-bar-graph-div]",
 			rangeGraphDiv: "[ui-range-graph-div]",

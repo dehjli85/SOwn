@@ -183,6 +183,12 @@ class StudentAccountController < ApplicationController
 
   end
 
+  # Required parameters: classroom_activity_pairing_id
+  # Returns in JSON form
+  # => the specified Classroom Activity Pairing
+  # => the Activity matching the Classroom Actvity Pairing, 
+  # => the Student Performances matching the Classroom Activity Pairing and the logged in Student User
+  # => the Activity Goal and Reflections matching the Classroom Activity Pairing and the logged in Student User
   def activity_and_performances
     
     classroom_activity_pairing = ClassroomActivityPairing.where(id: params[:classroom_activity_pairing_id]).first
@@ -196,17 +202,18 @@ class StudentAccountController < ApplicationController
         activity = classroom_activity_pairing.activity
 
         performances = StudentPerformance.where({classroom_activity_pairing_id: classroom_activity_pairing.id, student_user_id: @current_student_user.id}).order("created_at ASC").as_json
+        performances.each do |performance|
+          performance["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activity.activity_type, performance["scored_performance"], performance["completed_performance"])
+          performance["performance_color"] = StudentPerformance.performance_color_no_active_record(activity.activity_type, activity.benchmark1_score, activity.benchmark2_score, activity.min_score, activity.max_score, performance["scored_performance"], performance["completed_performance"])
+
+        end
 
         activity_goal = ActivityGoal.where(student_user_id: @current_student_user.id).where(classroom_activity_pairing_id: classroom_activity_pairing.id).order("id DESC").first.as_json
         if activity_goal
           activity_goal["activity_goal_reflections"] = ActivityGoalReflection.where(activity_goal_id: activity_goal["id"])
         end
 
-        performances.each do |performance|
-          performance["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activity.activity_type, performance["scored_performance"], performance["completed_performance"])
-          performance["performance_color"] = StudentPerformance.performance_color_no_active_record(activity.activity_type, activity.benchmark1_score, activity.benchmark2_score, activity.min_score, activity.max_score, performance["scored_performance"], performance["completed_performance"])
-
-        end
+        
 
         render json: {status: "success", activity: activity, classroom_activity_pairing: classroom_activity_pairing, performances: performances, activity_goal: activity_goal}
 
