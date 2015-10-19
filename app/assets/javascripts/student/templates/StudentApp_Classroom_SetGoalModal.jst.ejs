@@ -62,6 +62,17 @@
                         <p>
                           <%= activity_goal.activity_goal_reflections[i].reflection %>
                         </p>
+                        <% if(activity_goal.activity_goal_reflections[i].teacher_user) { %> 
+                          <p class="activity-goal-signature">
+                            -<%= activity_goal.activity_goal_reflections[i].teacher_user.last_name %>
+                          </p>
+                        <% } %>
+                        <% if(activity_goal.activity_goal_reflections[i].student_user) { %> 
+                          <p class="activity-goal-signature">
+                            -<%= activity_goal.activity_goal_reflections[i].student_user.first_name %>
+                          </p>
+                        <% } %>
+                        
                       </div>
                     <% } %>
                   <% } %>
