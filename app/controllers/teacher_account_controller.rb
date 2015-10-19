@@ -527,6 +527,36 @@
 
 	end
 
+	# 
+	def save_reflection
+
+		# find the Activity Goal if it exists, if it doesn't, create a new one with the passed parameters
+    activity_goal = ActivityGoal.where({student_user_id: params[:activity_goal][:student_user_id], classroom_activity_pairing_id: params[:activity_goal][:classroom_activity_pairing_id]}).first 
+   
+    # If an Activity Goal Reflection was passed, create a new Activity Goal Reflection and save it
+    activity_goal_reflection = nil
+    reflection_save = !params[:reflection] || params[:reflection].strip.empty?
+    if !reflection_save
+      activity_goal_reflection = ActivityGoalReflection.new({activity_goal_id: activity_goal.id, student_user_id: nil, teacher_user_id: @current_teacher_user.id, reflection: params[:reflection], reflection_date: Time.now})
+      reflection_save = activity_goal_reflection.save
+    end
+
+    # Render the appropriate JSON, based on whether the Activity Goal and the Activity Goal Reflection were successfully saved
+    if reflection_save
+
+      render json: {status: "success", activity_goal: activity_goal, activity_goal_reflection: activity_goal_reflection}
+
+    else
+      
+      activity_goal_reflection.errors.each do |error|
+        puts "#{error}"
+      end
+
+      render json: {status: "error", activity_goal: activity_goal, activity_goal_reflection: activity_goal_reflection}
+    end
+
+	end
+
 	#################################################################################
 	#
 	# Activities App Methods
@@ -1300,7 +1330,7 @@
 
         activity_goal = ActivityGoal.where(student_user_id: params[:student_user_id]).where(classroom_activity_pairing_id: classroom_activity_pairing.id).order("id DESC").first.as_json
         if activity_goal
-          activity_goal["activity_goal_reflections"] = ActivityGoalReflection.where(activity_goal_id: activity_goal["id"])
+          activity_goal["activity_goal_reflections"] = ActivityGoalReflection.where(activity_goal_id: activity_goal["id"]).as_json
         end
 
         render json: {status: "success", activity: activity, classroom_activity_pairing: classroom_activity_pairing, performances: performances, activity_goal: activity_goal}

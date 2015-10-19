@@ -649,6 +649,46 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		   
 			});
 			
+		},
+
+		saveReflection: function(classroomLayoutView, scoresLayoutView, setGoalModalView){
+
+			var alertModel = new Backbone.Model({message: "Saving Activity Goal...", alertClass: "alert-warning"})
+			var alertView = new StudentAccount.StudentApp.AlertView({model: alertModel});
+			TeacherAccount.rootView.alertRegion.show(alertView);
+
+			var postURL = "/teacher/save_reflection";
+			var postData = setGoalModalView.ui.goalForm.serialize();
+			var jqxhr = $.post(postURL, postData, function(){
+				console.log('post request for saving new activity goal');
+			})
+			.done(function(data) {
+	     		console.log(data);
+	     	if(data.status == "success"){
+					classroomLayoutView.ui.modalRegion.modal("hide");
+
+					var alertModel = new Backbone.Model({message: "Activity Goal Saved!", alertClass: "alert-success"});
+					var alertView = new StudentAccount.StudentApp.AlertView({model: alertModel});
+					TeacherAccount.rootView.alertRegion.show(alertView);					
+
+					Scores.Controller.showClassroomScores(scoresLayoutView, scoresLayoutView.model.get("classroomId"), scoresLayoutView.model.get("searchTerm"), scoresLayoutView.model.get("tagId"));
+
+	     	}else{
+					
+					var alertModel = new Backbone.Model({message: "Error Saving Activity Goal!", alertClass: "alert-danger"});
+					var alertView = new StudentAccount.StudentApp.AlertView({model: alertModel});
+					TeacherAccount.rootView.alertRegion.show(alertView);						     		
+	     	}
+	     	
+	     	
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});		
+
 		}
 	}
 

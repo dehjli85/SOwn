@@ -70,7 +70,9 @@ class ActivityGoal < ActiveRecord::Base
     	end
     end
 
+  
   end
+
 
   def goal_met
   	@goal_met

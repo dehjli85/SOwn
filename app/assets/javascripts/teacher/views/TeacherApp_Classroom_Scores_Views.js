@@ -515,7 +515,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			// Need to trigger a method to get the classroom layout view 
 			this.triggerMethod("classroom:layout:show:goal:modal", studentPerformanceView);
 
-		}
+		},
+
+		
 
 	});
 
@@ -580,7 +582,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		triggers:{
-			"click @ui.saveButton": "save:new:activity:goal"
+			"click @ui.saveButton": "save:reflection"
 		},
 
 

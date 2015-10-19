@@ -15,6 +15,7 @@
         <form class="form-inline goal-form" ui-goal-form>
 
           <input type="hidden" name="activity_goal[classroom_activity_pairing_id]" value="<%= classroom_activity_pairing.id%>">
+          <input type="hidden" name="activity_goal[student_user_id]" value="<%= id%>">
 
           <% if(activity_goal) {%>
               
@@ -58,6 +59,16 @@
                         <p>
                           <%= activity_goal.activity_goal_reflections[i].reflection %>
                         </p>
+                        <% if (activity_goal.activity_goal_reflections[i].teacher_user != null){ %>
+                          <p class="activity-goal-signature">
+                            -<%= activity_goal.activity_goal_reflections[i].teacher_user.last_name %>
+                          </p>
+                        <% } %>
+                        <% if (activity_goal.activity_goal_reflections[i].student_user != null){ %>
+                          <p class="activity-goal-signature">
+                            -<%= activity_goal.activity_goal_reflections[i].student_user.first_name %>
+                          </p>
+                        <% } %>
                       </div>
                     <% } %>
                   <% } %>

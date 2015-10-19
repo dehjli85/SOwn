@@ -6,7 +6,8 @@ class ActivityGoalReflection < ActiveRecord::Base
 	validate :has_user
 	validate :reflection_not_empty
 	validates :reflection_date, presence: true
-end
+
+	after_find :set_pretty_properties
 
 	##################################################################################################
   #
@@ -28,3 +29,28 @@ end
 			errors.add(:reflection, "cannot be empty")
 		end
 	end
+
+	##################################################################################################
+  #
+  # Pretty Properties
+  #
+  ##################################################################################################
+
+	# def set_pretty_properties
+	# 	@teacher = teacher_user.as_json
+	# end
+
+	# def teacher
+	# 	@teacher
+	# end
+
+	def as_json(options = { })
+      # just in case someone says as_json(nil) and bypasses
+      # our default...
+      super((options || { }).merge({
+          :methods => [:teacher_user, :student_user]
+      }))
+  end
+
+end
+
