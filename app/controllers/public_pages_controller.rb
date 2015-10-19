@@ -267,6 +267,7 @@ class PublicPagesController < ApplicationController
 
 	def teacher_sign_up
 		teacher = TeacherUser.new(params.require(:user).permit(:first_name, :last_name, :email, :password))
+		teacher.display_name = teacher.first_name + ' ' + teacher.last_name
 		if(teacher.save)
 			render json: {status: "success"}
 		else
@@ -277,6 +278,7 @@ class PublicPagesController < ApplicationController
 
 	def student_sign_up
 		student = StudentUser.new(params.require(:user).permit(:first_name, :last_name, :email, :password))
+		student.display_name = student.first_name +  ' ' + student.last_name
 		if(student.save)
 			render json: {status: "success"}
 		else
