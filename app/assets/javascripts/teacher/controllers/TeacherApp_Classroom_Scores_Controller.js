@@ -278,6 +278,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				console.log('get request made');
 			})
 			.done(function(data) {
+				console.log(data);
 
 				if(data.status == "success"){
 
@@ -285,6 +286,10 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 					model.set("errors", {});
 					model.set("tagCount", 0);
 					model.set("classroomId", scoresLayoutView.model.get("classroomId"));
+					
+					var teacher_tags = [];
+					data.activity_tags.map(function(i){teacher_tags.push(i.name)});
+					model.set("teacher_tags", teacher_tags);
 					
 					var collection = new Backbone.Collection();
 

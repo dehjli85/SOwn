@@ -97,6 +97,10 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 					model.set("errors", {});
 					model.set("tagCount", 0);
 					model.set("classroomId", null);
+
+					var teacher_tags = [];
+					data.activity_tags.map(function(i){teacher_tags.push(i.name)});
+					model.set("teacher_tags", teacher_tags);
 					
 					var collection = new Backbone.Collection();
 

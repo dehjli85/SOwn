@@ -883,32 +883,6 @@
 			# get Activity Tags for associated Activity
 			activity_hash["tags"] = @activity.activity_tags.to_a.map(&:serializable_hash)
 
-			# # get all Classrooms and respective IDs
-			# classrooms = Classroom.where(teacher_user_id: @current_teacher_user.id).as_json
-			# classroom_ids = Classroom.where(teacher_user_id: @current_teacher_user.id).pluck(:id)
-
-			# # get all Classroom Activity pairings
-			# pairings_hash = ClassroomActivityPairing.where("classroom_id" => classroom_ids).where("activity_id" => @activity["id"]).as_json
-
-			# # create a lookup Hash to get for the Classroom ID
-			# classroom_indices = Hash.new
-			# classrooms.each_with_index do |classroom, index|
-			# 	classroom_indices[classroom["id"]] = index
-			# end
-
-			# # Use the lookup Hash to associate each Classroom Activity Pairing to the matching Classroom
-			# pairings_hash.each do |pairing|
-			# 	index = classroom_indices[pairing["classroom_id"]]
-			# 	classrooms[index]["classroom_activity_pairing"] = pairing
-			# end
-
-			# # Set the Classrooms key in the Activity Hash
-			# activity_hash["classrooms"] = classrooms
-
-			# # get all the tags for the user
-			# all_tags = ActivityTag.tags_for_teacher(@current_teacher_user.id)
-
-
 		else
 
 			activity_hash = Activity.new.serializable_hash
