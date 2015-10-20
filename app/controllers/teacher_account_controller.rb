@@ -865,40 +865,87 @@
 
 
 	# Given an Activity ID, returns a JSON object representing the Activity.  
-	# Return JSON object also includes Classroom, Classroom Activivty Pairing, and Activity Tag data
+	# Return JSON object also includes 
+	# => Classroom
+	# => Classroom Activivty Pairing (use to indicated if activity is assigned to which classrooms)
+	# => Activity Tag data
+	#
+	# If an invalid activity ID is passed, then a blank activity is returned
 	def activity
 
 		@activity = Activity.where({teacher_user_id: @current_teacher_user.id, id: params[:activity_id]}).first
 		
 		if(!@activity.nil?)
 			
+			# get Hash representing Activity
 			activity_hash = @activity.serializable_hash
 			
+			# get Activity Tags for associated Activity
 			activity_hash["tags"] = @activity.activity_tags.to_a.map(&:serializable_hash)
 
-			classrooms = Classroom.where(teacher_user_id: @current_teacher_user.id).as_json
-			classroom_ids = Classroom.where(teacher_user_id: @current_teacher_user.id).pluck(:id)
-			pairings_hash = ClassroomActivityPairing.where("classroom_id" => classroom_ids).where("activity_id" => @activity["id"]).as_json
+			# # get all Classrooms and respective IDs
+			# classrooms = Classroom.where(teacher_user_id: @current_teacher_user.id).as_json
+			# classroom_ids = Classroom.where(teacher_user_id: @current_teacher_user.id).pluck(:id)
 
-			classroom_indices = Hash.new
-			classrooms.each_with_index do |classroom, index|
-				classroom_indices[classroom["id"]] = index
-			end
+			# # get all Classroom Activity pairings
+			# pairings_hash = ClassroomActivityPairing.where("classroom_id" => classroom_ids).where("activity_id" => @activity["id"]).as_json
 
-			pairings_hash.each do |pairing|
-				index = classroom_indices[pairing["classroom_id"]]
-				classrooms[index]["classroom_activity_pairing"] = pairing
-			end
+			# # create a lookup Hash to get for the Classroom ID
+			# classroom_indices = Hash.new
+			# classrooms.each_with_index do |classroom, index|
+			# 	classroom_indices[classroom["id"]] = index
+			# end
 
-			activity_hash["classrooms"] = classrooms
+			# # Use the lookup Hash to associate each Classroom Activity Pairing to the matching Classroom
+			# pairings_hash.each do |pairing|
+			# 	index = classroom_indices[pairing["classroom_id"]]
+			# 	classrooms[index]["classroom_activity_pairing"] = pairing
+			# end
 
-			render json: {status: "success", activity: activity_hash}
+			# # Set the Classrooms key in the Activity Hash
+			# activity_hash["classrooms"] = classrooms
+
+			# # get all the tags for the user
+			# all_tags = ActivityTag.tags_for_teacher(@current_teacher_user.id)
+
 
 		else
 
-			render json: {status: "error", message: "invalid-activity"}
+			activity_hash = Activity.new.serializable_hash
+			activity_hash["tags"] = Array.new
+
 
 		end
+
+		# get all Classrooms and respective IDs
+		classrooms = Classroom.where(teacher_user_id: @current_teacher_user.id).as_json
+		classroom_ids = Classroom.where(teacher_user_id: @current_teacher_user.id).pluck(:id)
+		
+		# get all Classroom Activity pairings
+		pairings_hash = ClassroomActivityPairing.where("classroom_id" => classroom_ids)
+			.where("activity_id" => activity_hash["id"]).as_json
+
+		# create a lookup Hash to get for the Classroom ID
+		classroom_indices = Hash.new
+		classrooms.each_with_index do |classroom, index|
+			classroom_indices[classroom["id"]] = index
+		end
+
+		# Use the lookup Hash to associate each Classroom Activity Pairing to the matching Classroom
+		pairings_hash.each do |pairing|
+			index = classroom_indices[pairing["classroom_id"]]
+			classrooms[index]["classroom_activity_pairing"] = pairing
+		end
+
+		# Set the Classrooms key in the Activity Hash
+		activity_hash["classrooms"] = classrooms
+
+		# get all the tags for the user
+		all_tags = ActivityTag.tags_for_teacher(@current_teacher_user.id)
+
+
+		render json: {status: "success", activity: activity_hash, activity_tags: all_tags}
+
 
 	end
 
