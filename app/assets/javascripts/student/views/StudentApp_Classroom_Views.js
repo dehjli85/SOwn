@@ -30,9 +30,9 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			StudentAccount.StudentApp.Classroom.Controller.openTrackModal(this,view.model.get("classroom_activity_pairing_id"));
 		},
 
-		onChildviewActivitiesLayoutShowSetGoalModal: function(view){
+		onChildviewActivitiesLayoutShowGoalModal: function(view){
 			this.ui.modalRegion.modal("show");
-			StudentAccount.StudentApp.Classroom.Controller.openSetGoalModal(this, view.model.get("classroom_activity_pairing_id"));
+			StudentAccount.StudentApp.Classroom.Controller.openGoalModal(this, view.model.get("classroom_activity_pairing_id"));
 		},
 
 		onChildviewSavePerformance: function(view){
@@ -101,7 +101,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			"click @ui.trackButton": "activities:layout:show:track:modal",
 			"click @ui.seeAllButton": "activities:layout:show:see:all:modal",
 			"click @ui.nameLink": "activities:layout:show:activity:details:modal",
-			"click @ui.setGoalLink": "activities:layout:show:set:goal:modal",
+			"click @ui.setGoalLink": "activities:layout:show:goal:modal",
 		}
 		
 	});
@@ -365,8 +365,8 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 	});
 
-	Classroom.SetGoalModalView = Marionette.LayoutView.extend({
-		template: JST ["student/templates/StudentApp_Classroom_SetGoalModal"],
+	Classroom.GoalModalView = Marionette.LayoutView.extend({
+		template: JST ["student/templates/StudentApp_Classroom_GoalModal"],
 		className: "modal-dialog",
 		
 		regions:{

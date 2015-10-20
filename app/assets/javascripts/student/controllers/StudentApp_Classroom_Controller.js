@@ -246,7 +246,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 		},
 
-		openSetGoalModal: function(classroomLayoutView, classroomActivityPairingId){
+		openGoalModal: function(classroomLayoutView, classroomActivityPairingId){
 
 			var getURL = "/student/activity_and_performances?classroom_activity_pairing_id=" + classroomActivityPairingId;
 			var jqxhr = $.get(getURL, function(){
@@ -259,7 +259,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	     	if(data.status == "success"){
 
 	     		var model = new Backbone.Model({activity: data.activity, classroom_activity_pairing: data.classroom_activity_pairing, activity_goal: data.activity_goal});
-	     		var setGoalModalView = new StudentAccount.StudentApp.Classroom.SetGoalModalView({model: model});
+	     		var setGoalModalView = new StudentAccount.StudentApp.Classroom.GoalModalView({model: model});
 	     		classroomLayoutView.modalRegion.show(setGoalModalView);
 
 
