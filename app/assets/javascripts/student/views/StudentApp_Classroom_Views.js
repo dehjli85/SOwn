@@ -73,10 +73,8 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			StudentAccount.StudentApp.Classroom.Controller.showClassroomScores(this, this.model.attributes.classroomId, null, this.model.attributes.tags);
 		},
 
-		onChildviewSaveNewActivityGoal: function(setGoalModalView){
-			if(!setGoalModalView.goalEmpty()){
-				StudentAccount.StudentApp.Classroom.Controller.saveNewActivityGoal(this, setGoalModalView.ui.goalForm);
-			}
+		onChildviewSaveActivityGoal: function(setGoalModalView){
+			StudentAccount.StudentApp.Classroom.Controller.saveNewActivityGoal(this, setGoalModalView.ui.goalForm);
 		}
 
 
@@ -124,7 +122,8 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 		ui:{
 			saveButton: "[ui-save-button]",
-			performanceForm: "[ui-performance-form]"
+			performanceForm: "[ui-performance-form]",
+			dateInput: "[ui-date-input]"
 		},
 
 		triggers:{
@@ -141,7 +140,20 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			if(this.model.get("showScoreBar")){
 				this.showScoreBar();
 			}
+
+			// deal with if HTML5 date input not supported
+      if (!Modernizr.inputtypes.date) {
+      	// If not native HTML5 support, fallback to jQuery datePicker
+        $(this.ui.dateInput).datepicker({
+            // Consistent format with the HTML5 picker
+                dateFormat : 'yy-mm-dd'
+            },
+            // Localization
+            $.datepicker.regional['en']
+        );
+      }
 		},
+
 
 		onRender: function(){
 			if(this.model.get("showScoreBar")){
@@ -388,13 +400,9 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		events:{
 			"click @ui.addReflectionLink": "revealReflectionDiv",
 			"click @ui.scoreGoalLink": "revealScoreGoalInput",
-			"click @ui.goalDateLink": "revealGoalDateInput"
+			"click @ui.goalDateLink": "revealGoalDateInput",
+			"click @ui.saveButton": "saveActivityGoal"
 		},
-
-		triggers:{
-			"click @ui.saveButton": "save:new:activity:goal"
-		},
-
 
 		initialize: function(options){
 			this.$el.attr("role","document");			
@@ -420,6 +428,26 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 		goalEmpty: function(){
 			return this.ui.scoreGoalInput.val() &&  this.ui.scoreGoalInput.val().trim().length == 0 && this.ui.goalDateInput.val().trim().length == 0;
+		},
+
+		saveActivityGoal: function(){
+			if(!this.goalEmpty()){
+				this.triggerMethod("save:activity:goal");
+			}
+		},
+
+		onShow:function(){
+			// deal with if HTML5 date input not supported
+      if (!Modernizr.inputtypes.date) {
+      	// If not native HTML5 support, fallback to jQuery datePicker
+        $(this.ui.goalDateInput).datepicker({
+            // Consistent format with the HTML5 picker
+                dateFormat : 'yy-mm-dd'
+            },
+            // Localization
+            $.datepicker.regional['en']
+        );
+      }
 		}
 
 
