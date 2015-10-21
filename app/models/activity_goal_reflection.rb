@@ -7,7 +7,7 @@ class ActivityGoalReflection < ActiveRecord::Base
 	validate :reflection_not_empty
 	validates :reflection_date, presence: true
 
-	after_find :set_pretty_properties
+	# after_find :set_pretty_properties
 
 	##################################################################################################
   #
