@@ -621,7 +621,10 @@ Classroom.PerformanceBarGraphView = Marionette.ItemView.extend({
 
 				var y = d3.scale.linear()
 				    .range([height_range, 0]);
-				    // .range([height, 0]);
+				if(height_range == null){
+					y = d3.scale.linear()
+				    .range([height, 0]);
+				}
 
 				var xAxis = d3.svg.axis()
 				    .scale(x)
