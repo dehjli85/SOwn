@@ -24,5 +24,6 @@
 //= require moment
 //= require tableHeadFixer
 //= require typeahead.bundle.min
+//= require modernizr-custom
 //= require_tree .
 
