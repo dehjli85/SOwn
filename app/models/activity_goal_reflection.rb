@@ -7,8 +7,6 @@ class ActivityGoalReflection < ActiveRecord::Base
 	validate :reflection_not_empty
 	validates :reflection_date, presence: true
 
-	# after_find :set_pretty_properties
-
 	##################################################################################################
   #
   # Validations
@@ -35,14 +33,6 @@ class ActivityGoalReflection < ActiveRecord::Base
   # Pretty Properties
   #
   ##################################################################################################
-
-	# def set_pretty_properties
-	# 	@teacher = teacher_user.as_json
-	# end
-
-	# def teacher
-	# 	@teacher
-	# end
 
 	def as_json(options = { })
       # just in case someone says as_json(nil) and bypasses
