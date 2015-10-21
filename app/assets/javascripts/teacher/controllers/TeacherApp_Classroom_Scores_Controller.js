@@ -273,88 +273,55 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		openEditActivityDialog: function(scoresLayoutView, activityId){
 
-			// This is a new Activity
-			if(activityId == null){
 
-				var getUrl = "/classrooms_summary";
-				var jqxhr = $.get(getUrl, function(){
-					console.log('get request made');
-				})
-				.done(function(data) {
+			// var getUrl = "/classrooms_summary";
+			var getUrl = "/teacher/activity?activity_id=" + activityId;
 
-					if(data.status == "success"){
+			var jqxhr = $.get(getUrl, function(){
+				console.log('get request made');
+			})
+			.done(function(data) {
+				console.log(data);
 
-						var model = new Backbone.Model({
-							id:"",
-							name: "",
-							activity_type: "scored",
-							description: "",
-							instructions: "",
-							link: "",
-							activity_status: "New",
-							max_score: "",
-							benchmark1_score: "",
-							benchmark2_score: "",
-							min_score: "",
-							tagCount: 0, 
-							errors: {},
-							classrooms: data.classrooms,
-							classroomId: scoresLayoutView.model.get("classroomId")
-						});
+				if(data.status == "success"){
 
-						var collection = new TeacherAccount.TeacherApp.Activities.Models.TagCollection([]);
-
-						var editActivityModalCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityModalCompositeView({model: model, collection: collection});
-						
-						scoresLayoutView.modalRegion.show(editActivityModalCompositeView);
-						scoresLayoutView.ui.modalRegion.modal("show");
-							
-					}
+					var model = new Backbone.Model(data.activity);
+					model.set("errors", {});
+					model.set("tagCount", 0);
+					model.set("classroomId", scoresLayoutView.model.get("classroomId"));
 					
-			  })
-			  .fail(function() {
-			  	console.log("error");
-			  })
-			  .always(function() {
-			   
-				});	
+					var teacher_tags = [];
+					data.activity_tags.map(function(i){teacher_tags.push(i.name)});
+					model.set("teacher_tags", teacher_tags);
+					
+					var collection = new Backbone.Collection();
 
-			}
-			// This is an existing Activity
-			else{
-				var getUrl = "/teacher/activity?activity_id=" + activityId;
-				var jqxhr = $.get(getUrl, function(){
-					console.log('get request made');
-				})
-				.done(function(data) {
-
-					if(data.status == "success"){
-
-						var model = new Backbone.Model(data.activity);
-						model.set("errors", {});
-						model.set("tagCount", 0);
+					// This is a new Activity
+					if(activityId == null){
+						model.set("activity_status", "New");
+						model.set("activity_type", "scored");
+					}
+					// This is an existing activity
+					else{
 						model.set("activity_status", "Edit");
-						model.set("classroomId", scoresLayoutView.model.get("classroomId"));
-
-
-						var collection = new Backbone.Collection(data.activity.tags);
-
-						var editActivityModalCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityModalCompositeView({model: model, collection: collection});
-						
-						scoresLayoutView.modalRegion.show(editActivityModalCompositeView);
-						scoresLayoutView.ui.modalRegion.modal("show");
-							
+						collection = new Backbone.Collection(data.activity.tags);
 					}
-					
-			  })
-			  .fail(function() {
-			  	console.log("error");
-			  })
-			  .always(function() {
-			   
-				});	
 
-			}
+					var editActivityModalCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityModalCompositeView({model: model, collection: collection});
+					
+					scoresLayoutView.modalRegion.show(editActivityModalCompositeView);
+					scoresLayoutView.ui.modalRegion.modal("show");
+						
+				}
+				
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});	
+
 
 		},
 
