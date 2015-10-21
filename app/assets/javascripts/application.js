@@ -23,5 +23,6 @@
 //= require backbone.marionette
 //= require moment
 //= require tableHeadFixer
+//= require typeahead.bundle.min
 //= require_tree .
 

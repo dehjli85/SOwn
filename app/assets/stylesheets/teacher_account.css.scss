@@ -203,6 +203,24 @@ ul.scores-button-ul > li{
   text-align: right;
 }
 
+/*
+ * Edit Activity Modal Styles
+ */
+.tt-open{
+  background-color: #FFFFFF;
+  border: solid 1px #CCCCCC;
+  width: 100%;
+  padding: 0px;
+}
+
+.tt-open .tt-suggestion{
+  padding: 10px;
+}
+
+.tt-open .tt-suggestion:hover, .tt-open .tt-cursor{
+  background-color: #337AB4;
+  color:white;
+}
 
 /*
  * TeacherApp Classrooms CSS

@@ -269,7 +269,8 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			benchmark1ScoreInput: "[ui-benchmark-one-score-input]",
 			benchmark2ScoreInput: "[ui-benchmark-two-score-input]",
 			assignmentForm: "[ui-assignment-form]",
-			saveButton: "[ui-save-button]"
+			saveButton: "[ui-save-button]",
+			tagInputDiv: "[ui-tag-input-div]"
 		},
 
 		events:{
@@ -327,6 +328,41 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		onChildviewRemoveTagFromCollection: function(view){
 			this.collection.remove(view.model);
+		},
+
+		onShow: function(){
+			console.log(this.model.get("teacher_tags"));
+			$('[ui-tag-input-div] .typeahead').typeahead({
+			  hint: true,
+			  highlight: true,
+			  minLength: 1
+			},
+			{
+			  name: 'teacher_tags',
+			  source: this.substringMatcher(this.model.get("teacher_tags"))
+			});
+		},
+
+		substringMatcher: function(strs) {
+		  return function findMatches(q, cb) {
+		    var matches, substringRegex;
+
+		    // an array that will be populated with substring matches
+		    matches = [];
+
+		    // regex used to determine if a string contains the substring `q`
+		    substrRegex = new RegExp(q, 'i');
+
+		    // iterate through the pool of strings and for any string that
+		    // contains the substring `q`, add it to the `matches` array
+		    $.each(strs, function(i, str) {
+		      if (substrRegex.test(str)) {
+		        matches.push(str);
+		      }
+		    });
+
+		    cb(matches);
+		  }
 		}
 
 	});
