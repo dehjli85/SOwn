@@ -640,7 +640,8 @@ Classroom.PerformanceBarGraphView = Marionette.ItemView.extend({
 
 				
 			  x.domain(data.map(function(d) { return d.x; }));
-			  if (config_obj.score_range.max_score && config_obj.score_range.min_score) {
+			  if (config_obj.score_range.max_score != null && config_obj.score_range.min_score != null) {
+			  	console.log("hello");
 			  	y.domain([config_obj.score_range.min_score, config_obj.score_range.max_score]);
 			  }
 			  else{
