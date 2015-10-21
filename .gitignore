@@ -18,6 +18,8 @@ rerun.txt
 pickle-email-*.html
 /db/prod_to_test.rb
 /db/prod_to_dev.rb
+/db/test_to_dev.rb
+/db/backups
 prod_*
 *.DS_Store
 .elasticbeanstalk
