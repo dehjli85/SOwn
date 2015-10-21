@@ -395,6 +395,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			scoreGoalLink: "[ui-score-goal-link]",
 			goalDateInput: "[ui-goal-date-input]",
 			goalDateLink: "[ui-goal-date-link]",
+			errorMessageDiv: "[ui-error-message-div]"
 		},
 
 		events:{
@@ -426,12 +427,50 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			this.ui.goalDateInput.css("display", "inline");
 		},
 
-		goalEmpty: function(){
-			return this.ui.scoreGoalInput.val() &&  this.ui.scoreGoalInput.val().trim().length == 0 && this.ui.goalDateInput.val().trim().length == 0;
+		validate: function(){
+
+
+			// for completion activity: date is in right format
+			if(this.model.get("activity").activity_type == 'completion'){
+				
+				if(!moment(this.ui.goalDateInput.val()).isValid()){	
+					this.ui.errorMessageDiv.html("The date you chose is not valid.  Please choose a valid date")
+					return false;
+				}
+				
+			}
+
+			// for scores activity: score isn't empty, date is in valid format if provided
+			if(this.model.get("activity").activity_type == 'scored'){
+				
+				var dateValid = moment(this.ui.goalDateInput.val(), "YYYY-MM-DD").isValid() ;
+
+				if(this.ui.scoreGoalInput.val() == ""){
+					this.ui.errorMessageDiv.html("You must enter in a score for your goal");
+					return false;
+				}
+				else if(!$.isNumeric(this.ui.scoreGoalInput.val())){
+					this.ui.errorMessageDiv.html("The score you entered is not a number...");
+					return false;
+				}
+				else if((this.model.get("activity").min_score != null && this.ui.scoreGoalInput.val() < this.model.get("activity").min_score) || (this.model.get("activity").max_score != null && this.ui.scoreGoalInput.val() > this.model.get("activity").max_score) ){
+					this.ui.errorMessageDiv.html("Your score must be between " + this.model.get("activity").min_score + " and " + this.model.get("activity").max_score );
+					return false;
+				}
+				else if(this.ui.goalDateInput.val() != "" && !dateValid){
+					this.ui.errorMessageDiv.html("The date you chose is not valid.  Please choose a valid date")
+					return false;
+				}
+
+
+			}
+
+			return true;
+
 		},
 
 		saveActivityGoal: function(){
-			if(!this.goalEmpty()){
+			if(this.validate()){
 				this.triggerMethod("save:activity:goal");
 			}
 		},
