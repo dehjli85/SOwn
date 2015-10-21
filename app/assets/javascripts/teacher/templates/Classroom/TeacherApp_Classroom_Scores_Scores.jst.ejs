@@ -1,84 +1,79 @@
-<% if(((searchTerm == null || searchTerm == "") && tagIds == null ) && (activities == null || activities.length == 0)){ %>
-  <div class="alert alert-warning">
-    You haven't assigned any activities for your students to work on yet! Get started by <a href="#classroom/scores/<%= classroom.id %>" data-toggle="modal" data-target="#activityModal">creating a new activity</a>, or assigning an existing activity by clicking the "Edit Activites" link above!
-  </div>
-<% }else{ %>
-  <div class="button_div">
-    <ul class="scores-button-ul">
-      <li>
-        <button class="btn btn-primary" ui-new-activity-button>New Activity</button>
-      </li>
-      <li>
-        <button class="btn btn-primary" ui-assign-activities-button>Assign Activities</button>
-      </li>
-      <li>
-        <a href="/teacher/export_data?classroom_id=<%= classroom.id %>" class="btn btn-primary" target="_blank" data-toggle="modal" ui-export-data-a>Export Data</a>
-      </li>
-    </ul>
-    
-  </div>
-  <div style="overflow-x: scroll;" ui-table-container>
-    <form ui-activities-header-form>
-      <div ui-frozen-columns-container style=""></div>
-      <table id="perf_table" class="table table-condensed table-bordered small scores-table" style="table-layout:fixed; width:inherit; padding-top:10px;" ui-scores-table>
-        <thead>
-          <tr>
-            <th class="scores-table__students-header" ui-student-header>Students</th>
-            <th class="scores-table__activity-header scores-table__th_activity_left-right-bordered">
-              <div class="scores-table__flex-div">
-                <div class="scores-table__due-date-div scores-table__due-date-div_label">
-                  Due Date:
-                </div>
-                <div class="scores-table scores-table__activity-div" >
-                  <div>% At Mastery</div>
-                  <div><a href="#" ui-mastery-header><i class="ion-arrow-down-a" class="sort_icon"></i></a></div>
-                </div>
-              </div>
-            </th>
-            <% for(var i = 0; i < activities.length; i++){ %>
-                <th name="<%= activities[i].classroom_activity_pairing_id %>" class="scores-table__activity-header scores-table__activity-header_draggable " >
-
-                  <div class="scores-table__flex-div">
-
-                    <div class="scores-table__due-date-and-drag-div">
-                      <div class="scores-table__due-date-div">
-                        <%= activities[i].due_date ?  moment(activities[i].due_date).format("MM/DD") : "" %>  
-                      </div>
-                      <div>
-                        <i class="ion-drag scores-table__drag-icon"></i>
-                      </div>
-                    </div>
-
-                    <div class="scores-table scores-table__activity-div">                  
-                      <div class="scores-table__activity-name-div">
-                        <a href="#" class="ui-activity-name-link" id="ui-activity-name-link-<%= activities[i].id %>">
-                          <%= activities[i].name %>
-                        </a>
-                      </div>
-                      <div>
-                        <a href="#" class="ui_scores-table__sort_icon" id="header_<%= i %>"><i class="ion-arrow-down-a"></i></a>
-                      </div>
-                    </div>
-
-                  </div>
-                </th>             
-            <% } %>
-          </tr>
-        </thead>
-        <tbody>    
-
-        </tbody>
-      </table>
-    </form>
-  </div>
-
+<div class="button_div">
+  <ul class="scores-button-ul">
+    <li>
+      <button class="btn btn-primary" ui-new-activity-button>New Activity</button>
+    </li>
+    <li>
+      <button class="btn btn-primary" ui-assign-activities-button>Assign Activities</button>
+    </li>
+    <li>
+      <a href="/teacher/export_data?classroom_id=<%= classroom.id %>" class="btn btn-primary" target="_blank" data-toggle="modal" ui-export-data-a>Export Data</a>
+    </li>
+  </ul>
   
+</div>
+<div style="overflow-x: scroll;" ui-table-container>
+  <form ui-activities-header-form>
+    <div ui-frozen-columns-container style=""></div>
+    <table id="perf_table" class="table table-condensed table-bordered small scores-table" style="table-layout:fixed; width:inherit; padding-top:10px;" ui-scores-table>
+      <thead>
+        <tr>
+          <th class="scores-table__students-header" ui-student-header>Students</th>
+          <th class="scores-table__activity-header scores-table__th_activity_left-right-bordered">
+            <div class="scores-table__flex-div">
+              <div class="scores-table__due-date-div scores-table__due-date-div_label">
+                Due Date:
+              </div>
+              <div class="scores-table scores-table__activity-div" >
+                <div>% At Mastery</div>
+                <div><a href="#" ui-mastery-header><i class="ion-arrow-down-a" class="sort_icon"></i></a></div>
+              </div>
+            </div>
+          </th>
+          <% for(var i = 0; i < activities.length; i++){ %>
+              <th name="<%= activities[i].classroom_activity_pairing_id %>" class="scores-table__activity-header scores-table__activity-header_draggable " >
 
-  <% if(collectionSize == null || collectionSize == 0){ %> 
-    <div class="alert alert-warning">
-      No students have joined your classroom yet.  When they log in, have them use classroom code &quot;<b><%= classroom.classroom_code %></b>&quot; to join this class!
-    </div>
-  <% } %>
+                <div class="scores-table__flex-div">
 
+                  <div class="scores-table__due-date-and-drag-div">
+                    <div class="scores-table__due-date-div">
+                      <%= activities[i].due_date ?  moment(activities[i].due_date).format("MM/DD") : "" %>  
+                    </div>
+                    <div>
+                      <i class="ion-drag scores-table__drag-icon"></i>
+                    </div>
+                  </div>
+
+                  <div class="scores-table scores-table__activity-div">                  
+                    <div class="scores-table__activity-name-div">
+                      <a href="#" class="ui-activity-name-link" id="ui-activity-name-link-<%= activities[i].id %>">
+                        <%= activities[i].name %>
+                      </a>
+                    </div>
+                    <div>
+                      <a href="#" class="ui_scores-table__sort_icon" id="header_<%= i %>"><i class="ion-arrow-down-a"></i></a>
+                    </div>
+                  </div>
+
+                </div>
+              </th>             
+          <% } %>
+        </tr>
+      </thead>
+      <tbody>    
+
+      </tbody>
+    </table>
+  </form>
+</div>
+
+
+
+<% if(collectionSize == null || collectionSize == 0){ %> 
+  <div class="alert alert-warning">
+    No students have joined your classroom yet.  When they log in, have them use classroom code &quot;<b><%= classroom.classroom_code %></b>&quot; to join this class!
+  </div>
 <% } %>
+
+
 
