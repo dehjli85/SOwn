@@ -20,6 +20,7 @@
  *= require bizwrap/animate
  *= require bizwrap/_variables
  *= require bizwrap/_mixins
+ *= require font-awesome
  *= require_tree .
  *= require_self
  */
@@ -30,11 +31,40 @@
  */ 
 @font-face {
  font-family: 'Glyphicons Halflings';
- src: font-url('/assets/fonts/glyphicons-halflings-regular.eot');
- src: font-url('/assets/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
- font-url('/assets/fonts/glyphicons-halflings-regular.woff') format('woff'),
- font-url('/assets/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
- font-url('/assets/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+ src: url('/assets/glyphicons-halflings-regular.eot');
+ src: url('/assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+ url('/assets/glyphicons-halflings-regular.woff') format('woff'),
+ url('/assets/glyphicons-halflings-regular.ttf') format('truetype'),
+ url('/assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src: font-url('/assets/icomoon.eot?risv2d');
+  src: font-url('/assets/icomoon.eot?risv2d#iefix') format('embedded-opentype'),
+  font-url('/assets/icomoon.ttf?risv2d') format('truetype'),
+  font-url('/assets/icomoon.woff?risv2d') format('woff'),
+  font-url('/assets/icomoon.svg?risv2d#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-target:before {
+  content: "\e900";
 }
 
 .success-icon-sown{
