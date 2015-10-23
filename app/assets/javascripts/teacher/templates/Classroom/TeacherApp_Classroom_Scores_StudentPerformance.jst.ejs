@@ -10,7 +10,7 @@
 
     <% if (student_performance[i] == null){ %>
 
-      <td class="center <%= activities[i].due_date != null && moment(activities[i].due_date) < moment() ? 'danger-sown' : ''%>">
+      <td class="center scores-table__score <%= activities[i].due_date != null && moment(activities[i].due_date) < moment() ? 'danger-sown' : ''%>">
 
         <% if(activity_goals[i] != null) {%>
 
@@ -27,7 +27,7 @@
               <% } else if(activity_goals[i].goal_date != null) { %>
 
                 <a href="#" class="goal-link_not-met">
-                  <i class="fa fa-dot-circle-o icon_large" name="<%= activity_goals[i].classroom_activity_pairing_id %>" ui-goal-a></i>
+                  <i class="fa fa fa-pencil-square-o icon_large" name="<%= activity_goals[i].classroom_activity_pairing_id %>" ui-goal-a></i>
                 </a> 
 
               <% } %>
@@ -43,7 +43,7 @@
               <% } else { %>
 
                 <a href="#" class="goal-link_not-met">
-                  <i class="fa fa-dot-circle-o icon_large" name="<%= activity_goals[i].classroom_activity_pairing_id %>" ui-goal-a></i>
+                  <i class="fa fa fa-pencil-square-o icon_large" name="<%= activity_goals[i].classroom_activity_pairing_id %>" ui-goal-a></i>
                 </a> 
 
               <% } %>
@@ -92,7 +92,7 @@
               <% } else if(activity_goals[i].goal_date != null) { %>
 
                 <a href="#" class="goal-link">
-                  <i class="fa fa-dot-circle-o icon_large" name="<%= activity_goals[i].classroom_activity_pairing_id %>" ui-goal-a></i>
+                  <i class="fa fa fa-pencil-square-o icon_large" name="<%= activity_goals[i].classroom_activity_pairing_id %>" ui-goal-a></i>
                 </a> 
 
               <% } %>
@@ -108,7 +108,7 @@
               <% } else { %>
 
                 <a href="#" class="goal-link">
-                  <i class="fa fa-dot-circle-o icon_large" name="<%= activity_goals[i].classroom_activity_pairing_id %>" ui-goal-a></i>
+                  <i class="fa fa fa-pencil-square-o icon_large" name="<%= activity_goals[i].classroom_activity_pairing_id %>" ui-goal-a></i>
                 </a> 
 
               <% } %>
