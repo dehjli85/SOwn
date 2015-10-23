@@ -8,7 +8,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			var adminHomeLayoutView = AdminApp.Controller.showAdminHomeLayout();
 
 			if(subapp == "users_index"){
-				AdminApp.Controller.showUsersIndex(adminHomeLayoutView);
+				AdminApp.Controller.showUsersIndex(adminHomeLayoutView, userType);
 			}
 			else if(subapp == "metrics"){
 				AdminApp.Controller.showMetrics(adminHomeLayoutView);
@@ -80,9 +80,9 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			return adminHomeLayoutView;
 		},
 
-		showUsersIndex: function(adminHomeLayoutView){
+		showUsersIndex: function(adminHomeLayoutView, searchTerm){
 
-			var model = new Backbone.Model({searchTerm: null})
+			var model = new Backbone.Model({searchTerm: searchTerm})
 
 			var userIndexComposite = new Admin.AdminApp.UserIndexCompositeView({model: model});
 			adminHomeLayoutView.mainAdminHomeRegion.show(userIndexComposite);

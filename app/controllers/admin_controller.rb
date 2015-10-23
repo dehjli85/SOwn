@@ -74,8 +74,12 @@ class AdminController < ApplicationController
 				id = nil
 			end
 
-			teachers = TeacherUser.where("lower(first_name) like ? or lower(last_name) like ? or lower(display_name) like ? or id = ?", "%#{params[:searchTerm].downcase}%", "%#{params[:searchTerm].downcase}%", "%#{params[:searchTerm].downcase}%", id).as_json
-			students = StudentUser.where("lower(first_name) like ? or lower(last_name) like ? or lower(display_name) like ? or id = ?", "%#{params[:searchTerm].downcase}%", "%#{params[:searchTerm].downcase}%", "%#{params[:searchTerm].downcase}%", id).as_json
+			teachers = TeacherUser.where("lower(first_name) like ? or lower(last_name) like ? or lower(display_name) like ? or id = ?", "%#{params[:searchTerm].downcase}%", "%#{params[:searchTerm].downcase}%", "%#{params[:searchTerm].downcase}%", id)
+				.order("id ASC")
+				.as_json
+			students = StudentUser.where("lower(first_name) like ? or lower(last_name) like ? or lower(display_name) like ? or id = ?", "%#{params[:searchTerm].downcase}%", "%#{params[:searchTerm].downcase}%", "%#{params[:searchTerm].downcase}%", id)
+				.order("id ASC")
+				.as_json
 
 			teachers.each do |teacher|
 				teacher["user_type"] = "teacher"

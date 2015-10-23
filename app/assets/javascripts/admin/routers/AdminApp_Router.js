@@ -3,6 +3,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 	AdminApp.Router = Marionette.AppRouter.extend({
 		appRoutes:{
 			"users_index": "showUsersIndex",
+			"users_index?query": "showUsersIndex",
 			"metrics": "showMetrics",
 			"user_metrics/:userType/:id": "showUserMetrics"
 		}		
@@ -13,11 +14,11 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			AdminApp.Controller.showLoginButton();			
 		},
 
-		showUsersIndex: function(){
+		showUsersIndex: function(query){
 
-			//check if session is valid
-			Admin.navigate("users_index");
-			this.checkLoggedIn(function(){AdminApp.Controller.startAdminApp("users_index")});
+			var searchTerm = query ? query.replace("searchTerm=","") : null; 
+
+			this.checkLoggedIn(function(){AdminApp.Controller.startAdminApp("users_index", searchTerm)});
 			
 		},
 

@@ -65,16 +65,26 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			childViewContainer: "tbody",
 
 			ui:{
-				searchForm: "[ui-search-form]"
+				searchForm: "[ui-search-form]",
+				searchTermInput: "[ui-search-term-input]"
 			},
 
 			events:{
-
+				"submit @ui.searchForm": "searchUsers"
 			},
 
-			triggers:{
-				"submit @ui.searchForm": "searchUsers"
-			}
+			onShow: function(){
+				if(this.model.get("searchTerm") != null){
+					this.ui.searchTermInput.val(this.model.get("searchTerm"));
+					this.triggerMethod("search:users");
+				}
+			},
+
+			searchUsers: function(e){
+				e.preventDefault();
+				Admin.navigate("/users_index?searchTerm=" + encodeURI(this.ui.searchTermInput.val()));
+				this.triggerMethod("search:users");
+			}	
 
 	});
 
