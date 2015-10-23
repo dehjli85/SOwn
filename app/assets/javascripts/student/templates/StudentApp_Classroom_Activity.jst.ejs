@@ -18,7 +18,7 @@
 
 							<% if(activity_type == "scored"){ %>
 
-								<% if(activity_goals[0].goal_date != null && new Date(activity_goals[0].goal_date) < new Date() && !activity_goals[0].goal_met){ %> 
+								<% if(activity_goals[0].goal_date != null && moment(activity_goals[0].goal_date) < moment() && !activity_goals[0].goal_met){ %> 
 								
 									<i class="ion-close-circled icon_large icon_gray"></i>
 								
@@ -32,7 +32,7 @@
 
 							<% } else if(activity_type == "completion" && activity_goals[0]){ %>
 
-								<% if(new Date(activity_goals[0].goal_date) < new Date() && !activity_goals[0].goal_met){ %> 
+								<% if(moment(activity_goals[0].goal_date) < moment() && !activity_goals[0].goal_met){ %> 
 			
 									<i class="ion-close-circled icon_large icon_gray"></i>
 			
