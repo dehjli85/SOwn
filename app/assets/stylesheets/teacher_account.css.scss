@@ -200,12 +200,18 @@ ul.scores-button-ul > li{
 }
 
 .goal-link_not-met{
-  color:#000000;
+  color:#CCCCCC;
+}
+
+.goal-link_not-met-white{
+  color:#FFFFFF;
 }
 
 .goal-link i, .goal-link_not-met i{
   vertical-align: middle;
 }
+
+
 
 /*
  * CLASSROOM EDIT SCORES STYLES
