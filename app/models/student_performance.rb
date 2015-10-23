@@ -371,6 +371,9 @@ class StudentPerformance < ActiveRecord::Base
 			arguments.push(tagIds)
 		end
 
+		# filter out performances that aren't the most recent
+		sql += " INNER JOIN (select student_user_id, classroom_activity_pairing_id, max(id) as id from student_performances group by student_user_id, classroom_activity_pairing_id) max_perf on max_perf.id = student_performances.id"
+
 		sql += ' WHERE (classroom_activity_pairings.classroom_id = ?)'
 		arguments.push(classroomId)
 
