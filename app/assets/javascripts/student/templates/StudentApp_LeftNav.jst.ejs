@@ -1,5 +1,10 @@
 <li class="nav_active" ui-nav-classroom>
-	<a href="#classrooms">Classrooms</a>
+	<a href="#classrooms">Classrooms<i class="ion-arrow-left-b menu-toggle-arrow" ui-classrooms-toggle-arrow></i></a>
+	<ul class="nav nav-sidebar__classrooms-ul" style="display:none" ui-classroom-sub-ul>
+		<% for(var i = 0; i < classrooms.length; i++){ %>
+			<li class=""><a href="#" class="ui-classroom-link" id="classroom_<%= classrooms[i].classroom_id%>"><%= classrooms[i].name %></a></li>
+		<% } %>
+	</ul>
 </li>   
     
   

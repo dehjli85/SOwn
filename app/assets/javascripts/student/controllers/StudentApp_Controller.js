@@ -18,16 +18,26 @@ StudentAccount.module("StudentApp.Main", function(Main, StudentAccount, Backbone
 				StudentAccount.rootView.headerRegion.show(headerView);
 
 				// create the left nav
-				var leftNav = new StudentAccount.StudentApp.LeftNavView();
-				StudentAccount.rootView.leftNavRegion.show(leftNav);
+				var jqxhr = $.get("/student/classrooms_summary", function(){
+					console.log('get request made for student classrooms data');
+				})
+				.done(function(data) {
+
+					// create the left nav
+					var leftNavModel = new Backbone.Model({classrooms: data.classrooms});
+					var leftNav = new StudentAccount.StudentApp.LeftNavView({model:leftNavModel});
+					StudentAccount.rootView.leftNavRegion.show(leftNav);
+					
+			  })
+			  .fail(function() {
+			  	console.log("error");
+			  })
+			  .always(function() {
+			   
+				});
 				
-		  })
-		  .fail(function() {
-		  	console.log("error");
-		  })
-		  .always(function() {
-		   
-			});
+		  });
+		  
 			
 		},
 
@@ -46,16 +56,10 @@ StudentAccount.module("StudentApp.Main", function(Main, StudentAccount, Backbone
 				StudentAccount.StudentApp.Classroom.Controller.showClassroomScores(classroomLayout,classroomId);	
 
 			}
-			else if (subapp === 'edit_activities'){
 
-				StudentAccount.StudentApp.Classroom.Controller.showClassroomEditActivities(classroomLayout,classroomId);	
+			if(StudentAccount.rootView.leftNavRegion.currentView)
+				StudentAccount.rootView.leftNavRegion.currentView.openClassroomSubmenu(classroomId);
 
-			}
-			else if (subapp === 'edit_scores'){
-
-				StudentAccount.StudentApp.Classroom.Controller.showClassroomEditScores(classroomLayout,classroomId);	
-
-			}
 			
 		},
 

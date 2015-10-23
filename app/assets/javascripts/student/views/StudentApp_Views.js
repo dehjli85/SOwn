@@ -29,7 +29,9 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 		className: "nav nav-sidebar",
 
 		events: {
-			"click li" : "makeNavActive"
+			"click li" : "makeNavActive",
+			"click @ui.classroomsToggleArrow": "toggleClassrooms",
+			"click .ui-classroom-link": "showClassroom"
 		},
 
 		triggers:{
@@ -37,8 +39,49 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 		},
 
 		ui:{
-			navClassroom: "[ui-nav-classroom]"
-			
+			navClassroom: "[ui-nav-classroom]",
+			classroomSubUl: "[ui-classroom-sub-ul]",
+			classroomsToggleArrow: "[ui-classrooms-toggle-arrow]"
+		},
+
+		toggleClassrooms: function(e){
+			e.preventDefault();
+
+			if(this.ui.classroomsToggleArrow.hasClass("ion-arrow-left-b")){
+				this.openClassroomSubmenu();
+			}
+			else if(this.ui.classroomsToggleArrow.hasClass("ion-arrow-down-b")){
+				this.closeClassroomSubmenu();
+			}
+
+		},
+
+		openClassroomSubmenu: function(classroomId){
+			this.ui.classroomsToggleArrow.removeClass("ion-arrow-left-b");
+			this.ui.classroomsToggleArrow.addClass("ion-arrow-down-b");
+			this.ui.classroomSubUl.attr("style", "display:block");
+
+			if(classroomId != null){
+				$('.ui-classroom-link').removeClass("nav_active");
+				$('#classroom_' + classroomId).addClass("nav_active");
+			}
+		},
+
+		closeClassroomSubmenu: function(classroomId){
+			this.ui.classroomsToggleArrow.removeClass("ion-arrow-down-b");
+			this.ui.classroomsToggleArrow.addClass("ion-arrow-left-b");
+			this.ui.classroomSubUl.attr("style", "display:none");
+
+			if(classroomId != null){
+				$('.ui-classroom-link').removeClass("nav_active");
+				$('#classroom_' + classroomId).addClass("nav_active");
+			}
+		},
+
+		showClassroom: function(e){
+			e.preventDefault();
+			console.log($(e.target).attr("id"));
+			StudentAccount.StudentApp.Main.Controller.startClassroomApp($(e.target).attr("id").replace("classroom_",""), "scores");
 		},
 
 		makeNavActive: function(e){

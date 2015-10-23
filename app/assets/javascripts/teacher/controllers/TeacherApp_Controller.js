@@ -19,7 +19,7 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 
 				// create the left nav
 				var jqxhr = $.get("/classrooms_summary", function(){
-					console.log('get request made for teacher user data');
+					console.log('get request made for teacher classrooms data');
 				})
 				.done(function(data) {
 
