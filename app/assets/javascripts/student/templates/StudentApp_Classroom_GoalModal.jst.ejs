@@ -53,7 +53,13 @@
                   <h4>Reflections:</h4>
 
                   <p>
-                    <b><%= activity_goal.goal_met ? 'Congratulations! You met' : 'You did not meet' %> your goal!</b>
+                    <b>
+                      <% if(activity_goal.goal_met){ %>
+                        Congratulations! You met your goal!
+                      <% } else { %>
+                        You did not meet your goal... Yet!
+                      <% } %> 
+                  </b>
                   </p>
 
                   <% if(activity_goal.activity_goal_reflections.length > 0 ){ %> 
