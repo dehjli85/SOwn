@@ -12,12 +12,19 @@ class StudentUser < ActiveRecord::Base
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
   validates :email, uniqueness: true
 
+  before_validation :downcase_email
+  
   
   ##################################################################################################
   #
   # Validations
   #
   ##################################################################################################
+
+
+  def downcase_email
+    self.email = self.email.downcase if self.email.present?
+  end
 
   def password_valid?(pw)
     Digest::SHA1.hexdigest(pw + self.salt.to_s).eql?(self.password_digest)

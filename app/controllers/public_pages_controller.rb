@@ -21,14 +21,14 @@ class PublicPagesController < ApplicationController
 
 
 	def login_post
-		@teacher_user = (!params[:user].nil? && !params[:user][:email].nil?) ? TeacherUser.find_by_email(params[:user][:email]) : nil
+		@teacher_user = (!params[:user].nil? && !params[:user][:email].nil?) ? TeacherUser.find_by_email(params[:user][:email].downcase) : nil
 		if @teacher_user && @teacher_user.provider.nil? && @teacher_user.password_valid?(params[:user][:password])			
 			session[:teacher_user_id] = @teacher_user.id			
 		end
 		puts "teacher user: #{@teacher_user}"
 
 		#set student session variable 
-		@student_user = (!params[:user].nil? && !params[:user][:email].nil?) ? StudentUser.find_by_email(params[:user][:email]) : nil
+		@student_user = (!params[:user].nil? && !params[:user][:email].nil?) ? StudentUser.find_by_email(params[:user][:email].downcase) : nil
 		if @student_user && @student_user.provider.nil? && @student_user.password_valid?(params[:user][:password])
 			session[:student_user_id] = @student_user.id			
 		end
@@ -70,12 +70,12 @@ class PublicPagesController < ApplicationController
 			authorization = ga.exchange_code(params[:authorization_code])
 			user_info = ga.get_user_info(authorization)
 
-			@teacher_user = TeacherUser.where({email: user_info.email}).first
+			@teacher_user = TeacherUser.where({email: user_info.email.downcase}).first
 			if @teacher_user && @teacher_user.provider.eql?("google_oauth2")
 				session[:teacher_user_id] = @teacher_user.id			
 			end
 
-			@student_user = StudentUser.where({email: user_info.email}).first
+			@student_user = StudentUser.where({email: user_info.email.downcase}).first
 			if @student_user && @student_user.provider.eql?("google_oauth2")
 				session[:student_user_id] = @student_user.id			
 			end
@@ -127,10 +127,10 @@ class PublicPagesController < ApplicationController
 	    user.uid = user_info.id
 	    user.oauth_token = authorization.access_token
 	    user.oauth_expires_at = Time.at(authorization.expires_at)
-	    user.email = user_info.email
+	    user.email = user_info.email.downcase
 	    user.first_name = user_info.given_name
 	    user.last_name = user_info.family_name
-	    user.username = user_info.email
+	    user.username = user_info.email.downcase
 	    user.display_name = user_info.name
 
 	    if user.save
@@ -162,10 +162,10 @@ class PublicPagesController < ApplicationController
 	    user.uid = user_info.id
 	    user.oauth_token = authorization.access_token
 	    user.oauth_expires_at = Time.at(authorization.expires_at)
-	    user.email = user_info.email
+	    user.email = user_info.email.downcase
 	    user.first_name = user_info.given_name
 	    user.last_name = user_info.family_name
-	    user.username = user_info.email
+	    user.username = user_info.email.downcase
 	    user.display_name = user_info.name
 
 	    if user.save
@@ -268,6 +268,7 @@ class PublicPagesController < ApplicationController
 	def teacher_sign_up
 		teacher = TeacherUser.new(params.require(:user).permit(:first_name, :last_name, :email, :password))
 		teacher.display_name = teacher.first_name + ' ' + teacher.last_name
+		teacher.username = teacher.email
 		if(teacher.save)
 			render json: {status: "success"}
 		else
@@ -279,6 +280,7 @@ class PublicPagesController < ApplicationController
 	def student_sign_up
 		student = StudentUser.new(params.require(:user).permit(:first_name, :last_name, :email, :password))
 		student.display_name = student.first_name +  ' ' + student.last_name
+		student.username = student.email
 		if(student.save)
 			render json: {status: "success"}
 		else
