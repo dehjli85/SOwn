@@ -121,7 +121,57 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 		   
 			});
 
+		},
+
+		openChangePasswordModal: function(settingsLayoutView){
+
+			var changePasswordModalView = new TeacherAccount.TeacherApp.Settings.ChangePasswordModalView();
+			settingsLayoutView.modalRegion.show(changePasswordModalView);
+
+			settingsLayoutView.ui.modalDiv.modal("show");
+		},
+
+		updatePassword: function(settingsLayoutView, changePasswordModalView){
+
+			var postUrl = "teacher/update_password"
+			var postData = changePasswordModalView.ui.passwordForm.serialize();
+
+			var jqxhr = $.post(postUrl, postData, function(){
+				console.log('post request made to save student settings');
+			})
+			.done(function(data) {
+
+				console.log(data);
+
+				if(data.status == "success"){
+
+					settingsLayoutView.ui.modalDiv.modal("hide");
+					
+					var alertModel = new Backbone.Model({message: "Password has been saved.", alertClass: "alert-success"})
+					var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
+
+					TeacherAccount.rootView.alertRegion.show(alertView);					
+
+				}
+				else if(data.status == "error"){
+
+					changePasswordModalView.ui.alertDiv.addClass("alert alert-danger");
+					changePasswordModalView.ui.alertDiv.html("Error saving password...")
+
+				}
+	     	
+	     	
+
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+
 		}
+
 		
 	}
 

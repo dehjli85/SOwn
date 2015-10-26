@@ -318,4 +318,34 @@ class StudentAccountController < ApplicationController
 
   end
 
+  def update_password
+    
+    old_password = params[:oldPassword]
+    new_password = params[:newPassword]
+    confirm_password = params[:confirmNewPassword]
+
+    # check that it's a sown to grow account and the old password matches
+    if !(@current_student_user && @current_student_user.provider.nil? && @current_student_user.password_valid?(old_password))
+      
+      render json: {status: "error", message: "unable-to-update-password-for-specified-user"}
+    
+    else
+      # if the old password matches, check that the new and confirm are the same and not blank
+      if !new_password.eql?(confirm_password)
+        render json: {status: "error", message: "new-and-confirm-password-do-not-match"}
+      else
+        @current_student_user.password = new_password
+        if !@current_student_user.save
+          render json: {status: "error", message: "unable-to-update-password-for-specified-user"}
+        else
+          render json: {status: "success"}        
+        end
+      end
+
+
+    end
+
+    
+  end
+
 end
