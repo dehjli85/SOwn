@@ -65,6 +65,15 @@
 		    </div>
 		  <% } %>
 
+		  <% if (student.provider != null) {%>
+		  	<div class="form-group">
+		    	<div class="col-md-8 col-md-offset-3">
+		    		<a href="#" ui-convert-stg-link>Convert to Standard Account</a>
+		    		<i class="ion-help-circled icon-lg icon_theme" data-toggle="tooltip" data-placement="right" data-original-title="Your account uses Google Sign-In. Click here to unlink from Google."></i>
+		    	</div>
+		    </div>
+		  <% } %>
+
 		  <div class="form-group">
 		  	<div class="col-md-4 col-md-offset-3">
 		  		<button class="btn btn-primary" ui-save-button>Save</button>

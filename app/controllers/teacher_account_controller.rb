@@ -59,7 +59,7 @@
     # check that it's a sown to grow account and the old password matches
     if !(@current_teacher_user && @current_teacher_user.provider.nil? && @current_teacher_user.password_valid?(old_password))
       
-      render json: {status: "error", message: "unable-to-update-password-for-specified-user"}
+      render json: {status: "error", message: "incorrect-original-password-for-specified-user"}
     
     else
       # if the old password matches, check that the new and confirm are the same and not blank
@@ -78,6 +78,39 @@
     end
 
     
+  end
+
+  def convert_account
+
+    password = params[:password]
+    confirm_password = params[:confirmPassword]
+
+    # check it's a google account
+    if !(@current_teacher_user && !@current_teacher_user.provider.nil?)
+      
+      render json: {status: "error", message: "unable-to-convert-account-for-specified-user"}
+    
+    else
+      # if the old password matches, check that the new and confirm are the same and not blank
+      if !password.eql?(confirm_password)
+        render json: {status: "error", message: "new-and-confirm-password-do-not-match"}
+      else
+        @current_teacher_user.password = password
+        @current_teacher_user.provider = nil
+        @current_teacher_user.uid = nil
+        @current_teacher_user.oauth_token = nil
+        @current_teacher_user.oauth_expires_at = nil
+
+        if !@current_teacher_user.save
+          render json: {status: "error", message: "unable-to-update-password-for-specified-user"}
+        else
+          render json: {status: "success"}        
+        end
+      end
+
+
+    end
+     
   end
 
 	def save_settings

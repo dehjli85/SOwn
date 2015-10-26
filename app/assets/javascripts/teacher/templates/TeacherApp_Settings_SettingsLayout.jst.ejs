@@ -61,6 +61,15 @@
 		    </div>
 		  <% } %>
 
+		  <% if (teacher.provider != null) {%>
+		  	<div class="form-group">
+		    	<div class="col-md-8 col-md-offset-3">
+		    		<a href="#" ui-convert-stg-link>Convert to Standard Account</a>
+		    		<i class="ion-help-circled icon-lg icon_theme" data-toggle="tooltip" data-placement="right" data-original-title="Your account uses Google Sign-In. Click here to unlink from Google."></i>
+		    	</div>
+		    </div>
+		  <% } %>
+
 		  <div class="form-group">
 				<div class="col-sm-12 col-md-9 col-md-offset-3">
 					<a href="#" class="btn btn-primary btn-block" ui-save-button>Save</a>

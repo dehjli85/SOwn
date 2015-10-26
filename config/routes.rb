@@ -84,6 +84,7 @@ Rails.application.routes.draw do
   post 'teacher/delete_account' => 'teacher_account#delete_account'
   post 'teacher/save_settings' => 'teacher_account#save_settings'
   post 'teacher/update_password' => 'teacher_account#update_password'
+  post 'teacher/convert_account' => 'teacher_account#convert_account'
   
   # teacher/classrooms app routes
   get 'classrooms_summary' => 'teacher_account#classrooms_summary'
@@ -144,6 +145,7 @@ Rails.application.routes.draw do
   # student/settings routes
   post 'student/save_settings' => 'student_account#save_settings'
   post 'student/update_password' => 'student_account#update_password'
+  post 'student/convert_account' => 'student_account#convert_account'
 
   # admin routes
   get 'admin' => 'admin#home'

@@ -16,6 +16,7 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 			defaultViewSelect: "[ui-default-view-select]",
 			settingsForm: "[ui-settings-form]",
 			saveButton: "[ui-save-button]",
+			convertStgLink: "[ui-convert-stg-link]",
 			changePasswordLink: "[ui-change-password-link]"
 		},
 
@@ -26,7 +27,8 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 		triggers:{
 			"click @ui.deleteButton": "delete:teacher:account",
 			"click @ui.saveButton": "save:settings",
-			"click @ui.changePasswordLink": "open:change:password:modal"
+			"click @ui.changePasswordLink": "open:change:password:modal",
+			"click @ui.convertStgLink": "open:convert:modal"
 		},
 
 		showVerifyDeleteModal: function(e){
@@ -47,8 +49,16 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 			TeacherAccount.TeacherApp.Settings.Controller.openChangePasswordModal(this);
 		},
 
+		onOpenConvertModal: function(view){
+			TeacherAccount.TeacherApp.Settings.Controller.openConvertModal(this);
+		},
+
 		onChildviewUpdatePassword: function(changePasswordModalView){
 			TeacherAccount.TeacherApp.Settings.Controller.updatePassword(this, changePasswordModalView);
+		},
+
+		onChildviewConvertAccount: function(convertModalView){
+			TeacherAccount.TeacherApp.Settings.Controller.convertAccount(this, convertModalView);
 		}
 
 
@@ -105,7 +115,51 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 		}
 
 	});
+	
+	Settings.ConvertModalView = Marionette.ItemView.extend({
+		template: JST["teacher/templates/TeacherApp_Settings_ConvertModal"],
+		className: "modal-dialog",
 
+		ui:{
+			convertButton: "[ui-convert-button]",
+			passwordInput: "[ui-password-input]",
+			confirmPasswordInput: "[ui-confirm-password-input]",
+			alertDiv: "[ui-alert-div]",
+			passwordForm: "[ui-password-form]"
+		},
+
+		events:{
+			"click @ui.convertButton": "convertAccount"
+		},
+
+		convertAccount: function(e){
+			
+			e.preventDefault();
+
+			this.ui.alertDiv.removeClass("alert");
+			this.ui.alertDiv.removeClass("alert-danger");
+			this.ui.alertDiv.html("");
+
+			// verify new password isn't blank 
+			if(this.ui.passwordInput.val() == null || this.ui.passwordInput.val().trim() == ""){
+				
+				// show an error
+				this.ui.alertDiv.addClass("alert alert-danger");
+				this.ui.alertDiv.html("Your new password cannot be blank...")
+
+			// verify new and confirm are same 
+			}else if(this.ui.passwordInput.val() != this.ui.confirmPasswordInput.val()){
+
+				// show an error
+				this.ui.alertDiv.addClass("alert alert-danger");
+				this.ui.alertDiv.html("New Password and Confirm New Password do not match...")
+
+			}else{
+				this.triggerMethod("convert:account");
+			}
+		}
+
+	});
 	
 
 	

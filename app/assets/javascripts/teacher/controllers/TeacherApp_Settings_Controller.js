@@ -155,8 +155,66 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 				}
 				else if(data.status == "error"){
 
+					if(data.message == "incorrect-original-password-for-specified-user"){
+						changePasswordModalView.ui.alertDiv.html("Incorrect old password...")
+
+					}else{
+						changePasswordModalView.ui.alertDiv.html("Error saving password...")
+					}
+
 					changePasswordModalView.ui.alertDiv.addClass("alert alert-danger");
-					changePasswordModalView.ui.alertDiv.html("Error saving password...")
+
+				}
+	     	
+	     	
+
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+
+		},
+
+		openConvertModal: function(settingsLayoutView){
+			var convertModalView = new TeacherAccount.TeacherApp.Settings.ConvertModalView();
+			settingsLayoutView.modalRegion.show(convertModalView);
+
+			settingsLayoutView.ui.modalDiv.modal("show");
+		},
+
+		convertAccount: function(settingsLayoutView, convertModalView){
+
+			var postUrl = "teacher/convert_account"
+			var postData = convertModalView.ui.passwordForm.serialize();
+
+			var jqxhr = $.post(postUrl, postData, function(){
+				console.log('post request made to save student settings');
+			})
+			.done(function(data) {
+
+				console.log(data);
+
+				if(data.status == "success"){
+
+					settingsLayoutView.ui.modalDiv.modal("hide");
+					$('.modal-backdrop').remove(); //This is a hack, don't know why the backdrop isn't going away
+     			$('body').removeClass('modal-open'); //This is a hack, don't know why the backdrop isn't going away
+					
+					var alertModel = new Backbone.Model({message: "Your account has been converted.", alertClass: "alert-success"})
+					var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
+
+					TeacherAccount.rootView.alertRegion.show(alertView);					
+
+					Settings.Controller.showSettingsOptions();
+
+				}
+				else if(data.status == "error"){
+
+					changePasswordModalView.ui.alertDiv.addClass("alert alert-danger");
+					changePasswordModalView.ui.alertDiv.html("Error converting account...");
 
 				}
 	     	
