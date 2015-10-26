@@ -1,8 +1,11 @@
 <td><%= id %></td>
 <td><%= user_type %></td>
+<td><%= provider ? 'Google' : 'STG' %></td>
 <td><%= first_name %></td>
 <td><%= last_name %></td>
 <td><%= email %></td>
 <td><a href="#" ui-become-user-link>Become User</a></td>
 <td><a href="#" ui-user-metrics-link>Metrics</a></td>
+<td><%= provider ? '' : '<a href="#" ui-change-password-link>Change Password</a>' %></td>
+
 

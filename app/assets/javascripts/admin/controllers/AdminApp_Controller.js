@@ -329,6 +329,57 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			});
 		},
 
+		openChangePasswordModal: function(userView){
+
+			var changePasswordModalView = new Admin.AdminApp.ChangePasswordModalView({model: userView.model});
+			console.log(Admin.rootView)
+
+			Admin.rootView.modalRegion.show(changePasswordModalView);
+
+			Admin.rootView.ui.modalDiv.modal("show");
+		},
+
+		updatePassword: function(layoutView, changePasswordModalView){
+
+			var postUrl = "admin/update_password"
+			var postData = changePasswordModalView.ui.passwordForm.serialize();
+
+			var jqxhr = $.post(postUrl, postData, function(){
+				console.log('post request made to save student settings');
+			})
+			.done(function(data) {
+
+				console.log(data);
+
+				if(data.status == "success"){
+
+					layoutView.ui.modalDiv.modal("hide");
+					
+					var alertModel = new Backbone.Model({message: "Password for " + changePasswordModalView.model.get("display_name") + " has been saved.", message_type: "success"})
+					var alertView = new Admin.AdminApp.AlertView({model: alertModel});
+
+					layoutView.alertRegion.show(alertView);					
+
+				}
+				else if(data.status == "error"){
+
+					changePasswordModalView.ui.alertDiv.addClass("alert alert-danger");
+					changePasswordModalView.ui.alertDiv.html("Error saving password...")
+
+				}
+	     	
+	     	
+
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+
+		}
+		
 	}	
 
 });

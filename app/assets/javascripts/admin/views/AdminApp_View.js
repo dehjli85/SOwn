@@ -7,11 +7,20 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			el:"#admin_region",
 			regions:{
 				mainRegion: "#main_region",
-				alertRegion: "#alert_region"
+				alertRegion: "#alert_region",
+				modalRegion: "[ui-modal-div]"
+			},
+
+			ui:{
+				modalDiv: "[ui-modal-div]"
 			},
 
 			onChildviewLogInWithGoogle: function(view){				
 				AdminApp.Controller.logInWithGoogle(this);			
+			},
+
+			onChildviewUpdatePassword: function(changePasswordModalView){
+				AdminApp.Controller.updatePassword(this, changePasswordModalView);
 			},
 
 			flashMessage: function(object){
@@ -48,13 +57,19 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 
 		ui:{
 			becomeUserLink: "[ui-become-user-link]",
-			userMetricsLink: "[ui-user-metrics-link]"
+			userMetricsLink: "[ui-user-metrics-link]",
+			changePasswordLink: "[ui-change-password-link]"
 		},
 
 		triggers:{
 			"click @ui.becomeUserLink" : "become:user",
-			"click @ui.userMetricsLink" : "show:user:metrics"
-		}
+			"click @ui.userMetricsLink" : "show:user:metrics",
+			"click @ui.changePasswordLink" : "open:change:password:modal"
+		},
+
+		onOpenChangePasswordModal: function(view){
+			Admin.AdminApp.Controller.openChangePasswordModal(this);
+		},
 
 	});
 
@@ -136,6 +151,43 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 	});
 
 
+	AdminApp.ChangePasswordModalView = Marionette.ItemView.extend({
+		template: JST["admin/templates/AdminApp_ChangePasswordModal"],
+		className: "modal-dialog",
+
+		ui:{
+			updateButton: "[ui-update-button]",
+			newPasswordInput: "[ui-new-password-input]",
+			alertDiv: "[ui-alert-div]",
+			passwordForm: "[ui-password-form]"
+		},
+
+		events:{
+			"click @ui.updateButton": "updatePassword",
+			"submit @ui.passwordForm": "updatePassword",
+		},
+
+		updatePassword: function(e){
+			
+			e.preventDefault();
+
+			this.ui.alertDiv.removeClass("alert");
+			this.ui.alertDiv.removeClass("alert-danger");
+			this.ui.alertDiv.html("");
+
+			// verify new password isn't blank 
+			if(this.ui.newPasswordInput.val() == null || this.ui.newPasswordInput.val().trim() == ""){
+				
+				// show an error
+				this.ui.alertDiv.addClass("alert alert-danger");
+				this.ui.alertDiv.html("Your new password cannot be blank...")
+
+			}else{
+				this.triggerMethod("update:password");
+			}
+		}
+
+	})
 
 
 

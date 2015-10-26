@@ -180,5 +180,55 @@ class AdminController < ApplicationController
 
 	end
 
+	def update_password
+    
+    new_password = params[:newPassword]
+    
+    if params[:userType].eql?('teacher')
+
+    	teacher_user = TeacherUser.where(id: params[:id]).first
+
+    	if !(teacher_user && teacher_user.provider.nil?)
+	      render json: {status: "error", message: "unable-to-update-password-for-specified-user"}
+	    else
+	      
+        teacher_user.password = new_password
+
+        if !teacher_user.save
+          render json: {status: "error", message: "unable-to-update-password-for-specified-user"}
+        else
+          render json: {status: "success"}        
+        end
+
+	    end
+
+    elsif params[:userType].eql?('student')
+
+    	student_user = StudentUser.where(id: params[:id]).first
+
+    	if !(student_user && student_user.provider.nil?)
+	      render json: {status: "error", message: "unable-to-update-password-for-specified-user"}
+	    else
+	      
+        student_user.password = new_password
+
+        if !student_user.save
+          render json: {status: "error", message: "unable-to-update-password-for-specified-user"}
+        else
+          render json: {status: "success"}        
+        end
+
+	    end
+
+    else
+      render json: {status: "error", message: "user-type-not-specified"}
+    end
+
+    # check that it's a sown to grow account and the old password matches
+    
+
+    
+  end
+
 
 end
