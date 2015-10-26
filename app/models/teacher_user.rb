@@ -8,6 +8,49 @@ class TeacherUser < ActiveRecord::Base
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
   validates :email, uniqueness: true
 
+  before_validation :downcase_email
+
+
+  ##################################################################################################
+  #
+  # Validations
+  #
+  ##################################################################################################
+
+
+  def downcase_email
+    self.email = self.email.downcase if self.email.present?
+  end
+
+
+  def password_valid?(pw)
+    Digest::SHA1.hexdigest(pw + self.salt.to_s).eql?(self.password_digest)
+  end
+
+  def password
+    @password
+  end
+
+  def password=(pw)
+    if !pw.nil? && !pw.strip.eql?("")
+      @password = pw
+      self.salt = (Random.new.rand*10000).to_i
+      self.password_digest = Digest::SHA1.hexdigest(pw + self.salt.to_s)
+    end
+  end
+
+  def has_password_or_external_authentication
+    if self.password_digest.nil? && self.provider.nil?
+      errors.add(:password, 'can\'t be blank')
+    end
+  end
+
+  ##################################################################################################
+  #
+  # Model API Methods
+  #
+  ##################################################################################################
+
 
 	def self.from_omniauth_sign_up(auth)
     
@@ -45,31 +88,12 @@ class TeacherUser < ActiveRecord::Base
   end
 
 
-  def password_valid?(pw)
-    Digest::SHA1.hexdigest(pw + self.salt.to_s).eql?(self.password_digest)
-  end
-
-  def password
-    @password
-  end
-
-  def password=(pw)
-    if !pw.nil? && !pw.strip.eql?("")
-      @password = pw
-      self.salt = (Random.new.rand*10000).to_i
-      self.password_digest = Digest::SHA1.hexdigest(pw + self.salt.to_s)
-    end
-  end
 
   def user_params
       params.require(:user).permit(:email, :password, :password_confirmation)
   end
 
-  def has_password_or_external_authentication
-    if self.password_digest.nil? && self.provider.nil?
-      errors.add(:password, 'can\'t be blank')
-    end
-  end
+  
 
   # return the number of "real" Student Users
   def self.count
