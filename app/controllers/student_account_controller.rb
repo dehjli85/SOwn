@@ -1,5 +1,8 @@
 class StudentAccountController < ApplicationController
 
+  require 'google/api_client/client_secrets'
+  require 'google/apis/oauth2_v2'
+
   before_action :require_student_login_json, except: [:index]
 
   respond_to :json
@@ -300,7 +303,7 @@ class StudentAccountController < ApplicationController
   def save_settings
 
     # @current_teacher_user.default_view_student = params[:default_view_student]
-    @current_student_user.assign_attributes(params.require(:student_user).permit(:first_name, :last_name, :gender, :local_id))
+    @current_student_user.assign_attributes(params.require(:student_user).permit(:first_name, :last_name, :gender, :local_id, :email))
     @current_student_user.display_name = @current_student_user.first_name + ' ' + @current_student_user.last_name
 
     if @current_student_user.save
@@ -356,7 +359,43 @@ class StudentAccountController < ApplicationController
     # check it's a google account
     if !(@current_student_user && !@current_student_user.provider.nil?)
       
-      render json: {status: "error", message: "unable-to-convert-account-for-specified-user"}
+      authorization_code = params[:authorization_code]
+      if(!authorization_code.nil?)
+
+        # unclear why we need an authorization code.  Allows us to get an access token to do stuff
+        # but we can get as much just passing an the token ID from the client the the Oauth2V2 service
+        client_secrets = Google::APIClient::ClientSecrets.load(Rails.root.join("config/client_secret_916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com.json"))
+        auth_client = client_secrets.to_authorization
+        auth_client.update!(redirect_uri: 'postmessage')
+        auth_client.code = authorization_code
+        token = auth_client.fetch_access_token!
+
+        service = Google::Apis::Oauth2V2::Oauth2Service.new
+        service.authorization = auth_client
+        user_info = service.get_userinfo
+
+        @current_student_user.provider = "google_oauth2"
+        @current_student_user.uid = user_info.id
+        @current_student_user.oauth_token = token["access_token"]
+        @current_student_user.oauth_expires_at = Time.now + token["expires_in"]
+        @current_student_user.email = user_info.email.downcase
+        @current_student_user.first_name = user_info.given_name
+        @current_student_user.last_name = user_info.family_name
+        @current_student_user.username = user_info.email.downcase
+        @current_student_user.display_name = user_info.name
+
+        @current_student_user.password=nil
+
+        if @current_student_user.save
+          render json: {status: "success"}
+        else
+          render json: {status: "error", message: "unable-to-save-google-user"}
+        end
+
+      else
+          render json: {status: "error", message: "authorization_code-cannot-be-null"}
+
+      end
     
     else
       # if the old password matches, check that the new and confirm are the same and not blank

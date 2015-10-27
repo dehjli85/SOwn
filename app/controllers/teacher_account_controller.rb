@@ -88,7 +88,43 @@
     # check it's a google account
     if !(@current_teacher_user && !@current_teacher_user.provider.nil?)
       
-      render json: {status: "error", message: "unable-to-convert-account-for-specified-user"}
+      authorization_code = params[:authorization_code]
+      if(!authorization_code.nil?)
+
+        # unclear why we need an authorization code.  Allows us to get an access token to do stuff
+        # but we can get as much just passing an the token ID from the client the the Oauth2V2 service
+        client_secrets = Google::APIClient::ClientSecrets.load(Rails.root.join("config/client_secret_916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com.json"))
+        auth_client = client_secrets.to_authorization
+        auth_client.update!(redirect_uri: 'postmessage')
+        auth_client.code = authorization_code
+        token = auth_client.fetch_access_token!
+
+        service = Google::Apis::Oauth2V2::Oauth2Service.new
+        service.authorization = auth_client
+        user_info = service.get_userinfo
+
+        @current_teacher_user.provider = "google_oauth2"
+        @current_teacher_user.uid = user_info.id
+        @current_teacher_user.oauth_token = token["access_token"]
+        @current_teacher_user.oauth_expires_at = Time.now + token["expires_in"]
+        @current_teacher_user.email = user_info.email.downcase
+        @current_teacher_user.first_name = user_info.given_name
+        @current_teacher_user.last_name = user_info.family_name
+        @current_teacher_user.username = user_info.email.downcase
+        @current_teacher_user.display_name = user_info.name
+
+        @current_teacher_user.password=nil
+
+        if @current_teacher_user.save
+          render json: {status: "success"}
+        else
+          render json: {status: "error", message: "unable-to-save-google-user"}
+        end
+
+      else
+          render json: {status: "error", message: "authorization_code-cannot-be-null"}
+
+      end
     
     else
       # if the old password matches, check that the new and confirm are the same and not blank
@@ -116,8 +152,9 @@
 	def save_settings
 
 		# @current_teacher_user.default_view_student = params[:default_view_student]
-		@current_teacher_user.assign_attributes(params.require(:teacher_user).permit(:first_name, :last_name, :gender, :salutation))
+		@current_teacher_user.assign_attributes(params.require(:teacher_user).permit(:first_name, :last_name, :gender, :salutation, :email))
 		@current_teacher_user.display_name = @current_teacher_user.first_name + ' ' + @current_teacher_user.last_name
+		@current_teacher_user.username = @current_teacher_user.email
 
 		if @current_teacher_user.save
 

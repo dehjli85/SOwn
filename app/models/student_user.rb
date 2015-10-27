@@ -40,6 +40,13 @@ class StudentUser < ActiveRecord::Base
       self.salt = (Random.new.rand*10000).to_i
       self.password_digest = Digest::SHA1.hexdigest(pw + self.salt.to_s)
     end
+
+    if pw.nil?
+      @password = nil
+      self.salt = nil
+      self.password_digest = nil
+    end
+
   end
 
   def has_password_or_external_authentication

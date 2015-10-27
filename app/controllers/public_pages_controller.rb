@@ -25,8 +25,7 @@ class PublicPagesController < ApplicationController
 		if @teacher_user && @teacher_user.provider.nil? && @teacher_user.password_valid?(params[:user][:password])			
 			session[:teacher_user_id] = @teacher_user.id			
 		end
-		puts "teacher user: #{@teacher_user}"
-
+		
 		#set student session variable 
 		@student_user = (!params[:user].nil? && !params[:user][:email].nil?) ? StudentUser.find_by_email(params[:user][:email].downcase) : nil
 		if @student_user && @student_user.provider.nil? && @student_user.password_valid?(params[:user][:password])
@@ -50,7 +49,7 @@ class PublicPagesController < ApplicationController
 				format.json { render json: {login_response: "success", user_type: "teacher", error: nil} }				
 
 			elsif (@student_user && !@student_user.provider.nil?) || 
-				(@teacher_user && @teacher_user.provider.nil?) #post login with google credentials attempted
+				(@teacher_user && !@teacher_user.provider.nil?) #post login with google credentials attempted
 				
 					format.json { render json: {login_response: "fail", user_type: nil, error: "post-login-with-oauth-credentials"} }
 
@@ -63,7 +62,9 @@ class PublicPagesController < ApplicationController
 	end
 
 	def google_login_post
-		ga = GoogleAuth.new		
+		
+		ga = GoogleAuth.new		#This is a model we created
+
 
 		begin
 			
@@ -107,7 +108,9 @@ class PublicPagesController < ApplicationController
 		end
 
 
-		rescue
+		rescue => error
+			puts error
+			puts error.backtrace
 			render json: {status: "error", message: "unknown-authentication-error"}	
 		end
 

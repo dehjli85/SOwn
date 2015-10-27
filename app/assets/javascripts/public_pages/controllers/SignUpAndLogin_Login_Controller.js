@@ -73,8 +73,6 @@ PublicPages.module("SignUpAndLoginApp.Login", function(Login, PublicPages, Backb
 		logInCallback: function(authResult, loginLayoutView){
 
 			var postUrl = "/google_login_post"
-			
-
 			var postData = "authorization_code=" + authResult.code;
 
 			var jqxhr = $.post(postUrl, postData, function(){

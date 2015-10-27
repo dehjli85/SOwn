@@ -4,6 +4,13 @@
 		<form class="form-horizontal" ui-settings-form>
 
 			<div class="form-group">
+		    <label for="inputEmail" class="col-sm-12 col-md-3 control-label">Email:</label>
+		    <div class="col-sm-12 col-md-9">
+		      <input type="text" class="form-control" id="inputEmail" name="student_user[email]" value="<%= student.email %>" <%= student.provider == null ? '' : 'disabled' %>>
+		  	</div>
+		  </div>
+
+			<div class="form-group">
 		    <label for="inputFirstName" class="col-sm-12 col-md-3 control-label">First Name:</label>
 		    <div class="col-sm-12 col-md-9">
 		      <input type="text" class="form-control" id="inputFirstName" name="student_user[first_name]" value="<%= student.first_name %>">
@@ -61,6 +68,12 @@
 		  	<div class="form-group">
 		    	<div class="col-md-4 col-md-offset-3">
 		    		<a href="#" ui-change-password-link>Change Password</a>
+		    	</div>
+		    </div>
+		    <div class="form-group">
+		    	<div class="col-md-8 col-md-offset-3">
+		    		<a href="#" ui-convert-stg-link>Convert to Google Account</a>
+		    		<i class="ion-help-circled icon-lg icon_theme" data-toggle="tooltip" data-placement="right" data-original-title="You log in with an email and password. Click here to configure your account to sign in with Google."></i>
 		    	</div>
 		    </div>
 		  <% } %>

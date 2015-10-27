@@ -1,7 +1,9 @@
 class GoogleAuth
 
-	require 'google/api_client'
+	# require 'google/api_client'
+  require 'google/api_client/client_secrets'
 
+  CLIENT_SECRET_PATH = Rails.root.join("config/client_secret_916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com.json")
 	CLIENT_ID = '916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com'
 	CLIENT_SECRET = 'ChRBz6wJ1EoEzOXqHz2tMkwe'
 	REDIRECT_URI = 'postmessage'
@@ -78,15 +80,15 @@ class GoogleAuth
 	# @return [Signet::OAuth2::Client]
 	#  OAuth 2.0 credentials.
 	def exchange_code(authorization_code)
-	  client = Google::APIClient.new
-	  client.authorization.client_id = CLIENT_ID
-	  client.authorization.client_secret = CLIENT_SECRET
-	  client.authorization.code = authorization_code
-	  client.authorization.redirect_uri = REDIRECT_URI
-
+		client_secrets = Google::APIClient::ClientSecrets.load(CLIENT_SECRET_PATH)
+    client = client_secrets.to_authorization
+    client.update!(redirect_uri: 'postmessage')
+    client.code = authorization_code
+    
 	  begin
-	    client.authorization.fetch_access_token!
-	    return client.authorization
+	    # client.authorization.fetch_access_token!
+	    client.fetch_access_token!
+	    return client
 	  rescue Signet::AuthorizationError
 	    raise CodeExchangeError.new(nil)
 	  end
@@ -100,16 +102,12 @@ class GoogleAuth
 	# @return [Google::APIClient::Schema::Oauth2::V2::Userinfo]
 	#   User's information.
 	def get_user_info(credentials)
-	  client = Google::APIClient.new
-	  client.authorization = credentials
-	  oauth2 = client.discovered_api('oauth2', 'v2')
-	  result = client.execute!(:api_method => oauth2.userinfo.get)
-	  user_info = nil
-	  if result.status == 200
-	    user_info = result.data
-	  else
-	    puts "An error occurred: #{result.data['error']['message']}"
-	  end
+	  
+
+    service = Google::Apis::Oauth2V2::Oauth2Service.new
+    service.authorization = credentials
+    user_info = service.get_userinfo
+	  
 	  if user_info != nil && user_info.id != nil
 	    return user_info
 	  end
@@ -125,19 +123,21 @@ class GoogleAuth
 	#   State for the authorization URL.
 	# @return [String]
 	#  Authorization URL to redirect the user to.
-	def get_authorization_url(email_address, state)
-	  client = Google::APIClient.new
-	  client.authorization.client_id = CLIENT_ID
-	  client.authorization.redirect_uri = REDIRECT_URI
-	  client.authorization.scope = SCOPES
+	# def get_authorization_url(email_address, state)
+	#   # client = Google::APIClient.new
+	#   client_secrets = Google::APIClient::ClientSecrets.load(CLIENT_SECRET_PATH)
+ #    client = client_secrets.to_authorization
+	#   client.authorization.client_id = CLIENT_ID
+	#   client.authorization.redirect_uri = REDIRECT_URI
+	#   client.authorization.scope = SCOPES
 
-	  return client.authorization.authorization_uri(
-	    :approval_prompt => :force,
-	    :access_type => :offline,
-	    :user_id => email_address,
-	    :state => state
-	  ).to_s
-	end
+	#   return client.authorization.authorization_uri(
+	#     :approval_prompt => :force,
+	#     :access_type => :offline,
+	#     :user_id => email_address,
+	#     :state => state
+	#   ).to_s
+	# end
 
 	##
 	# Retrieve credentials using the provided authorization code.

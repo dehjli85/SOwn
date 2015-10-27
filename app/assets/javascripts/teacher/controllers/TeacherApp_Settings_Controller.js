@@ -179,7 +179,7 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 		},
 
 		openConvertModal: function(settingsLayoutView){
-			var convertModalView = new TeacherAccount.TeacherApp.Settings.ConvertModalView();
+			var convertModalView = new TeacherAccount.TeacherApp.Settings.ConvertModalView({model: settingsLayoutView.model});
 			settingsLayoutView.modalRegion.show(convertModalView);
 
 			settingsLayoutView.ui.modalDiv.modal("show");
@@ -187,46 +187,105 @@ TeacherAccount.module("TeacherApp.Settings", function(Settings, TeacherAccount, 
 
 		convertAccount: function(settingsLayoutView, convertModalView){
 
-			var postUrl = "teacher/convert_account"
-			var postData = convertModalView.ui.passwordForm.serialize();
+			// if the user is a Google user trying to convert to STG user
+			if(convertModalView.model.get("teacher").provider != null){
 
-			var jqxhr = $.post(postUrl, postData, function(){
-				console.log('post request made to save student settings');
-			})
-			.done(function(data) {
+				var postUrl = "teacher/convert_account"
+				var postData = convertModalView.ui.passwordForm.serialize();
 
-				console.log(data);
+				var jqxhr = $.post(postUrl, postData, function(){
+					console.log('post request made to save student settings');
+				})
+				.done(function(data) {
 
-				if(data.status == "success"){
+					console.log(data);
 
-					settingsLayoutView.ui.modalDiv.modal("hide");
-					$('.modal-backdrop').remove(); //This is a hack, don't know why the backdrop isn't going away
-     			$('body').removeClass('modal-open'); //This is a hack, don't know why the backdrop isn't going away
-					
-					var alertModel = new Backbone.Model({message: "Your account has been converted.", alertClass: "alert-success"})
-					var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
+					if(data.status == "success"){
 
-					TeacherAccount.rootView.alertRegion.show(alertView);					
+						settingsLayoutView.ui.modalDiv.modal("hide");
+						$('.modal-backdrop').remove(); //This is a hack, don't know why the backdrop isn't going away
+	     			$('body').removeClass('modal-open'); //This is a hack, don't know why the backdrop isn't going away
+						
+						var alertModel = new Backbone.Model({message: "Your account has been converted.", alertClass: "alert-success"})
+						var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
 
-					Settings.Controller.showSettingsOptions();
+						TeacherAccount.rootView.alertRegion.show(alertView);					
 
-				}
-				else if(data.status == "error"){
+						Settings.Controller.showSettingsOptions();
 
-					changePasswordModalView.ui.alertDiv.addClass("alert alert-danger");
-					changePasswordModalView.ui.alertDiv.html("Error converting account...");
+					}
+					else if(data.status == "error"){
 
-				}
-	     	
-	     	
+						changePasswordModalView.ui.alertDiv.addClass("alert alert-danger");
+						changePasswordModalView.ui.alertDiv.html("Error converting account...");
 
-		  })
-		  .fail(function() {
-		  	console.log("error");
-		  })
-		  .always(function() {
-		   
-			});
+					}
+		     	
+		     	
+
+			  })
+			  .fail(function() {
+			  	console.log("error");
+			  })
+			  .always(function() {
+			   
+				});
+			}
+
+			// if the user is a STG user trying to convert to a Google User
+			else{
+				
+				// Sign the user out
+				auth2.signOut()
+
+				// Make them sign in and get an authorization code to send to the server
+
+				auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(function(authResult){
+				
+					var postUrl = "/teacher/convert_account"
+					var postData = "authorization_code=" + authResult.code;
+
+					var jqxhr = $.post(postUrl, postData, function(){
+						console.log('post request made with authorization code');
+					})
+					.done(function(data) {
+
+						if (data.status === 'success'){
+
+							var alertModel = new Backbone.Model({message: "Your account has been converted.", alertClass: "alert-success"})
+							var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
+
+							TeacherAccount.rootView.alertRegion.show(alertView);	
+
+							// reload the entire settings page
+							$('.modal-backdrop').remove(); //This is a hack, don't know why the backdrop isn't going away
+		     			$('body').removeClass('modal-open'); //This is a hack, don't know why the backdrop isn't going away
+							Settings.Controller.showSettingsOptions();
+							
+
+				    }
+				    else{
+				    	
+				    	// show an error message in the modal
+				    	convertModalView.ui.alertDiv.addClass("alert alert-danger");
+							convertModalView.ui.alertDiv.html("Error converting account...");
+				    }
+			     	
+			     	
+				  })
+				  .fail(function() {
+				  	console.log("error");
+				  })
+				  .always(function() {
+				   
+					});
+		
+				
+				});
+
+
+
+			}
 
 		}
 

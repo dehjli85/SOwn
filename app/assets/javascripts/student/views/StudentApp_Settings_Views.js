@@ -115,39 +115,53 @@ StudentAccount.module("StudentApp.Settings", function(Settings, StudentAccount, 
 			passwordInput: "[ui-password-input]",
 			confirmPasswordInput: "[ui-confirm-password-input]",
 			alertDiv: "[ui-alert-div]",
-			passwordForm: "[ui-password-form]"
+			passwordForm: "[ui-password-form]",
+			googleLogInButton: "[ui-google-log-in-button]"
 		},
 
 		events:{
-			"click @ui.convertButton": "convertAccount"
+			"click @ui.convertButton": "convertAccount",
+			"click @ui.googleLogInButton": "convertAccount"
 		},
 
 		convertAccount: function(e){
 			
-			e.preventDefault();
+			// If this is a google user converting to non-google account, 
+			// do a bunch of validation before triggering the convert controller action
+			if(this.model.get("student").provider != null){
+				e.preventDefault();
 
-			this.ui.alertDiv.removeClass("alert");
-			this.ui.alertDiv.removeClass("alert-danger");
-			this.ui.alertDiv.html("");
+				this.ui.alertDiv.removeClass("alert");
+				this.ui.alertDiv.removeClass("alert-danger");
+				this.ui.alertDiv.html("");
 
-			// verify new password isn't blank 
-			if(this.ui.passwordInput.val() == null || this.ui.passwordInput.val().trim() == ""){
-				
-				// show an error
-				this.ui.alertDiv.addClass("alert alert-danger");
-				this.ui.alertDiv.html("Your new password cannot be blank...")
+				// verify new password isn't blank 
+				if(this.ui.passwordInput.val() == null || this.ui.passwordInput.val().trim() == ""){
+					
+					// show an error
+					this.ui.alertDiv.addClass("alert alert-danger");
+					this.ui.alertDiv.html("Your new password cannot be blank...")
 
-			// verify new and confirm are same 
-			}else if(this.ui.passwordInput.val() != this.ui.confirmPasswordInput.val()){
+				// verify new and confirm are same 
+				}else if(this.ui.passwordInput.val() != this.ui.confirmPasswordInput.val()){
 
-				// show an error
-				this.ui.alertDiv.addClass("alert alert-danger");
-				this.ui.alertDiv.html("New Password and Confirm New Password do not match...")
+					// show an error
+					this.ui.alertDiv.addClass("alert alert-danger");
+					this.ui.alertDiv.html("New Password and Confirm New Password do not match...")
 
-			}else{
-				this.triggerMethod("convert:account");
+				}else{
+					this.triggerMethod("convert:account");
+				}
 			}
+			// If this is a non-google user converting to google account
+			else{
+
+				this.triggerMethod("convert:account");
+
+			}	
+
 		}
+			
 
 	});
 

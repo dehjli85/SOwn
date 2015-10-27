@@ -57,7 +57,8 @@ gem 'marionette-rails'
 
 gem 'rails_12factor', group: :production
 
-gem 'google-api-client'
+# gem 'google-api-client'
+gem 'google-api-client', '0.9.pre3'
 
 gem 'jquery-ui-rails'
 
