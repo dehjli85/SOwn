@@ -70,6 +70,7 @@ Rails.application.routes.draw do
   
   get 'auth/:provider/callback', to: 'public_pages#google_auth_callback'
   get 'signout', to: 'public_pages#signout', as: 'signout'
+  get 'signout_json' => 'public_pages#signout_json'
   get 'auth/failure', to: redirect('/')
 
   get 'privacy' => 'public_pages#privacy'

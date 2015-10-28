@@ -2,6 +2,7 @@ class GoogleAuth
 
 	# require 'google/api_client'
   require 'google/api_client/client_secrets'
+  require 'google/apis/oauth2_v2'
 
   CLIENT_SECRET_PATH = Rails.root.join("config/client_secret_916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com.json")
 	CLIENT_ID = '916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com'

@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>SOwn</title>
+  
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -12,8 +13,8 @@
   <meta name="google-signin-client_id" content="916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com">
 
   <!--<script src="https://apis.google.com/js/client:platform.js" async defer></script>-->
-  <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
-  </script>
+  <script src="https://apis.google.com/js/client:platform.js?onload=start"></script>
+  
 
 
 </head>
@@ -31,6 +32,31 @@
 
   ga('create', 'UA-67588801-1', 'auto');
   ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript">
+  
+  // this function is called once the google client platform code is loaded
+  // function start() {
+    // console.log("hello");
+    // gapi.load('auth2', function() {
+    //   auth2 = gapi.auth2.init({
+    //     client_id: '916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com',
+    //   });
+
+    //   console.log(auth2.isSignedIn.get());
+      
+    //   auth2.isSignedIn.listen(function(state){
+    //     console.log("Signed In?: " + state);
+    //   });
+
+
+    // });
+
+
+
+  // };
 
 </script>
 

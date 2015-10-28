@@ -2,7 +2,7 @@
 
 PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Backbone, Marionette, $, _){
 	
-	SignUp.SignUpView = Marionette.ItemView.extend({
+	SignUp.SignUpView = Marionette.LayoutView.extend({
 		template: JST["public_pages/templates/SignUpAndLogin_SignUp_SignUpView"], 
 		className: "container-fluid container-fluid_no-padding",
 
@@ -10,6 +10,10 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 			"click @ui.googleSignUpButton": "signUpWithGoogle",
 			"click @ui.createAccountButton": "revealAccountForm"
 
+		},
+
+		regions:{
+			flashMessageRegion: "[ui-flash-message-region]"
 		},
 
 		ui:{
@@ -85,7 +89,7 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 
 		signUpWithGoogle: function(e){
 			e.preventDefault();
-			SignUp.Controller.signUpWithGoogle(this.model.attributes.user_type);			
+			SignUp.Controller.signUpWithGoogle(this.model.attributes.user_type, this);			
 		},
 
 		

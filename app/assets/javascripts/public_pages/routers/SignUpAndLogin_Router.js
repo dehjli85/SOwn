@@ -3,6 +3,7 @@ PublicPages.module("SignUpAndLoginApp", function(SignUpAndLoginApp, PublicPages,
 	SignUpAndLoginApp.Router = Marionette.AppRouter.extend({
 		appRoutes:{
 			"login": "showLoginForm",
+			"login/:loggedOut": "showLoginForm",
 			"home": "showActionButtons",
 			"sign_up_teacher": "showTeacherSignUpForm",
 			"sign_up_student": "showStudentSignUpForm",
@@ -18,8 +19,13 @@ PublicPages.module("SignUpAndLoginApp", function(SignUpAndLoginApp, PublicPages,
 			
 		},
 
-		showLoginForm: function(){
-			SignUpAndLoginApp.Login.Controller.showLoginForm();
+		showLoginForm: function(loggedOut){
+			if(loggedOut == null){
+				SignUpAndLoginApp.Login.Controller.showLoginForm();
+			}else{
+				var model = new Backbone.Model({message_type: "error", message: "You were logged out because you logged out of Google"})
+				SignUpAndLoginApp.Login.Controller.showLoginForm(model);
+			}
 			console.log("route to login was triggered");
 		},
 

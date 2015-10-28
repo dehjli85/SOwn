@@ -143,7 +143,7 @@ class PublicPagesController < ApplicationController
 	    	render json: {status: "success", teacher_user: user}
 
 	    else	
-	    	render json: {status: "error", message: "unable-to-save-teacher", errors: user.errors}	
+    		render json: {status: "error", message: "unable-to-save-user", errors: user.errors}	
 	    end
 
 		rescue
@@ -297,6 +297,15 @@ class PublicPagesController < ApplicationController
     session[:student_user_id] = nil
     session[:admin_user_id] = nil
     redirect_to root_path
+		
+	end
+
+	def signout_json
+
+		session[:teacher_user_id] = nil
+    session[:student_user_id] = nil
+    session[:admin_user_id] = nil
+		render json: {status: "success"}
 		
 	end
 

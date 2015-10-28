@@ -27,6 +27,7 @@ StudentAccount.on("start", function(){
 	if(this.getCurrentRoute() === ""){		
 		StudentAccount.trigger("classrooms");	//trigger target is the router
 	}
-
+	
 });
+
 

@@ -66,15 +66,15 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 			});
 		},
 
-		signUpWithGoogle: function(userType){
+		signUpWithGoogle: function(userType, signUpView){
 
 			auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(function(authResult){
-				PublicPages.SignUpAndLoginApp.SignUp.Controller.signInCallback(authResult, userType);
+				PublicPages.SignUpAndLoginApp.SignUp.Controller.signInCallback(authResult, userType, signUpView);
 			});
 
 		},
 
-		signInCallback: function(authResult, userType) {
+		signInCallback: function(authResult, userType, signUpView) {
 			
 			var postUrl;
 			if(userType == "Teacher")
@@ -107,8 +107,7 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 	     			});
 	     			
 	     			var alertView = new PublicPages.SignUpAndLoginApp.AlertView({model: alertModel});
-	     			console.log(PublicPages.rootView.alertRegion);
-	     			PublicPages.rootView.alertRegion.show(alertView);
+	     			signUpView.flashMessageRegion.show(alertView);
 
 	     		}
 
