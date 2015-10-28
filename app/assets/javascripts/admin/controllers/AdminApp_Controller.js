@@ -184,7 +184,11 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 					userIndexComposite.model.attributes.searchTerm = data.searchTerm
 					userIndexComposite.render();
 
-					userIndexComposite.collection = new Backbone.Collection(data.users);
+					userIndexComposite.collection = new Admin.Models.SearchResultsCollection(data.users);
+
+					console.log(data.users);
+					console.log(userIndexComposite.collection);
+
 					userIndexComposite.render();
 
 		    }
