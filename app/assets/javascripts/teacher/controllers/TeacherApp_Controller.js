@@ -13,7 +13,7 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 			.done(function(data) {
 	     	
 	     	// Record ID and email for full story
-				FS.identify(data.teacher.id, {
+				FS.identify('t' + data.teacher.id, {
 				  displayName: data.teacher.display_name,
 				  email: data.teacher.email
 				});

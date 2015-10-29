@@ -13,7 +13,7 @@ StudentAccount.module("StudentApp.Main", function(Main, StudentAccount, Backbone
 			.done(function(data) {
 				
 				// Record ID and email for full story
-				FS.identify(data.student.id, {
+				FS.identify('s' + data.student.id, {
 				  displayName: data.student.display_name,
 				  email: data.student.email
 				});
