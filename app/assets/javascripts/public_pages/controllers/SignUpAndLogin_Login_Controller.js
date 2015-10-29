@@ -70,7 +70,10 @@ PublicPages.module("SignUpAndLoginApp.Login", function(Login, PublicPages, Backb
 		},
 
 		logInWithGoogle: function(loginLayoutView){
-			auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(function(authResult){
+			auth2.grantOfflineAccess({
+				'redirect_uri': 'postmessage',
+				'prompt': 'select_account'
+			}).then(function(authResult){
 				PublicPages.SignUpAndLoginApp.Login.Controller.logInCallback(authResult, loginLayoutView);
 			});
 		},
