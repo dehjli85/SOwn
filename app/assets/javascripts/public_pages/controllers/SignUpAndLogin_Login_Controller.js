@@ -72,10 +72,11 @@ PublicPages.module("SignUpAndLoginApp.Login", function(Login, PublicPages, Backb
 		logInWithGoogle: function(loginLayoutView){
 			auth2.grantOfflineAccess({
 				'redirect_uri': 'postmessage',
-				'prompt': 'select_account'
+				'prompt': 'login select_account'
 			}).then(function(authResult){
 				PublicPages.SignUpAndLoginApp.Login.Controller.logInCallback(authResult, loginLayoutView);
 			});
+
 		},
 
 		logInCallback: function(authResult, loginLayoutView){
