@@ -113,7 +113,7 @@ PublicPages.module("SignUpAndLoginApp.Login", function(Login, PublicPages, Backb
 		    }
 		    else{
 		    	if (data.error === 'invalid-credentials') {
-		    		loginLayoutView.flashErrorMessage({message_type: "error", error: "invalid-credentials", message: "Invalid Credentials. Try logging in again."});
+		    		loginLayoutView.flashErrorMessage({message_type: "error", error: "invalid-credentials", message: "Invalid Credentials. You might be signed into Google with the wrong account.  Sign out at <a href='http://www.google.com' target='_blank'>google.com</a> and try logging in again."});
 		    		
 
 		    	}
