@@ -72,7 +72,8 @@ PublicPages.module("SignUpAndLoginApp.Login", function(LoginApp, PublicPages, Ba
 			standardFormDiv: "[ui-standard-form-div]",
 			googleLogInButton: "[ui-google-log-in-button]",
 			teacherSignUpLink: "[ui-teacher-sign-up-link]",
-			studentSignUpLink: "[ui-student-sign-up-link]"
+			studentSignUpLink: "[ui-student-sign-up-link]",
+			emailInput: "[ui-email-input]"
 		},
 
 		revealLoginForm: function(){

@@ -25,6 +25,11 @@ PublicPages.module("SignUpAndLoginApp.Login", function(Login, PublicPages, Backb
 			loginLayoutView.clearMessages();
 			PublicPages.rootView.alertRegion.empty();
 
+			//record the email address in full story they are trying to log in with
+			FS.setUserVars({
+			  displayName: 'User Logging In: ' + loginFormView.ui.emailInput.val(),
+			  email: loginFormView.ui.emailInput.val()
+			});
 
 			var jqxhr = $.post( "/login_post", loginFormView.ui.credentialsForm.serialize(), function() {
 			  console.log("login post made");
@@ -74,6 +79,13 @@ PublicPages.module("SignUpAndLoginApp.Login", function(Login, PublicPages, Backb
 
 			var postUrl = "/google_login_post"
 			var postData = "authorization_code=" + authResult.code;
+
+			//record the email address in full story they are trying to log in with
+    	var currentUserEmail = auth2.currentUser.get().getBasicProfile() ? auth2.currentUser.get().getBasicProfile().getEmail() : null;
+			FS.setUserVars({
+			  displayName: 'User Logging In: ' + currentUserEmail,
+			  email: currentUserEmail
+			});
 
 			var jqxhr = $.post(postUrl, postData, function(){
 				console.log('post request made with authorization code');

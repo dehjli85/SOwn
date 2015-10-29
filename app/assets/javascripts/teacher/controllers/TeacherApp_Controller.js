@@ -12,6 +12,16 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 			})
 			.done(function(data) {
 	     	
+	     	// Record ID and email for full story
+				FS.identify('t' + data.teacher.id, {
+				  displayName: data.teacher.display_name,
+				  email: data.teacher.email
+				});
+
+				FS.setUserVars({
+				  userType: 'teacher'
+			  });
+
 	     	//fetch user model and create header
 	     	var user = new Backbone.Model({teacher: data.teacher, student: data.student});
 				var headerView = new TeacherAccount.TeacherApp.HeaderView({model:user});				

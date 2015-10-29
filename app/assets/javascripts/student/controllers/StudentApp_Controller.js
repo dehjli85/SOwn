@@ -11,11 +11,22 @@ StudentAccount.module("StudentApp.Main", function(Main, StudentAccount, Backbone
 				console.log('get request made for student user data');
 			})
 			.done(function(data) {
-				console.log(data);
+				
+				// Record ID and email for full story
+				FS.identify('s' + data.student.id, {
+				  displayName: data.student.display_name,
+				  email: data.student.email
+				});
+
+				FS.setUserVars({
+				  userType: 'student'
+			  });
+
 	     	//fetch user model and create header
 	     	var user = new StudentAccount.Models.StudentUser({student:data.student, teacher: data.teacher});
 				var headerView = new StudentAccount.StudentApp.HeaderView({model:user});				
 				StudentAccount.rootView.headerRegion.show(headerView);
+				
 
 				// if the student_user in the session is a google user
 				if(user.get("student").provider != null){
