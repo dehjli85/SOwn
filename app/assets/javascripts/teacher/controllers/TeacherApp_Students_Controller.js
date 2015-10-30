@@ -89,6 +89,58 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 	     		var seeAllModal = new StudentAccount.StudentApp.Classroom.SeeAllModalView({model: activity_pairing_performances});
 	     		studentsLayoutView.modalRegion.show(seeAllModal);
 
+	     		if (data.activity.activity_type == 'scored'){
+
+		     		var modelData = [];
+		     		var index = 1;
+
+		     		var dates = [];
+		     		var counter = 1;
+						data.performances.map(function(item){
+
+		     			//set color of bars
+							var color = "#49883F";
+							if(item.performance_color == "danger-sown")
+								color = "#B14F51";
+							else if(item.performance_color == 'warning-sown')
+								color = "#EACD46";
+
+							//set data depending on activity type
+							var next = moment(item.performance_date).format("MM/DD");
+							if($.inArray(moment(item.performance_date).format("MM/DD"), dates) >=  0){
+								counter++;
+								next += " (" + counter + ")";
+							}
+							else{
+								counter = 1;
+							}
+							dates.push(moment(item.performance_date).format("MM/DD"));
+
+							modelData.push({x: next, y: item.performance_pretty, color: color})
+							index++;
+
+						});	 
+
+						var modelLabels = {x: "Attempt", y: "Score"};
+
+						var scoreRangeObj = {min_score: data.activity.min_score, benchmark1_score: data.activity.benchmark1_score, benchmark2_score: data.activity.benchmark2_score, max_score: data.activity.max_score};
+
+						var model = new Backbone.Model({data:modelData, labels: modelLabels, score_range: scoreRangeObj});
+
+						var barGraphView = new StudentAccount.StudentApp.Classroom.PerformanceBarGraphView({model: model});
+
+						seeAllModal.graphRegion.show(barGraphView);
+
+					}
+					else if (data.activity.activity_type == 'completion'){
+						
+						var model = new Backbone.Model({performances: data.performances});
+						var completionTableView = new StudentAccount.StudentApp.Classroom.CompletionTableView({model: model});
+
+						seeAllModal.graphRegion.show(completionTableView);
+
+					}
+
 					
 	     	}
 	     	
