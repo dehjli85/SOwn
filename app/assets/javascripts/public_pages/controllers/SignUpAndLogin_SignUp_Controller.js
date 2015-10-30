@@ -67,10 +67,34 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 		},
 
 		signUpWithGoogle: function(userType, signUpView){
+			var startTime = moment();
+			var firstTime = true;
+			while(typeof auth2 == 'undefined' && moment() - startTime < 2000){
+				if(firstTime){
+					console.log("waiting for gapi to load");
+					firstTime = false;
+				}
+			}
 
-			auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(function(authResult){
-				PublicPages.SignUpAndLoginApp.SignUp.Controller.signInCallback(authResult, userType, signUpView);
-			});
+			if(typeof auth2 == 'undefined'){
+				var alertModel = new Backbone.Model({
+   				message: "There was an error communicating with Google.  Click the sign up button on again, or reload this page and try again.",
+   				message_type: "error"
+   			});
+
+   			var alertView = new PublicPages.SignUpAndLoginApp.AlertView({model: alertModel});
+   			signUpView.flashMessageRegion.show(alertView);
+
+
+			}
+			else{
+				auth2.grantOfflineAccess({
+					'redirect_uri': 'postmessage',
+					'prompt': 'login select_account'
+				}).then(function(authResult){
+					PublicPages.SignUpAndLoginApp.SignUp.Controller.signInCallback(authResult, userType, signUpView);
+				});
+			}
 
 		},
 

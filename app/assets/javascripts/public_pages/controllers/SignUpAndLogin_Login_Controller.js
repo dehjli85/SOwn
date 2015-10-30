@@ -70,12 +70,32 @@ PublicPages.module("SignUpAndLoginApp.Login", function(Login, PublicPages, Backb
 		},
 
 		logInWithGoogle: function(loginLayoutView){
-			auth2.grantOfflineAccess({
-				'redirect_uri': 'postmessage',
-				'prompt': 'login select_account'
-			}).then(function(authResult){
-				PublicPages.SignUpAndLoginApp.Login.Controller.logInCallback(authResult, loginLayoutView);
-			});
+
+			var startTime = moment();
+			var firstTime = true;
+			while(typeof auth2 == 'undefined' && moment() - startTime < 2000){
+				if(firstTime){
+					console.log("waiting for gapi to load");
+					firstTime = false;
+				}
+			}
+
+			if(typeof auth2 == 'undefined'){
+    		loginLayoutView.flashErrorMessage({
+    			message_type: "error",
+    			error: "post-login-with-stg-credentials", 
+    			message: "There was an error communicating with Google.  Click the log in button again, or reload this page and try again."});			    		
+
+			}else{
+				auth2.grantOfflineAccess({
+					'redirect_uri': 'postmessage',
+					'prompt': 'login select_account'
+				}).then(function(authResult){
+					PublicPages.SignUpAndLoginApp.Login.Controller.logInCallback(authResult, loginLayoutView);
+				});	
+			}
+
+			
 
 		},
 

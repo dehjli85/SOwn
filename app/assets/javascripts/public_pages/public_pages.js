@@ -23,10 +23,16 @@ PublicPages.on("start", function(){
 		}
 	};
 
+	console.log("starting google api loading...");
+	var start = moment();
 	gapi.load('auth2', function() {
-    auth2 = gapi.auth2.init({
+    gapi.auth2.init({
       client_id: '916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com',
-    });
+    }).then(function(){
+    	auth2 = gapi.auth2.getAuthInstance();
+			console.log("google api loaded...: " + (moment() - start) + 'ms');
+
+    }) ;
   });
 
 

@@ -34,7 +34,7 @@ StudentAccount.module("StudentApp.Main", function(Main, StudentAccount, Backbone
 					// if the user is logged in with google, create a listener that logs them out if they sign out of google
 					 gapi.load('auth2', function() {
 
-			      auth2 = gapi.auth2.init({
+			      gapi.auth2.init({
 			        client_id: '916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com',
 			      }).then(function(){
 
