@@ -97,7 +97,7 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 			}
 
 		},
-
+ 
 		signInCallback: function(authResult, userType, signUpView) {
 			
 			var postUrl;
