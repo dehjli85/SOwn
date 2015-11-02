@@ -132,6 +132,26 @@ div.video{
   color: #FFFFFF;
 }
 
+@media (max-width: 768px){
+  .embedded-video{
+    width:100%;
+  }
+}
+
+@media (min-width: 768px){
+  .embedded-video{
+    width:700px;
+    height: 393px;
+  }
+}
+
+@media (min-width: 992px){
+  .embedded-video{
+    width:854px;
+    height: 480px;
+  }
+}
+
 
 // SERVICES BOXES
 
