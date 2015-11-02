@@ -5,3 +5,17 @@
 #main_region{
 	min-height:80vh;
 }
+
+@media (min-width: 768px){
+
+  .nav>li>a.sm-only-link{
+  	display:none;
+  }
+}
+
+
+@media (max-width: 768px) {
+	#sidebar_region{
+		display:none;
+	}
+}

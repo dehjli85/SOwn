@@ -1,30 +1,36 @@
-<div class="col-md-12">
+<div class="col-xs-12">
 	<div class="row">
-		<form class="form-inline" ui-search-form>
+		<form class="form form-horizontal col-xs-12" ui-search-form>
 			<div class="form-group">
-				<label>Search for a user:</label>
-				<input type="search" class="form-control" placeholder="John Doe" style="width:500px" name="searchTerm" ui-search-term-input> 
+				<label class="control-label col-xs-3 col-sm-3 col-md-2 col-lg-2">Search for a user:</label>
+				<div class=" col-xs-6 col-sm-6 col-md-6 col-lg-8">
+					<input type="search" class="form-control" placeholder="John Doe" name="searchTerm" ui-search-term-input> 
+				</div>
+				<div class=" col-xs-3 col-sm-3 col-md-4 col-lg-2">
+					<button type="submit" class="btn btn-primary">Search</button>
+				</div>
 			</div>
-			<button type="submit" class="btn btn-primary">Search</button>
 		</form>
 	</div>
 	
 	<div class="row">
 		<% if(searchTerm != null) { %>
-			<table class="table table-bordered" style="margin-top:15px;">
-				<thead>
-					<th>Id</th>
-					<th>User Type</th>
-					<th>Account Type</th>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Email</th>
-					<th colspan="3">Actions</th>
-				</thead>
-				<tbody>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<table class="table table-bordered" style="margin-top:15px;">
+					<thead>
+						<th>Id</th>
+						<th>User Type</th>
+						<th>Account Type</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Email</th>
+						<th colspan="3">Actions</th>
+					</thead>
+					<tbody>
 
-				</tbody>
-			</table>
+					</tbody>
+				</table>
+			</div>
 		<% } %>
 	</div>
 	
