@@ -41,7 +41,13 @@ StudentAccount.module("StudentApp.Main", function(Main, StudentAccount, Backbone
 			      	auth2 = gapi.auth2.getAuthInstance();
 
 			      	var currentUserEmail = auth2.currentUser.get().getBasicProfile() ? auth2.currentUser.get().getBasicProfile().getEmail() : null;
-			      	if(!currentUserEmail || !currentUserEmail.endsWith("@sowntogrow.com")){
+			      	
+			      	if(currentUserEmail == null){
+			      		Main.Controller.logout(false);
+			      	}
+			      	
+			      	else if(currentUserEmail.indexOf("@sowntogrow.com") == -1){
+			      		
 			      		// check that they are signed into google with the right google account
 				      	if(!auth2.isSignedIn.get() || auth2.currentUser.get().getId() != user.get("student").uid){
 									Main.Controller.logout(false);		        		
