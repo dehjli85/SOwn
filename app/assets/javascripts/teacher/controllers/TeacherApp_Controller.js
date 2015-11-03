@@ -4,6 +4,40 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 
 	Main.Controller = {
 
+		setSignOutListener: function(uid){
+
+			// if the auth2 isn't ready, set a timeout in 1 second to wait and try again
+			if(typeof auth2 == 'undefined'){
+				console.log("auth2 not ready... waiting...")
+				setTimeout(function(){Main.Controller.setSignOutListener(uid);},1000);
+			}
+			else{
+				var currentUserEmail = auth2.currentUser.get().getBasicProfile() ? auth2.currentUser.get().getBasicProfile().getEmail() : null;
+	      	
+      	if(currentUserEmail == null){
+      		Main.Controller.logout(false);
+      	}
+      	
+      	else if(currentUserEmail.indexOf("@sowntogrow.com") == -1){
+      		
+      		// check that they are signed into google with the right google account
+	      	if(!auth2.isSignedIn.get() || auth2.currentUser.get().getId() != uid){
+						Main.Controller.logout(false);		        		
+	      	}
+
+	      	// create a listener for if they sign out of google
+	      	auth2.isSignedIn.listen(function(signedIn){
+		      	console.log("authentication state has changed");
+		        if(!signedIn){				        	
+							Main.Controller.logout(true);		        		
+		        }
+		      });
+      	}
+			}
+			
+		},
+
+
 		showHeaderAndLeftNavViews: function(subapp){
 
 			//get user model data and create the header
@@ -27,54 +61,25 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 				var headerView = new TeacherAccount.TeacherApp.HeaderView({model:user});				
 				TeacherAccount.rootView.headerRegion.show(headerView);
 
+				// if the student_user in the session is a google user
+				if(user.get("teacher").provider != null){
+					Main.Controller.setSignOutListener(user.get("student").uid);
+				}
+
+
 				// create the left nav
 				var jqxhr = $.get("/classrooms_summary", function(){
 					console.log('get request made for teacher classrooms data');
 				})
 				.done(function(data) {
 
+
 					// create the left nav
 					var leftNavModel = new Backbone.Model({subapp: subapp, classrooms: data.classrooms});
 					var leftNav = new TeacherAccount.TeacherApp.LeftNavView({model:leftNavModel});
 					TeacherAccount.rootView.leftNavRegion.show(leftNav);
 
-					// if the student_user in the session is a google user
-					if(user.get("teacher").provider != null){
-
-						// if the user is logged in with google, create a listener that logs them out if they sign out of google
-						gapi.load('auth2', function() {
-
-				      auth2 = gapi.auth2.init({
-				        client_id: '916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com',
-				      }).then(function(){
-
-				      	auth2 = gapi.auth2.getAuthInstance();
-
-				      	var currentUserEmail = auth2.currentUser.get().getBasicProfile() ? auth2.currentUser.get().getBasicProfile().getEmail() : null;
-			      	
-				      	if(currentUserEmail == null){
-				      		Main.Controller.logout(false);
-				      	}
-				      	
-				      	else if(currentUserEmail.indexOf("@sowntogrow.com") == -1){
-				      		
-				      		// check that they are signed into google with the right google account
-					      	if(!auth2.isSignedIn.get() || auth2.currentUser.get().getId() != user.get("teacher").uid){
-										Main.Controller.logout(false);		        		
-					      	}
-
-					      	// create a listener for if they sign out of google
-					      	auth2.isSignedIn.listen(function(signedIn){
-						      	console.log("authentication state has changed");
-						        if(!signedIn){				        	
-											Main.Controller.logout(true);		        		
-						        }
-						      });
-				      	}
-								
-					    });
-				    });
-					}
+					
 					
 			  })
 			  .fail(function() {

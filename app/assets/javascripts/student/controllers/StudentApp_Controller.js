@@ -4,6 +4,39 @@ StudentAccount.module("StudentApp.Main", function(Main, StudentAccount, Backbone
 
 	Main.Controller = {
 
+		setSignOutListener: function(uid){
+
+			// if the auth2 isn't ready, set a timeout in 1 second to wait and try again
+			if(typeof auth2 == 'undefined'){
+				console.log("auth2 not ready... waiting...")
+				setTimeout(function(){Main.Controller.setSignOutListener(uid);},1000);
+			}
+			else{
+				var currentUserEmail = auth2.currentUser.get().getBasicProfile() ? auth2.currentUser.get().getBasicProfile().getEmail() : null;
+	      	
+      	if(currentUserEmail == null){
+      		Main.Controller.logout(false);
+      	}
+      	
+      	else if(currentUserEmail.indexOf("@sowntogrow.com") == -1){
+      		
+      		// check that they are signed into google with the right google account
+	      	if(!auth2.isSignedIn.get() || auth2.currentUser.get().getId() != uid){
+						Main.Controller.logout(false);		        		
+	      	}
+
+	      	// create a listener for if they sign out of google
+	      	auth2.isSignedIn.listen(function(signedIn){
+		      	console.log("authentication state has changed");
+		        if(!signedIn){				        	
+							Main.Controller.logout(true);		        		
+		        }
+		      });
+      	}
+			}
+			
+		},
+
 		showHeaderAndLeftNavViews: function(){
 
 			//get user model data and create the header
@@ -30,41 +63,7 @@ StudentAccount.module("StudentApp.Main", function(Main, StudentAccount, Backbone
 
 				// if the student_user in the session is a google user
 				if(user.get("student").provider != null){
-
-					// if the user is logged in with google, create a listener that logs them out if they sign out of google
-					 gapi.load('auth2', function() {
-
-			      gapi.auth2.init({
-			        client_id: '916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com',
-			      }).then(function(){
-
-			      	auth2 = gapi.auth2.getAuthInstance();
-
-			      	var currentUserEmail = auth2.currentUser.get().getBasicProfile() ? auth2.currentUser.get().getBasicProfile().getEmail() : null;
-			      	
-			      	if(currentUserEmail == null){
-			      		Main.Controller.logout(false);
-			      	}
-			      	
-			      	else if(currentUserEmail.indexOf("@sowntogrow.com") == -1){
-			      		
-			      		// check that they are signed into google with the right google account
-				      	if(!auth2.isSignedIn.get() || auth2.currentUser.get().getId() != user.get("student").uid){
-									Main.Controller.logout(false);		        		
-				      	}
-
-				      	// create a listener for if they sign out of google
-				      	auth2.isSignedIn.listen(function(signedIn){
-					      	console.log("authentication state has changed");
-					        if(!signedIn){				        	
-										Main.Controller.logout(true);		        		
-					        }
-					      });
-			      	}
-							
-				    });
-			    });
-		
+					Main.Controller.setSignOutListener(user.get("student").uid);
 				}
 
 				// create the left nav

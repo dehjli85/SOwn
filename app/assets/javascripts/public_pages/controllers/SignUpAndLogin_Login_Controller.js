@@ -73,12 +73,14 @@ PublicPages.module("SignUpAndLoginApp.Login", function(Login, PublicPages, Backb
 
 			var startTime = moment();
 			var firstTime = true;
-			while(typeof auth2 == 'undefined' && moment() - startTime < 2000){
-				if(firstTime){
-					console.log("waiting for gapi to load");
-					firstTime = false;
-				}
-			}
+			// while(typeof auth2 == 'undefined' && moment() - startTime < 2000){
+			// 	if(firstTime){
+			// 		console.log("waiting for gapi to load");
+			// 		firstTime = false;
+			// 	}
+			// }
+
+		
 
 			if(typeof auth2 == 'undefined'){
     		loginLayoutView.flashErrorMessage({

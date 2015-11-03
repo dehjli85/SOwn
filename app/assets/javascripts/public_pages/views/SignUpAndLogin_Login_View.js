@@ -56,7 +56,6 @@ PublicPages.module("SignUpAndLoginApp.Login", function(LoginApp, PublicPages, Ba
 		
 		triggers:{
 			"click button.js-sign-in": "login:sign:in",
-			"click @ui.googleLogInButton": "log:in:with:google",
 			"click @ui.teacherSignUpLink": "teacher:sign:up",
 			"click @ui.studentSignUpLink": "student:sign:up",
 		},
@@ -83,7 +82,32 @@ PublicPages.module("SignUpAndLoginApp.Login", function(LoginApp, PublicPages, Ba
 
 		logInWithGoogle: function(e){
 			e.preventDefault();
+			if(!this.ui.googleLogInButton.attr("disabled")){
+				this.triggerMethod("log:in:with:google");
+			}
+		},
+
+		onShow: function(){
+			var obj = this;
+			$('[data-toggle="tooltip"]').tooltip()
+			this.checkGoogleApiLoaded(obj);
+		},
+
+		checkGoogleApiLoaded: function(loginFormRegion){
+
+			if(typeof(auth2) == 'undefined'){
+				console.log("auth2 undefined");
+				setTimeout(function(){loginFormRegion.checkGoogleApiLoaded(loginFormRegion)}, 1000);
+			}else{
+				console.log(loginFormRegion);
+				console.log("auth2 defined");
+				loginFormRegion.ui.googleLogInButton.removeAttr("disabled");
+				loginFormRegion.ui.googleLogInButton.tooltip('destroy');
+			}
+
 		}
+
+
 
 		
 	})
