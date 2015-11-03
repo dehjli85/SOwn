@@ -89,7 +89,9 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 
 		signUpWithGoogle: function(e){
 			e.preventDefault();
-			SignUp.Controller.signUpWithGoogle(this.model.attributes.user_type, this);			
+			if(!this.ui.googleSignUpButton.attr("disabled")){
+				SignUp.Controller.signUpWithGoogle(this.model.attributes.user_type, this);			
+			}
 		},
 
 		
@@ -101,6 +103,26 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 			this.ui.emailFormGroup.removeClass("has-error");
 			this.ui.passwordFormGroup.removeClass("has-error");
 			this.ui.tosPrivacyFormGroup.removeClass("has-error");
+
+		},
+
+		onShow: function(){
+			var obj = this;
+			$('[data-toggle="tooltip"]').tooltip()
+			this.checkGoogleApiLoaded(obj);
+		},
+
+		checkGoogleApiLoaded: function(signUpView){
+
+			if(typeof(auth2) == 'undefined'){
+				console.log("auth2 undefined");
+				setTimeout(function(){signUpView.checkGoogleApiLoaded(signUpView)}, 1000);
+			}else{
+				console.log(signUpView);
+				console.log("auth2 defined");
+				signUpView.ui.googleSignUpButton.removeAttr("disabled");
+				signUpView.ui.googleSignUpButton.tooltip('destroy');
+			}
 
 		}
 
