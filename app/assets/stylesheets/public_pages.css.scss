@@ -47,17 +47,33 @@ p.slider-text__p_margin-top{
 }
 
 
-@media (max-width: 768px){
-  .slider-text__p {
-      display: none;
+@media (max-width: 480px){
+
+  .slider-text p {
+    display: none;
+  }
+
+  div.slider-text h1.slider-text_h1{
+    margin-bottom: 0px;
+  }
+
+  .btn-white_less-padding{
+    padding: 8px 6px
   }
 
   div.slide-btn_inline, div.slide-btn_no-margin{
-    display: none;
+    margin: 10px;
   }
 }
 
-@media (min-width: 768px){
+@media (min-width: 480px){
+  .main-flex-slider_pp-full-page, .main-flex-slider_pp-full-page>ul>li>figure>img{
+    min-height: 500px;
+  }
+}
+
+
+@media (min-width: 992px){
   .col-sm-offset-4-5{
     margin-left:37.5%;
   }  
