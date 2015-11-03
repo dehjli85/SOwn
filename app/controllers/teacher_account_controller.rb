@@ -152,7 +152,7 @@
 	def save_settings
 
 		# @current_teacher_user.default_view_student = params[:default_view_student]
-		@current_teacher_user.assign_attributes(params.require(:teacher_user).permit(:first_name, :last_name, :gender, :salutation, :email))
+		@current_teacher_user.assign_attributes(params.require(:teacher_user).permit(:first_name, :last_name, :gender, :salutation, :email, :default_view_student))
 		@current_teacher_user.display_name = @current_teacher_user.first_name + ' ' + @current_teacher_user.last_name
 		@current_teacher_user.username = @current_teacher_user.email
 
