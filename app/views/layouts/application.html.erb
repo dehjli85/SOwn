@@ -39,7 +39,7 @@
   </script>
 
     <!--<script src="https://apis.google.com/js/client:platform.js" async defer></script>-->
-    <script src="https://apis.google.com/js/client:platform.js?" async defer></script>
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
     
 
 
@@ -62,6 +62,19 @@
   </script>
 
   <script type="text/javascript">
+
+  function start(){
+    var start = moment();
+    gapi.load('auth2', function() {
+      gapi.auth2.init({
+        client_id: '916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com',
+      }).then(function(){
+        auth2 = gapi.auth2.getAuthInstance();
+        console.log("google api loaded...: " + (moment() - start) + 'ms');
+
+      }) ;
+    });
+  }
     
     // this function is called once the google client platform code is loaded
     // function start() {
