@@ -27,9 +27,18 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 		},
 
 		logInWithGoogle: function(layoutView){
-			auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(function(authResult){
-				AdminApp.Controller.logInWithGoogleCallback(authResult, layoutView);
-			});
+			
+			console.log("requesting google sign in ");
+			auth2.signIn({
+				'prompt': 'select_account',
+			}).then(function(){
+				console.log("requesting offline access");
+
+				auth2.currentUser.get().grantOfflineAccess().then(function(authResult){
+					AdminApp.Controller.logInWithGoogleCallback(authResult, layoutView);
+				});
+			})
+
 		},
 
 		logInWithGoogleCallback: function(authResult, layoutView){

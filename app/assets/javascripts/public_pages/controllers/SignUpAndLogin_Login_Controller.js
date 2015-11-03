@@ -87,13 +87,15 @@ PublicPages.module("SignUpAndLoginApp.Login", function(Login, PublicPages, Backb
     			message: "There was an error communicating with Google.  Click the log in button again, or reload this page and try again."});			    		
 
 			}else{
-				console.log("requesting offline access");
-				auth2.signIn({'prompt': 'select_account'}).then(function(){
-					auth2.grantOfflineAccess({
-						'redirect_uri': 'postmessage',
-					}).then(function(authResult){
+				console.log("prompting for sign in ");
+				auth2.signIn({
+						'prompt': 'select_account',
+				}).then(function(){
+					console.log("requesting offline access");
+
+					auth2.currentUser.get().grantOfflineAccess().then(function(authResult){
 						PublicPages.SignUpAndLoginApp.Login.Controller.logInCallback(authResult, loginLayoutView);
-					});		
+					})
 				})
 				
 			}
