@@ -91,7 +91,6 @@ PublicPages.module("SignUpAndLoginApp.Login", function(Login, PublicPages, Backb
 				auth2.signIn({'prompt': 'select_account'}).then(function(){
 					auth2.grantOfflineAccess({
 						'redirect_uri': 'postmessage',
-						'prompt': 'select_account'
 					}).then(function(authResult){
 						PublicPages.SignUpAndLoginApp.Login.Controller.logInCallback(authResult, loginLayoutView);
 					});		
