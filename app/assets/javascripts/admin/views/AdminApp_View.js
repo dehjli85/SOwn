@@ -39,15 +39,42 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			template: JST["admin/templates/AdminApp_LoginForm"],
 			className: "col-md-6 col-md-offset-3 my-login-form",
 
-			triggers: {
-				"click @ui.googleLogInButton": "log:in:with:google"
-
+			events: {
+				"click @ui.googleLogInButton": "logInWithGoogle"
 			},
 
 			ui:{
 				googleLogInButton: "[ui-google-log-in-button]"
 
+			},
+
+			logInWithGoogle: function(e){
+				e.preventDefault();
+				if(!this.ui.googleLogInButton.attr("disabled")){
+					this.triggerMethod("log:in:with:google");
+				}
+			},
+
+			onShow: function(){
+				var obj = this;
+				$('[data-toggle="tooltip"]').tooltip()
+				this.checkGoogleApiLoaded(obj);
+			},
+
+			checkGoogleApiLoaded: function(loginFormView){
+
+				if(typeof(auth2) == 'undefined'){
+					console.log("auth2 undefined");
+					setTimeout(function(){loginFormView.checkGoogleApiLoaded(loginFormView)}, 1000);
+				}else{
+					console.log(loginFormView);
+					console.log("auth2 defined");
+					loginFormView.ui.googleLogInButton.removeAttr("disabled");
+					loginFormView.ui.googleLogInButton.tooltip('destroy');
+				}
+
 			}
+
 			
 	});
 

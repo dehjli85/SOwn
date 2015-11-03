@@ -22,12 +22,6 @@ Admin.on("start", function(){
 			Admin.trigger("index:home");			
 		}
 	};
-
-	gapi.load('auth2', function() {
-    auth2 = gapi.auth2.init({
-      client_id: '916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com',
-    });
-  });
-
+	
 });
 
