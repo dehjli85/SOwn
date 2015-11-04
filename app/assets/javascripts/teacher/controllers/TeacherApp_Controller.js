@@ -63,7 +63,7 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 
 				// if the student_user in the session is a google user
 				if(user.get("teacher").provider != null){
-					Main.Controller.setSignOutListener(user.get("student").uid);
+					Main.Controller.setSignOutListener(user.get("teacher").uid);
 				}
 
 
