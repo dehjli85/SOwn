@@ -65,7 +65,12 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	  	e.preventDefault();
 	  	this.model.set("studentPerformanceId", $(e.target).attr("name"));
 	  	this.triggerMethod("scores:layout:open:verify:modal");
+	  },
+
+	  onDomRefresh: function(){
+	  	this.triggerMethod("student:performance:view:dom:rendered");
 	  }
+
 	});
 
 	Scores.StudentPerformanceEditView = Marionette.ItemView.extend({
@@ -75,7 +80,12 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		initialize : function (options) {
 	    this.model.set("parentActivities", options.activities);
 
+	  },
+
+	  onDomRefresh: function(){
+	  	this.triggerMethod("student:performance:edit:view:dom:rendered");
 	  }
+
 	});
 
 	Scores.EditScoresView = Marionette.CompositeView.extend({
@@ -107,15 +117,18 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				this.model = new Backbone.Model({});
 			}
 			this.model.set("collectionSize", this.collection.length);
+
+			this.model.set("studentPerformancesRendered", 0);
+			
 		},
 
-		onDomRefresh: function(){
-			var obj = this;
+		onChildviewStudentPerformanceEditViewDomRendered: function(){
+			var count = this.model.get("studentPerformancesRendered");
+			this.model.set("studentPerformancesRendered", count + 1);
 
-			// totally a hack... there's some race condition happening that will mess up the sizes of the divs
-			// in the freezeStudentNameColumn function
-			setTimeout(function(){obj.freezeStudentNameColumn()}, 1000);
-
+			if(this.model.get("studentPerformancesRendered") == this.model.get("collectionSize")){
+				this.freezeStudentNameColumn();
+			}
 		},
 
 		freezeStudentNameColumn: function(){
@@ -280,6 +293,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			}
 			this.model.set("activitiesSortOrder", activitiesSortOrder);
 
+			this.model.set("studentPerformancesRendered", 0);
 		},
 
 		onRender: function(){
@@ -295,13 +309,13 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		},
 
-		onDomRefresh: function(){
-			var obj = this;
+		onChildviewStudentPerformanceViewDomRendered: function(){
+			var count = this.model.get("studentPerformancesRendered");
+			this.model.set("studentPerformancesRendered", count + 1);
 
-			// totally a hack... there's some race condition happening that will mess up the sizes of the divs
-			// in the freezeStudentNameColumn function
-			setTimeout(function(){obj.freezeStudentNameColumn()}, 1000);
-
+			if(this.model.get("studentPerformancesRendered") == this.model.get("collectionSize")){
+				this.freezeStudentNameColumn();
+			}
 		},
 
 

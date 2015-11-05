@@ -4,7 +4,7 @@ TeacherAccount.module("TeacherApp.Classrooms", function(Classrooms, TeacherAccou
 	
 	Classrooms.ClassroomWidgetView = Marionette.ItemView.extend({				
 		template: JST["teacher/templates/TeacherApp_Classrooms_ClassroomWidget"],			
-		className: "col-xs-6 col-sm-4 col-md-4 col-lg-3 placeholder",
+		className: "col-xs-6 col-sm-4 col-md-4 col-lg-3 classroom-widget",
 		model: Classrooms.Models.ClassroomWidgetModel,
 
 		triggers: {
@@ -38,6 +38,10 @@ TeacherAccount.module("TeacherApp.Classrooms", function(Classrooms, TeacherAccou
         color ='#1d871b'
 
 			this.ui.d3Div.find($(".arc")).attr("style","fill:" + color);            
+		},
+
+		onDomRefresh: function(){
+			this.triggerMethod("widget:rendered");
 		}
 			
 	});
@@ -66,7 +70,29 @@ TeacherAccount.module("TeacherApp.Classrooms", function(Classrooms, TeacherAccou
 
 		onShow: function(){
 			this.ui.widgetContainerDiv.append(this.ui.addClassDiv);
-		}
+
+			// setTimeout(function(){
+				
+			// }, 1000)
+
+		},
+
+		onChildviewWidgetRendered: function(){
+			var thumbnails = $('.thumbnail');
+			var max = 0;
+			thumbnails.map(function(i){
+				if ($(thumbnails[i]).height() > max){
+					max = $(thumbnails[i]).height();
+				}
+			}); 
+
+			thumbnails.map(function(i){
+				$(thumbnails[i]).height(max);
+			}); 
+		},
+
+		
+
 
 
 		
