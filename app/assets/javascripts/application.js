@@ -18,9 +18,9 @@
 //= require jquery-tablesorter
 //= require jquery.dragtable
 //= require d3
-//= require underscore
-//= require backbone
-//= require backbone.marionette
+//= require underscore-min
+//= require backbone-min
+//= require backbone.marionette.min
 //= require moment
 //= require tableHeadFixer
 //= require typeahead.bundle.min

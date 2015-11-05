@@ -51,9 +51,9 @@ gem 'bootstrap-switch-rails'
 
 gem 'd3-rails'
 
-gem 'rails-backbone'
+# gem 'rails-backbone'
 
-gem 'marionette-rails'
+# gem 'marionette-rails'
 
 gem 'rails_12factor', group: :production
 
