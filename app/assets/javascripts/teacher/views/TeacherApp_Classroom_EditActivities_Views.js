@@ -93,7 +93,8 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
 			allA: "[ui-all-a]",
 			noneA: "[ui-none-a]",
 			randomA: "[ui-random-a]",
-			hiddenButton: "[ui-hidden-button]",			
+			hiddenButton: "[ui-hidden-button]",	
+			dueDateInput: "[ui-due-date-input]"		
 		},
 
 		triggers:{
@@ -144,6 +145,20 @@ TeacherAccount.module("TeacherApp.Classroom.EditActivities", function(EditActivi
   		hidden_button.on('switchChange.bootstrapSwitch', function(event, state) {
 		    this.value = hidden_button.bootstrapSwitch('state');		    
 		  });
+		},
+
+		onShow: function(){
+			// deal with if HTML5 date input not supported
+      if (!Modernizr.inputtypes.date) {
+      	// If not native HTML5 support, fallback to jQuery datePicker
+        $(this.ui.dueDateInput).datepicker({
+            // Consistent format with the HTML5 picker
+                dateFormat : 'yy-mm-dd'
+            },
+            // Localization
+            $.datepicker.regional['en']
+        );
+      }	
 		}
 
 		
