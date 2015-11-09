@@ -344,12 +344,20 @@
 
 	end
 
+	# Save student performances for an entire classroom
+	# Expects the following parameters:
+	# => classroom_id: Integer
+	# => due_date: Array of due dates for activities
+	# => studentPerformance: two-dimensional Array of Student Performances indexed by Classroom Activity Pairing ID first, and Student User ID second
 	def save_student_performances
 		
+		# Get the classroom from the passed parameter
 		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
 
+		# Create and empty array to store and errors on saving
 		errors = Array.new
 
+		# Save all due dates that were passed
 		due_date_hash = params[:due_date]
 		due_date_hash.each do |cap_id, date|
 			
@@ -362,16 +370,19 @@
 
 		end
 
+		# Iterate though each Student Performance passed and create/update/delete as necessary
 		student_performance_hash = params[:studentPerformance]
-
 
 		student_performance_hash.each do |cap_id, student_activity_performances|
 
+			# Get the Classroom Activity Pairing and Activity
 			cap = ClassroomActivityPairing.where(id: cap_id).first
 			activity = cap.activity
 
+			# Iterate through each student
 			student_activity_performances.each do |student_user_id, performance| 
-			
+				
+				# If the Student has existing Student Performances, retrieve the most recent
 				stored_performance = StudentPerformance.where({student_user_id: student_user_id, classroom_activity_pairing_id: cap.id}).order("created_at DESC").first
 
 				if activity.activity_type.eql?('scored')
@@ -400,8 +411,8 @@
 
 				elsif activity.activity_type.eql?('completion')
 
-					if(stored_performance.nil? && performance.eql?('true'))	
-						newStudentPerformance = StudentPerformance.new({classroom_activity_pairing_id: cap.id, student_user_id: student_user_id, completed_performance: true, performance_date: Time.now})
+					if(stored_performance.nil? && (performance.eql?('true') || performance.eql?('false'))	)
+						newStudentPerformance = StudentPerformance.new({classroom_activity_pairing_id: cap.id, student_user_id: student_user_id, completed_performance: performance, performance_date: Time.now})
 						if(!newStudentPerformance.save)
 							errors.push(newStudentPerformance.errors)
 						end
