@@ -55,6 +55,8 @@ gem 'd3-rails'
 
 # gem 'marionette-rails'
 
+gem 'ejs'
+
 gem 'rails_12factor', group: :production
 
 # gem 'google-api-client'

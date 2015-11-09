@@ -40,6 +40,7 @@ GEM
     coffee-script-source (1.9.1.1)
     d3-rails (3.5.6)
       railties (>= 3.1)
+    ejs (1.1.1)
     erubis (2.7.0)
     execjs (2.6.0)
     extlib (0.9.16)
@@ -190,6 +191,7 @@ DEPENDENCIES
   bootstrap-switch-rails
   coffee-rails (~> 4.0.0)
   d3-rails
+  ejs
   google-api-client (= 0.9.pre3)
   jbuilder (~> 2.0)
   jquery-rails

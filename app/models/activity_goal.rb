@@ -51,7 +51,7 @@ class ActivityGoal < ActiveRecord::Base
     	@goal_met = false
     	if(!performances.empty?)
 	    	performances.each do |performance|
-	    		if performance.scored_performance >= score_goal && (goal_date.nil? || performance.performance_date <= goal_date)
+	    		if (performance.scored_performance && score_goal && performance.scored_performance >= score_goal) && (goal_date.nil? || performance.performance_date <= goal_date)
 	    			@goal_met = @goal_met || true
 	    		end
 	    	end
