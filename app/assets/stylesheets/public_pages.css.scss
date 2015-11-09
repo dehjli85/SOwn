@@ -241,6 +241,29 @@ div.features > p{
   font-size: 18px;
 }
 
+div.data-div{
+  text-align: center;
+  padding:10px 0px;
+}
+
+img.data-image{
+  border: 1px solid #444444;
+  margin-top: 20px;
+}
+
+@media (min-width: 768px){
+  img.data-image{
+    max-width: 70%;
+  }
+}
+
+@media (max-width: 768px){
+  img.data-image{
+    width: 100%;
+  }
+}
+
+
 // STEPS
 h3.steps-h3{
   margin-bottom: 10px;
