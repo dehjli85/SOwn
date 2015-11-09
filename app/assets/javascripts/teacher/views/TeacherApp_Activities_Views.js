@@ -393,6 +393,20 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 				this.ui.hiddenCheckbox.attr("disabled", "");
 				this.ui.archivedCheckbox.attr("disabled", "");
 			}
+		},
+
+		onShow: function(){
+			// deal with if HTML5 date input not supported
+      if (!Modernizr.inputtypes.date) {
+      	// If not native HTML5 support, fallback to jQuery datePicker
+        $(this.ui.dueDateInput).datepicker({
+            // Consistent format with the HTML5 picker
+                dateFormat : 'yy-mm-dd'
+            },
+            // Localization
+            $.datepicker.regional['en']
+        );
+      }
 		}
 
 	});

@@ -14,5 +14,5 @@
 		value="true" <%= classroom_activity_pairing != null && classroom_activity_pairing.archived ? 'checked="checked"' : '' %> <%= classroom_activity_pairing == null ? 'disabled' : '' %> ui-archive-checkbox>
 </td>
 <td class="center">
-	<input type="date" class="form-control" name="activities[<%= id %>][due_date]" value="<%= classroom_activity_pairing && classroom_activity_pairing != null ?  moment( classroom_activity_pairing.due_date).format("YYYY-MM-DD") : "" %>" <%= classroom_activity_pairing == null ? 'disabled' : '' %> ui-due-date-input>
+	<input type="date" class="form-control" name="activities[<%= id %>][due_date]" value="<%= classroom_activity_pairing && classroom_activity_pairing.due_date != null ?  moment( classroom_activity_pairing.due_date).format("YYYY-MM-DD") : "" %>" <%= classroom_activity_pairing == null ? 'disabled' : '' %> ui-due-date-input>
 </td>
