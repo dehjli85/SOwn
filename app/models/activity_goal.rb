@@ -6,6 +6,7 @@ class ActivityGoal < ActiveRecord::Base
   after_find :set_pretty_properties
 
   validate :has_required_fields
+  validate :classroom_activity_pairing_id, presence: true
 
   ##################################################################################################
   #
@@ -15,24 +16,27 @@ class ActivityGoal < ActiveRecord::Base
 
 	def has_required_fields
 		
-		activity = self.classroom_activity_pairing.activity
+		activity = self.classroom_activity_pairing ? self.classroom_activity_pairing.activity : nil
 
-		if activity.activity_type.eql?("scored")
-			if score_goal.nil?
-				errors.add(:score_goal, "cannot be empty for a scored activity")
-			elsif activity.max_score && score_goal > activity.max_score 
-				errors.add(:score_goal, "cannot be greater than the max score")
-			elsif activity.min_score && score_goal < activity.min_score 
-				errors.add(:score_goal, "cannot be less than the min score")
+		if activity
+			if activity.activity_type.eql?("scored")
+				if score_goal.nil?
+					errors.add(:score_goal, "cannot be empty for a scored activity")
+				elsif activity.max_score && score_goal > activity.max_score 
+					errors.add(:score_goal, "cannot be greater than the max score")
+				elsif activity.min_score && score_goal < activity.min_score 
+					errors.add(:score_goal, "cannot be less than the min score")
+				end
 			end
-		end
 
-		if activity.activity_type.eql?("completion")
-			if goal_date.nil?
-				errors.add(:due_date, "cannot be empty for a completion activity")
+			if activity.activity_type.eql?("completion")
+				if goal_date.nil?
+					errors.add(:due_date, "cannot be empty for a completion activity")
+				end
 			end
+		else
+			errors.add(:classroom_activity_pairing_id, "invalid classroom_activity_pairing_id")
 		end
-
 
 	end
 
