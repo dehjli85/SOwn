@@ -26,6 +26,7 @@ prod_*
 *.DS_Store
 .elasticbeanstalk
 db/migrate_to_aws.rb
+app/assets/*.xlsx
 
 # TODO Comment out these rules if you are OK with secrets being uploaded to the repo
 config/initializers/secret_token.rb
