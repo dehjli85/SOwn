@@ -10,10 +10,23 @@
   </div>
   <div id="navbar" class="navbar-collapse collapse">
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#" ui-settings-link><%= teacher.display_name %></a></li>
       <% if(student != null){ %>
         <li><a href="#" ui-switch-account-link>Switch to Student Account</a></li>
       <% } %>
+      <li><a href="#" ui-home-link>Home</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">Classrooms</a>
+        <% if(classrooms){ %>
+          <ul class="dropdown-menu">
+            <% for(var i = 0; i < classrooms.length; i++){ %>
+              <li><a href="#" id="classroom_<%= classrooms[i].id %>" class="ui-classroom-link"><%= classrooms[i].name %></a></li>
+            <% } %>
+          </ul>
+        <% } %>
+        
+      </li>
+
+      <li><a href="#" ui-settings-link><%= teacher.display_name %></a></li>
       <li><a href="/signout">Sign Out</a></li>
       <li class="social-nav"><a href="https://www.facebook.com/Sown-To-Grow-1071075539569635/" target="_blank"><i class="ion-social-facebook"></i></a></li>
       <li class="social-nav"><a href="https://twitter.com/sowntogrow" target="_blank"><i class="ion-social-twitter"></i></a></li>

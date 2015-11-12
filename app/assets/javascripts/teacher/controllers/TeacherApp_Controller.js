@@ -58,8 +58,7 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 
 	     	//fetch user model and create header
 	     	var user = new Backbone.Model({teacher: data.teacher, student: data.student});
-				var headerView = new TeacherAccount.TeacherApp.HeaderView({model:user});				
-				TeacherAccount.rootView.headerRegion.show(headerView);
+				
 
 				// if the student_user in the session is a google user
 				if(user.get("teacher").provider != null){
@@ -71,14 +70,13 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 				var jqxhr = $.get("/classrooms_summary", function(){
 					console.log('get request made for teacher classrooms data');
 				})
-				.done(function(data) {
+				.done(function(data2) {
 
 
 					// create the left nav
-					var leftNavModel = new Backbone.Model({subapp: subapp, classrooms: data.classrooms});
-					var leftNav = new TeacherAccount.TeacherApp.LeftNavView({model:leftNavModel});
-					TeacherAccount.rootView.leftNavRegion.show(leftNav);
-
+					var model = new Backbone.Model({subapp: subapp, classrooms: data2.classrooms, teacher: data.teacher, student: data.student});
+					var headerView = new TeacherAccount.TeacherApp.HeaderView({model:model});				
+					TeacherAccount.rootView.headerRegion.show(headerView);
 					
 					
 			  })

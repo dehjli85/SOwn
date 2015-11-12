@@ -9,17 +9,34 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 
 		ui: {
 			switchAccountLink: "[ui-switch-account-link]",
-			settingsLink: "[ui-settings-link]"
+			settingsLink: "[ui-settings-link]",
+			homeLink: "[ui-home-link]"
+		},
+
+		events:{
+			"click .ui-classroom-link": "showClassroom",
+			"click @ui.homeLink": "showClassrooms"
 		},
 
 		triggers:{
 			"click @ui.switchAccountLink": "show:student:view",
-			"click @ui.settingsLink": "start:settings:app"
+			"click @ui.settingsLink": "start:settings:app",
 		},
 
 		onShowStudentView: function(){
 			TeacherApp.Main.Controller.showStudentView();
-		}
+		},
+
+		showClassroom: function(e){
+			console.log("classroom link clicked");
+			e.preventDefault();
+			TeacherAccount.TeacherApp.Main.Controller.startClassroomApp($(e.target).attr("id").replace("classroom_",""), "scores");
+		},
+
+		showClassrooms: function(e){
+			e.preventDefault();
+			TeacherAccount.TeacherApp.Classrooms.Controller.showClassroomOverviews();
+		},
 			
 	});
 
