@@ -5,6 +5,18 @@
     </div>
     <div class="modal-body">
       <form class="form form-horizontal" ui-activity-form>
+        <% if(activity_status == "New" && activities != null){ %> 
+          <div class="form-group">
+            <label class="col-md-4 control-label">Copy Activity:</label>
+            <div class="col-md-6">
+              <input class="form-control input-xs typeahead" id="inputName" placeholder="" type="text" ui-copy-input>
+            </div>
+            <div class="col-md-2">
+              <a href="#" class="btn btn-primary" ui-copy-button>Copy</a>
+
+            </div>
+          </div>
+        <% } %>
         <div class="form-group <% if(errors.name != null){%>has-error<%}%>">
           <label class="col-md-4 control-label">Activity Name:</label>
           <div class="col-md-8">

@@ -264,19 +264,23 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			nameInput: "[ui-name-input]",
 			descriptionInput: "[ui-description-input]",
 			instructionsInput: "[ui-instructions-input]",			
+			linkInput: "[ui-link-input]",
 			maxScoreInput: "[ui-max-score-input]",
 			minScoreInput: "[ui-min-score-input]",
 			benchmark1ScoreInput: "[ui-benchmark-one-score-input]",
 			benchmark2ScoreInput: "[ui-benchmark-two-score-input]",
 			assignmentForm: "[ui-assignment-form]",
 			saveButton: "[ui-save-button]",
-			tagInputDiv: "[ui-tag-input-div]"
+			tagInputDiv: "[ui-tag-input-div]",
+			copyButton: "[ui-copy-button]",
+			copyInput: "[ui-copy-input]"
 		},
 
 		events:{
 			"change @ui.activityTypeSelect": "toggleScoreRangeDiv",
 			"click @ui.addTagsButton": "addTag",
 			"submit @ui.activityForm": "addTag",
+			"click @ui.copyButton": "copyActivityFields"
 		},
 
 		triggers:{
@@ -295,7 +299,9 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		},
 
 		addTag: function(e){
-			e.preventDefault();
+			if(e != null){
+				e.preventDefault();
+			}
 			if(this.ui.tagInput.val().trim() != ""){
 				var tagModel = {name: this.ui.tagInput.val().replace(/ /g,""), index: this.model.attributes.tagCount};
 				this.collection.push(tagModel);
@@ -341,6 +347,19 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			  name: 'teacher_tags',
 			  source: this.substringMatcher(this.model.get("teacher_tags"))
 			});
+
+			$('[ui-copy-input]').typeahead({
+			  hint: true,
+			  highlight: true,
+			  minLength: 1
+			},
+			{
+			  name: 'activity_names',
+			  source: this.substringMatcher(this.model.get("activity_names"))
+			});
+
+			$('.twitter-typeahead').css("display", "block");
+
 		},
 
 		substringMatcher: function(strs) {
@@ -363,6 +382,46 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		    cb(matches);
 		  }
+		},
+
+		copyActivityFields: function(e){
+			e.preventDefault();
+			//find the right activity
+			var activity = null;
+			for(var i = 0; i < this.model.get("activities").length; i++){
+				if(this.model.get("activities")[i].name == this.ui.copyInput.val()){
+					activity = this.model.get("activities")[i];
+				}
+			}
+
+
+			//populate the input fields
+			if(activity != null){
+				this.ui.activityTypeSelect.val(activity.activity_type);
+				this.toggleScoreRangeDiv();
+				this.ui.nameInput.val(activity.name + " copy");
+				this.ui.descriptionInput.val(activity.description);
+				this.ui.instructionsInput.val(activity.instructions);
+				this.ui.linkInput.val(activity.link);
+				this.ui.maxScoreInput.val(activity.max_score)
+				this.ui.minScoreInput.val(activity.min_score)
+				this.ui.benchmark1ScoreInput.val(activity.benchmark1_score);
+				this.ui.benchmark2ScoreInput.val(activity.benchmark2_score);
+
+				console.log(activity.tags);
+
+				this.collection.reset();
+				this.model.set("tagCount", 0);
+
+				if(activity.tags != null){
+					for(var j = 0; j < activity.tags.length; j++){
+						this.ui.tagInput.val(activity.tags[j].name);
+						this.addTag(null);
+					}
+
+				}
+			}
+
 		}
 
 	});
