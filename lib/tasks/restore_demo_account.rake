@@ -74,16 +74,15 @@ namespace :app do
 
 
 		puts "adding students to classrooms..."
-		ClassroomStudentUser.new({student_user_id: 35, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 2, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 2, classroom_id: c1.id}).save
 		ClassroomStudentUser.new({student_user_id: 3, classroom_id: c2.id}).save
 		ClassroomStudentUser.new({student_user_id: 4, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 5, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 6, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 7, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 8, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 9, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 10, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 5, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 6, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 7, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 8, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 9, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 10, classroom_id: c2.id}).save
 		ClassroomStudentUser.new({student_user_id: 11, classroom_id: c2.id}).save
 		ClassroomStudentUser.new({student_user_id: 12, classroom_id: c2.id}).save
 		ClassroomStudentUser.new({student_user_id: 13, classroom_id: c2.id}).save
@@ -92,88 +91,52 @@ namespace :app do
 		ClassroomStudentUser.new({student_user_id: 16, classroom_id: c2.id}).save
 		ClassroomStudentUser.new({student_user_id: 17, classroom_id: c2.id}).save
 		ClassroomStudentUser.new({student_user_id: 18, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 19, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 20, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 21, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 22, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 23, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 24, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 25, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 19, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 20, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 21, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 22, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 23, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 24, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 25, classroom_id: c1.id}).save
 		ClassroomStudentUser.new({student_user_id: 26, classroom_id: c1.id}).save
 		ClassroomStudentUser.new({student_user_id: 27, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 28, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 28, classroom_id: c1.id}).save
 		ClassroomStudentUser.new({student_user_id: 29, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 29, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 30, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 31, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 29, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 30, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 31, classroom_id: c1.id}).save
 		ClassroomStudentUser.new({student_user_id: 32, classroom_id: c1.id}).save
 		ClassroomStudentUser.new({student_user_id: 33, classroom_id: c1.id}).save
 		ClassroomStudentUser.new({student_user_id: 34, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 36, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 37, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 38, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 39, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 40, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 41, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 42, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 43, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 44, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 45, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 46, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 47, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 48, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 49, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 35, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 36, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 37, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 38, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 39, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 40, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 41, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 42, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 43, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 44, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 45, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 46, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 47, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 48, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 49, classroom_id: c2.id}).save
 		ClassroomStudentUser.new({student_user_id: 50, classroom_id: c1.id}).save
 		ClassroomStudentUser.new({student_user_id: 51, classroom_id: c1.id}).save
 		ClassroomStudentUser.new({student_user_id: 52, classroom_id: c1.id}).save
 		ClassroomStudentUser.new({student_user_id: 53, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 54, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 55, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 56, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 57, classroom_id: c2.id}).save
+		ClassroomStudentUser.new({student_user_id: 54, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 55, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 56, classroom_id: c1.id}).save
+		ClassroomStudentUser.new({student_user_id: 57, classroom_id: c1.id}).save
 		ClassroomStudentUser.new({student_user_id: 58, classroom_id: c2.id}).save
 		ClassroomStudentUser.new({student_user_id: 59, classroom_id: c2.id}).save
 		ClassroomStudentUser.new({student_user_id: 60, classroom_id: c2.id}).save
 		ClassroomStudentUser.new({student_user_id: 61, classroom_id: c2.id}).save
 		ClassroomStudentUser.new({student_user_id: 62, classroom_id: c2.id}).save
 		ClassroomStudentUser.new({student_user_id: 63, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 64, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 65, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 66, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 67, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 68, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 69, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 70, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 71, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 72, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 73, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 74, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 75, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 76, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 77, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 78, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 79, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 80, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 81, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 82, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 83, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 84, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 85, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 86, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 87, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 88, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 89, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 90, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 91, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 92, classroom_id: c1.id}).save
-		ClassroomStudentUser.new({student_user_id: 93, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 94, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 95, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 96, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 97, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 98, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 99, classroom_id: c2.id}).save
-		ClassroomStudentUser.new({student_user_id: 100, classroom_id: c2.id}).save
 
 		puts "adding activities...."
 		a1 = Activity.new({name:"(2) Multiplication 1-12", description: "thatquiz link with 100 multiplication questions, numbers 1-12", instructions: "90% correct", teacher_user_id: teacher_user_id, activity_type: "scored", min_score: 0 ,max_score: 100, benchmark1_score: 69, benchmark2_score: 89,link: "http://www.thatquiz.org/tq/practicetest?rx6aka5wlgr2" })
@@ -204,12 +167,12 @@ namespace :app do
 		a26 = Activity.new({name:"(25) Equivalent fractions", description: "Khan Academy practice on equivalent fractions", instructions: "5 in a row", teacher_user_id: teacher_user_id, activity_type: "scored", min_score: 0 ,max_score: 5, benchmark1_score: 2, benchmark2_score: 4,link: "https://www.khanacademy.org/math/pre-algebra/fractions-pre-alg/equivalent-fractions-pre-alg/e/equivalent_fractions" })
 		a27 = Activity.new({name:"(28) STAR Test #2-Grade Level Equivalent", description: "This number gives your grade and month equivalent. For example, 4.5 is the same as 4th grade and 5 months. 7.2 is 7th grade with 2 months.", instructions: "6.0 or higher", teacher_user_id: teacher_user_id, activity_type: "scored", min_score: 0 ,max_score: 12, benchmark1_score: 2.9, benchmark2_score: 6,link: "" })
 		a28 = Activity.new({name:"(20) Long Division (Adaptive)", description: "Mathspace lesson and practice on long division", instructions: "80% correct", teacher_user_id: teacher_user_id, activity_type: "scored", min_score: 0 ,max_score: 100, benchmark1_score: 70, benchmark2_score: 80,link: "https://mathspace.co/teach2/chapter/14820/99/" })
-		a29 = Activity.new({name:"(1) STAR Test #1-Grade Level Equivalent", description: "This number gives your grade and month equivalent. For example, 4.5 is the same as 4th grade and 5 months. 7.2 is 7th grade with 2 months.", instructions: "6.0 or higher", teacher_user_id: teacher_user_id, activity_type: "scored", min_score: 0 ,max_score: 12, benchmark1_score: 2.9, benchmark2_score: 6,link: "" })
-		a30 = Activity.new({name:"(29) One-Step Equations with Multiplication and Division", description: "Khan academy activities for one-step equations with multiplication and division", instructions: "5 in a row", teacher_user_id: teacher_user_id, activity_type: "scored", min_score: 0 ,max_score: 5, benchmark1_score: 3, benchmark2_score: 4,link: "https://www.khanacademy.org/math/cc-sixth-grade-math/cc-6th-equations-and-inequalities/cc-6th-one-step-mult-div-equations/e/linear_equations_1" })
-		a31 = Activity.new({name:"(30) One-step Equations with Multiplication and Division with Decimals or Fractions", description: "Khan Academy activity on one-step equations with multiplication and division with decimals or fractions", instructions: "5 in a row", teacher_user_id: teacher_user_id, activity_type: "scored", min_score: 0 ,max_score: 5, benchmark1_score: 3, benchmark2_score: 4,link: "https://www.khanacademy.org/math/cc-sixth-grade-math/cc-6th-equations-and-inequalities/cc-6th-one-step-mult-div-equations/e/one-step-mult-div-equations-2" })
-		a32 = Activity.new({name:"(32) One Step Equation Word Problems", description: "Solve one step equations from word problems on IXL", instructions: "Smart Score of 100", teacher_user_id: teacher_user_id, activity_type: "scored", min_score: 0 ,max_score: 100, benchmark1_score: 70, benchmark2_score: 80,link: "https://www.ixl.com/math/grade-7/solve-equations-word-problems" })
-		a33 = Activity.new({name:"(31) One Step Equations", description: "One step equations practice from IXL", instructions: "Smart Score of 100", teacher_user_id: teacher_user_id, activity_type: "scored", min_score: 0 ,max_score: 100, benchmark1_score: 70, benchmark2_score: 80,link: "https://www.ixl.com/math/grade-7/solve-one-step-equations" })
-
+		a29 = Activity.new({name:"(29) One-Step Equations with Multiplication and Division", description: "Khan academy activities for one-step equations with multiplication and division", instructions: "5 in a row", teacher_user_id: teacher_user_id, activity_type: "scored", min_score: 0 ,max_score: 5, benchmark1_score: 3, benchmark2_score: 4,link: "https://www.khanacademy.org/math/cc-sixth-grade-math/cc-6th-equations-and-inequalities/cc-6th-one-step-mult-div-equations/e/linear_equations_1" })
+		a30 = Activity.new({name:"(30) One-step Equations with Multiplication and Division with Decimals or Fractions", description: "Khan Academy activity on one-step equations with multiplication and division with decimals or fractions", instructions: "5 in a row", teacher_user_id: teacher_user_id, activity_type: "scored", min_score: 0 ,max_score: 5, benchmark1_score: 3, benchmark2_score: 4,link: "https://www.khanacademy.org/math/cc-sixth-grade-math/cc-6th-equations-and-inequalities/cc-6th-one-step-mult-div-equations/e/one-step-mult-div-equations-2" })
+		a31 = Activity.new({name:"(32) One Step Equation Word Problems", description: "Solve one step equations from word problems on IXL", instructions: "Smart Score of 100", teacher_user_id: teacher_user_id, activity_type: "scored", min_score: 0 ,max_score: 100, benchmark1_score: 70, benchmark2_score: 80,link: "https://www.ixl.com/math/grade-7/solve-equations-word-problems" })
+		a32 = Activity.new({name:"(31) One Step Equations", description: "One step equations practice from IXL", instructions: "Smart Score of 100", teacher_user_id: teacher_user_id, activity_type: "scored", min_score: 0 ,max_score: 100, benchmark1_score: 70, benchmark2_score: 80,link: "https://www.ixl.com/math/grade-7/solve-one-step-equations" })
+		a33 = Activity.new({name:"(1) STAR Test-Grade Level Equivalent", description: "This number gives your grade and month equivalent. For example, 4.5 is the same as 4th grade and 5 months. 7.2 is 7th grade with 2 months.", instructions: "6.0 or higher", teacher_user_id: teacher_user_id, activity_type: "scored", min_score: 0 ,max_score: 12, benchmark1_score: 3, benchmark2_score: 6,link: "" })
+		
 		a1.save
 		a2.save
 		a3.save
@@ -245,7 +208,6 @@ namespace :app do
 		a33.save
 
 		puts "adding activity tags..."
-		ActivityTagPairing.new({activity_tag_id: 39, activity_id: a18.id }).save
 		ActivityTagPairing.new({activity_tag_id: 45, activity_id: a21.id }).save
 		ActivityTagPairing.new({activity_tag_id: 2, activity_id: a21.id }).save
 		ActivityTagPairing.new({activity_tag_id: 1, activity_id: a1.id }).save
@@ -257,15 +219,12 @@ namespace :app do
 		ActivityTagPairing.new({activity_tag_id: 1, activity_id: a9.id }).save
 		ActivityTagPairing.new({activity_tag_id: 1, activity_id: a11.id }).save
 		ActivityTagPairing.new({activity_tag_id: 2, activity_id: a20.id }).save
-		ActivityTagPairing.new({activity_tag_id: 46, activity_id: a6.id }).save
 		ActivityTagPairing.new({activity_tag_id: 1, activity_id: a5.id }).save
 		ActivityTagPairing.new({activity_tag_id: 2, activity_id: a5.id }).save
 		ActivityTagPairing.new({activity_tag_id: 13, activity_id: a23.id }).save
 		ActivityTagPairing.new({activity_tag_id: 2, activity_id: a23.id }).save
 		ActivityTagPairing.new({activity_tag_id: 47, activity_id: a23.id }).save
 		ActivityTagPairing.new({activity_tag_id: 2, activity_id: a6.id }).save
-		ActivityTagPairing.new({activity_tag_id: 39, activity_id: a26.id }).save
-		ActivityTagPairing.new({activity_tag_id: 48, activity_id: a26.id }).save
 		ActivityTagPairing.new({activity_tag_id: 1, activity_id: a12.id }).save
 		ActivityTagPairing.new({activity_tag_id: 49, activity_id: a12.id }).save
 		ActivityTagPairing.new({activity_tag_id: 50, activity_id: a12.id }).save
@@ -275,7 +234,6 @@ namespace :app do
 		ActivityTagPairing.new({activity_tag_id: 2, activity_id: a28.id }).save
 		ActivityTagPairing.new({activity_tag_id: 49, activity_id: a28.id }).save
 		ActivityTagPairing.new({activity_tag_id: 50, activity_id: a28.id }).save
-		ActivityTagPairing.new({activity_tag_id: 51, activity_id: a24.id }).save
 		ActivityTagPairing.new({activity_tag_id: 49, activity_id: a25.id }).save
 		ActivityTagPairing.new({activity_tag_id: 1, activity_id: a25.id }).save
 		ActivityTagPairing.new({activity_tag_id: 2, activity_id: a25.id }).save
@@ -304,16 +262,20 @@ namespace :app do
 		ActivityTagPairing.new({activity_tag_id: 59, activity_id: a13.id }).save
 		ActivityTagPairing.new({activity_tag_id: 1, activity_id: a13.id }).save
 		ActivityTagPairing.new({activity_tag_id: 61, activity_id: a15.id }).save
-		ActivityTagPairing.new({activity_tag_id: 62, activity_id: a29.id }).save
+		ActivityTagPairing.new({activity_tag_id: 62, activity_id: a33.id }).save
 		ActivityTagPairing.new({activity_tag_id: 62, activity_id: a27.id }).save
+		ActivityTagPairing.new({activity_tag_id: 2, activity_id: a18.id }).save
+		ActivityTagPairing.new({activity_tag_id: 2, activity_id: a26.id }).save
+		ActivityTagPairing.new({activity_tag_id: 55, activity_id: a24.id }).save
+		ActivityTagPairing.new({activity_tag_id: 86, activity_id: a6.id }).save
 
 		puts "adding classroom activities..."
 		cap1 = ClassroomActivityPairing.new({activity_id: a1.id, classroom_id: c2.id, hidden: FALSE, sort_order: 1, archived: FALSE})
 		cap2 = ClassroomActivityPairing.new({activity_id: a27.id, classroom_id: c2.id, hidden: FALSE, sort_order: 27, archived: FALSE})
-		cap3 = ClassroomActivityPairing.new({activity_id: a29.id, classroom_id: c2.id, hidden: FALSE, sort_order: 0, archived: FALSE})
+		cap3 = ClassroomActivityPairing.new({activity_id: a33.id, classroom_id: c2.id, hidden: FALSE, sort_order: 0, archived: FALSE})
 		cap4 = ClassroomActivityPairing.new({activity_id: a3.id, classroom_id: c2.id, hidden: FALSE, sort_order: 2, archived: FALSE})
 		cap5 = ClassroomActivityPairing.new({activity_id: a2.id, classroom_id: c2.id, hidden: FALSE, sort_order: 3, archived: FALSE})
-		cap6 = ClassroomActivityPairing.new({activity_id: a29.id, classroom_id: c1.id, hidden: FALSE, sort_order: 0, archived: FALSE})
+		cap6 = ClassroomActivityPairing.new({activity_id: a33.id, classroom_id: c1.id, hidden: FALSE, sort_order: 0, archived: FALSE})
 		cap7 = ClassroomActivityPairing.new({activity_id: a1.id, classroom_id: c1.id, hidden: FALSE, sort_order: 1, archived: FALSE})
 		cap8 = ClassroomActivityPairing.new({activity_id: a7.id, classroom_id: c1.id, hidden: FALSE, sort_order: 4, archived: FALSE})
 		cap9 = ClassroomActivityPairing.new({activity_id: a9.id, classroom_id: c1.id, hidden: FALSE, sort_order: 6, archived: FALSE})
@@ -364,15 +326,15 @@ namespace :app do
 		cap54 = ClassroomActivityPairing.new({activity_id: a24.id, classroom_id: c1.id, hidden: FALSE, sort_order: 25, archived: FALSE})
 		cap55 = ClassroomActivityPairing.new({activity_id: a25.id, classroom_id: c1.id, hidden: FALSE, sort_order: 26, archived: FALSE})
 		cap56 = ClassroomActivityPairing.new({activity_id: a27.id, classroom_id: c1.id, hidden: FALSE, sort_order: 27, archived: FALSE})
-		cap57 = ClassroomActivityPairing.new({activity_id: a30.id, classroom_id: c1.id, hidden: FALSE, sort_order: 28, archived: FALSE})
-		cap58 = ClassroomActivityPairing.new({activity_id: a30.id, classroom_id: c2.id, hidden: FALSE, sort_order: 28, archived: FALSE})
-		cap59 = ClassroomActivityPairing.new({activity_id: a31.id, classroom_id: c1.id, hidden: FALSE, sort_order: 29, archived: FALSE})
-		cap60 = ClassroomActivityPairing.new({activity_id: a31.id, classroom_id: c2.id, hidden: FALSE, sort_order: 29, archived: FALSE})
-		cap61 = ClassroomActivityPairing.new({activity_id: a33.id, classroom_id: c1.id, hidden: FALSE, sort_order: 30, archived: FALSE})
-		cap62 = ClassroomActivityPairing.new({activity_id: a33.id, classroom_id: c2.id, hidden: FALSE, sort_order: 30, archived: FALSE})
-		cap63 = ClassroomActivityPairing.new({activity_id: a32.id, classroom_id: c1.id, hidden: FALSE, sort_order: 31, archived: FALSE})
-		cap64 = ClassroomActivityPairing.new({activity_id: a32.id, classroom_id: c2.id, hidden: FALSE, sort_order: 31, archived: FALSE})
-
+		cap57 = ClassroomActivityPairing.new({activity_id: a29.id, classroom_id: c1.id, hidden: FALSE, sort_order: 28, archived: FALSE})
+		cap58 = ClassroomActivityPairing.new({activity_id: a29.id, classroom_id: c2.id, hidden: FALSE, sort_order: 28, archived: FALSE})
+		cap59 = ClassroomActivityPairing.new({activity_id: a30.id, classroom_id: c1.id, hidden: FALSE, sort_order: 29, archived: FALSE})
+		cap60 = ClassroomActivityPairing.new({activity_id: a30.id, classroom_id: c2.id, hidden: FALSE, sort_order: 29, archived: FALSE})
+		cap61 = ClassroomActivityPairing.new({activity_id: a32.id, classroom_id: c1.id, hidden: FALSE, sort_order: 30, archived: FALSE})
+		cap62 = ClassroomActivityPairing.new({activity_id: a32.id, classroom_id: c2.id, hidden: FALSE, sort_order: 30, archived: FALSE})
+		cap63 = ClassroomActivityPairing.new({activity_id: a31.id, classroom_id: c1.id, hidden: FALSE, sort_order: 31, archived: FALSE})
+		cap64 = ClassroomActivityPairing.new({activity_id: a31.id, classroom_id: c2.id, hidden: FALSE, sort_order: 31, archived: FALSE})
+		
 		cap1.save
 		cap2.save
 		cap3.save
@@ -439,1459 +401,1130 @@ namespace :app do
 		cap64.save
 
 		puts "adding student performances..."
-		StudentPerformance.new({student_user_id: 2, classroom_activity_pairing_id: cap1.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 2, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 2, classroom_activity_pairing_id: cap5.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 2, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 2, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 2, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 2, classroom_activity_pairing_id: cap3.id ,scored_performance: 2.9, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 2, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 2, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 2, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 2, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap1.id ,scored_performance: 76, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap1.id ,scored_performance: 93, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap4.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap11.id ,scored_performance: 91, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap12.id ,scored_performance: 83, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.3, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap18.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap22.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap20.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap25.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap26.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap1.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap1.id ,scored_performance: 98, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap5.id ,scored_performance: 82, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 2, classroom_activity_pairing_id: cap7.id ,scored_performance: 16, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 2, classroom_activity_pairing_id: cap7.id ,scored_performance: 10, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 2, classroom_activity_pairing_id: cap6.id ,scored_performance: 3.1, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap1.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap5.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap3.id ,scored_performance: 2.9, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/22"}).save
+		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/22"}).save
+		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 3, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap1.id ,scored_performance: 76, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap1.id ,scored_performance: 93, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap4.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap11.id ,scored_performance: 91, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap12.id ,scored_performance: 83, completed_performance: nil, performance_date: "2015/10/15"}).save
 		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap25.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/29"}).save
-		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap7.id ,scored_performance: 25, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap7.id ,scored_performance: 27, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap6.id ,scored_performance: 3.6, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap7.id ,scored_performance: 8, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap7.id ,scored_performance: 55, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.6, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap7.id ,scored_performance: 40, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap7.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap56.id ,scored_performance: 6.3, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap7.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap7.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap7.id ,scored_performance: 91, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap43.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap6.id ,scored_performance: 3.2, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap43.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap37.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap40.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap41.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap1.id ,scored_performance: 67, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap1.id ,scored_performance: 86, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap1.id ,scored_performance: 89, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap1.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap5.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap3.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap3.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/03"}).save
-		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/04"}).save
-		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/04"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 67, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 63, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 53, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 40, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 61, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 63, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 61, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 59, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 23, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.1, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 59, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 60, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 60, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 48, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 60, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 48, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 77, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 76, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap5.id ,scored_performance: 35, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap5.id ,scored_performance: 55, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap11.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap5.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/11/03"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 22, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 48, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 27, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 40, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 35, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 37, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 46, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 46, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 79, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 43, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 44, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap3.id ,scored_performance: 3, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 36, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 44, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 65, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 62, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 64, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 45, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 62, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 86, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 83, completed_performance: nil, performance_date: "2015/11/03"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 76, completed_performance: nil, performance_date: "2015/11/03"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 99, completed_performance: nil, performance_date: "2015/11/03"}).save
-		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 79, completed_performance: nil, performance_date: "2015/11/04"}).save
-		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap1.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.9, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap4.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap1.id ,scored_performance: 76, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.3, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/21"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/21"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap18.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/21"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap22.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/22"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap20.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap25.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap26.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 4, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 5, classroom_activity_pairing_id: cap7.id ,scored_performance: 25, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 5, classroom_activity_pairing_id: cap7.id ,scored_performance: 27, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 5, classroom_activity_pairing_id: cap6.id ,scored_performance: 3.6, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 5, classroom_activity_pairing_id: cap7.id ,scored_performance: 8, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 5, classroom_activity_pairing_id: cap7.id ,scored_performance: 55, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 6, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.6, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 6, classroom_activity_pairing_id: cap7.id ,scored_performance: 40, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 6, classroom_activity_pairing_id: cap7.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 6, classroom_activity_pairing_id: cap56.id ,scored_performance: 6.3, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap7.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap7.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap7.id ,scored_performance: 91, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap43.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap6.id ,scored_performance: 3.2, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap43.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap37.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap40.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap41.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 7, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap1.id ,scored_performance: 67, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap1.id ,scored_performance: 86, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap1.id ,scored_performance: 89, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap1.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap5.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap3.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap3.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/03"}).save
+		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/04"}).save
+		StudentPerformance.new({student_user_id: 8, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/04"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 67, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 63, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 53, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 40, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 61, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 63, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 61, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 59, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 23, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.1, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 59, completed_performance: nil, performance_date: "2015/10/21"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 60, completed_performance: nil, performance_date: "2015/10/21"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 60, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 48, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 60, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 48, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 77, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 76, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap5.id ,scored_performance: 35, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap1.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap5.id ,scored_performance: 55, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap11.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 9, classroom_activity_pairing_id: cap5.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/11/03"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 22, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 48, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 27, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 40, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 35, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 37, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 46, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 46, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 79, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 43, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 44, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap3.id ,scored_performance: 3, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 36, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 44, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 65, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 62, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 64, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 45, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 62, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 86, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 83, completed_performance: nil, performance_date: "2015/11/03"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 76, completed_performance: nil, performance_date: "2015/11/03"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 99, completed_performance: nil, performance_date: "2015/11/03"}).save
+		StudentPerformance.new({student_user_id: 10, classroom_activity_pairing_id: cap1.id ,scored_performance: 79, completed_performance: nil, performance_date: "2015/11/04"}).save
+		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/23"}).save
+		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap1.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.9, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap4.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 11, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap1.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap5.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap22.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap25.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap27.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap30.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.1, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap31.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/10/22"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap32.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap33.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap20.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 12, classroom_activity_pairing_id: cap23.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap1.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap5.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap2.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.9, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap11.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap12.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 13, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap1.id ,scored_performance: 83, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap1.id ,scored_performance: 98, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap20.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap24.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap25.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap26.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 14, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 15, classroom_activity_pairing_id: cap1.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 15, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 15, classroom_activity_pairing_id: cap4.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 15, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 15, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.1, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 15, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 15, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 15, classroom_activity_pairing_id: cap2.id ,scored_performance: 5.3, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 15, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 15, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 15, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 15, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
 		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap1.id ,scored_performance: 99, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap5.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 18, classroom_activity_pairing_id: cap1.id ,scored_performance: 48, completed_performance: nil, performance_date: "2015/11/10"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap1.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap5.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap22.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap25.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap27.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap30.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.1, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap31.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap32.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap33.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap20.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap23.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap1.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap5.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap2.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.9, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap11.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap12.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap1.id ,scored_performance: 83, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap1.id ,scored_performance: 98, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap20.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap24.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap25.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap26.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap1.id ,scored_performance: 98, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap11.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap13.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap14.id ,scored_performance: 3.5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap15.id ,scored_performance: 3.5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap15.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap25.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap26.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap27.id ,scored_performance: 3, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap28.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap30.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap31.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap31.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap33.id ,scored_performance: 3, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap33.id ,scored_performance: 3, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap33.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap34.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap35.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap1.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap4.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.1, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap2.id ,scored_performance: 5.3, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap1.id ,scored_performance: 99, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap5.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.3, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap22.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap24.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap25.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap1.id ,scored_performance: 62, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap1.id ,scored_performance: 69, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap1.id ,scored_performance: 79, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap1.id ,scored_performance: 93, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap5.id ,scored_performance: 45, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap3.id ,scored_performance: 3.9, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap5.id ,scored_performance: 50, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap5.id ,scored_performance: 64, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap5.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap5.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap5.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/03"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/03"}).save
-		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/04"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap1.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap5.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap20.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap24.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap25.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap26.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap22.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap31.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap34.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap35.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap33.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/29"}).save
-		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap58.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap1.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap5.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap1.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap3.id ,scored_performance: 6.7, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap20.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap22.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap24.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap25.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap25.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap26.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap31.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap1.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap5.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap11.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap24.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap25.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap35.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap34.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap22.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap58.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap31.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap1.id ,scored_performance: 89, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap1.id ,scored_performance: 98, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap5.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap11.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.9, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap20.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap24.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap25.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap28.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap7.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap43.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap6.id ,scored_performance: 7, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap37.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap41.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap46.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap47.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap48.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap10.id ,scored_performance: nil, completed_performance: TRUE, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap49.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/29"}).save
-		StudentPerformance.new({student_user_id: 33, classroom_activity_pairing_id: cap6.id ,scored_performance: 1.8, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 33, classroom_activity_pairing_id: cap7.id ,scored_performance: 1, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 33, classroom_activity_pairing_id: cap7.id ,scored_performance: 3, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 33, classroom_activity_pairing_id: cap7.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 33, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 33, classroom_activity_pairing_id: cap42.id ,scored_performance: 0, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 34, classroom_activity_pairing_id: cap7.id ,scored_performance: 32, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap7.id ,scored_performance: 16, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap7.id ,scored_performance: 10, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap6.id ,scored_performance: 3.1, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap7.id ,scored_performance: 18, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.3, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap7.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap43.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap6.id ,scored_performance: 3.7, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap7.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap42.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap56.id ,scored_performance: 5.3, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap43.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap7.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap43.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap8.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap16.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap37.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap43.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.7, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap7.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap43.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.6, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap56.id ,scored_performance: 4.6, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap17.id ,scored_performance: 3, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap17.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap7.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap6.id ,scored_performance: 5.1, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap42.id ,scored_performance: 82, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap56.id ,scored_performance: 4.6, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap38.id ,scored_performance: 91.8, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap7.id ,scored_performance: 29, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap7.id ,scored_performance: 98, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap7.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap6.id ,scored_performance: 5.8, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap43.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap7.id ,scored_performance: 99, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap42.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap42.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap56.id ,scored_performance: 6.2, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap8.id ,scored_performance: 96.8, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap16.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap16.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap19.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap46.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap46.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap46.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap7.id ,scored_performance: 69, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap7.id ,scored_performance: 99, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.2, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap7.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap43.id ,scored_performance: 60, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap43.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap56.id ,scored_performance: 5.1, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap42.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap43.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap16.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap19.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap37.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap38.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap40.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap47.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap48.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap46.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap49.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap41.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap7.id ,scored_performance: 86, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap43.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap6.id ,scored_performance: 5.7, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap53.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap56.id ,scored_performance: 5.9, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap39.id ,scored_performance: 93.9, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap40.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap41.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap37.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap46.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap47.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap48.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap49.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap7.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap43.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.7, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap7.id ,scored_performance: 26, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap7.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap6.id ,scored_performance: 6.1, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap37.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap40.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap41.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap53.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap50.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap10.id ,scored_performance: nil, completed_performance: TRUE, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap47.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap51.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap48.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap48.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap48.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap52.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap46.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap49.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap49.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap54.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap55.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap7.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap9.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap6.id ,scored_performance: 7.6, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap37.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap43.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap56.id ,scored_performance: 6.7, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap40.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap41.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap46.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap49.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap47.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap48.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap10.id ,scored_performance: nil, completed_performance: TRUE, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap7.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap50.id ,scored_performance: 1.5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap50.id ,scored_performance: 1.5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap50.id ,scored_performance: 1.5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap50.id ,scored_performance: 1.5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap50.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap7.id ,scored_performance: 52, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap6.id ,scored_performance: 6.7, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap7.id ,scored_performance: 86, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap7.id ,scored_performance: 59, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap7.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap56.id ,scored_performance: 6.3, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap46.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap17.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap7.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap37.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap40.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap41.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap6.id ,scored_performance: 2.9, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap7.id ,scored_performance: 2.9, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap7.id ,scored_performance: 14, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap56.id ,scored_performance: 1.8, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap7.id ,scored_performance: 75, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap7.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap43.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap42.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap8.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap37.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap38.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap39.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap40.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap41.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap44.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap7.id ,scored_performance: 69, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.8, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap7.id ,scored_performance: 77, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap7.id ,scored_performance: 93, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap56.id ,scored_performance: 5.4, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap19.id ,scored_performance: 3, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap7.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap7.id ,scored_performance: 7, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap56.id ,scored_performance: 3.3, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap6.id ,scored_performance: 2.7, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap7.id ,scored_performance: 13, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap6.id ,scored_performance: 5.6, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap7.id ,scored_performance: 42, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap7.id ,scored_performance: 50, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap42.id ,scored_performance: 96.8, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap42.id ,scored_performance: 90.5999999999999, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap43.id ,scored_performance: 35, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap43.id ,scored_performance: 75, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap43.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap7.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap7.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap7.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap6.id ,scored_performance: 5.1, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap7.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap42.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap56.id ,scored_performance: 5.2, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap56.id ,scored_performance: 5.2, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap43.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap8.id ,scored_performance: 82, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap16.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap17.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap19.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap37.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap40.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap1.id ,scored_performance: 91, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap4.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap5.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap5.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap11.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.6, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap1.id ,scored_performance: 99, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap20.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap25.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap1.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap3.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap5.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap4.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap2.id ,scored_performance: 5.6, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap11.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap12.id ,scored_performance: 74, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap13.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap15.id ,scored_performance: 3, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap20.id ,scored_performance: 50, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap21.id ,scored_performance: 77, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap21.id ,scored_performance: 77, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap18.id ,scored_performance: 65, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap21.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap20.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap15.id ,scored_performance: 4.2, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap13.id ,scored_performance: 4.9, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap22.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap22.id ,scored_performance: 82, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap23.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap24.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap4.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap1.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.8, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap5.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap5.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap12.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap5.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap1.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap12.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap2.id ,scored_performance: 5.9, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.3, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap14.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.8, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap26.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap1.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap4.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap11.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap13.id ,scored_performance: 4.75, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap15.id ,scored_performance: 2.5, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap20.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap21.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.7, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap2.id ,scored_performance: 5.5, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap25.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap1.id ,scored_performance: 82, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap1.id ,scored_performance: 65, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap1.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap5.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap2.id ,scored_performance: 5.1, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap12.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap1.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap4.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap11.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap12.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap3.id ,scored_performance: 6.7, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap21.id ,scored_performance: 91, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap2.id ,scored_performance: 6, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap18.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap25.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap1.id ,scored_performance: 55, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap1.id ,scored_performance: 93, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap2.id ,scored_performance: 4.4, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap5.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap22.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap1.id ,scored_performance: 98, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap4.id ,scored_performance: 96.5, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap5.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/09/01"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap11.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap12.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap13.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap3.id ,scored_performance: 7, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap3.id ,scored_performance: 7.1, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap2.id ,scored_performance: 9, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap20.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap23.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap24.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap25.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap26.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap28.id ,scored_performance: 3.9, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap29.id ,scored_performance: nil, completed_performance: TRUE, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap29.id ,scored_performance: nil, completed_performance: TRUE, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap1.id ,scored_performance: 99, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.4, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap20.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 64, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.8, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 65, classroom_activity_pairing_id: cap1.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 65, classroom_activity_pairing_id: cap4.id ,scored_performance: 17, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 65, classroom_activity_pairing_id: cap5.id ,scored_performance: 16, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 65, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 65, classroom_activity_pairing_id: cap5.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 65, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.6, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 65, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 65, classroom_activity_pairing_id: cap1.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 65, classroom_activity_pairing_id: cap35.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 65, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 65, classroom_activity_pairing_id: cap2.id ,scored_performance: 4.3, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 65, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 65, classroom_activity_pairing_id: cap25.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 65, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 65, classroom_activity_pairing_id: cap26.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 65, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 66, classroom_activity_pairing_id: cap1.id ,scored_performance: 19, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 66, classroom_activity_pairing_id: cap2.id ,scored_performance: 4.1, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 66, classroom_activity_pairing_id: cap1.id ,scored_performance: 8, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 66, classroom_activity_pairing_id: cap1.id ,scored_performance: 18, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 66, classroom_activity_pairing_id: cap1.id ,scored_performance: 57, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 66, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 66, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 66, classroom_activity_pairing_id: cap1.id ,scored_performance: 60, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 66, classroom_activity_pairing_id: cap1.id ,scored_performance: 63, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 67, classroom_activity_pairing_id: cap1.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 67, classroom_activity_pairing_id: cap3.id ,scored_performance: 2.7, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 67, classroom_activity_pairing_id: cap4.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 67, classroom_activity_pairing_id: cap5.id ,scored_performance: 10, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 67, classroom_activity_pairing_id: cap5.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 68, classroom_activity_pairing_id: cap1.id ,scored_performance: 25, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 68, classroom_activity_pairing_id: cap1.id ,scored_performance: 38, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 68, classroom_activity_pairing_id: cap1.id ,scored_performance: 21, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 68, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.4, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 68, classroom_activity_pairing_id: cap1.id ,scored_performance: 79, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 68, classroom_activity_pairing_id: cap2.id ,scored_performance: 4.6, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 68, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 68, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 68, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 68, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 69, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 69, classroom_activity_pairing_id: cap1.id ,scored_performance: 91, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 69, classroom_activity_pairing_id: cap4.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 69, classroom_activity_pairing_id: cap5.id ,scored_performance: 75, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 69, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 69, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 69, classroom_activity_pairing_id: cap5.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 69, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 69, classroom_activity_pairing_id: cap20.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 69, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 69, classroom_activity_pairing_id: cap25.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 70, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.5, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 70, classroom_activity_pairing_id: cap1.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 70, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 70, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 70, classroom_activity_pairing_id: cap11.id ,scored_performance: 98, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 70, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 70, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 70, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 70, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 70, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 70, classroom_activity_pairing_id: cap18.id ,scored_performance: 99, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 71, classroom_activity_pairing_id: cap1.id ,scored_performance: 61, completed_performance: nil, performance_date: "2015/09/23"}).save
-		StudentPerformance.new({student_user_id: 71, classroom_activity_pairing_id: cap1.id ,scored_performance: 30, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 71, classroom_activity_pairing_id: cap2.id ,scored_performance: 5.2, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 71, classroom_activity_pairing_id: cap1.id ,scored_performance: 37, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 71, classroom_activity_pairing_id: cap1.id ,scored_performance: 43, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 71, classroom_activity_pairing_id: cap1.id ,scored_performance: 39, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 71, classroom_activity_pairing_id: cap1.id ,scored_performance: 39, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 71, classroom_activity_pairing_id: cap1.id ,scored_performance: 39, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 71, classroom_activity_pairing_id: cap1.id ,scored_performance: 30, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 71, classroom_activity_pairing_id: cap1.id ,scored_performance: 51, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 71, classroom_activity_pairing_id: cap1.id ,scored_performance: 51, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 71, classroom_activity_pairing_id: cap1.id ,scored_performance: 61, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 71, classroom_activity_pairing_id: cap1.id ,scored_performance: 53, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 71, classroom_activity_pairing_id: cap1.id ,scored_performance: 67, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 72, classroom_activity_pairing_id: cap1.id ,scored_performance: 54, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 72, classroom_activity_pairing_id: cap1.id ,scored_performance: 79, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 72, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.4, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 72, classroom_activity_pairing_id: cap1.id ,scored_performance: 93, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 72, classroom_activity_pairing_id: cap2.id ,scored_performance: 5.9, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 72, classroom_activity_pairing_id: cap20.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 72, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 72, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 72, classroom_activity_pairing_id: cap4.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 72, classroom_activity_pairing_id: cap5.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 72, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 72, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 72, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 72, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 72, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 72, classroom_activity_pairing_id: cap20.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 73, classroom_activity_pairing_id: cap1.id ,scored_performance: 89, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 73, classroom_activity_pairing_id: cap1.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 73, classroom_activity_pairing_id: cap5.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 73, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 73, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 73, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 73, classroom_activity_pairing_id: cap24.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 73, classroom_activity_pairing_id: cap25.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 73, classroom_activity_pairing_id: cap26.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 73, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 73, classroom_activity_pairing_id: cap22.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 73, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 73, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 73, classroom_activity_pairing_id: cap31.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 73, classroom_activity_pairing_id: cap33.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 73, classroom_activity_pairing_id: cap34.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap7.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/02"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap7.id ,scored_performance: 29, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap6.id ,scored_performance: 3.2, completed_performance: nil, performance_date: "2015/09/03"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap7.id ,scored_performance: 31, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap7.id ,scored_performance: 84, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap6.id ,scored_performance: 3.2, completed_performance: nil, performance_date: "2015/09/24"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap43.id ,scored_performance: 18, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap8.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap7.id ,scored_performance: 89, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap43.id ,scored_performance: 30, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 74, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
-		StudentPerformance.new({student_user_id: 75, classroom_activity_pairing_id: cap7.id ,scored_performance: 11, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 75, classroom_activity_pairing_id: cap7.id ,scored_performance: 11, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 75, classroom_activity_pairing_id: cap7.id ,scored_performance: 14, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 75, classroom_activity_pairing_id: cap7.id ,scored_performance: 24, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 75, classroom_activity_pairing_id: cap7.id ,scored_performance: 55, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 75, classroom_activity_pairing_id: cap7.id ,scored_performance: 22, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 75, classroom_activity_pairing_id: cap7.id ,scored_performance: 17, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 76, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.1, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 77, classroom_activity_pairing_id: cap7.id ,scored_performance: 69, completed_performance: nil, performance_date: "2015/09/08"}).save
-		StudentPerformance.new({student_user_id: 77, classroom_activity_pairing_id: cap7.id ,scored_performance: 75, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 77, classroom_activity_pairing_id: cap7.id ,scored_performance: 69, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 79, classroom_activity_pairing_id: cap7.id ,scored_performance: 19, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 79, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 79, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
-		StudentPerformance.new({student_user_id: 79, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 79, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 79, classroom_activity_pairing_id: cap40.id ,scored_performance: 65, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 79, classroom_activity_pairing_id: cap53.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 79, classroom_activity_pairing_id: cap19.id ,scored_performance: 3, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 80, classroom_activity_pairing_id: cap7.id ,scored_performance: 45, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 80, classroom_activity_pairing_id: cap7.id ,scored_performance: 63, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 80, classroom_activity_pairing_id: cap7.id ,scored_performance: 74, completed_performance: nil, performance_date: "2015/09/10"}).save
-		StudentPerformance.new({student_user_id: 80, classroom_activity_pairing_id: cap42.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 80, classroom_activity_pairing_id: cap7.id ,scored_performance: 93, completed_performance: nil, performance_date: "2015/09/14"}).save
-		StudentPerformance.new({student_user_id: 80, classroom_activity_pairing_id: cap43.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 80, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
-		StudentPerformance.new({student_user_id: 80, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 80, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 80, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
-		StudentPerformance.new({student_user_id: 80, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 80, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap7.id ,scored_performance: 86, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap7.id ,scored_performance: 87, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap7.id ,scored_performance: 89, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap7.id ,scored_performance: 84, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap7.id ,scored_performance: 91, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap6.id ,scored_performance: 6.4, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap48.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap48.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap48.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap8.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap37.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap50.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap51.id ,scored_performance: 76, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap44.id ,scored_performance: 1, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap49.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap45.id ,scored_performance: 10, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap45.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap52.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap40.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap41.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/29"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap51.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/29"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap53.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/29"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap47.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/29"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap46.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/29"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap54.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 82, classroom_activity_pairing_id: cap57.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 83, classroom_activity_pairing_id: cap7.id ,scored_performance: 83, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 83, classroom_activity_pairing_id: cap7.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 83, classroom_activity_pairing_id: cap7.id ,scored_performance: 93, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 83, classroom_activity_pairing_id: cap42.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 83, classroom_activity_pairing_id: cap42.id ,scored_performance: 75, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 83, classroom_activity_pairing_id: cap42.id ,scored_performance: 56, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 83, classroom_activity_pairing_id: cap42.id ,scored_performance: 78, completed_performance: nil, performance_date: "2015/10/29"}).save
-		StudentPerformance.new({student_user_id: 83, classroom_activity_pairing_id: cap42.id ,scored_performance: 82, completed_performance: nil, performance_date: "2015/10/29"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap7.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap43.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap19.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.4, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap37.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap38.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap41.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap44.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap45.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap46.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap47.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap48.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap10.id ,scored_performance: nil, completed_performance: FALSE, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap10.id ,scored_performance: nil, completed_performance: TRUE, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap49.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap50.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap51.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap40.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap53.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap52.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 84, classroom_activity_pairing_id: cap54.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap7.id ,scored_performance: 46, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap7.id ,scored_performance: 73, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap7.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap7.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap42.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.8, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap43.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap37.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/16"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap47.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/16"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap38.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/17"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap44.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/17"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap46.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap50.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap48.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap49.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap52.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap53.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap54.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap55.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap8.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap16.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap39.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap41.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap41.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap40.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap51.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap10.id ,scored_performance: nil, completed_performance: TRUE, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap10.id ,scored_performance: nil, completed_performance: TRUE, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap10.id ,scored_performance: nil, completed_performance: TRUE, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap10.id ,scored_performance: nil, completed_performance: TRUE, performance_date: "2015/10/29"}).save
-		StudentPerformance.new({student_user_id: 85, classroom_activity_pairing_id: cap57.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 86, classroom_activity_pairing_id: cap7.id ,scored_performance: 27, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 86, classroom_activity_pairing_id: cap6.id ,scored_performance: 5.1, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 86, classroom_activity_pairing_id: cap7.id ,scored_performance: 40, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 86, classroom_activity_pairing_id: cap7.id ,scored_performance: 68, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 86, classroom_activity_pairing_id: cap7.id ,scored_performance: 79, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 86, classroom_activity_pairing_id: cap7.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 86, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/29"}).save
-		StudentPerformance.new({student_user_id: 87, classroom_activity_pairing_id: cap7.id ,scored_performance: 11, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 87, classroom_activity_pairing_id: cap7.id ,scored_performance: 27, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 87, classroom_activity_pairing_id: cap7.id ,scored_performance: 19, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 87, classroom_activity_pairing_id: cap7.id ,scored_performance: 37, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 87, classroom_activity_pairing_id: cap7.id ,scored_performance: 33, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 87, classroom_activity_pairing_id: cap7.id ,scored_performance: 48, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 87, classroom_activity_pairing_id: cap7.id ,scored_performance: 45, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 87, classroom_activity_pairing_id: cap7.id ,scored_performance: 57, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 13, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 24, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 39, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 37, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 26, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 29, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap6.id ,scored_performance: 3.8, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 20, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 12, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 28, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 48, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 43, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 16, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 23, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 19, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 14, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 25, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 64, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 88, classroom_activity_pairing_id: cap7.id ,scored_performance: 45, completed_performance: nil, performance_date: "2015/10/29"}).save
-		StudentPerformance.new({student_user_id: 89, classroom_activity_pairing_id: cap7.id ,scored_performance: 19, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 89, classroom_activity_pairing_id: cap7.id ,scored_performance: 27, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 89, classroom_activity_pairing_id: cap7.id ,scored_performance: 17, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 89, classroom_activity_pairing_id: cap7.id ,scored_performance: 16, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 89, classroom_activity_pairing_id: cap6.id ,scored_performance: 2.8, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 89, classroom_activity_pairing_id: cap7.id ,scored_performance: 26, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 89, classroom_activity_pairing_id: cap7.id ,scored_performance: 21, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 89, classroom_activity_pairing_id: cap7.id ,scored_performance: 22, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 89, classroom_activity_pairing_id: cap7.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 89, classroom_activity_pairing_id: cap7.id ,scored_performance: 30, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 89, classroom_activity_pairing_id: cap7.id ,scored_performance: 18, completed_performance: nil, performance_date: "2015/10/29"}).save
-		StudentPerformance.new({student_user_id: 89, classroom_activity_pairing_id: cap7.id ,scored_performance: 44, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 91, classroom_activity_pairing_id: cap7.id ,scored_performance: 35, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 91, classroom_activity_pairing_id: cap7.id ,scored_performance: 71, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 91, classroom_activity_pairing_id: cap7.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 91, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 91, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 91, classroom_activity_pairing_id: cap7.id ,scored_performance: 69, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 92, classroom_activity_pairing_id: cap7.id ,scored_performance: 91, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 92, classroom_activity_pairing_id: cap43.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 92, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 92, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 92, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.9, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 92, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 92, classroom_activity_pairing_id: cap37.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 92, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 92, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 92, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 92, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 92, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 93, classroom_activity_pairing_id: cap1.id ,scored_performance: 56, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 93, classroom_activity_pairing_id: cap1.id ,scored_performance: 83, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap1.id ,scored_performance: 89, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap1.id ,scored_performance: 98, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap5.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap25.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.1, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap31.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap32.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 94, classroom_activity_pairing_id: cap33.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap1.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap4.id ,scored_performance: 99, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap24.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap25.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap31.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap33.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 95, classroom_activity_pairing_id: cap35.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/03"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap1.id ,scored_performance: 57, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap1.id ,scored_performance: 72, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap1.id ,scored_performance: 72, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap1.id ,scored_performance: 89, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap1.id ,scored_performance: 86, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap1.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap5.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.8, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap20.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap23.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap23.id ,scored_performance: 76, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap23.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap25.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap27.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/26"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap29.id ,scored_performance: nil, completed_performance: TRUE, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap29.id ,scored_performance: nil, completed_performance: FALSE, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap29.id ,scored_performance: nil, completed_performance: TRUE, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap18.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap18.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 96, classroom_activity_pairing_id: cap22.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 97, classroom_activity_pairing_id: cap1.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 97, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 97, classroom_activity_pairing_id: cap5.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 97, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 97, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 97, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 97, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 97, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 97, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 97, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 97, classroom_activity_pairing_id: cap22.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 97, classroom_activity_pairing_id: cap24.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 97, classroom_activity_pairing_id: cap24.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 97, classroom_activity_pairing_id: cap25.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 97, classroom_activity_pairing_id: cap26.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 97, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap1.id ,scored_performance: 38, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap1.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap5.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap13.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap25.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap26.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap21.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap4.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap29.id ,scored_performance: nil, completed_performance: TRUE, performance_date: "2015/10/29"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap28.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/10/29"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap20.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap22.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 98, classroom_activity_pairing_id: cap23.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/11/02"}).save
-		StudentPerformance.new({student_user_id: 99, classroom_activity_pairing_id: cap1.id ,scored_performance: 6, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 99, classroom_activity_pairing_id: cap1.id ,scored_performance: 28, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 99, classroom_activity_pairing_id: cap1.id ,scored_performance: 19, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 99, classroom_activity_pairing_id: cap1.id ,scored_performance: 25, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 99, classroom_activity_pairing_id: cap1.id ,scored_performance: 32, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 99, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 99, classroom_activity_pairing_id: cap3.id ,scored_performance: 2.5, completed_performance: nil, performance_date: "2015/10/20"}).save
-		StudentPerformance.new({student_user_id: 99, classroom_activity_pairing_id: cap1.id ,scored_performance: 46, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 99, classroom_activity_pairing_id: cap1.id ,scored_performance: 50, completed_performance: nil, performance_date: "2015/10/28"}).save
-		StudentPerformance.new({student_user_id: 100, classroom_activity_pairing_id: cap1.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 100, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
-		StudentPerformance.new({student_user_id: 100, classroom_activity_pairing_id: cap5.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/14"}).save
-		StudentPerformance.new({student_user_id: 100, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 100, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
-		StudentPerformance.new({student_user_id: 100, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
-		StudentPerformance.new({student_user_id: 100, classroom_activity_pairing_id: cap24.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 100, classroom_activity_pairing_id: cap25.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/21"}).save
-		StudentPerformance.new({student_user_id: 100, classroom_activity_pairing_id: cap26.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 100, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/22"}).save
-		StudentPerformance.new({student_user_id: 100, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
-		StudentPerformance.new({student_user_id: 100, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
-		
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap5.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.3, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap22.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap24.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap25.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 16, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap1.id ,scored_performance: 62, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap1.id ,scored_performance: 69, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap1.id ,scored_performance: 79, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap1.id ,scored_performance: 93, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap5.id ,scored_performance: 45, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap3.id ,scored_performance: 3.9, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap5.id ,scored_performance: 50, completed_performance: nil, performance_date: "2015/10/21"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap5.id ,scored_performance: 64, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap5.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap5.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap5.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/03"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/03"}).save
+		StudentPerformance.new({student_user_id: 17, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/04"}).save
+		StudentPerformance.new({student_user_id: 18, classroom_activity_pairing_id: cap1.id ,scored_performance: 89, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 18, classroom_activity_pairing_id: cap1.id ,scored_performance: 98, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 18, classroom_activity_pairing_id: cap5.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 18, classroom_activity_pairing_id: cap11.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 18, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 18, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.9, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 18, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/21"}).save
+		StudentPerformance.new({student_user_id: 18, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/21"}).save
+		StudentPerformance.new({student_user_id: 18, classroom_activity_pairing_id: cap20.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/22"}).save
+		StudentPerformance.new({student_user_id: 18, classroom_activity_pairing_id: cap24.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 18, classroom_activity_pairing_id: cap25.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 18, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 18, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 18, classroom_activity_pairing_id: cap28.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap7.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap43.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap6.id ,scored_performance: 7, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap37.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap41.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap46.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap47.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap48.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap49.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/21"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 19, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/29"}).save
+		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap6.id ,scored_performance: 1.8, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap7.id ,scored_performance: 1, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap7.id ,scored_performance: 3, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap7.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 20, classroom_activity_pairing_id: cap42.id ,scored_performance: 0, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap7.id ,scored_performance: 18, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.3, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap7.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap43.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 21, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap6.id ,scored_performance: 3.7, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap7.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap42.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap56.id ,scored_performance: 5.3, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap43.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap7.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap43.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap8.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap16.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap37.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 22, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap43.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.7, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap7.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap43.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.6, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap56.id ,scored_performance: 4.6, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap17.id ,scored_performance: 3, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap17.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 23, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/23"}).save
+		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap7.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap6.id ,scored_performance: 5.1, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap42.id ,scored_performance: 82, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap56.id ,scored_performance: 4.6, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 24, classroom_activity_pairing_id: cap38.id ,scored_performance: 91.8, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap7.id ,scored_performance: 98, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap7.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap6.id ,scored_performance: 5.8, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap43.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap7.id ,scored_performance: 99, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap42.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap42.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap56.id ,scored_performance: 6.2, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap8.id ,scored_performance: 96.8, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap16.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap16.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap19.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap46.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap46.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 25, classroom_activity_pairing_id: cap46.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap7.id ,scored_performance: 69, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap7.id ,scored_performance: 99, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.2, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap7.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap43.id ,scored_performance: 60, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap43.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap56.id ,scored_performance: 5.1, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap42.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap43.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap16.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap19.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap37.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap38.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap40.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap47.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap48.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap46.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap49.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 26, classroom_activity_pairing_id: cap41.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/23"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap7.id ,scored_performance: 86, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap43.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap6.id ,scored_performance: 5.7, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap53.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap56.id ,scored_performance: 5.9, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap39.id ,scored_performance: 93.9, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap40.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap41.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap37.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap46.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap47.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/23"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap48.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/23"}).save
+		StudentPerformance.new({student_user_id: 27, classroom_activity_pairing_id: cap49.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/23"}).save
+		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap7.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap43.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.7, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 28, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap7.id ,scored_performance: 26, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap7.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap6.id ,scored_performance: 6.1, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap37.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap40.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap41.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap53.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap50.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap47.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap51.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap48.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap48.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap48.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap52.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap46.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap49.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap49.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap54.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap55.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap7.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap9.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap6.id ,scored_performance: 7.6, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap37.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap43.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap56.id ,scored_performance: 6.7, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap40.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap41.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap46.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap49.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap47.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap48.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap7.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap50.id ,scored_performance: 1.5, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap50.id ,scored_performance: 1.5, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap50.id ,scored_performance: 1.5, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap50.id ,scored_performance: 1.5, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 29, classroom_activity_pairing_id: cap50.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap7.id ,scored_performance: 52, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap6.id ,scored_performance: 6.7, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap7.id ,scored_performance: 86, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap7.id ,scored_performance: 59, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap7.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap56.id ,scored_performance: 6.3, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap46.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap17.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap7.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap37.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap40.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap41.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 30, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap6.id ,scored_performance: 2.9, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap7.id ,scored_performance: 2.9, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap7.id ,scored_performance: 14, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap56.id ,scored_performance: 1.8, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap7.id ,scored_performance: 75, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap7.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap43.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap42.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap8.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap37.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap38.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap39.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap40.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/23"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap41.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/23"}).save
+		StudentPerformance.new({student_user_id: 31, classroom_activity_pairing_id: cap44.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/23"}).save
+		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap7.id ,scored_performance: 69, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.8, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap7.id ,scored_performance: 77, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap7.id ,scored_performance: 93, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap56.id ,scored_performance: 5.4, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap19.id ,scored_performance: 3, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 32, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 33, classroom_activity_pairing_id: cap7.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 33, classroom_activity_pairing_id: cap7.id ,scored_performance: 7, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 33, classroom_activity_pairing_id: cap56.id ,scored_performance: 3.3, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 33, classroom_activity_pairing_id: cap6.id ,scored_performance: 2.7, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 33, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 33, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 34, classroom_activity_pairing_id: cap7.id ,scored_performance: 13, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 34, classroom_activity_pairing_id: cap6.id ,scored_performance: 5.6, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 34, classroom_activity_pairing_id: cap7.id ,scored_performance: 42, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 34, classroom_activity_pairing_id: cap7.id ,scored_performance: 50, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 34, classroom_activity_pairing_id: cap42.id ,scored_performance: 96.8, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 34, classroom_activity_pairing_id: cap42.id ,scored_performance: 90.5999999999998, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 34, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 34, classroom_activity_pairing_id: cap43.id ,scored_performance: 35, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 34, classroom_activity_pairing_id: cap43.id ,scored_performance: 75, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 34, classroom_activity_pairing_id: cap43.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap7.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap6.id ,scored_performance: 5.1, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap7.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap44.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap42.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap56.id ,scored_performance: 5.2, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap56.id ,scored_performance: 5.2, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap43.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap8.id ,scored_performance: 82, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap16.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap17.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap19.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap37.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/23"}).save
+		StudentPerformance.new({student_user_id: 35, classroom_activity_pairing_id: cap40.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/23"}).save
+		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap1.id ,scored_performance: 91, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap4.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap5.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap5.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap11.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.6, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap1.id ,scored_performance: 99, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap20.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 36, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap25.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/09/23"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap1.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap3.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap5.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap4.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap2.id ,scored_performance: 5.6, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap11.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap12.id ,scored_performance: 74, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap13.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap15.id ,scored_performance: 3, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap20.id ,scored_performance: 50, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap21.id ,scored_performance: 77, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap21.id ,scored_performance: 77, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap18.id ,scored_performance: 65, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap21.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap20.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap15.id ,scored_performance: 4.2, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap13.id ,scored_performance: 4.9, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap22.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap22.id ,scored_performance: 82, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap23.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 37, classroom_activity_pairing_id: cap24.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap4.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap1.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.8, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap5.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap5.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap12.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 38, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap5.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap1.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap12.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap2.id ,scored_performance: 5.9, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.3, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap14.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.8, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 39, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap26.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/23"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap1.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap4.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap11.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap13.id ,scored_performance: 4.75, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap15.id ,scored_performance: 2.5, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap20.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap21.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.7, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap2.id ,scored_performance: 5.5, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 40, classroom_activity_pairing_id: cap25.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap1.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap4.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap11.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap12.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap3.id ,scored_performance: 6.7, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap21.id ,scored_performance: 91, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap2.id ,scored_performance: 6, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap18.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap25.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 41, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/23"}).save
+		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap1.id ,scored_performance: 55, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap1.id ,scored_performance: 93, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap2.id ,scored_performance: 4.4, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap5.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 42, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap22.id ,scored_performance: 96, completed_performance: nil, performance_date: "2015/09/23"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap1.id ,scored_performance: 98, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap4.id ,scored_performance: 96.5, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap5.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/09/01"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap11.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap12.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap13.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap3.id ,scored_performance: 7, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap3.id ,scored_performance: 7.1, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap2.id ,scored_performance: 9, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap20.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap23.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap24.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap25.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap26.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap28.id ,scored_performance: 3.9, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 43, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap1.id ,scored_performance: 99, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.4, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap20.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 44, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap1.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap4.id ,scored_performance: 17, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap5.id ,scored_performance: 16, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap5.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.6, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap1.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap35.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap2.id ,scored_performance: 4.3, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap25.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap26.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 45, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap1.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap3.id ,scored_performance: 2.7, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap4.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap5.id ,scored_performance: 10, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 46, classroom_activity_pairing_id: cap5.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap1.id ,scored_performance: 25, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap1.id ,scored_performance: 38, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap1.id ,scored_performance: 21, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.4, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap1.id ,scored_performance: 79, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap2.id ,scored_performance: 4.6, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 47, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.5, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap1.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap11.id ,scored_performance: 98, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 48, classroom_activity_pairing_id: cap18.id ,scored_performance: 99, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap1.id ,scored_performance: 54, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap1.id ,scored_performance: 79, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.4, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap1.id ,scored_performance: 93, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap2.id ,scored_performance: 5.9, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap20.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap4.id ,scored_performance: 94, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap5.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 49, classroom_activity_pairing_id: cap20.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/09/22"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap7.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/02"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap7.id ,scored_performance: 29, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap6.id ,scored_performance: 3.2, completed_performance: nil, performance_date: "2015/09/03"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap7.id ,scored_performance: 31, completed_performance: nil, performance_date: "2015/09/08"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap7.id ,scored_performance: 84, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/10"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap6.id ,scored_performance: 3.2, completed_performance: nil, performance_date: "2015/09/24"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap43.id ,scored_performance: 18, completed_performance: nil, performance_date: "2015/09/14"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap8.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/15"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap7.id ,scored_performance: 89, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap43.id ,scored_performance: 30, completed_performance: nil, performance_date: "2015/09/16"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/09/17"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 50, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/09/21"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap7.id ,scored_performance: 86, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap7.id ,scored_performance: 87, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap7.id ,scored_performance: 89, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap7.id ,scored_performance: 84, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap7.id ,scored_performance: 91, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap43.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap6.id ,scored_performance: 6.4, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap48.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap48.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap48.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap8.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/21"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap37.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/21"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap50.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/22"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap51.id ,scored_performance: 76, completed_performance: nil, performance_date: "2015/10/22"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap44.id ,scored_performance: 1, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap49.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap44.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap45.id ,scored_performance: 10, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap45.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap52.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap40.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap41.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/29"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap51.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/29"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap53.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/29"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap47.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/29"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap46.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/29"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap54.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 51, classroom_activity_pairing_id: cap57.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap7.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap43.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap19.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.4, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap37.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap38.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap41.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap44.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap45.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap46.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap47.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap48.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap49.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/21"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap50.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/22"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap51.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap40.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap53.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap52.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 52, classroom_activity_pairing_id: cap54.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap7.id ,scored_performance: 46, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap7.id ,scored_performance: 73, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap7.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap7.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap42.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.8, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap43.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap37.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/16"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap47.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/16"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap38.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/17"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap44.id ,scored_performance: 81, completed_performance: nil, performance_date: "2015/10/17"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap45.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap46.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap50.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap48.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap49.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap52.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap53.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap54.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap55.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap8.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap16.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap39.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap41.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap41.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap40.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap51.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/22"}).save
+		StudentPerformance.new({student_user_id: 53, classroom_activity_pairing_id: cap57.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap7.id ,scored_performance: 27, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap6.id ,scored_performance: 5.1, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap7.id ,scored_performance: 40, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap7.id ,scored_performance: 68, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap7.id ,scored_performance: 79, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap7.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 54, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/29"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 13, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 24, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 39, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 37, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 26, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 29, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap6.id ,scored_performance: 3.8, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 20, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 12, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 28, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 48, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 43, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 16, completed_performance: nil, performance_date: "2015/10/22"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 23, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 19, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 14, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 25, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 64, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 55, classroom_activity_pairing_id: cap7.id ,scored_performance: 45, completed_performance: nil, performance_date: "2015/10/29"}).save
+		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap7.id ,scored_performance: 19, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap7.id ,scored_performance: 27, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap7.id ,scored_performance: 17, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap7.id ,scored_performance: 16, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap6.id ,scored_performance: 2.8, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap7.id ,scored_performance: 26, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap7.id ,scored_performance: 21, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap7.id ,scored_performance: 22, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap7.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap7.id ,scored_performance: 30, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap7.id ,scored_performance: 18, completed_performance: nil, performance_date: "2015/10/29"}).save
+		StudentPerformance.new({student_user_id: 56, classroom_activity_pairing_id: cap7.id ,scored_performance: 44, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap7.id ,scored_performance: 91, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap43.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap9.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap17.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.9, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap19.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap37.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap38.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap42.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap8.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap16.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 57, classroom_activity_pairing_id: cap39.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap1.id ,scored_performance: 56, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 58, classroom_activity_pairing_id: cap1.id ,scored_performance: 83, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap1.id ,scored_performance: 89, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap1.id ,scored_performance: 98, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap5.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap25.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.1, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap31.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap32.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 59, classroom_activity_pairing_id: cap33.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap1.id ,scored_performance: 97, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap4.id ,scored_performance: 99, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap5.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap24.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap25.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap30.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap3.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap31.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/22"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap33.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 60, classroom_activity_pairing_id: cap35.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/11/03"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap1.id ,scored_performance: 57, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap1.id ,scored_performance: 72, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap1.id ,scored_performance: 72, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap1.id ,scored_performance: 89, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap1.id ,scored_performance: 86, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap1.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap5.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap3.id ,scored_performance: 5.8, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap20.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap23.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap23.id ,scored_performance: 76, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap23.id ,scored_performance: 80, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap24.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap25.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap26.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap27.id ,scored_performance: 4, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap28.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/26"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap21.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap18.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap18.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap18.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 61, classroom_activity_pairing_id: cap22.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/11/02"}).save
+		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap1.id ,scored_performance: 6, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap1.id ,scored_performance: 28, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap1.id ,scored_performance: 19, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap1.id ,scored_performance: 25, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap1.id ,scored_performance: 32, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap3.id ,scored_performance: 2.5, completed_performance: nil, performance_date: "2015/10/20"}).save
+		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap1.id ,scored_performance: 46, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 62, classroom_activity_pairing_id: cap1.id ,scored_performance: 50, completed_performance: nil, performance_date: "2015/10/28"}).save
+		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap1.id ,scored_performance: 92, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap4.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/13"}).save
+		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap5.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/14"}).save
+		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap13.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap14.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/15"}).save
+		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap15.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/19"}).save
+		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap24.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/21"}).save
+		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap25.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/10/21"}).save
+		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap26.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/22"}).save
+		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/22"}).save
+		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
+		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
 		puts "adding student performance verifications..."
 		puts "NO STUDENT VERIFICATIONS ADDED"
 
 		puts "adding activity goals..."
-		ag1 = ActivityGoal.new({classroom_activity_pairing_id: cap20.id ,student_user_id: 2, score_goal: 100, goal_date: "2015/10/27"})
-		ag2 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 2, score_goal: 8, goal_date: "2015/11/04"})
-		ag3 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 3, score_goal: 8, goal_date: "2015/11/04"})
-		ag4 = ActivityGoal.new({classroom_activity_pairing_id: cap20.id ,student_user_id: 4, score_goal: 100, goal_date: "nil"})
-		ag5 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 4, score_goal: 8, goal_date: "nil"})
-		ag6 = ActivityGoal.new({classroom_activity_pairing_id: cap3.id ,student_user_id: 6, score_goal: 6, goal_date: "2015/12/10"})
-		ag7 = ActivityGoal.new({classroom_activity_pairing_id: cap1.id ,student_user_id: 6, score_goal: 90, goal_date: "2015/12/10"})
-		ag8 = ActivityGoal.new({classroom_activity_pairing_id: cap7.id ,student_user_id: 8, score_goal: 80, goal_date: "2015/10/27"})
-		ag9 = ActivityGoal.new({classroom_activity_pairing_id: cap17.id ,student_user_id: 10, score_goal: 5, goal_date: "2015/10/27"})
-		ag10 = ActivityGoal.new({classroom_activity_pairing_id: cap19.id ,student_user_id: 10, score_goal: 5, goal_date: "2015/10/27"})
-		ag11 = ActivityGoal.new({classroom_activity_pairing_id: cap37.id ,student_user_id: 10, score_goal: 100, goal_date: "2015/10/27"})
-		ag12 = ActivityGoal.new({classroom_activity_pairing_id: cap38.id ,student_user_id: 10, score_goal: 100, goal_date: "2015/10/28"})
-		ag13 = ActivityGoal.new({classroom_activity_pairing_id: cap39.id ,student_user_id: 10, score_goal: 100, goal_date: "2015/10/28"})
-		ag14 = ActivityGoal.new({classroom_activity_pairing_id: cap40.id ,student_user_id: 10, score_goal: 100, goal_date: "2015/11/02"})
-		ag15 = ActivityGoal.new({classroom_activity_pairing_id: cap44.id ,student_user_id: 10, score_goal: 90, goal_date: "2015/11/02"})
-		ag16 = ActivityGoal.new({classroom_activity_pairing_id: cap15.id ,student_user_id: 11, score_goal: 5, goal_date: "2015/11/03"})
-		ag17 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 11, score_goal: 8, goal_date: "2015/11/04"})
-		ag18 = ActivityGoal.new({classroom_activity_pairing_id: cap1.id ,student_user_id: 12, score_goal: 80, goal_date: "2015/10/27"})
-		ag19 = ActivityGoal.new({classroom_activity_pairing_id: cap4.id ,student_user_id: 12, score_goal: 80, goal_date: "2015/10/31"})
-		ag20 = ActivityGoal.new({classroom_activity_pairing_id: cap11.id ,student_user_id: 12, score_goal: 90, goal_date: "2015/11/04"})
-		ag21 = ActivityGoal.new({classroom_activity_pairing_id: cap12.id ,student_user_id: 12, score_goal: 90, goal_date: "2015/11/30"})
-		ag22 = ActivityGoal.new({classroom_activity_pairing_id: cap5.id ,student_user_id: 12, score_goal: 80, goal_date: "2015/11/30"})
-		ag23 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 12, score_goal: 10, goal_date: "2015/11/10"})
-		ag24 = ActivityGoal.new({classroom_activity_pairing_id: cap1.id ,student_user_id: 13, score_goal: 80, goal_date: "2015/10/31"})
-		ag25 = ActivityGoal.new({classroom_activity_pairing_id: cap1.id ,student_user_id: 15, score_goal: 70, goal_date: "2015/11/10"})
-		ag26 = ActivityGoal.new({classroom_activity_pairing_id: cap12.id ,student_user_id: 16, score_goal: 100, goal_date: "2015/10/27"})
-		ag27 = ActivityGoal.new({classroom_activity_pairing_id: cap3.id ,student_user_id: 18, score_goal: 6, goal_date: "nil"})
-		ag28 = ActivityGoal.new({classroom_activity_pairing_id: cap1.id ,student_user_id: 18, score_goal: 80, goal_date: "nil"})
-		ag29 = ActivityGoal.new({classroom_activity_pairing_id: cap33.id ,student_user_id: 19, score_goal: 5, goal_date: "2015/10/28"})
-		ag30 = ActivityGoal.new({classroom_activity_pairing_id: cap20.id ,student_user_id: 19, score_goal: 90, goal_date: "2015/10/29"})
-		ag31 = ActivityGoal.new({classroom_activity_pairing_id: cap27.id ,student_user_id: 19, score_goal: 5, goal_date: "2015/11/03"})
-		ag32 = ActivityGoal.new({classroom_activity_pairing_id: cap29.id ,student_user_id: 21, score_goal: nil, goal_date: "2015/10/29"})
-		ag33 = ActivityGoal.new({classroom_activity_pairing_id: cap3.id ,student_user_id: 21, score_goal: 7, goal_date: "2015/11/04"})
-		ag34 = ActivityGoal.new({classroom_activity_pairing_id: cap20.id ,student_user_id: 22, score_goal: 80, goal_date: "2015/10/28"})
-		ag35 = ActivityGoal.new({classroom_activity_pairing_id: cap18.id ,student_user_id: 22, score_goal: 80, goal_date: "2015/10/28"})
-		ag36 = ActivityGoal.new({classroom_activity_pairing_id: cap21.id ,student_user_id: 22, score_goal: 80, goal_date: "2015/10/28"})
-		ag37 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 22, score_goal: 7, goal_date: "2015/11/07"})
-		ag38 = ActivityGoal.new({classroom_activity_pairing_id: cap22.id ,student_user_id: 24, score_goal: 90, goal_date: "nil"})
-		ag39 = ActivityGoal.new({classroom_activity_pairing_id: cap23.id ,student_user_id: 24, score_goal: 90, goal_date: "nil"})
-		ag40 = ActivityGoal.new({classroom_activity_pairing_id: cap24.id ,student_user_id: 24, score_goal: 90, goal_date: "nil"})
-		ag41 = ActivityGoal.new({classroom_activity_pairing_id: cap25.id ,student_user_id: 24, score_goal: 90, goal_date: "nil"})
-		ag42 = ActivityGoal.new({classroom_activity_pairing_id: cap26.id ,student_user_id: 24, score_goal: 90, goal_date: "nil"})
-		ag43 = ActivityGoal.new({classroom_activity_pairing_id: cap27.id ,student_user_id: 24, score_goal: 4, goal_date: "nil"})
-		ag44 = ActivityGoal.new({classroom_activity_pairing_id: cap28.id ,student_user_id: 24, score_goal: 4, goal_date: "2015/10/28"})
-		ag45 = ActivityGoal.new({classroom_activity_pairing_id: cap30.id ,student_user_id: 24, score_goal: 4, goal_date: "nil"})
-		ag46 = ActivityGoal.new({classroom_activity_pairing_id: cap31.id ,student_user_id: 24, score_goal: 4, goal_date: "nil"})
-		ag47 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 24, score_goal: 7, goal_date: "nil"})
-		ag48 = ActivityGoal.new({classroom_activity_pairing_id: cap5.id ,student_user_id: 25, score_goal: 79, goal_date: "2015/10/28"})
-		ag49 = ActivityGoal.new({classroom_activity_pairing_id: cap11.id ,student_user_id: 25, score_goal: 80, goal_date: "2015/10/28"})
-		ag50 = ActivityGoal.new({classroom_activity_pairing_id: cap12.id ,student_user_id: 25, score_goal: 100, goal_date: "2015/10/28"})
-		ag51 = ActivityGoal.new({classroom_activity_pairing_id: cap13.id ,student_user_id: 25, score_goal: 5, goal_date: "2015/10/28"})
-		ag52 = ActivityGoal.new({classroom_activity_pairing_id: cap14.id ,student_user_id: 25, score_goal: 5, goal_date: "2015/11/02"})
-		ag53 = ActivityGoal.new({classroom_activity_pairing_id: cap15.id ,student_user_id: 25, score_goal: 5, goal_date: "2015/11/02"})
-		ag54 = ActivityGoal.new({classroom_activity_pairing_id: cap21.id ,student_user_id: 25, score_goal: 100, goal_date: "2015/11/03"})
-		ag55 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 25, score_goal: 7, goal_date: "2015/11/04"})
-		ag56 = ActivityGoal.new({classroom_activity_pairing_id: cap18.id ,student_user_id: 25, score_goal: 100, goal_date: "2015/11/04"})
-		ag57 = ActivityGoal.new({classroom_activity_pairing_id: cap22.id ,student_user_id: 25, score_goal: 100, goal_date: "2015/11/04"})
-		ag58 = ActivityGoal.new({classroom_activity_pairing_id: cap6.id ,student_user_id: 26, score_goal: 7, goal_date: "nil"})
-		ag59 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 28, score_goal: 12, goal_date: "2015/11/04"})
-		ag60 = ActivityGoal.new({classroom_activity_pairing_id: cap29.id ,student_user_id: 29, score_goal: nil, goal_date: "2015/10/27"})
-		ag61 = ActivityGoal.new({classroom_activity_pairing_id: cap30.id ,student_user_id: 29, score_goal: 5, goal_date: "2015/10/27"})
-		ag62 = ActivityGoal.new({classroom_activity_pairing_id: cap31.id ,student_user_id: 29, score_goal: 5, goal_date: "2015/10/28"})
-		ag63 = ActivityGoal.new({classroom_activity_pairing_id: cap31.id ,student_user_id: 30, score_goal: 5, goal_date: "2015/10/30"})
-		ag64 = ActivityGoal.new({classroom_activity_pairing_id: cap21.id ,student_user_id: 30, score_goal: 100, goal_date: "2015/10/28"})
-		ag65 = ActivityGoal.new({classroom_activity_pairing_id: cap58.id ,student_user_id: 30, score_goal: 5, goal_date: "2015/11/02"})
-		ag66 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 30, score_goal: 8, goal_date: "2015/11/04"})
-		ag67 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 31, score_goal: 6, goal_date: "nil"})
-		ag68 = ActivityGoal.new({classroom_activity_pairing_id: cap50.id ,student_user_id: 32, score_goal: 4, goal_date: "2015/10/27"})
-		ag69 = ActivityGoal.new({classroom_activity_pairing_id: cap42.id ,student_user_id: 32, score_goal: 90, goal_date: "2015/10/28"})
-		ag70 = ActivityGoal.new({classroom_activity_pairing_id: cap38.id ,student_user_id: 32, score_goal: 90, goal_date: "2015/10/28"})
-		ag71 = ActivityGoal.new({classroom_activity_pairing_id: cap39.id ,student_user_id: 32, score_goal: 100, goal_date: "2015/10/28"})
-		ag72 = ActivityGoal.new({classroom_activity_pairing_id: cap16.id ,student_user_id: 32, score_goal: 90, goal_date: "2015/10/29"})
-		ag73 = ActivityGoal.new({classroom_activity_pairing_id: cap8.id ,student_user_id: 32, score_goal: 90, goal_date: "2015/10/29"})
-		ag74 = ActivityGoal.new({classroom_activity_pairing_id: cap43.id ,student_user_id: 32, score_goal: 100, goal_date: "2015/11/06"})
-		ag75 = ActivityGoal.new({classroom_activity_pairing_id: cap32.id ,student_user_id: 73, score_goal: 90, goal_date: "2015/10/27"})
-		ag76 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 73, score_goal: 8, goal_date: "2015/11/04"})
-		ag77 = ActivityGoal.new({classroom_activity_pairing_id: cap7.id ,student_user_id: 75, score_goal: 90, goal_date: "2015/11/05"})
-		ag78 = ActivityGoal.new({classroom_activity_pairing_id: cap51.id ,student_user_id: 82, score_goal: 89, goal_date: "2015/10/30"})
-		ag79 = ActivityGoal.new({classroom_activity_pairing_id: cap7.id ,student_user_id: 82, score_goal: 90, goal_date: "nil"})
-		ag80 = ActivityGoal.new({classroom_activity_pairing_id: cap6.id ,student_user_id: 82, score_goal: 6, goal_date: "nil"})
-		ag81 = ActivityGoal.new({classroom_activity_pairing_id: cap42.id ,student_user_id: 82, score_goal: 80, goal_date: "nil"})
-		ag82 = ActivityGoal.new({classroom_activity_pairing_id: cap43.id ,student_user_id: 82, score_goal: 90, goal_date: "nil"})
-		ag83 = ActivityGoal.new({classroom_activity_pairing_id: cap8.id ,student_user_id: 82, score_goal: 80, goal_date: "nil"})
-		ag84 = ActivityGoal.new({classroom_activity_pairing_id: cap16.id ,student_user_id: 82, score_goal: 100, goal_date: "nil"})
-		ag85 = ActivityGoal.new({classroom_activity_pairing_id: cap48.id ,student_user_id: 82, score_goal: 5, goal_date: "nil"})
-		ag86 = ActivityGoal.new({classroom_activity_pairing_id: cap44.id ,student_user_id: 82, score_goal: 90, goal_date: "nil"})
-		ag87 = ActivityGoal.new({classroom_activity_pairing_id: cap9.id ,student_user_id: 82, score_goal: 5, goal_date: "nil"})
-		ag88 = ActivityGoal.new({classroom_activity_pairing_id: cap17.id ,student_user_id: 82, score_goal: 5, goal_date: "nil"})
-		ag89 = ActivityGoal.new({classroom_activity_pairing_id: cap45.id ,student_user_id: 82, score_goal: 80, goal_date: "2015/10/28"})
-		ag90 = ActivityGoal.new({classroom_activity_pairing_id: cap38.id ,student_user_id: 82, score_goal: 90, goal_date: "2015/10/28"})
-		ag91 = ActivityGoal.new({classroom_activity_pairing_id: cap52.id ,student_user_id: 82, score_goal: 5, goal_date: "2015/10/30"})
-		ag92 = ActivityGoal.new({classroom_activity_pairing_id: cap10.id ,student_user_id: 82, score_goal: nil, goal_date: "2015/11/05"})
-		ag93 = ActivityGoal.new({classroom_activity_pairing_id: cap41.id ,student_user_id: 82, score_goal: 80, goal_date: "2015/11/02"})
-		ag94 = ActivityGoal.new({classroom_activity_pairing_id: cap54.id ,student_user_id: 82, score_goal: 5, goal_date: "2015/11/05"})
-		ag95 = ActivityGoal.new({classroom_activity_pairing_id: cap19.id ,student_user_id: 82, score_goal: 5, goal_date: "nil"})
-		ag96 = ActivityGoal.new({classroom_activity_pairing_id: cap49.id ,student_user_id: 82, score_goal: 5, goal_date: "nil"})
-		ag97 = ActivityGoal.new({classroom_activity_pairing_id: cap37.id ,student_user_id: 82, score_goal: 80, goal_date: "nil"})
-		ag98 = ActivityGoal.new({classroom_activity_pairing_id: cap47.id ,student_user_id: 82, score_goal: 5, goal_date: "nil"})
-		ag99 = ActivityGoal.new({classroom_activity_pairing_id: cap53.id ,student_user_id: 82, score_goal: 5, goal_date: "nil"})
-		ag100 = ActivityGoal.new({classroom_activity_pairing_id: cap7.id ,student_user_id: 83, score_goal: 90, goal_date: "2015/10/29"})
-		ag101 = ActivityGoal.new({classroom_activity_pairing_id: cap42.id ,student_user_id: 83, score_goal: 80, goal_date: "2015/09/29"})
-		ag102 = ActivityGoal.new({classroom_activity_pairing_id: cap6.id ,student_user_id: 84, score_goal: 7, goal_date: "2015/11/01"})
-		ag103 = ActivityGoal.new({classroom_activity_pairing_id: cap54.id ,student_user_id: 84, score_goal: 5, goal_date: "2015/11/02"})
-		ag104 = ActivityGoal.new({classroom_activity_pairing_id: cap57.id ,student_user_id: 85, score_goal: 5, goal_date: "2015/11/02"})
-		ag105 = ActivityGoal.new({classroom_activity_pairing_id: cap7.id ,student_user_id: 86, score_goal: 90, goal_date: "2015/10/28"})
-		ag106 = ActivityGoal.new({classroom_activity_pairing_id: cap42.id ,student_user_id: 86, score_goal: 100, goal_date: "2015/10/29"})
-		ag107 = ActivityGoal.new({classroom_activity_pairing_id: cap7.id ,student_user_id: 88, score_goal: 89, goal_date: "2015/10/28"})
-		ag108 = ActivityGoal.new({classroom_activity_pairing_id: cap7.id ,student_user_id: 89, score_goal: 90, goal_date: "2015/10/29"})
-		ag109 = ActivityGoal.new({classroom_activity_pairing_id: cap37.id ,student_user_id: 92, score_goal: 80, goal_date: "2015/10/27"})
-		ag110 = ActivityGoal.new({classroom_activity_pairing_id: cap42.id ,student_user_id: 92, score_goal: 80, goal_date: "2015/10/27"})
-		ag111 = ActivityGoal.new({classroom_activity_pairing_id: cap8.id ,student_user_id: 92, score_goal: 80, goal_date: "2015/10/28"})
-		ag112 = ActivityGoal.new({classroom_activity_pairing_id: cap16.id ,student_user_id: 92, score_goal: 80, goal_date: "2015/10/28"})
-		ag113 = ActivityGoal.new({classroom_activity_pairing_id: cap32.id ,student_user_id: 94, score_goal: 100, goal_date: "2015/10/28"})
-		ag114 = ActivityGoal.new({classroom_activity_pairing_id: cap31.id ,student_user_id: 94, score_goal: 5, goal_date: "2015/10/28"})
-		ag115 = ActivityGoal.new({classroom_activity_pairing_id: cap30.id ,student_user_id: 94, score_goal: 5, goal_date: "2015/10/28"})
-		ag116 = ActivityGoal.new({classroom_activity_pairing_id: cap28.id ,student_user_id: 94, score_goal: 5, goal_date: "2015/10/28"})
-		ag117 = ActivityGoal.new({classroom_activity_pairing_id: cap33.id ,student_user_id: 94, score_goal: 5, goal_date: "2015/11/02"})
-		ag118 = ActivityGoal.new({classroom_activity_pairing_id: cap20.id ,student_user_id: 95, score_goal: 5, goal_date: "2015/11/03"})
-		ag119 = ActivityGoal.new({classroom_activity_pairing_id: cap35.id ,student_user_id: 95, score_goal: 5, goal_date: "2015/11/03"})
-		ag120 = ActivityGoal.new({classroom_activity_pairing_id: cap29.id ,student_user_id: 96, score_goal: nil, goal_date: "2015/11/01"})
-		ag121 = ActivityGoal.new({classroom_activity_pairing_id: cap11.id ,student_user_id: 96, score_goal: 100, goal_date: "2015/10/27"})
-		ag122 = ActivityGoal.new({classroom_activity_pairing_id: cap21.id ,student_user_id: 96, score_goal: 100, goal_date: "2015/10/27"})
-		ag123 = ActivityGoal.new({classroom_activity_pairing_id: cap18.id ,student_user_id: 96, score_goal: 100, goal_date: "2015/10/29"})
-		ag124 = ActivityGoal.new({classroom_activity_pairing_id: cap22.id ,student_user_id: 96, score_goal: 100, goal_date: "2015/11/02"})
-		ag125 = ActivityGoal.new({classroom_activity_pairing_id: cap22.id ,student_user_id: 97, score_goal: 100, goal_date: "2015/10/27"})
-		ag126 = ActivityGoal.new({classroom_activity_pairing_id: cap24.id ,student_user_id: 97, score_goal: 100, goal_date: "2015/10/28"})
-		ag127 = ActivityGoal.new({classroom_activity_pairing_id: cap11.id ,student_user_id: 97, score_goal: 100, goal_date: "nil"})
-		ag128 = ActivityGoal.new({classroom_activity_pairing_id: cap25.id ,student_user_id: 97, score_goal: 100, goal_date: "2015/10/28"})
-		ag129 = ActivityGoal.new({classroom_activity_pairing_id: cap28.id ,student_user_id: 97, score_goal: 5, goal_date: "2015/11/02"})
-		ag130 = ActivityGoal.new({classroom_activity_pairing_id: cap29.id ,student_user_id: 98, score_goal: nil, goal_date: "2015/10/27"})
-		ag131 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 99, score_goal: 7, goal_date: "nil"})
-		ag132 = ActivityGoal.new({classroom_activity_pairing_id: cap3.id ,student_user_id: 100, score_goal: 7, goal_date: "2015/11/04"})
-
+		ag1 = ActivityGoal.new({classroom_activity_pairing_id: cap20.id ,student_user_id: 3, score_goal: 100, goal_date: "2015/10/27"})
+		ag2 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 3, score_goal: 8, goal_date: "2015/11/04"})
+		ag3 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 4, score_goal: 8, goal_date: "2015/11/04"})
+		ag4 = ActivityGoal.new({classroom_activity_pairing_id: cap7.id ,student_user_id: 5, score_goal: 80, goal_date: "2015/10/27"})
+		ag5 = ActivityGoal.new({classroom_activity_pairing_id: cap17.id ,student_user_id: 7, score_goal: 5, goal_date: "2015/10/27"})
+		ag6 = ActivityGoal.new({classroom_activity_pairing_id: cap19.id ,student_user_id: 7, score_goal: 5, goal_date: "2015/10/27"})
+		ag7 = ActivityGoal.new({classroom_activity_pairing_id: cap37.id ,student_user_id: 7, score_goal: 100, goal_date: "2015/10/27"})
+		ag8 = ActivityGoal.new({classroom_activity_pairing_id: cap38.id ,student_user_id: 7, score_goal: 100, goal_date: "2015/10/28"})
+		ag9 = ActivityGoal.new({classroom_activity_pairing_id: cap39.id ,student_user_id: 7, score_goal: 100, goal_date: "2015/10/28"})
+		ag10 = ActivityGoal.new({classroom_activity_pairing_id: cap40.id ,student_user_id: 7, score_goal: 100, goal_date: "2015/11/02"})
+		ag11 = ActivityGoal.new({classroom_activity_pairing_id: cap44.id ,student_user_id: 7, score_goal: 90, goal_date: "2015/11/02"})
+		ag12 = ActivityGoal.new({classroom_activity_pairing_id: cap15.id ,student_user_id: 8, score_goal: 5, goal_date: "2015/11/03"})
+		ag13 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 8, score_goal: 8, goal_date: "2015/11/04"})
+		ag14 = ActivityGoal.new({classroom_activity_pairing_id: cap1.id ,student_user_id: 9, score_goal: 80, goal_date: "2015/10/27"})
+		ag15 = ActivityGoal.new({classroom_activity_pairing_id: cap4.id ,student_user_id: 9, score_goal: 80, goal_date: "2015/10/31"})
+		ag16 = ActivityGoal.new({classroom_activity_pairing_id: cap11.id ,student_user_id: 9, score_goal: 90, goal_date: "2015/11/04"})
+		ag17 = ActivityGoal.new({classroom_activity_pairing_id: cap12.id ,student_user_id: 9, score_goal: 90, goal_date: "2015/11/30"})
+		ag18 = ActivityGoal.new({classroom_activity_pairing_id: cap5.id ,student_user_id: 9, score_goal: 80, goal_date: "2015/11/30"})
+		ag19 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 9, score_goal: 10, goal_date: "2015/11/10"})
+		ag20 = ActivityGoal.new({classroom_activity_pairing_id: cap1.id ,student_user_id: 10, score_goal: 80, goal_date: "2015/10/31"})
+		ag21 = ActivityGoal.new({classroom_activity_pairing_id: cap33.id ,student_user_id: 12, score_goal: 5, goal_date: "2015/10/28"})
+		ag22 = ActivityGoal.new({classroom_activity_pairing_id: cap20.id ,student_user_id: 12, score_goal: 90, goal_date: "2015/10/29"})
+		ag23 = ActivityGoal.new({classroom_activity_pairing_id: cap27.id ,student_user_id: 12, score_goal: 5, goal_date: "2015/11/03"})
+		ag24 = ActivityGoal.new({classroom_activity_pairing_id: cap3.id ,student_user_id: 14, score_goal: 7, goal_date: "2015/11/04"})
+		ag25 = ActivityGoal.new({classroom_activity_pairing_id: cap22.id ,student_user_id: 16, score_goal: 90, goal_date: "nil"})
+		ag26 = ActivityGoal.new({classroom_activity_pairing_id: cap23.id ,student_user_id: 16, score_goal: 90, goal_date: "nil"})
+		ag27 = ActivityGoal.new({classroom_activity_pairing_id: cap24.id ,student_user_id: 16, score_goal: 90, goal_date: "nil"})
+		ag28 = ActivityGoal.new({classroom_activity_pairing_id: cap25.id ,student_user_id: 16, score_goal: 90, goal_date: "nil"})
+		ag29 = ActivityGoal.new({classroom_activity_pairing_id: cap26.id ,student_user_id: 16, score_goal: 90, goal_date: "nil"})
+		ag30 = ActivityGoal.new({classroom_activity_pairing_id: cap27.id ,student_user_id: 16, score_goal: 4, goal_date: "nil"})
+		ag31 = ActivityGoal.new({classroom_activity_pairing_id: cap28.id ,student_user_id: 16, score_goal: 4, goal_date: "2015/10/28"})
+		ag32 = ActivityGoal.new({classroom_activity_pairing_id: cap30.id ,student_user_id: 16, score_goal: 4, goal_date: "nil"})
+		ag33 = ActivityGoal.new({classroom_activity_pairing_id: cap31.id ,student_user_id: 16, score_goal: 4, goal_date: "nil"})
+		ag34 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 16, score_goal: 7, goal_date: "nil"})
+		ag35 = ActivityGoal.new({classroom_activity_pairing_id: cap5.id ,student_user_id: 17, score_goal: 79, goal_date: "2015/10/28"})
+		ag36 = ActivityGoal.new({classroom_activity_pairing_id: cap11.id ,student_user_id: 17, score_goal: 80, goal_date: "2015/10/28"})
+		ag37 = ActivityGoal.new({classroom_activity_pairing_id: cap12.id ,student_user_id: 17, score_goal: 100, goal_date: "2015/10/28"})
+		ag38 = ActivityGoal.new({classroom_activity_pairing_id: cap13.id ,student_user_id: 17, score_goal: 5, goal_date: "2015/10/28"})
+		ag39 = ActivityGoal.new({classroom_activity_pairing_id: cap14.id ,student_user_id: 17, score_goal: 5, goal_date: "2015/11/02"})
+		ag40 = ActivityGoal.new({classroom_activity_pairing_id: cap15.id ,student_user_id: 17, score_goal: 5, goal_date: "2015/11/02"})
+		ag41 = ActivityGoal.new({classroom_activity_pairing_id: cap21.id ,student_user_id: 17, score_goal: 100, goal_date: "2015/11/03"})
+		ag42 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 17, score_goal: 7, goal_date: "2015/11/04"})
+		ag43 = ActivityGoal.new({classroom_activity_pairing_id: cap18.id ,student_user_id: 17, score_goal: 100, goal_date: "2015/11/04"})
+		ag44 = ActivityGoal.new({classroom_activity_pairing_id: cap22.id ,student_user_id: 17, score_goal: 100, goal_date: "2015/11/04"})
+		ag45 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 18, score_goal: 6, goal_date: "nil"})
+		ag46 = ActivityGoal.new({classroom_activity_pairing_id: cap50.id ,student_user_id: 19, score_goal: 4, goal_date: "2015/10/27"})
+		ag47 = ActivityGoal.new({classroom_activity_pairing_id: cap42.id ,student_user_id: 19, score_goal: 90, goal_date: "2015/10/28"})
+		ag48 = ActivityGoal.new({classroom_activity_pairing_id: cap38.id ,student_user_id: 19, score_goal: 90, goal_date: "2015/10/28"})
+		ag49 = ActivityGoal.new({classroom_activity_pairing_id: cap39.id ,student_user_id: 19, score_goal: 100, goal_date: "2015/10/28"})
+		ag50 = ActivityGoal.new({classroom_activity_pairing_id: cap16.id ,student_user_id: 19, score_goal: 90, goal_date: "2015/10/29"})
+		ag51 = ActivityGoal.new({classroom_activity_pairing_id: cap8.id ,student_user_id: 19, score_goal: 90, goal_date: "2015/10/29"})
+		ag52 = ActivityGoal.new({classroom_activity_pairing_id: cap43.id ,student_user_id: 19, score_goal: 100, goal_date: "2015/11/06"})
+		ag53 = ActivityGoal.new({classroom_activity_pairing_id: cap51.id ,student_user_id: 51, score_goal: 89, goal_date: "2015/10/30"})
+		ag54 = ActivityGoal.new({classroom_activity_pairing_id: cap7.id ,student_user_id: 51, score_goal: 90, goal_date: "nil"})
+		ag55 = ActivityGoal.new({classroom_activity_pairing_id: cap6.id ,student_user_id: 51, score_goal: 6, goal_date: "nil"})
+		ag56 = ActivityGoal.new({classroom_activity_pairing_id: cap42.id ,student_user_id: 51, score_goal: 80, goal_date: "nil"})
+		ag57 = ActivityGoal.new({classroom_activity_pairing_id: cap43.id ,student_user_id: 51, score_goal: 90, goal_date: "nil"})
+		ag58 = ActivityGoal.new({classroom_activity_pairing_id: cap8.id ,student_user_id: 51, score_goal: 80, goal_date: "nil"})
+		ag59 = ActivityGoal.new({classroom_activity_pairing_id: cap16.id ,student_user_id: 51, score_goal: 100, goal_date: "nil"})
+		ag60 = ActivityGoal.new({classroom_activity_pairing_id: cap48.id ,student_user_id: 51, score_goal: 5, goal_date: "nil"})
+		ag61 = ActivityGoal.new({classroom_activity_pairing_id: cap44.id ,student_user_id: 51, score_goal: 90, goal_date: "nil"})
+		ag62 = ActivityGoal.new({classroom_activity_pairing_id: cap9.id ,student_user_id: 51, score_goal: 5, goal_date: "nil"})
+		ag63 = ActivityGoal.new({classroom_activity_pairing_id: cap17.id ,student_user_id: 51, score_goal: 5, goal_date: "nil"})
+		ag64 = ActivityGoal.new({classroom_activity_pairing_id: cap45.id ,student_user_id: 51, score_goal: 80, goal_date: "2015/10/28"})
+		ag65 = ActivityGoal.new({classroom_activity_pairing_id: cap38.id ,student_user_id: 51, score_goal: 90, goal_date: "2015/10/28"})
+		ag66 = ActivityGoal.new({classroom_activity_pairing_id: cap52.id ,student_user_id: 51, score_goal: 5, goal_date: "2015/10/30"})
+		ag67 = ActivityGoal.new({classroom_activity_pairing_id: cap41.id ,student_user_id: 51, score_goal: 80, goal_date: "2015/11/02"})
+		ag68 = ActivityGoal.new({classroom_activity_pairing_id: cap54.id ,student_user_id: 51, score_goal: 5, goal_date: "2015/11/05"})
+		ag69 = ActivityGoal.new({classroom_activity_pairing_id: cap19.id ,student_user_id: 51, score_goal: 5, goal_date: "nil"})
+		ag70 = ActivityGoal.new({classroom_activity_pairing_id: cap49.id ,student_user_id: 51, score_goal: 5, goal_date: "nil"})
+		ag71 = ActivityGoal.new({classroom_activity_pairing_id: cap37.id ,student_user_id: 51, score_goal: 80, goal_date: "nil"})
+		ag72 = ActivityGoal.new({classroom_activity_pairing_id: cap47.id ,student_user_id: 51, score_goal: 5, goal_date: "nil"})
+		ag73 = ActivityGoal.new({classroom_activity_pairing_id: cap53.id ,student_user_id: 51, score_goal: 5, goal_date: "nil"})
+		ag74 = ActivityGoal.new({classroom_activity_pairing_id: cap6.id ,student_user_id: 52, score_goal: 7, goal_date: "2015/11/01"})
+		ag75 = ActivityGoal.new({classroom_activity_pairing_id: cap54.id ,student_user_id: 52, score_goal: 5, goal_date: "2015/11/02"})
+		ag76 = ActivityGoal.new({classroom_activity_pairing_id: cap57.id ,student_user_id: 53, score_goal: 5, goal_date: "2015/11/02"})
+		ag77 = ActivityGoal.new({classroom_activity_pairing_id: cap7.id ,student_user_id: 54, score_goal: 90, goal_date: "2015/10/28"})
+		ag78 = ActivityGoal.new({classroom_activity_pairing_id: cap42.id ,student_user_id: 54, score_goal: 100, goal_date: "2015/10/29"})
+		ag79 = ActivityGoal.new({classroom_activity_pairing_id: cap7.id ,student_user_id: 55, score_goal: 89, goal_date: "2015/10/28"})
+		ag80 = ActivityGoal.new({classroom_activity_pairing_id: cap7.id ,student_user_id: 56, score_goal: 90, goal_date: "2015/10/29"})
+		ag81 = ActivityGoal.new({classroom_activity_pairing_id: cap37.id ,student_user_id: 57, score_goal: 80, goal_date: "2015/10/27"})
+		ag82 = ActivityGoal.new({classroom_activity_pairing_id: cap42.id ,student_user_id: 57, score_goal: 80, goal_date: "2015/10/27"})
+		ag83 = ActivityGoal.new({classroom_activity_pairing_id: cap8.id ,student_user_id: 57, score_goal: 80, goal_date: "2015/10/28"})
+		ag84 = ActivityGoal.new({classroom_activity_pairing_id: cap16.id ,student_user_id: 57, score_goal: 80, goal_date: "2015/10/28"})
+		ag85 = ActivityGoal.new({classroom_activity_pairing_id: cap32.id ,student_user_id: 59, score_goal: 100, goal_date: "2015/10/28"})
+		ag86 = ActivityGoal.new({classroom_activity_pairing_id: cap31.id ,student_user_id: 59, score_goal: 5, goal_date: "2015/10/28"})
+		ag87 = ActivityGoal.new({classroom_activity_pairing_id: cap30.id ,student_user_id: 59, score_goal: 5, goal_date: "2015/10/28"})
+		ag88 = ActivityGoal.new({classroom_activity_pairing_id: cap28.id ,student_user_id: 59, score_goal: 5, goal_date: "2015/10/28"})
+		ag89 = ActivityGoal.new({classroom_activity_pairing_id: cap33.id ,student_user_id: 59, score_goal: 5, goal_date: "2015/11/02"})
+		ag90 = ActivityGoal.new({classroom_activity_pairing_id: cap20.id ,student_user_id: 60, score_goal: 5, goal_date: "2015/11/03"})
+		ag91 = ActivityGoal.new({classroom_activity_pairing_id: cap35.id ,student_user_id: 60, score_goal: 5, goal_date: "2015/11/03"})
+		ag92 = ActivityGoal.new({classroom_activity_pairing_id: cap11.id ,student_user_id: 61, score_goal: 100, goal_date: "2015/10/27"})
+		ag93 = ActivityGoal.new({classroom_activity_pairing_id: cap21.id ,student_user_id: 61, score_goal: 100, goal_date: "2015/10/27"})
+		ag94 = ActivityGoal.new({classroom_activity_pairing_id: cap18.id ,student_user_id: 61, score_goal: 100, goal_date: "2015/10/29"})
+		ag95 = ActivityGoal.new({classroom_activity_pairing_id: cap22.id ,student_user_id: 61, score_goal: 100, goal_date: "2015/11/02"})
+		ag96 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 62, score_goal: 7, goal_date: "nil"})
+		ag97 = ActivityGoal.new({classroom_activity_pairing_id: cap3.id ,student_user_id: 63, score_goal: 7, goal_date: "2015/11/04"})
+		
 		ag1.save
 		ag2.save
 		ag3.save
@@ -1989,95 +1622,56 @@ namespace :app do
 		ag95.save
 		ag96.save
 		ag97.save
-		ag98.save
-		ag99.save
-		ag100.save
-		ag101.save
-		ag102.save
-		ag103.save
-		ag104.save
-		ag105.save
-		ag106.save
-		ag107.save
-		ag108.save
-		ag109.save
-		ag110.save
-		ag111.save
-		ag112.save
-		ag113.save
-		ag114.save
-		ag115.save
-		ag116.save
-		ag117.save
-		ag118.save
-		ag119.save
-		ag120.save
-		ag121.save
-		ag122.save
-		ag123.save
-		ag124.save
-		ag125.save
-		ag126.save
-		ag127.save
-		ag128.save
-		ag129.save
-		ag130.save
-		ag131.save
-		ag132.save
 
 		puts "adding activity goal reflections..."
-		ActivityGoalReflection.new({activity_goal_id: ag9.id , student_user_id:263, teacher_user_id: nil, reflection:" I stay focus that is way i pass", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag10.id , student_user_id:263, teacher_user_id: nil, reflection:" I will be fuocus    ", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag11.id , student_user_id:263, teacher_user_id: nil, reflection:" Show my work", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag12.id , student_user_id:263, teacher_user_id: nil, reflection:" I meet my goal", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag13.id , student_user_id:263, teacher_user_id: nil, reflection:" Stay more focus", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag13.id , student_user_id:263, teacher_user_id: nil, reflection:" I know table and stay focus and start to study", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag16.id , student_user_id:277, teacher_user_id: nil, reflection:" I didnt meet my goal because i still wasnt sure if i knew how to multiply two digits by two digits right", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag18.id , student_user_id:287, teacher_user_id: nil, reflection:" I didnt reach my goal because i didnt know almost all of the anwsers on the test and i will do better to make it to 80% on my goal.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag18.id , student_user_id:287, teacher_user_id: nil, reflection:" Today i got 80% on multiplication 1-12 idid all of the anwsers correct.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag18.id , student_user_id:287, teacher_user_id: nil, reflection:" I did the work right and did my best on the ones i didnt know even if i kinda knew the anwser", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag19.id , student_user_id:287, teacher_user_id: nil, reflection:" I did all of the multiplication problems right even the ones i didnt know. I will practes my multiplication more to remember the ones i dont know. I will do a higher score and less time.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag20.id , student_user_id:287, teacher_user_id: nil, reflection:" I meet my goal by working hard and practesing. I will practec more and try my best. I will not use the answers that are on the end of the test.", reflection_date:" 2015/11/03"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag29.id , student_user_id:334, teacher_user_id: nil, reflection:" I would use my notes to help me with this topic next time.Next time I would be a little bit more focused than I was today.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag36.id , student_user_id:371, teacher_user_id: nil, reflection:" I met my goal because i stuided on IXL.Next time i will DO it faster than last time.I WILL Do it faster without countin on my fingers.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag38.id , student_user_id:376, teacher_user_id: nil, reflection:" I met my goal by knowing how to do multiplication and i love multiplication.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag40.id , student_user_id:376, teacher_user_id: nil, reflection:" I met goal by knowing how to do this i learn this in 4th grade so i kept practicing.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag41.id , student_user_id:376, teacher_user_id: nil, reflection:" I met my goal by doing the problems amd taking my time ", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag42.id , student_user_id:376, teacher_user_id: nil, reflection:" I met my goal by having a good attitude today and i had a good sleep😀. I would do the same thing.I would study with long divison and have a good attittude.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag43.id , student_user_id:376, teacher_user_id: nil, reflection:" I met my goal by knowing how to do this and i was practicing.the thing i will do the same thing is by practicing. I would do differentely by doing a quiz by my own ", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag44.id , student_user_id:376, teacher_user_id: nil, reflection:" I met my goal by doing my long division problems and knowing how to do this. I would do the same thing practicing ans quizing my self. I would do differently by like do this every day.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag45.id , student_user_id:376, teacher_user_id: nil, reflection:" I met my goal by by practicing knowing how to do this stuff.yes i would do the same thing and and practice more to not forget.i would do nothing", reflection_date:" 2015/11/03"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag48.id , student_user_id:377, teacher_user_id: nil, reflection:" Next time i will do more work so I can under stand what to do.What I would do differently next time is to study more.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag49.id , student_user_id:377, teacher_user_id: nil, reflection:" Next time I will take my time. Something I would do differently is to take my time again.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag50.id , student_user_id:377, teacher_user_id: nil, reflection:" Next time i will take my time. Next time i will do differently is I would do my work ", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag51.id , student_user_id:377, teacher_user_id: nil, reflection:" Next time I will take my time like last time. What I will do differently is doing work at the same time as im takeing my time.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag61.id , student_user_id:428, teacher_user_id: nil, reflection:" I tried my best to complete my goal.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag61.id , student_user_id:428, teacher_user_id: nil, reflection:" I met my goal because I tried my best.I will stay focus and on task", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag62.id , student_user_id:428, teacher_user_id: nil, reflection:" I met my goal because i tried my best. I will show my work also next time. I would focus more next time.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag64.id , student_user_id:438, teacher_user_id: nil, reflection:" What i would do the same next time to is to continue to be focuesd. What i would do differently is show my work.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag69.id , student_user_id:457, teacher_user_id: nil, reflection:" I am proud that I met my goal because I was focus on my work", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag70.id , student_user_id:457, teacher_user_id: nil, reflection:" I am proud that I met my goal because I was focus.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag70.id , student_user_id:457, teacher_user_id: nil, reflection:" I met my goal because I was focus and on task.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag73.id , student_user_id:457, teacher_user_id: nil, reflection:" I met my goal because i wanted to good grade.I would stay focus the same.I will work on my timing.", reflection_date:" 2015/10/29"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag85.id , student_user_id:723, teacher_user_id: nil, reflection:" I got a five because i practiced. I will stay focus as i did.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag86.id , student_user_id:723, teacher_user_id: nil, reflection:" I passed my goal because i practiced on it", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag89.id , student_user_id:723, teacher_user_id: nil, reflection:" I met my goal because i practiced on long division. I will stay ficus next time", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag90.id , student_user_id:723, teacher_user_id: nil, reflection:" I met my goal because i knew all of the questions. I will focus as i did today. I will do the questions quicker.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag91.id , student_user_id:723, teacher_user_id: nil, reflection:" I met my goal because i learned this from 5th grade. I will stay focus as i did today. I will work on timing next time.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag94.id , student_user_id:723, teacher_user_id: nil, reflection:" I met my goal because even though i was confused at first i still tried. i will stay focus as i did today. I will work on timing.", reflection_date:" 2015/11/02"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag103.id , student_user_id:726, teacher_user_id: nil, reflection:" I will stay the same by practicing at home. I will be on task and by working my hard.", reflection_date:" 2015/11/02"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag104.id , student_user_id:727, teacher_user_id: nil, reflection:" I met my goal by getting 5 out of 5and I got thisscore  because I stayed focused.I will do the same next time is Iwill stay focuse.I will do the different next time is that I wont make mistakes.", reflection_date:" 2015/11/02"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag105.id , student_user_id:728, teacher_user_id: nil, reflection:" I meet my goal because i stuied my multiplication and i tried my best. Next time ill do the same but try to get 100%.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag106.id , student_user_id:728, teacher_user_id: nil, reflection:" I met my goal because i studied my multipilaction.", reflection_date:" 2015/10/29"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag108.id , student_user_id:731, teacher_user_id: nil, reflection:" I did not met my goal that much because I expected to get a 90% or higher but i got a 80%.. Next time I will use my multiplication chart to study more.😀", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag109.id , student_user_id:734, teacher_user_id: nil, reflection:" I meet my goal because I took my time on the questions. I will do the same next time. ", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag110.id , student_user_id:734, teacher_user_id: nil, reflection:" I took my time in each problem and next time I will do the same.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag111.id , student_user_id:734, teacher_user_id: nil, reflection:" I meet my goal because i was taking my time. Next time i wil do the same thing. Next time i will get them all right. ", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag112.id , student_user_id:734, teacher_user_id: nil, reflection:" I think i meet my goal because i took my time . Next tima i will do the same. Also, next time i will get less answers wrong ", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag119.id , student_user_id:737, teacher_user_id: nil, reflection:" I met my goal because im smart and found out how to do this with mrs.h's help.😀👍🏻", reflection_date:" 2015/11/04"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag121.id , student_user_id:738, teacher_user_id: nil, reflection:" I met my goal by doing my best and i tryed my hardest .i will do my best next time. ", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag122.id , student_user_id:738, teacher_user_id: nil, reflection:" I did meet my goal but it didnt let me track it.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag124.id , student_user_id:738, teacher_user_id: nil, reflection:" I met my goal buy trying by best and focusing. I will keep focusing next time.", reflection_date:" 2015/11/03"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag5.id , student_user_id:263, teacher_user_id: nil, reflection:"  I stay focus that is way i pass", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag6.id , student_user_id:263, teacher_user_id: nil, reflection:"  I will be fuocus    ", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag7.id , student_user_id:263, teacher_user_id: nil, reflection:"  Show my work", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag8.id , student_user_id:263, teacher_user_id: nil, reflection:"  I meet my goal", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag9.id , student_user_id:263, teacher_user_id: nil, reflection:"  Stay more focus", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag9.id , student_user_id:263, teacher_user_id: nil, reflection:"  I know table and stay focus and start to study", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag12.id , student_user_id:277, teacher_user_id: nil, reflection:"  I didnt meet my goal because i still wasnt sure if i knew how to multiply two digits by two digits right", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag14.id , student_user_id:287, teacher_user_id: nil, reflection:"  I didnt reach my goal because i didnt know almost all of the anwsers on the test and i will do better to make it to 80% on my goal.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag14.id , student_user_id:287, teacher_user_id: nil, reflection:"  Today i got 80% on multiplication 1-12 idid all of the anwsers correct.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag14.id , student_user_id:287, teacher_user_id: nil, reflection:"  I did the work right and did my best on the ones i didnt know even if i kinda knew the anwser", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag15.id , student_user_id:287, teacher_user_id: nil, reflection:"  I did all of the multiplication problems right even the ones i didnt know. I will practes my multiplication more to remember the ones i dont know. I will do a higher score and less time.", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag16.id , student_user_id:287, teacher_user_id: nil, reflection:"  I meet my goal by working hard and practesing. I will practec more and try my best. I will not use the answers that are on the end of the test.", reflection_date:" 2015/11/03"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag21.id , student_user_id:334, teacher_user_id: nil, reflection:"  I would use my notes to help me with this topic next time.Next time I would be a little bit more focused than I was today.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag25.id , student_user_id:376, teacher_user_id: nil, reflection:"  I met my goal by knowing how to do multiplication and i love multiplication.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag27.id , student_user_id:376, teacher_user_id: nil, reflection:"  I met goal by knowing how to do this i learn this in 4th grade so i kept practicing.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag28.id , student_user_id:376, teacher_user_id: nil, reflection:"  I met my goal by doing the problems amd taking my time ", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag29.id , student_user_id:376, teacher_user_id: nil, reflection:"  I met my goal by having a good attitude today and i had a good sleep😀. I would do the same thing.I would study with long divison and have a good attittude.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag30.id , student_user_id:376, teacher_user_id: nil, reflection:"  I met my goal by knowing how to do this and i was practicing.the thing i will do the same thing is by practicing. I would do differentely by doing a quiz by my own ", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag31.id , student_user_id:376, teacher_user_id: nil, reflection:"  I met my goal by doing my long division problems and knowing how to do this. I would do the same thing practicing ans quizing my self. I would do differently by like do this every day.", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag32.id , student_user_id:376, teacher_user_id: nil, reflection:"  I met my goal by by practicing knowing how to do this stuff.yes i would do the same thing and and practice more to not forget.i would do nothing", reflection_date:" 2015/11/03"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag35.id , student_user_id:377, teacher_user_id: nil, reflection:"  Next time i will do more work so I can under stand what to do.What I would do differently next time is to study more.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag36.id , student_user_id:377, teacher_user_id: nil, reflection:"  Next time I will take my time. Something I would do differently is to take my time again.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag37.id , student_user_id:377, teacher_user_id: nil, reflection:"  Next time i will take my time. Next time i will do differently is I would do my work ", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag38.id , student_user_id:377, teacher_user_id: nil, reflection:"  Next time I will take my time like last time. What I will do differently is doing work at the same time as im takeing my time.", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag47.id , student_user_id:457, teacher_user_id: nil, reflection:"  I am proud that I met my goal because I was focus on my work", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag48.id , student_user_id:457, teacher_user_id: nil, reflection:"  I am proud that I met my goal because I was focus.", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag48.id , student_user_id:457, teacher_user_id: nil, reflection:"  I met my goal because I was focus and on task.", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag51.id , student_user_id:457, teacher_user_id: nil, reflection:"  I met my goal because i wanted to good grade.I would stay focus the same.I will work on my timing.", reflection_date:" 2015/10/29"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag60.id , student_user_id:723, teacher_user_id: nil, reflection:"  I got a five because i practiced. I will stay focus as i did.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag61.id , student_user_id:723, teacher_user_id: nil, reflection:"  I passed my goal because i practiced on it", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag64.id , student_user_id:723, teacher_user_id: nil, reflection:"  I met my goal because i practiced on long division. I will stay ficus next time", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag65.id , student_user_id:723, teacher_user_id: nil, reflection:"  I met my goal because i knew all of the questions. I will focus as i did today. I will do the questions quicker.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag66.id , student_user_id:723, teacher_user_id: nil, reflection:"  I met my goal because i learned this from 5th grade. I will stay focus as i did today. I will work on timing next time.", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag68.id , student_user_id:723, teacher_user_id: nil, reflection:"  I met my goal because even though i was confused at first i still tried. i will stay focus as i did today. I will work on timing.", reflection_date:" 2015/11/02"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag75.id , student_user_id:726, teacher_user_id: nil, reflection:"  I will stay the same by practicing at home. I will be on task and by working my hard.", reflection_date:" 2015/11/02"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag76.id , student_user_id:727, teacher_user_id: nil, reflection:"  I met my goal by getting 5 out of 5and I got thisscore  because I stayed focused.I will do the same next time is Iwill stay focuse.I will do the different next time is that I wont make mistakes.", reflection_date:" 2015/11/02"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag77.id , student_user_id:728, teacher_user_id: nil, reflection:"  I meet my goal because i stuied my multiplication and i tried my best. Next time ill do the same but try to get 100%.", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag78.id , student_user_id:728, teacher_user_id: nil, reflection:"  I met my goal because i studied my multipilaction.", reflection_date:" 2015/10/29"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag80.id , student_user_id:731, teacher_user_id: nil, reflection:"  I did not met my goal that much because I expected to get a 90% or higher but i got a 80%.. Next time I will use my multiplication chart to study more.😀", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag81.id , student_user_id:734, teacher_user_id: nil, reflection:"  I meet my goal because I took my time on the questions. I will do the same next time. ", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag82.id , student_user_id:734, teacher_user_id: nil, reflection:"  I took my time in each problem and next time I will do the same.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag83.id , student_user_id:734, teacher_user_id: nil, reflection:"  I meet my goal because i was taking my time. Next time i wil do the same thing. Next time i will get them all right. ", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag84.id , student_user_id:734, teacher_user_id: nil, reflection:"  I think i meet my goal because i took my time . Next tima i will do the same. Also, next time i will get less answers wrong ", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag91.id , student_user_id:737, teacher_user_id: nil, reflection:"  I met my goal because im smart and found out how to do this with mrs.h's help.😀👍🏻", reflection_date:" 2015/11/04"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag92.id , student_user_id:738, teacher_user_id: nil, reflection:"  I met my goal by doing my best and i tryed my hardest .i will do my best next time. ", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag93.id , student_user_id:738, teacher_user_id: nil, reflection:"  I did meet my goal but it didnt let me track it.", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag95.id , student_user_id:738, teacher_user_id: nil, reflection:"  I met my goal buy trying by best and focusing. I will keep focusing next time.", reflection_date:" 2015/11/03"}).save
+
 
 	end
 end
