@@ -126,8 +126,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			var count = this.model.get("studentPerformancesRendered");
 			this.model.set("studentPerformancesRendered", count + 1);
 
+			var obj = this;
 			if(this.model.get("studentPerformancesRendered") == this.model.get("collectionSize")){
-				this.freezeStudentNameColumn();
+				setTimeout(function(){obj.freezeStudentNameColumn();}, 50)
 			}
 		},
 
@@ -313,8 +314,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			var count = this.model.get("studentPerformancesRendered");
 			this.model.set("studentPerformancesRendered", count + 1);
 
+			var obj = this;
 			if(this.model.get("studentPerformancesRendered") == this.model.get("collectionSize")){
-				this.freezeStudentNameColumn();
+				setTimeout(function(){obj.freezeStudentNameColumn();}, 50)
 			}
 		},
 
