@@ -1672,6 +1672,18 @@ namespace :app do
 		ActivityGoalReflection.new({activity_goal_id: ag93.id , student_user_id:738, teacher_user_id: nil, reflection:"  I did meet my goal but it didnt let me track it.", reflection_date:" 2015/10/28"}).save
 		ActivityGoalReflection.new({activity_goal_id: ag95.id , student_user_id:738, teacher_user_id: nil, reflection:"  I met my goal buy trying by best and focusing. I will keep focusing next time.", reflection_date:" 2015/11/03"}).save
 
+		puts "----------------AFTER ADDITION----------------------------------"
+
+		puts "Classroom count: #{Classroom.count}"
+		puts "ClassroomStudentUser count: #{ClassroomStudentUser.count}"
+		puts "Activity count: #{Activity.count}"
+		puts "ActivityTagPairing count: #{ActivityTagPairing.count}"
+		puts "ClassroomActivityPairing count: #{ClassroomActivityPairing.count}"
+		puts "StudentPerformance count: #{StudentPerformance.count_all}"
+		puts "StudentPerformanceVerification count: #{StudentPerformanceVerification.count}"
+		puts "ActivityGoal count: #{ActivityGoal.count}"
+		puts "ActivityGoalReflection count: #{ActivityGoalReflection.count}"
+
 
 	end
 end
