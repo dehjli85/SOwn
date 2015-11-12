@@ -191,13 +191,13 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			})
 			.done(function(data) {
 
-				console.log(data);
+				console.log(data.student_performance.performance_date);
 
 				if(data.status == "success"){
 					
 					var student_performance_verification = new Backbone.Model({activity:data.activity, student: data.student, student_performance: data.student_performance})
 					var verifyModalView = new TeacherAccount.TeacherApp.Classroom.Scores.VerifyModalView({model: student_performance_verification});
-
+					console.log(verifyModalView.model.get("student_performance").performance_date);
 					scoresLayoutView.modalRegion.show(verifyModalView);
 					scoresLayoutView.ui.modalRegion.modal("show");
 						

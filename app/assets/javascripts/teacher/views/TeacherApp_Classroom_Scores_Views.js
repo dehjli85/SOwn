@@ -552,21 +552,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		initialize: function(options){
 			this.$el.attr("role","document");
-
-			if(this.model.attributes.student_performance.performance_date){
-
-				Number.prototype.padLeft = function(base,chr){
-				   var  len = (String(base || 10).length - String(this).length)+1;
-				   return len > 0? new Array(len).join(chr || '0')+this : this;
-				}
-
-				var d = new Date(this.model.attributes.student_performance.performance_date);
-	      this.model.attributes.student_performance.performance_date 
-	      	= [ (d.getMonth()+1).padLeft(),
-	          d.getDate().padLeft(),
-	          d.getFullYear()].join('/');
-	 
-			}
 		},
 
 	});

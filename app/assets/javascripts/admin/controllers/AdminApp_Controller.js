@@ -35,6 +35,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 				console.log("requesting offline access");
 
 				auth2.currentUser.get().grantOfflineAccess().then(function(authResult){
+					console.log("offline access granted");
 					AdminApp.Controller.logInWithGoogleCallback(authResult, layoutView);
 				});
 			})
@@ -52,6 +53,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			})
 			.done(function(data) {
 
+				console.log(data);
 
 				if (data.login_response === 'success'){		    	
 					

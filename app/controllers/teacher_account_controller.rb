@@ -287,6 +287,14 @@
 		# create an array to store the performances for each student
 		students_hash = {}
 		students.each_with_index do |student, index|
+			student.delete("salt")
+      student.delete("password_digest")
+      student.delete("oauth_expires_at")
+      student.delete("oauth_token")
+      student.delete("updated_at")
+      student.delete("create_at")
+      student.delete("provider")
+      student.delete("uid")
 			students_hash[student["id"].to_i] = index
 			student["student_performance"] = []
 			student["proficient_count"] = 0
