@@ -88,17 +88,29 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 
 			}
 			else{
-				auth2.grantOfflineAccess({
-					'redirect_uri': 'postmessage',
-					'prompt': 'login select_account'
-				}).then(function(authResult){
-					PublicPages.SignUpAndLoginApp.SignUp.Controller.signInCallback(authResult, userType, signUpView);
-				});
+
+				auth2.signIn({
+						'prompt': 'select_account',
+				}).then(function(){
+					PublicPages.SignUpAndLoginApp.SignUp.Controller.signInCallback(auth2.currentUser.get().getAuthResponse().id_token, userType, signUpView);
+					// console.log("requesting offline access");
+
+					// auth2.currentUser.get().grantOfflineAccess().then(function(authResult){
+					// 	PublicPages.SignUpAndLoginApp.Login.Controller.logInCallback(authResult, loginLayoutView);
+					// })
+				})
+
+				// auth2.grantOfflineAccess({
+				// 	'redirect_uri': 'postmessage',
+				// 	'prompt': 'login select_account'
+				// }).then(function(authResult){
+				// 	PublicPages.SignUpAndLoginApp.SignUp.Controller.signInCallback(authResult, userType, signUpView);
+				// });
 			}
 
 		},
  
-		signInCallback: function(authResult, userType, signUpView) {
+		signInCallback: function(idToken, userType, signUpView) {
 			
 			var postUrl;
 			if(userType == "Teacher")
@@ -106,7 +118,7 @@ PublicPages.module("SignUpAndLoginApp.SignUp", function(SignUp, PublicPages, Bac
 			else if(userType == "Student")
 				postUrl = "/student_google_sign_up"
 
-			var postData = "authorization_code=" + authResult.code;
+			var postData = "id_token=" + idToken;
 
 			var jqxhr = $.post(postUrl, postData, function(){
 				console.log('post request made with authorization code');

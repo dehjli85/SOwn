@@ -62,21 +62,22 @@ class PublicPagesController < ApplicationController
 	end
 
 	def google_login_post
+
+		# use id_token to get email from google
 		
 		ga = GoogleAuth.new		#This is a model we created
 
 
 		begin
 			
-			authorization = ga.exchange_code(params[:authorization_code])
-			user_info = ga.get_user_info(authorization)
+			userinfo = ga.get_userinfo_from_id_token(params[:id_token])
 
-			@teacher_user = TeacherUser.where({email: user_info.email.downcase}).first
+			@teacher_user = TeacherUser.where({email: userinfo["email"].downcase}).first
 			if @teacher_user && @teacher_user.provider.eql?("google_oauth2")
 				session[:teacher_user_id] = @teacher_user.id			
 			end
 
-			@student_user = StudentUser.where({email: user_info.email.downcase}).first
+			@student_user = StudentUser.where({email: userinfo["email"].downcase}).first
 			if @student_user && @student_user.provider.eql?("google_oauth2")
 				session[:student_user_id] = @student_user.id			
 			end
@@ -122,19 +123,17 @@ class PublicPagesController < ApplicationController
 		ga = GoogleAuth.new
 
 		begin
-			authorization = ga.exchange_code(params[:authorization_code])
-			user_info = ga.get_user_info(authorization)
+
+			userinfo = ga.get_userinfo_from_id_token(params[:id_token])
 
 			user = TeacherUser.new
 			user.provider = "google_oauth2"
-	    user.uid = user_info.id
-	    user.oauth_token = authorization.access_token
-	    user.oauth_expires_at = Time.at(authorization.expires_at)
-	    user.email = user_info.email.downcase
-	    user.first_name = user_info.given_name
-	    user.last_name = user_info.family_name
-	    user.username = user_info.email.downcase
-	    user.display_name = user_info.name
+	    user.uid = userinfo["uid"]
+	    user.email = userinfo["email"].downcase
+	    user.first_name = userinfo["first_name"]
+	    user.last_name = userinfo["last_name"]
+	    user.username = userinfo["email"].downcase
+	    user.display_name = userinfo["display_name"]
 
 	    if user.save
 
@@ -157,19 +156,17 @@ class PublicPagesController < ApplicationController
 		ga = GoogleAuth.new
 
 		begin
-			authorization = ga.exchange_code(params[:authorization_code])
-			user_info = ga.get_user_info(authorization)
+
+			userinfo = ga.get_userinfo_from_id_token(params[:id_token])
 
 			user = StudentUser.new
 			user.provider = "google_oauth2"
-	    user.uid = user_info.id
-	    user.oauth_token = authorization.access_token
-	    user.oauth_expires_at = Time.at(authorization.expires_at)
-	    user.email = user_info.email.downcase
-	    user.first_name = user_info.given_name
-	    user.last_name = user_info.family_name
-	    user.username = user_info.email.downcase
-	    user.display_name = user_info.name
+	    user.uid = userinfo["uid"]
+	    user.email = userinfo["email"].downcase
+	    user.first_name = userinfo["first_name"]
+	    user.last_name = userinfo["last_name"]
+	    user.username = userinfo["email"].downcase
+	    user.display_name = userinfo["display_name"]
 
 	    if user.save
 

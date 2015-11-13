@@ -3,6 +3,7 @@ class GoogleAuth
 	# require 'google/api_client'
   require 'google/api_client/client_secrets'
   require 'google/apis/oauth2_v2'
+  require 'jwt'
 
   CLIENT_SECRET_PATH = Rails.root.join("config/client_secret_916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com.json")
 	CLIENT_ID = '916932200710-kk91r5rbn820llsernmbjfgk9r5s67lq.apps.googleusercontent.com'
@@ -82,7 +83,7 @@ class GoogleAuth
 	#  OAuth 2.0 credentials.
 	def exchange_code(authorization_code)
 		client_secrets = Google::APIClient::ClientSecrets.load(CLIENT_SECRET_PATH)
-    client = client_secrets.to_authorization
+    client = client_secrets.to_authorization    
     client.update!(redirect_uri: 'postmessage')
     client.code = authorization_code
     
@@ -185,6 +186,24 @@ class GoogleAuth
 	  end
 	  authorization_url = get_authorization_url(email_address, state)
 	  raise NoRefreshTokenError.new(authorization_url)
+	end
+
+	def get_userinfo_from_id_token(token)
+    jwt_hash = JWT.decode(token, nil, false)[0]
+
+    if jwt_hash["iss"].eql?("accounts.google.com") && jwt_hash["aud"].eql?(CLIENT_ID)
+    	
+    	h = Hash.new
+    	h["email"] = jwt_hash["email"]
+    	h["uid"] = jwt_hash["sub"]
+    	h["first_name"] = jwt_hash["given_name"]
+    	h["last_name"] = jwt_hash["family_name"]
+    	h["display_name"] = jwt_hash["given_name"] + ' ' + jwt_hash["family_name"]
+
+    	return h
+    else
+    	return nil
+    end
 	end
 
 end

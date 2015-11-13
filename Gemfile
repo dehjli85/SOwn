@@ -68,3 +68,5 @@ gem 'yaml_db'
 
 gem 'momentjs-rails'
 
+gem 'jwt'
+

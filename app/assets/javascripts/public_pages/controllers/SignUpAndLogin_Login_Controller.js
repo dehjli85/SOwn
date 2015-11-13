@@ -73,14 +73,6 @@ PublicPages.module("SignUpAndLoginApp.Login", function(Login, PublicPages, Backb
 
 			var startTime = moment();
 			var firstTime = true;
-			// while(typeof auth2 == 'undefined' && moment() - startTime < 2000){
-			// 	if(firstTime){
-			// 		console.log("waiting for gapi to load");
-			// 		firstTime = false;
-			// 	}
-			// }
-
-		
 
 			if(typeof auth2 == 'undefined'){
     		loginLayoutView.flashErrorMessage({
@@ -89,27 +81,26 @@ PublicPages.module("SignUpAndLoginApp.Login", function(Login, PublicPages, Backb
     			message: "There was an error communicating with Google.  Click the log in button again, or reload this page and try again."});			    		
 
 			}else{
+
 				console.log("prompting for sign in ");
+
 				auth2.signIn({
 						'prompt': 'select_account',
 				}).then(function(){
-					console.log("requesting offline access");
 
-					auth2.currentUser.get().grantOfflineAccess().then(function(authResult){
-						PublicPages.SignUpAndLoginApp.Login.Controller.logInCallback(authResult, loginLayoutView);
-					})
+					PublicPages.SignUpAndLoginApp.Login.Controller.logInCallback(auth2.currentUser.get().getAuthResponse().id_token,loginLayoutView);
+
 				})
 				
 			}
 
-			
-
 		},
 
-		logInCallback: function(authResult, loginLayoutView){
+		logInCallback: function(idToken, loginLayoutView){
 
 			var postUrl = "/google_login_post"
-			var postData = "authorization_code=" + authResult.code;
+			var postData = "id_token=" + idToken;
+			// var postData = "id_token=" + idToken.code;
 
 			//record the email address in full story they are trying to log in with
     	var currentUserEmail = auth2.currentUser.get().getBasicProfile() ? auth2.currentUser.get().getBasicProfile().getEmail() : null;
