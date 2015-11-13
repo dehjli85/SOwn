@@ -10,12 +10,14 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 		ui: {
 			switchAccountLink: "[ui-switch-account-link]",
 			settingsLink: "[ui-settings-link]",
-			homeLink: "[ui-home-link]"
+			homeLink: "[ui-home-link]",
+			activitiesLink: "[ui-activities-link]"
 		},
 
 		events:{
 			"click .ui-classroom-link": "showClassroom",
-			"click @ui.homeLink": "showClassrooms"
+			"click @ui.homeLink": "showClassrooms",
+			"click @ui.activitiesLink": "showActivities"
 		},
 
 		triggers:{
@@ -37,6 +39,11 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			e.preventDefault();
 			TeacherAccount.TeacherApp.Classrooms.Controller.showClassroomOverviews();
 		},
+
+		showActivities: function(e){
+			e.preventDefault();
+			TeacherAccount.TeacherApp.Main.Controller.startActivitiesApp("index");
+		}
 			
 	});
 
