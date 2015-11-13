@@ -164,9 +164,9 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 
 		},
 
-		showClassroomNew: function(){
+		showClassroomNew: function(layoutView){
 
-			TeacherAccount.navigate("classroom/new");			
+			// TeacherAccount.navigate("classroom/new");			
 			
 			var classroom = new TeacherAccount.Models.Classroom({
 				name: "",
@@ -177,10 +177,11 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 			});			
 
 			var classroomView = new TeacherAccount.TeacherApp.ClassroomView({model:classroom});
-			TeacherAccount.rootView.mainRegion.show(classroomView);
+			layoutView.ui.modalRegion.modal("show");
+			layoutView.modalRegion.show(classroomView);
 		},
 
-		saveClassroom: function(classroomView){
+		saveClassroom: function(classroomView, classroomModalContainerView){
 
 			var postUrl;
 			if(classroomView.model.attributes.editOrNew == "new"){
@@ -199,17 +200,24 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 					//show a success message, render the edit activity page
 					// console.log("success")
 					if(classroomView.model.attributes.editOrNew == "new"){
+						
+						classroomModalContainerView.ui.modalRegion.modal("hide");
+
 						TeacherAccount.TeacherApp.Classrooms.Controller.showClassroomOverviews();
 
-						var alertModel = new TeacherAccount.Models.Alert({alertClass: "alert-success", message: "Activity successfully saved!"});
+
+						var alertModel = new TeacherAccount.Models.Alert({alertClass: "alert-success", message: "Classroom successfully saved!"});
 						var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
 						TeacherAccount.navigate("classrooms") //has to be before show, because navigate clears the alerts
 						TeacherAccount.rootView.alertRegion.show(alertView);
 					}
 					else if(classroomView.model.attributes.editOrNew == "edit"){
-						var alertModel = new TeacherAccount.Models.Alert({alertClass: "alert-success", message: "Activity successfully saved!"});
+						var alertModel = new TeacherAccount.Models.Alert({alertClass: "alert-success", message: "Classroom successfully saved!"});
 						var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
 						TeacherAccount.rootView.alertRegion.show(alertView);
+
+						classroomModalContainerView.ui.modalRegion.modal("hide");
+						TeacherAccount.TeacherApp.Classroom.Controller.showClassroomHeader(classroomModalContainerView, classroomModalContainerView.model.get("classroomId"), 'scores');
 
 					}
 					

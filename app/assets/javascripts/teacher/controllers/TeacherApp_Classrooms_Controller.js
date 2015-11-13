@@ -7,6 +7,7 @@ TeacherAccount.module("TeacherApp.Classrooms", function(Classrooms, TeacherAccou
 		showClassroomOverviews: function(){
 			console.log("preparing classroom overview");
 			
+			TeacherAccount.navigate("classrooms");
 			//query for model data
 			var jqxhr = $.get("/classrooms_summary", function(){
 				console.log('get request made');

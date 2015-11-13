@@ -129,7 +129,12 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			headerRegion: "#header_region",
 			leftNavRegion: "#left_nav_region",
 			mainRegion: "#main_region",
-			alertRegion: "#alert_region"
+			alertRegion: "#alert_region",
+			modalRegion: "#modal_region"
+		},
+
+		ui:{
+			modalRegion: "#modal_region"
 		},
 
 
@@ -146,7 +151,7 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 
 		onChildviewShowNewClassForm: function(view){			
 
-			TeacherAccount.TeacherApp.Main.Controller.showClassroomNew();
+			TeacherAccount.TeacherApp.Main.Controller.showClassroomNew(this);
 
 		},
 
@@ -159,7 +164,11 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 		onChildviewStartStudentsApp: function(view){
 
 			TeacherAccount.TeacherApp.Main.Controller.startStudentsApp("index");
-		}
+		},
+
+		onChildviewSaveClassroom: function(classroomView){
+			TeacherAccount.TeacherApp.Main.Controller.saveClassroom(classroomView, this);			
+		},
 
 	});
 
@@ -174,7 +183,7 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 
 	TeacherApp.ClassroomView = Marionette.ItemView.extend({
 		tagName: "div",
-		className: "classroom_edit_div",
+		className: "modal-dialog",
 		template: JST["teacher/templates/TeacherApp_Classroom"],
 
 		ui:{
@@ -200,7 +209,7 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 		saveClassroom: function(e){
 			e.preventDefault();
 			this.setModelAttributes();
-			TeacherAccount.TeacherApp.Main.Controller.saveClassroom(this);
+			this.triggerMethod("save:classroom");
 		},
 
 		setModelAttributes: function(){
