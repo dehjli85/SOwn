@@ -108,17 +108,48 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 					if(activityId == null){
 						model.set("activity_status", "New");
 						model.set("activity_type", "scored");
+
+						getUrl = "/teacher/teacher_activities_and_tags";
+						var jqxhr2 = $.get(getUrl, function(){
+							console.log('get request made');
+						})
+						.done(function(data) {
+
+							var editActivityModalCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityModalCompositeView({model: model, collection: collection});
+
+							if(data.status == "success"){
+								editActivityModalCompositeView.model.set("activities", data.activities);
+
+								var activity_names = [];
+								data.activities.map(function(i){activity_names.push(i.name)});
+								model.set("activity_names", activity_names);
+
+							}
+							
+							indexLayoutView.modalRegion.show(editActivityModalCompositeView);
+							indexLayoutView.ui.modalRegion.modal("show");
+							
+					  })
+					  .fail(function() {
+					  	console.log("error");
+					  })
+					  .always(function() {
+					   
+						});	
+
 					}
 					// This is an existing activity
 					else{
 						model.set("activity_status", "Edit");
 						collection = new Backbone.Collection(data.activity.tags);
+
+						var editActivityModalCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityModalCompositeView({model: model, collection: collection});
+						
+						indexLayoutView.modalRegion.show(editActivityModalCompositeView);
+						indexLayoutView.ui.modalRegion.modal("show");
 					}
 
-					var editActivityModalCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityModalCompositeView({model: model, collection: collection});
 					
-					indexLayoutView.modalRegion.show(editActivityModalCompositeView);
-					indexLayoutView.ui.modalRegion.modal("show");
 						
 				}
 				

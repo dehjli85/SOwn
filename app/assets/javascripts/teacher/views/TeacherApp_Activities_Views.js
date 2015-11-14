@@ -91,7 +91,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		className: "col-md-12",
 		triggers: {
 			"submit [ui-search-form]":"activities:index:filter:search:term",
-			"click @ui.createActivityButton": "open:new:activity:dialog"
+			"click @ui.createActivityButton": "classrooms:open:new:activity:dialog"
 		},
 
 		ui: {
@@ -152,7 +152,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		},
 
-		onChildviewOpenNewActivityDialog: function(view){
+		onChildviewClassroomsOpenNewActivityDialog: function(view){
 			TeacherAccount.TeacherApp.Activities.Controller.openEditActivityDialog(this);
 		},
 
