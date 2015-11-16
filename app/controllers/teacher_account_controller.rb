@@ -679,6 +679,9 @@
 		render json: {status: "success" , tags: tags}
 	end
 
+
+
+
 	def teacher_activities_and_classroom_assignment
 
 		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
@@ -696,8 +699,69 @@
 		
 	end
 
-	def activities
+
+
+
+	# Given an Activity ID, returns a JSON object representing the Activity.  
+	# Return JSON object also includes 
+	# => Classroom
+	# => Classroom Activivty Pairing (use to indicated if activity is assigned to which classrooms)
+	# => Activity Tag data
+	#
+	# If an invalid activity ID is passed, then a blank activity is returned
+	def activity
+
+		@activity = Activity.where({teacher_user_id: @current_teacher_user.id, id: params[:activity_id]}).first
 		
+		if(!@activity.nil?)
+			
+			# get Hash representing Activity
+			activity_hash = @activity.serializable_hash
+			
+			# get Activity Tags for associated Activity
+			activity_hash["tags"] = @activity.activity_tags.to_a.map(&:serializable_hash)
+
+			# get Activity Levels for associated Activity
+			activity_hash["levels"] = @activity.activity_levels.to_a.map(&:serializable_hash)
+
+		else
+
+			activity_hash = Activity.new.serializable_hash
+			activity_hash["tags"] = Array.new
+			activity_hash["levels"] = Array.new
+
+
+		end
+
+		# get all Classrooms and respective IDs
+		classrooms = Classroom.where(teacher_user_id: @current_teacher_user.id).as_json
+		classroom_ids = Classroom.where(teacher_user_id: @current_teacher_user.id).pluck(:id)
+		
+		# get all Classroom Activity pairings
+		pairings_hash = ClassroomActivityPairing.where("classroom_id" => classroom_ids)
+			.where("activity_id" => activity_hash["id"]).as_json
+
+		# create a lookup Hash to get for the Classroom ID
+		classroom_indices = Hash.new
+		classrooms.each_with_index do |classroom, index|
+			classroom_indices[classroom["id"]] = index
+		end
+
+		# Use the lookup Hash to associate each Classroom Activity Pairing to the matching Classroom
+		pairings_hash.each do |pairing|
+			index = classroom_indices[pairing["classroom_id"]]
+			classrooms[index]["classroom_activity_pairing"] = pairing
+		end
+
+		# Set the Classrooms key in the Activity Hash
+		activity_hash["classrooms"] = classrooms
+
+		# get all the tags for the user
+		all_tags = ActivityTag.tags_for_teacher(@current_teacher_user.id)
+
+
+		render json: {status: "success", activity: activity_hash, activity_tags: all_tags}
+
 	end
 
 	def teacher_activities_options
@@ -974,6 +1038,19 @@
 
 	end
 
+	# creates a new Activity with Activity Tags and Activity Levels using the parameters passed.  The following paramteres are expected:
+	# activity
+	# => name
+	# => description
+	# => instructions
+	# => activity_type
+	# => min_score
+	# => max_score
+	# => benchmark1_score
+	# => benchmark2_score
+	# => link
+	# tags
+	# levels
 	def save_new_activity
 
 		@activity = Activity.new(params.require(:activity).permit(:name, :description, :instructions, :activity_type, :min_score, :max_score, :benchmark1_score, :benchmark2_score, :link))
@@ -981,11 +1058,13 @@
 
 		tag_errors = Array.new
 		pairing_errors = Array.new
+		level_errors = Array.new
 
 		if(@activity.save)
 
 			#save the tags
-			params[:tags] = params[:tags].nil? ? {} : params[:tags]
+			params[:tags] ||=  {} 
+			# params[:tags] = params[:tags].nil? ? {} : params[:tags]
 			params[:tags].each do |index, value| 
 
 				#check if the tag exists, if it doesn't create it
@@ -1002,10 +1081,23 @@
 
 			end
 
+			#save the levels
+			params[:levels] ||=  {} 
+			params[:levels].each do |index, value| 
+
+				#check if the tag exists, if it doesn't create it
+				level = ActivityLevel.where({name: value, activity_id: @activity.id}).first_or_initialize({name: value, activity_id: @activity.id})
+				if(!level.save)
+					level_errors.push(level.errors)
+				end
+
+			end
+
 			activity_hash = @activity.serializable_hash
 			activity_hash["tags"] = @activity.activity_tags.to_a.map(&:serializable_hash)
+			activity_hash["levels"] = @activity.activity_levels.to_a.map(&:serializable_hash)
 
-			render json: {status: "success", activity: activity_hash, tag_errors: tag_errors, pairing_errors: pairing_errors}
+			render json: {status: "success", activity: activity_hash, tag_errors: tag_errors, pairing_errors: pairing_errors, level_errors: level_errors}
 		else
 
 			render json: {status: "error", errors: @activity.errors}
@@ -1014,65 +1106,20 @@
 	end
 
 
-	# Given an Activity ID, returns a JSON object representing the Activity.  
-	# Return JSON object also includes 
-	# => Classroom
-	# => Classroom Activivty Pairing (use to indicated if activity is assigned to which classrooms)
-	# => Activity Tag data
-	#
-	# If an invalid activity ID is passed, then a blank activity is returned
-	def activity
-
-		@activity = Activity.where({teacher_user_id: @current_teacher_user.id, id: params[:activity_id]}).first
-		
-		if(!@activity.nil?)
-			
-			# get Hash representing Activity
-			activity_hash = @activity.serializable_hash
-			
-			# get Activity Tags for associated Activity
-			activity_hash["tags"] = @activity.activity_tags.to_a.map(&:serializable_hash)
-
-		else
-
-			activity_hash = Activity.new.serializable_hash
-			activity_hash["tags"] = Array.new
-
-
-		end
-
-		# get all Classrooms and respective IDs
-		classrooms = Classroom.where(teacher_user_id: @current_teacher_user.id).as_json
-		classroom_ids = Classroom.where(teacher_user_id: @current_teacher_user.id).pluck(:id)
-		
-		# get all Classroom Activity pairings
-		pairings_hash = ClassroomActivityPairing.where("classroom_id" => classroom_ids)
-			.where("activity_id" => activity_hash["id"]).as_json
-
-		# create a lookup Hash to get for the Classroom ID
-		classroom_indices = Hash.new
-		classrooms.each_with_index do |classroom, index|
-			classroom_indices[classroom["id"]] = index
-		end
-
-		# Use the lookup Hash to associate each Classroom Activity Pairing to the matching Classroom
-		pairings_hash.each do |pairing|
-			index = classroom_indices[pairing["classroom_id"]]
-			classrooms[index]["classroom_activity_pairing"] = pairing
-		end
-
-		# Set the Classrooms key in the Activity Hash
-		activity_hash["classrooms"] = classrooms
-
-		# get all the tags for the user
-		all_tags = ActivityTag.tags_for_teacher(@current_teacher_user.id)
-
-
-		render json: {status: "success", activity: activity_hash, activity_tags: all_tags}
-
-
-	end
-
+	
+	# updates a new Activity with Activity Tags and Activity Levels using the parameters passed.  The following paramteres are expected:
+	# activity
+	# => name
+	# => description
+	# => instructions
+	# => activity_type
+	# => min_score
+	# => max_score
+	# => benchmark1_score
+	# => benchmark2_score
+	# => link
+	# tags
+	# levels
 	def update_activity
 
 		@activity = Activity.where({teacher_user_id: @current_teacher_user.id, id: params[:id]}).first
@@ -1082,11 +1129,12 @@
 
 			if(@activity.save)
 
-				#go through all the submitted tags and add/delete as necessary				
-				params[:tags] ||=  {} 
 				tag_errors = Array.new
 				pairing_errors = Array.new
+				level_errors = Array.new
 
+				#go through all the submitted tags and add/delete as necessary				
+				params[:tags] ||=  {} 
 				params[:tags].each do |index, value| 
 
 					#check if the tag exists, if it doesn't create it
@@ -1109,10 +1157,31 @@
 					end
 				end
 
+
+				#go through all the submitted levels and add/delete as necessary				
+				params[:levels] ||=  {} 
+				params[:levels].each do |index, value| 
+
+					#check if the level exists, if it doesn't create it
+					level = ActivityLevel.where({name: value, activity_id: @activity.id}).first_or_initialize({name: value, activity_id: @activity.id})
+					if(!level.save)
+						level_errors.push(level.errors)
+					end
+					
+				end
+
+				#delete all levels from the database if they aren't in the submitted list
+				@activity.activity_levels.each do |existing_level|
+					if !params[:levels].has_value?(existing_level.name)
+						existing_level.destroy
+					end
+				end
+
 				activity_hash = @activity.serializable_hash
 				activity_hash["tags"] = @activity.activity_tags.to_a.map(&:serializable_hash)
+				activity_hash["levels"] = @activity.activity_levels.to_a.map(&:serializable_hash)
 
-				render json: {status: "success", activity: activity_hash, tag_errors: tag_errors, pairing_errors: pairing_errors}
+				render json: {status: "success", activity: activity_hash, tag_errors: tag_errors, pairing_errors: pairing_errors, level_errors: level_errors}
 				
 			else				
 

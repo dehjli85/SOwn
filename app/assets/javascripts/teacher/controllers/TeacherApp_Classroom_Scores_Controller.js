@@ -285,21 +285,25 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 				if(data.status == "success"){
 
-					var model = new Backbone.Model(data.activity);
-					model.set("errors", {});
-					model.set("tagCount", 0);
-					model.set("classroomId", scoresLayoutView.model.get("classroomId"));
+					var layoutModel = new Backbone.Model(data.activity);
+					layoutModel.set("errors", {});
+					layoutModel.set("classroomId", scoresLayoutView.model.get("classroomId"));
 					
 					var teacher_tags = [];
 					data.activity_tags.map(function(i){teacher_tags.push(i.name)});
-					model.set("teacher_tags", teacher_tags);
+					layoutModel.set("teacher_tags", teacher_tags);
 					
-					var collection = new Backbone.Collection();
+					var activityTagsCollection = new Backbone.Collection();
+					var activityLevelsCollection = new Backbone.Collection();
 
 					// This is a new Activity
 					if(activityId == null){
-						model.set("activity_status", "New");
-						model.set("activity_type", "scored");
+						layoutModel.set("activity_status", "New");
+						layoutModel.set("activity_type", "scored");
+						layoutModel.set("activity_tags", activityTagsCollection);
+						layoutModel.set("tagCount", 0);
+						layoutModel.set("activity_levels", activityLevelsCollection);
+						layoutModel.set("levelCount", 0);
 
 						// make a get request to get all the teacher's activities to use for the typeahead for copying activities
 						getUrl = "/teacher/teacher_activities_and_tags";
@@ -309,18 +313,19 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 						.done(function(data) {
 							console.log(data);
 
-							var editActivityModalCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityModalCompositeView({model: model, collection: collection});
 
 							if(data.status == "success"){
-								editActivityModalCompositeView.model.set("activities", data.activities);
+								layoutModel.set("activities", data.activities);
 
 								var activity_names = [];
 								data.activities.map(function(i){activity_names.push(i.name)});
-								model.set("activity_names", activity_names);
+								layoutModel.set("activity_names", activity_names);
 
 							}
 							
-							scoresLayoutView.modalRegion.show(editActivityModalCompositeView);
+							var editActivityModalLayoutView = new TeacherAccount.TeacherApp.Activities.EditActivityModalLayoutView({model: layoutModel});
+
+							scoresLayoutView.modalRegion.show(editActivityModalLayoutView);
 							scoresLayoutView.ui.modalRegion.modal("show");
 							
 					  })
@@ -334,12 +339,17 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 					}
 					// This is an existing activity
 					else{
-						model.set("activity_status", "Edit");
-						collection = new Backbone.Collection(data.activity.tags);
+						layoutModel.set("activity_status", "Edit");
+						activityTagsCollection = new Backbone.Collection(data.activity.tags);
+						activityLevelsCollection = new Backbone.Collection(data.activity.levels);
+						layoutModel.set("activity_tags", activityTagsCollection);
+						layoutModel.set("tagCount", activityTagsCollection.length);
+						layoutModel.set("activity_levels", activityLevelsCollection);
+						layoutModel.set("levelCount", activityLevelsCollection.length);
 
-						var editActivityModalCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityModalCompositeView({model: model, collection: collection});
+						var editActivityModalLayoutView = new TeacherAccount.TeacherApp.Activities.EditActivityModalLayoutView({model: layoutModel});
 						
-						scoresLayoutView.modalRegion.show(editActivityModalCompositeView);
+						scoresLayoutView.modalRegion.show(editActivityModalLayoutView);
 						scoresLayoutView.ui.modalRegion.modal("show");
 					}
 
@@ -388,9 +398,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		},
 
-		saveNewActivity: function(scoresLayoutView, editActivityModalCompositeView){
+		saveNewActivity: function(scoresLayoutView, editActivityModalLayoutView){
 			var postUrl = "/teacher/save_new_activity";
-			var jqxhr = $.post(postUrl, editActivityModalCompositeView.ui.activityForm.serialize(), function(){
+			var jqxhr = $.post(postUrl, editActivityModalLayoutView.ui.activityForm.serialize(), function(){
 				console.log('post request to save new activity');
 			})
 			.done(function(data) {
@@ -401,7 +411,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 					// assign to classes
 					var postUrl = "/teacher/assign_activities"
-					var jqxhr = $.post(postUrl, editActivityModalCompositeView.ui.activityForm.serialize() + "&activity_id=" + data.activity.id, function(){
+					var jqxhr = $.post(postUrl, editActivityModalLayoutView.ui.activityForm.serialize() + "&activity_id=" + data.activity.id, function(){
 						console.log('post request to assign activities');
 					})
 					.done(function(data2) {
@@ -436,7 +446,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				else{
 					
 					//show an error message
-					editActivityModalCompositeView.showErrors(data.errors);
+					editActivityModalLayoutView.showErrors(data.errors);
 
 				}
 
@@ -449,9 +459,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			});	
 		},
 
-		updateActivity: function(scoresLayoutView, editActivityModalCompositeView){
-			var postUrl = "/teacher/update_activity/" + editActivityModalCompositeView.model.get("id");
-			var jqxhr = $.post(postUrl, editActivityModalCompositeView.ui.activityForm.serialize(), function(){
+		updateActivity: function(scoresLayoutView, editActivityModalLayoutView){
+			var postUrl = "/teacher/update_activity/" + editActivityModalLayoutView.model.get("id");
+			var jqxhr = $.post(postUrl, editActivityModalLayoutView.ui.activityForm.serialize(), function(){
 				console.log('post request to save new activity');
 			})
 			.done(function(data) {
@@ -462,7 +472,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 					// assign to classes
 					var postUrl = "/teacher/assign_activities"
-					var jqxhr = $.post(postUrl, editActivityModalCompositeView.ui.activityForm.serialize() + "&activity_id=" + data.activity.id, function(){
+					var jqxhr = $.post(postUrl, editActivityModalLayoutView.ui.activityForm.serialize() + "&activity_id=" + data.activity.id, function(){
 						console.log('post request to assign activities');
 					})
 					.done(function(data2) {
@@ -496,7 +506,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				}
 				else{
 					//show an error message
-					editActivityModalCompositeView.showErrors(data.errors);
+					editActivityModalLayoutView.showErrors(data.errors);
 
 				}
 				

@@ -9,6 +9,7 @@ class Activity < ActiveRecord::Base
   has_many :classrooms, :through => :classroom_activity_pairings
   has_many :activity_tag_pairings
   has_many :activity_tags, :through => :activity_tag_pairings
+  has_many :activity_levels
   
 
 	validates :activity_type, inclusion: { in: %w(completion scored),

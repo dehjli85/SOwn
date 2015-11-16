@@ -241,18 +241,181 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		},
 
 		initialize : function (options) {
-	    this.model.attributes.index = options.index;
+	    this.model.set("index",options.index);
 	  }
 
 	});
 
-
-	Activities.EditActivityModalCompositeView = Marionette.CompositeView.extend({
-		template: JST["teacher/templates/Activities/TeacherApp_Activities_EditActivityModalComposite"],
+	Activities.EditActivityTagsCompositeView = Marionette.CompositeView.extend({
+		template: JST["teacher/templates/Activities/TeacherApp_Activities_EditActivityTagsCompositeView"],
 		tagName: "div",
-		className: "modal-dialog",
 		childView: Activities.EditActivityTagView,
 		childViewContainer: "ul#tagDisplayList",
+
+		ui:{
+			addTagsButton: "[ui-add-tags-button]", 
+			tagInput: "[ui-tag-input]",
+			tagInputDiv: "[ui-tag-input-div]",
+		},
+
+		events:{
+			"click @ui.addTagsButton": "addTag",
+		},
+
+		childViewOptions: function(model, index){			
+			return {
+				index: index,
+			}
+		},
+
+		addTag: function(e){
+			if(e != null){
+				e.preventDefault();
+			}
+			console.log(this.model);
+
+			if(this.ui.tagInput.val().trim() != ""){
+				var tagModel = {name: this.ui.tagInput.val().replace(/ /g,""), index: this.model.get("tagCount")};
+				this.collection.push(tagModel);
+				this.model.set("tagCount", this.model.get("tagCount") +1);
+			}
+			this.ui.tagInput.val("");
+		},
+
+
+		onChildviewRemoveTagFromCollection: function(view){
+			this.collection.remove(view.model);
+		},
+
+		onShow: function(){
+			$('[ui-tag-input-div] .typeahead').typeahead({
+			  hint: true,
+			  highlight: true,
+			  minLength: 1
+			},
+			{
+			  name: 'teacher_tags',
+			  source: this.substringMatcher(this.model.get("teacher_tags"))
+			});
+			
+
+			$('.twitter-typeahead').css("display", "block");
+
+
+		},
+
+		substringMatcher: function(strs) {
+		  return function findMatches(q, cb) {
+		    var matches, substringRegex;
+
+		    // an array that will be populated with substring matches
+		    matches = [];
+
+		    // regex used to determine if a string contains the substring `q`
+		    substrRegex = new RegExp(q, 'i');
+
+		    // iterate through the pool of strings and for any string that
+		    // contains the substring `q`, add it to the `matches` array
+		    $.each(strs, function(i, str) {
+		      if (substrRegex.test(str)) {
+		        matches.push(str);
+		      }
+		    });
+
+		    cb(matches);
+		  }
+		},
+
+		
+	});
+
+	Activities.EditActivityLevelView = Marionette.ItemView.extend({
+		template: JST["teacher/templates/Activities/TeacherApp_Activities_EditActivityLevel"],
+		tagName: "tr",
+
+		ui:{
+			deleteButton: "[ui-delete-button]"
+		},
+
+		events:{
+			"click @ui.deleteButton": "removeLevel"
+		},
+
+		removeLevel: function(e){
+			e.preventDefault();
+			this.triggerMethod("remove:level:from:collection");
+		},
+
+		initialize : function (options) {
+	    this.model.set("index",options.index);
+	  }
+
+	});
+
+	Activities.EditActivityLevelsCompositeView = Marionette.CompositeView.extend({
+		template: JST["teacher/templates/Activities/TeacherApp_Activities_EditActivityLevelsCompositeView"],
+		tagName: "div",
+		childView: Activities.EditActivityLevelView,
+		childViewContainer: "tbody",
+
+		ui:{
+			addLevelButton: "[ui-add-level-button]", 
+			levelInput: "[ui-level-input]",
+			levelInputDiv: "[ui-level-input-div]",
+			tableHead: "[ui-table-head]"
+		},
+
+		events:{
+			"click @ui.addLevelButton": "addLevel",
+		},
+
+		childViewOptions: function(model, index){			
+			return {
+				index: index,
+			}
+		},
+
+		onShow: function(){
+			if(this.collection.length > 0 ){
+				this.ui.tableHead.css("display", "table-header-group");
+			}
+		},
+
+		addLevel: function(e){
+			if(e != null){
+				e.preventDefault();
+			}
+			if(this.ui.levelInput.val().trim() != ""){
+				var levelModel = {name: this.ui.levelInput.val(), index: this.model.get("levelCount")};
+				this.collection.push(levelModel);
+				this.model.set("levelCount", this.model.get("levelCount") +1);
+			}
+			this.ui.levelInput.val("");
+
+			this.ui.tableHead.css("display", "table-header-group");
+		},
+
+		onChildviewRemoveLevelFromCollection: function(view){
+			this.collection.remove(view.model);
+
+			if(this.collection.length == 0 ){
+				this.ui.tableHead.css("display", "none");
+			}
+		},
+		
+	});
+
+
+	Activities.EditActivityModalLayoutView = Marionette.LayoutView.extend({
+		template: JST["teacher/templates/Activities/TeacherApp_Activities_EditActivityModalLayout"],
+		tagName: "div",
+		className: "modal-dialog",
+
+		regions:{
+			tagsRegion: "#tags_region",
+			levelsRegion: "#levels_region"
+		},
+
 		ui:{
 			activityForm: "[ui-activity-form]",
 			scoreRangeDiv: "[ui-score-range-div]",
@@ -273,12 +436,13 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			saveButton: "[ui-save-button]",
 			tagInputDiv: "[ui-tag-input-div]",
 			copyButton: "[ui-copy-button]",
-			copyInput: "[ui-copy-input]"
+			copyInput: "[ui-copy-input]",
+			levelInputs: "[ui-level-input]",
+			addLevelButton: "[ui-add-level-button]"
 		},
 
 		events:{
 			"change @ui.activityTypeSelect": "toggleScoreRangeDiv",
-			"click @ui.addTagsButton": "addTag",
 			"submit @ui.activityForm": "addTag",
 			"click @ui.copyButton": "copyActivityFields"
 		},
@@ -286,6 +450,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		triggers:{
 			"click @ui.saveButton": "save:activity"
 		},
+
 
 		toggleScoreRangeDiv: function(){
 			console.log(this.ui.activityTypeSelect.val());
@@ -296,18 +461,6 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 				this.ui.scoreRangeHeader.attr("style", "display:none");	
 				this.ui.optionalFieldsHeader.tab('show')
 			}
-		},
-
-		addTag: function(e){
-			if(e != null){
-				e.preventDefault();
-			}
-			if(this.ui.tagInput.val().trim() != ""){
-				var tagModel = {name: this.ui.tagInput.val().replace(/ /g,""), index: this.model.attributes.tagCount};
-				this.collection.push(tagModel);
-				this.model.set("tagCount", this.model.get("tagCount") +1);
-			}
-			this.ui.tagInput.val("");
 		},
 
 
@@ -328,26 +481,15 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		},
 
-		childViewOptions: function(model, index){			
-			return {index: index}
-		},
-
-		onChildviewRemoveTagFromCollection: function(view){
-			this.collection.remove(view.model);
-		},
-
 		onShow: function(){
-			console.log(this.model.get("teacher_tags"));
-			$('[ui-tag-input-div] .typeahead').typeahead({
-			  hint: true,
-			  highlight: true,
-			  minLength: 1
-			},
-			{
-			  name: 'teacher_tags',
-			  source: this.substringMatcher(this.model.get("teacher_tags"))
-			});
+			var tagsModel = new Backbone.Model({teacher_tags: this.model.get("teacher_tags"), tagCount: this.model.get("tagCount")});
+			var editActivityTagsCompositeView = new Activities.EditActivityTagsCompositeView({collection: this.model.get("activity_tags"), model: tagsModel});
+			this.tagsRegion.show(editActivityTagsCompositeView);
 
+			var levelsModel = new Backbone.Model({levelCount: this.model.get("levelCount")});
+			var editActivityLevelsCompositeView = new Activities.EditActivityLevelsCompositeView({collection: this.model.get("activity_levels"), model: levelsModel});
+			this.levelsRegion.show(editActivityLevelsCompositeView);
+			
 			$('[ui-copy-input]').typeahead({
 			  hint: true,
 			  highlight: true,
