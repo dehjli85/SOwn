@@ -1,0 +1,24 @@
+<td>
+	<%= name %>
+	<% if(errors){ %> 
+		<% if(errors.scored_performance){ %>
+			<br>
+			<span style="color:red">Score <%= errors.scored_performance %></span>
+		<% } %>
+		<% if(errors.performance_date){ %>
+			<br>
+			<span style="color:red">Date <%= errors.performance_date %></span>
+		<% } %>
+	<% } %>
+</td>
+<td>
+	<span class="ui-show"><%= moment(performance_date).format("MM/DD/YY") %></span>
+	<input type="date" class="form-control ui-edit" name="student_performances[<%= id %>][performance_date]" value="<%= moment(performance_date).format('YYYY-MM-DD') %>" style="display:none">
+</td>
+<td>
+	<span class="ui-show"><%= performance_pretty %></span>
+	<input type="text" class="form-control ui-edit" name="student_performances[<%= id %>][scored_performance]" value="<%= scored_performance %>" style="display:none">
+</td>
+<td>
+	<a href="#" class="btn btn-danger ui-edit" style="display:none" ui-delete-button>X</a>
+</td>

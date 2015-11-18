@@ -140,6 +140,7 @@ Rails.application.routes.draw do
   get 'student/classroom_activities_and_performances' => 'student_account#classroom_activities_and_performances'
   get 'student/activity' => 'student_account#activity'
   post 'student/save_student_performance' => 'student_account#save_student_performance'
+  post 'student/save_all_student_performances' => 'student_account#save_all_student_performances'
   get 'student/activity_and_performances' => 'student_account#activity_and_performances'
   post 'student/save_new_activity_goal' => 'student_account#save_new_activity_goal'
 

@@ -35,8 +35,13 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			StudentAccount.StudentApp.Classroom.Controller.openGoalModal(this, view.model.get("classroom_activity_pairing_id"));
 		},
 
-		onChildviewSavePerformance: function(view){
-			StudentAccount.StudentApp.Classroom.Controller.savePerformance(this, view, view.ui.performanceForm);
+		onChildviewClassroomLayoutSavePerformance: function(trackModalView, scoresTableCompositeView){
+			Classroom.Controller.savePerformance(this, trackModalView, scoresTableCompositeView);
+		},
+
+		onChildviewClassroomLayoutSaveAllPerformances: function(trackModalView, scoresTableCompositeView){
+			console.log("classroomlayoutview: save all performances");
+			Classroom.Controller.saveAllPerformances(this, trackModalView, scoresTableCompositeView);
 		},
 
 		onChildviewActivitiesLayoutShowSeeAllModal: function(view){
@@ -90,13 +95,14 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 		ui:{
 			trackButton: "[ui-track-button]",
-			seeAllButton: "[ui-see-all-a]",
 			nameLink: "[ui-name-a]",
-			setGoalLink: "[ui-set-goal-link]"
+			setGoalLink: "[ui-set-goal-link]",
+			enterScoreLink: "[ui-enter-score-link]"
 		},
 
 		triggers:{
 			"click @ui.trackButton": "activities:layout:show:track:modal",
+			"click .enter-score-link": "activities:layout:show:track:modal",
 			"click @ui.seeAllButton": "activities:layout:show:see:all:modal",
 			"click @ui.nameLink": "activities:layout:show:activity:details:modal",
 			"click @ui.setGoalLink": "activities:layout:show:goal:modal",
@@ -107,7 +113,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	Classroom.ActivitiesCompositeView = Marionette.CompositeView.extend({
 		template: JST["student/templates/StudentApp_Classroom_ActivitiesComposite"],			
 		tagName: "div",
-		className: "col-md-12",
+		className: "col-sm-12",
 		childView: Classroom.ActivityView,
 		childViewContainer: "tbody",
 		childViewOptions: function(model, index){
@@ -116,9 +122,14 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		
 	});
 
-	Classroom.TrackModalView = Marionette.ItemView.extend({
+	Classroom.TrackModalView = Marionette.LayoutView.extend({
 		template: JST ["student/templates/StudentApp_Classroom_TrackModal"],
 		className: "modal-dialog",
+
+		regions:{
+			graphRegion: "[ui-bar-graph-region]",
+			scoresRegion: "[ui-scores-region]"
+		},
 
 		ui:{
 			saveButton: "[ui-save-button]",
@@ -132,13 +143,17 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 		initialize: function(options){
 			this.$el.attr("role","document");
-
-			this.setShowScoreBar();
 		},
 
 		onShow: function(){
-			if(this.model.get("showScoreBar")){
-				this.showScoreBar();
+
+			this.showBarGraphRegion(this);
+
+			if(this.model.get("activity").activity_type == 'scored'){
+				this.showScoresRegion(this);
+			}
+			else if(this.model.get("activity").activity_type == 'completion'){
+				this.showCompletionRegion(this);
 			}
 
 			// deal with if HTML5 date input not supported
@@ -154,210 +169,78 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
       }
 		},
 
-
 		onRender: function(){
 			if(this.model.get("showScoreBar")){
 				this.showScoreBar();
 			}
 		},
 
-		setShowScoreBar: function(){
-			if(this.model.get("activity").activity_type == "scored" 
-				&& this.model.get("activity").max_score != null
-				&& this.model.get("activity").min_score != null
-				&& (this.model.get("activity").benchmark1_score != null || this.model.get("activity").benchmark2_score != null)){
+		showBarGraphRegion: function(trackModalView){
 
-				this.model.set("showScoreBar",  true);
+			if (this.model.get("activity").activity_type == 'scored'){
 
+	   		var modelData = [];
+	   		var index = 1;
+
+	   		var dates = [];
+	   		var counter = 1;
+				this.model.get("performances").map(function(item){
+
+	   			//set color of bars
+					var color = "#49883F";
+					if(item.performance_color == "danger-sown")
+						color = "#B14F51";
+					else if(item.performance_color == 'warning-sown')
+						color = "#EACD46";
+
+					//set data depending on activity type
+					var next = moment(item.performance_date).format("MM/DD");
+					if($.inArray(moment(item.performance_date).format("MM/DD"), dates) >=  0){
+						counter++;
+						next += " (" + counter + ")";
+					}
+					else{
+						counter = 1;
+					}
+					dates.push(moment(item.performance_date).format("MM/DD"));
+
+					modelData.push({x: next, y: item.performance_pretty, color: color})
+					index++;
+
+				});	 
+
+				var modelLabels = {x: "Attempt", y: "Score"};
+
+				var scoreRangeObj = {min_score: this.model.get("activity").min_score, benchmark1_score: this.model.get("activity").benchmark1_score, benchmark2_score: this.model.get("activity").benchmark2_score, max_score: this.model.get("activity").max_score};
+
+				var model = new Backbone.Model({data:modelData, labels: modelLabels, score_range: scoreRangeObj});
+
+				var barGraphView = new StudentAccount.StudentApp.Classroom.PerformanceBarGraphView({model: model});
+				trackModalView.graphRegion.show(barGraphView);
 			}
-			else{
-				this.model.set("showScoreBar", false);
-			}
+		 
 		},
 
-		showScoreBar: function(){
+		showScoresRegion: function(trackModalView){
+			var collection = new Backbone.Collection(this.model.get("performances"));
+			var scoresTableCompositeView = new Classroom.ScoresTableCompositeView({model: this.model, collection: collection});
+			trackModalView.scoresRegion.show(scoresTableCompositeView);
 
-			var dataset, colours;
-			//setup the data first
-			if(this.model.get("activity").benchmark1_score != null && this.model.get("activity").benchmark2_score != null){
-				dataset = [
-					{
-		        data: [{
-		            month: '',
-		            count: this.model.get("activity").benchmark1_score - this.model.get("activity").min_score
-		        }],
-		        name: 'Series #1'
-		    	}, 
-		    	{
-		        data: [{
-		            month: '',
-		            count: this.model.get("activity").benchmark2_score - this.model.get("activity").benchmark1_score
-		        }],
-		        name: 'Series #2'
-		    	}, 
-		    	{
-		        data: [{
-		            month: '',
-		            count: this.model.get("activity").max_score - this.model.get("activity").benchmark2_score
-		        }],
-		        name: 'Series #2'
-		    	}
-		    ];
+		},
 
-		    colours = ["#B14F51","#EACD46","#49883F"];
+		showCompletionRegion: function(trackModalView){
+			var collection = new Backbone.Collection(this.model.get("performances"));
+			var completionTableCompositeView = new Classroom.CompletionTableCompositeView({model: this.model, collection: collection});
+			trackModalView.scoresRegion.show(completionTableCompositeView);
+		},
 
-			}else{
-				var benchmark = this.model.get("activity").benchmark1_score != null ? this.model.get("activity").benchmark1_score : this.model.get("activity").benchmark2_score;
-				dataset = [
-					{
-		        data: [{
-		            month: '',
-		            count: benchmark - this.model.get("activity").min_score
-		        }],
-		        name: 'Series #1'
-		    	}, 
-		    	{
-		        data: [{
-		            month: '',
-		            count: this.model.get("activity").max_score - benchmark
-		        }],
-		        name: 'Series #2'
-		    	}
-		    ];
+		onChildviewSavePerformance: function(scoresTableCompositeView){
+			this.triggerMethod("classroom:layout:save:performance", scoresTableCompositeView);
+		},
 
-		    colours = [null ,"#49883F"];
-		    if(this.model.get("activity").benchmark1_score == null){
-		    	colours[0] = "#EACD46";
-		    }else{
-		    	colours[0] = "#B14F51";
-		    }
-			}
-
-			var obj = this;
-
-			var margins = {
-				    top: 12,
-				    left: 20,
-				    right: 24,
-				    bottom: 24
-				},				
-				width = 400 - margins.left - margins.right ,
-		    height = 100 - margins.top - margins.bottom,				    
-		    series = dataset.map(function (d) {
-		        return d.name;
-		    }),
-		    dataset = dataset.map(function (d) {
-		        return d.data.map(function (o, i) {
-		            // Structure it so that your numeric
-		            // axis (the stacked amount) is y
-		            return {
-		                x: o.month,
-		                y: o.count		                
-		            };
-		        });
-		    }),
-		    stack = d3.layout.stack();
-
-				stack(dataset);
-
-				var dataset = dataset.map(function (group) {
-				    return group.map(function (d) {
-				        // Invert the x and y values, and y0 becomes x0
-				        return {
-				            x: d.y,
-				            y: d.x,
-				            x0: d.y0
-				        };
-				    });
-				}),
-				    svg = d3.select('.scoreBarDiv')
-				        .append('svg')
-				        .attr('width', width + margins.left + margins.right)
-				        .attr('height', height + margins.top + margins.bottom)
-				        .append('g')
-				        .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')'),
-				    xMax = d3.max(dataset, function (group) {
-				        return d3.max(group, function (d) {
-				            return d.x + d.x0;
-				        });
-				    }),
-				    xMin = d3.min(dataset, function (group) {
-				        return d3.min(group, function (d) {
-				            return d.x + d.x0;
-				        });
-				    }),
-				    xScale = d3.scale.linear()
-				        .domain([this.model.get("activity").min_score, this.model.get("activity").max_score])
-				        .range([0, width]),
-				    months = dataset[0].map(function (d) {
-				        return d.y;
-				    }),
-				    _ = console.log(months),
-				    yScale = d3.scale.ordinal()
-				        .domain(months)
-				        .rangeRoundBands([0, height], .1),
-				    xAxis = d3.svg.axis()
-				        .scale(xScale)
-				        .orient('bottom'),
-				    yAxis = d3.svg.axis()
-				        .scale(yScale)
-				        .orient('left'),
-				    
-				    groups = svg.selectAll('g')
-				        .data(dataset)
-				        .enter()
-				        .append('g')
-				        .style('fill', function (d, i) {
-				        return colours[i];
-				    }),
-				    rects = groups.selectAll('rect')
-				        .data(function (d) {
-				        return d;
-				    })
-				        .enter()
-				        .append('rect')
-				        .attr('x', function (d) {
-				        return xScale(d.x0 + obj.model.get("activity").min_score);
-				    })
-				        .attr('y', function (d, i) {
-				        return yScale(d.y);
-				    })
-				        .attr('height', function (d) {
-				        return yScale.rangeBand();
-				    })
-				        .attr('width', function (d) {
-				        return xScale(d.x + obj.model.get("activity").min_score);
-				    })
-				        .on('mouseover', function (d) {
-				        var xPos = parseFloat(d3.select(this).attr('x')) + parseFloat(d3.select(this).attr('width')) / 2 + width / 2;
-				        // var xPos = width / 2;
-
-				        var yPos = parseFloat(d3.select(this).attr('y')) + yScale.rangeBand() / 2;
-				        // console.log(xPos);
-				        // console.log(d3.select(this));
-				        d3.select('#tooltip')
-				            .style('left', xPos + 'px')
-				            .style('top', 75 + 'px')
-				            .select('#value')
-				            .text(d.x0 + " - " + (d.x0+d.x));
-				            // .text("asdfadsfasd");
-
-
-				        d3.select('#tooltip').classed('hidden', false);
-				    })
-				        .on('mouseout', function () {
-				        d3.select('#tooltip').classed('hidden', true);
-				    })
-
-				    svg.append('g')
-				        .attr('class', 'axis')
-				        .attr('transform', 'translate(0,' + height + ')')
-				        .call(xAxis);
-
-						svg.append('g')
-						    .attr('class', 'axis')
-						    .call(yAxis);
-	
+		onChildviewSaveAllPerformances: function(scoresTableCompositeView){
+			console.log("trackmodalview: triggering save all performances");
+			this.triggerMethod("classroom:layout:save:all:performances", scoresTableCompositeView);
 		}
 
 	});
@@ -511,7 +394,6 @@ Classroom.PerformanceBarGraphView = Marionette.ItemView.extend({
 				height: this.model.get("height"),
 				score_range: this.model.get("score_range")
 			}
-			console.log(config_obj);
 			this.showBarGraph(config_obj);
 		},
 
@@ -552,7 +434,7 @@ Classroom.PerformanceBarGraphView = Marionette.ItemView.extend({
 
 				x_range.domain(["Range"]);
 
-				console.log(config_obj.score_range.min_score);
+				
 				y_range.domain([config_obj.score_range.min_score, config_obj.score_range.max_score]);
 
 				var g = svg_range.append("g");
@@ -683,7 +565,6 @@ Classroom.PerformanceBarGraphView = Marionette.ItemView.extend({
 				
 			  x.domain(data.map(function(d) { return d.x; }));
 			  if (config_obj.score_range.max_score != null && config_obj.score_range.min_score != null) {
-			  	console.log("hello");
 			  	y.domain([config_obj.score_range.min_score, config_obj.score_range.max_score]);
 			  }
 			  else{
@@ -739,6 +620,278 @@ Classroom.PerformanceBarGraphView = Marionette.ItemView.extend({
 	Classroom.CompletionTableView = Marionette.ItemView.extend({
 		template: JST["student/templates/StudentApp_Classroom_CompletionTable"],		
 	});
+
+	Classroom.ScoresTableItemView = Marionette.ItemView.extend({
+		template: JST["student/templates/StudentApp_Classroom_ScoresTableItem"],		
+		tagName: "tr",
+
+		ui:{
+			deleteButton: "[ui-delete-button]"
+		},
+
+		triggers:{
+			"click @ui.deleteButton": "delete:performance"
+		},
+
+		initialize: function(options){
+			this.model.set("name", options.activity_name);
+			this.model.set("editOrShow", options.editOrShow);
+			this.model.set("errors", options.errors);
+		},
+
+		onShow: function(){
+			this.toggleView(this.model.get("editOrShow"));
+			console.log(this.model);
+		},
+
+		toggleView: function(editOrShow){
+			if(editOrShow == 'show'){
+				$('.ui-edit').css("display", "none");
+				$('.ui-show').css("display", "");
+			}
+			else if(editOrShow == 'edit'){
+				$('.ui-show').css("display", "none");
+				$('.ui-edit').css("display", "");
+			}
+		}
+	});
+
+	Classroom.ScoresTableCompositeView = Marionette.CompositeView.extend({
+		template: JST["student/templates/StudentApp_Classroom_ScoresTableComposite"],		
+		tagName: "div",
+		className: "",
+		
+		childView: Classroom.ScoresTableItemView,
+		childViewContainer: "[ui-performance-table-tbody]",
+
+		ui:{
+			performanceTableForm: "[ui-performance-table-form]",
+			performanceTableTbody: "[ui-performance-table-tbody]",
+			addPerformanceButton: "[ui-add-performance-button]",
+			editButton: "[ui-edit-button]",
+			saveButton: "[ui-save-button]",
+			cancelButton: "[ui-cancel-button]",
+			newPerformanceRow: "[ui-new-performance-row]",
+			hiddenTable: "[ui-hidden-table]"
+		},
+
+		triggers: {
+			"click @ui.addPerformanceButton": "save:performance"
+		},
+
+		events:{
+			"click @ui.editButton": "showEditView",
+			"click @ui.saveButton": "saveAllPerformances",
+			"click @ui.cancelButton": "cancelEdit"
+		},
+
+		initialize: function(){
+			if(this.model.get("editOrShow") == null){
+				this.model.set("editOrShow", "show");
+			}
+			if(this.model.get("student_performance_errors") == null){
+				this.model.set("student_performance_errors", null);
+			}
+		},
+
+		onRender: function(){
+			this.toggleEditSaveButton();
+		},
+		
+		childViewOptions: function(model, index){
+			return {
+				activity_name: this.model.get("activity").name,
+				editOrShow: this.model.get("editOrShow"),
+				errors: this.model.get("errors")[model.get("id")] ? this.model.get("errors")[model.get("id")] : null
+			};
+		},
+
+		showNewPerformanceRow: function(){
+			this.ui.newPerformanceRow.remove();
+			this.ui.newPerformanceRow.appendTo(this.ui.performanceTableTbody);
+		},
+
+		hideNewPerformanceRow: function(){
+			this.ui.newPerformanceRow.remove();
+			this.ui.newPerformanceRow.appendTo(this.ui.hiddenTable);
+		},
+
+		toggleEditSaveButton: function(){
+			if(this.model.get("editOrShow") == 'show'){
+				this.ui.editButton.css("display", "");
+				this.ui.saveButton.css("display", "none");
+				this.ui.cancelButton.css("display", "none");
+				this.showNewPerformanceRow();
+			}
+			else if(this.model.get("editOrShow") == 'edit'){
+				this.ui.editButton.css("display", "none");
+				this.ui.saveButton.css("display", "");
+				this.ui.cancelButton.css("display", "");
+				this.hideNewPerformanceRow();
+			}
+		},
+
+		showEditView: function(e){
+			e.preventDefault();
+			this.model.set("editOrShow", "edit");
+			this.render();
+		},
+
+		saveAllPerformances: function(e){
+			e.preventDefault();
+			this.triggerMethod("save:all:performances");
+		},
+
+		cancelEdit: function(e){
+			e.preventDefault();
+			this.model.set("editOrShow", "show");
+			this.render();			
+		},
+
+		onChildviewDeletePerformance: function(scoresTableItemView){
+			this.collection.remove(scoresTableItemView.model);
+		}
+
+	});
+	
+
+	Classroom.CompletionTableItemView = Marionette.ItemView.extend({
+		template: JST["student/templates/StudentApp_Classroom_CompletionTableItem"],		
+		tagName: "tr",
+
+		ui:{
+			deleteButton: "[ui-delete-button]"
+		},
+
+		triggers:{
+			"click @ui.deleteButton": "delete:performance"
+		},
+
+		initialize: function(options){
+			this.model.set("name", options.activity_name);
+			this.model.set("editOrShow", options.editOrShow);
+			this.model.set("errors", options.errors);
+		},
+
+		onShow: function(){
+			this.toggleView(this.model.get("editOrShow"));
+			console.log(this.model);
+		},
+
+		toggleView: function(editOrShow){
+			if(editOrShow == 'show'){
+				$('.ui-edit').css("display", "none");
+				$('.ui-show').css("display", "");
+			}
+			else if(editOrShow == 'edit'){
+				$('.ui-show').css("display", "none");
+				$('.ui-edit').css("display", "");
+			}
+		}
+	});
+	
+	
+	Classroom.CompletionTableCompositeView = Marionette.CompositeView.extend({
+		template: JST["student/templates/StudentApp_Classroom_CompletionTableComposite"],		
+		tagName: "div",
+		className: "",
+		
+		childView: Classroom.CompletionTableItemView,
+		childViewContainer: "[ui-performance-table-tbody]",
+
+		ui:{
+			performanceTableForm: "[ui-performance-table-form]",
+			performanceTableTbody: "[ui-performance-table-tbody]",
+			addPerformanceButton: "[ui-add-performance-button]",
+			editButton: "[ui-edit-button]",
+			saveButton: "[ui-save-button]",
+			cancelButton: "[ui-cancel-button]",
+			newPerformanceRow: "[ui-new-performance-row]",
+			hiddenTable: "[ui-hidden-table]"
+		},
+
+		triggers: {
+			"click @ui.addPerformanceButton": "save:performance"
+		},
+
+		events:{
+			"click @ui.editButton": "showEditView",
+			"click @ui.saveButton": "saveAllPerformances",
+			"click @ui.cancelButton": "cancelEdit"
+		},
+
+		initialize: function(){
+			if(this.model.get("editOrShow") == null){
+				this.model.set("editOrShow", "show");
+			}
+			if(this.model.get("student_performance_errors") == null){
+				this.model.set("student_performance_errors", null);
+			}
+		},
+
+		onRender: function(){
+			this.toggleEditSaveButton();
+		},
+		
+		childViewOptions: function(model, index){
+			return {
+				activity_name: this.model.get("activity").name,
+				editOrShow: this.model.get("editOrShow"),
+				errors: this.model.get("errors")[model.get("id")] ? this.model.get("errors")[model.get("id")] : null
+			};
+		},
+
+		showNewPerformanceRow: function(){
+			this.ui.newPerformanceRow.remove();
+			this.ui.newPerformanceRow.appendTo(this.ui.performanceTableTbody);
+		},
+
+		hideNewPerformanceRow: function(){
+			this.ui.newPerformanceRow.remove();
+			this.ui.newPerformanceRow.appendTo(this.ui.hiddenTable);
+		},
+
+		toggleEditSaveButton: function(){
+			if(this.model.get("editOrShow") == 'show'){
+				this.ui.editButton.css("display", "");
+				this.ui.saveButton.css("display", "none");
+				this.ui.cancelButton.css("display", "none");
+				this.showNewPerformanceRow();
+			}
+			else if(this.model.get("editOrShow") == 'edit'){
+				this.ui.editButton.css("display", "none");
+				this.ui.saveButton.css("display", "");
+				this.ui.cancelButton.css("display", "");
+				this.hideNewPerformanceRow();
+			}
+		},
+
+		showEditView: function(e){
+			e.preventDefault();
+			this.model.set("editOrShow", "edit");
+			this.render();
+		},
+
+		saveAllPerformances: function(e){
+			e.preventDefault();
+			this.triggerMethod("save:all:performances");
+		},
+
+		cancelEdit: function(e){
+			e.preventDefault();
+			this.model.set("editOrShow", "show");
+			this.render();			
+		},
+
+		onChildviewDeletePerformance: function(completionsTableItemView){
+			this.collection.remove(completionsTableItemView.model);
+		}
+
+	});
+
+
+
+	
 
 
 	Classroom.ActivityDetailsModalView = Marionette.ItemView.extend({

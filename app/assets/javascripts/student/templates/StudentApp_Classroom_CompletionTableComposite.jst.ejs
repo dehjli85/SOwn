@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-sm-2 col-sm-offset-10">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <form ui-performance-table-form>
+
+      <input type="hidden" name="classroom_activity_pairing_id" value="<%= classroom_activity_pairing.id %>">
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width:50%">
+              <%= activity.levels == null ? 'Activity' : 'Activity Level' %>
+            </th>
+            <th style="width:15%">
+              Date
+            </th>
+            <th style="width:35%">
+              Status
+            </th>
+            <th>
+              <a href="#" ui-edit-button>Edit</a>
+            </th>
+          </tr>
+        </thead>
+        <tbody ui-performance-table-tbody>
+        </tbody>
+      </table>
+      
+      <table ui-hidden-table style="display:none">
+        <tr ui-new-performance-row> 
+          <td> 
+            <%= activity.name %> <input type="hidden" name="student_performance[classroom_activity_pairing_id]" value="<%= classroom_activity_pairing.id %>">
+            <% if(student_performance_errors){ %>
+              <% if(student_performance_errors.completed_performance){ %>
+                <br>
+                <span style="color:red">Status <%= student_performance_errors.completed_performance %></span>
+              <% } %>
+              <% if(student_performance_errors.performance_date){ %>
+                <br>
+                <span style="color:red">Date <%= student_performance_errors.performance_date %></span>
+              <% } %>
+            <% } %>
+          </td>
+          <td><input type="date" class="form-control" name="student_performance[performance_date]" value="<%= moment().format('YYYY-MM-DD') %>"></td>
+          <td>
+            <select class="form-control" name="student_performance[completed_performance]">
+              <option value=""></option>
+              <option value="true">Completed</option>
+              <option value="false">Not Completed</option>
+              <option></option>
+            </select>
+          </td>
+          <td><a href="#" class="btn btn-primary" ui-add-performance-button>+</a></td>
+      </tr>
+        
+      </table>
+
+      <div style="display:flex; justify-content: flex-end">
+          <a href="#" class="btn btn-default" ui-cancel-button style="display:none">Cancel</a>
+          <a href="#" class="btn btn-primary" ui-save-button style="display:none; margin-left: 15px;">Save</a>
+      </div>
+
+    </form>
+  </div>
+
+</div>

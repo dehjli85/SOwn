@@ -90,7 +90,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 				console.log('get request for classroom model');
 			})
 			.done(function(data) {
-	     		console.log(data);
 	     	if(data.status == "success"){
 
 					var activities = new StudentAccount.StudentApp.Classroom.Models.ActivityCollection(data.activities);
@@ -112,16 +111,15 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 		openTrackModal: function(classroomLayoutView, classroomActivityPairingId){
 
-			var getURL = "/student/activity?classroom_activity_pairing_id=" + classroomActivityPairingId;
+			var getURL = "/student/activity_and_performances?classroom_activity_pairing_id=" + classroomActivityPairingId;
 			var jqxhr = $.get(getURL, function(){
 				console.log('get request for classroom model');
 			})
 			.done(function(data) {
-	     		console.log(data);
 	     	if(data.status == "success"){
 	     		
-	     		var activity_and_pairing = new Backbone.Model({activity: data.activity, classroom_activity_pairing: data.classroom_activity_pairing, errors:{}});
-	     		var trackModal = new StudentAccount.StudentApp.Classroom.TrackModalView({model: activity_and_pairing});
+	     		var model = new Backbone.Model({activity: data.activity, classroom_activity_pairing: data.classroom_activity_pairing, performances: data.performances, errors:{}});
+	     		var trackModal = new StudentAccount.StudentApp.Classroom.TrackModalView({model: model});
 	     		classroomLayoutView.modalRegion.show(trackModal);
 					
 	     	}
@@ -136,25 +134,22 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 		},
 
-		savePerformance: function(classroomLayoutView, trackModalView, performanceForm){
+		savePerformance: function(classroomLayoutView, trackModalView, performanceTableCompositeView){
 
 			var postUrl = "/student/save_student_performance";
-			var jqxhr = $.post(postUrl, performanceForm.serialize(), function(){
-				console.log('get request for classroom model');
+			var jqxhr = $.post(postUrl, performanceTableCompositeView.ui.performanceTableForm.serialize(), function(){
+				console.log('get request to save new performances');
 			})
 			.done(function(data) {
-	     		console.log(data);
 	     	if(data.status == "success"){
 	     		
-	     		classroomLayoutView.ui.modalRegion.modal("hide");
-	     		classroomLayoutView.modalRegion.empty();
-
 	     		Classroom.Controller.showClassroomScores(classroomLayoutView, classroomLayoutView.model.get("classroomId"), classroomLayoutView.model.get("searchTerm"), classroomLayoutView.model.get("tags"));
+	     		Classroom.Controller.openTrackModal(classroomLayoutView, performanceTableCompositeView.model.get("classroom_activity_pairing").id);
 
 	     	}
 	     	else if(data.status == "error"){
-	     		trackModalView.model.attributes.errors = data.student_performance_errors
-	     		trackModalView.render();
+	     		performanceTableCompositeView.model.set("student_performance_errors", data.student_performance_errors);
+	     		performanceTableCompositeView.render();
 
 	     	}
 	     	
@@ -168,6 +163,36 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 		},
 
+		saveAllPerformances: function(classroomLayoutView, trackModalView, performanceTableCompositeView){
+
+			var postUrl = "/student/save_all_student_performances";
+			var jqxhr = $.post(postUrl, performanceTableCompositeView.ui.performanceTableForm.serialize(), function(){
+				console.log('post request to save all performances');
+			})
+			.done(function(data) {
+     		console.log(data);
+
+	     	if(data.status == "success"){
+	     		Classroom.Controller.showClassroomScores(classroomLayoutView, classroomLayoutView.model.get("classroomId"), classroomLayoutView.model.get("searchTerm"), classroomLayoutView.model.get("tags"));
+	     		Classroom.Controller.openTrackModal(classroomLayoutView, performanceTableCompositeView.model.get("classroom_activity_pairing").id);
+
+	     	}
+	     	else if(data.status == "error"){
+	     		console.log(data.errors);
+	     		performanceTableCompositeView.model.set("errors", data.errors);
+	     		performanceTableCompositeView.render();
+
+	     	}
+	     	
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+		},
+
 		openSeeAllModal: function(classroomLayoutView, classroomActivityPairingId){
 
 			var getURL = "/student/activity_and_performances?classroom_activity_pairing_id=" + classroomActivityPairingId;
@@ -175,7 +200,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 				console.log('get request for classroom model');
 			})
 			.done(function(data) {
-	     		console.log(data);
 	     	if(data.status == "success"){
 
 	     		var activity_pairing_performances = new Backbone.Model({activity: data.activity});
@@ -253,8 +277,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 				console.log('get request for data for goal modal');
 			})
 			.done(function(data) {
-
-     		console.log(data);
 
 	     	if(data.status == "success"){
 
@@ -337,7 +359,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 				console.log('get request for classroom model');
 			})
 			.done(function(data) {
-	     		console.log(data);
 	     	if(data.status == "success"){
 
 	     		var activityModel = new Backbone.Model(data.activity);
@@ -371,7 +392,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 				console.log('post request for saving new activity goal');
 			})
 			.done(function(data) {
-	     		console.log(data);
 	     	if(data.status == "success"){
 					classroomLayoutView.ui.modalRegion.modal("hide");
 
