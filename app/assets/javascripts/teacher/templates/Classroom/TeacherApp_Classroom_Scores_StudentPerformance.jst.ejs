@@ -60,7 +60,7 @@
     <% } else { %>
     
       <td class="scores-table__score <%= student_performance[i].performance_color %>">
-
+        <%= student_performance[i].name_abbreviated ? student_performance[i].name_abbreviated + ':' : '' %>
         <%= student_performance[i].performance_pretty %>
 
         <% if(student_performance[i].requires_verification == 't' && student_performance[i].verified != 't') {%>

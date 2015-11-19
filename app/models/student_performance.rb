@@ -1,8 +1,10 @@
 class StudentPerformance < ActiveRecord::Base
 	belongs_to :student_user
 	belongs_to :classroom_activity_pairing
+	belongs_to :activity_level
 	has_one :activity, :through => :classroom_activity_pairing
 
+	
 	validates :performance_date, :student_user_id, :classroom_activity_pairing_id, presence: true
 	validates :scored_performance, numericality: true, :allow_nil => true	
 	validate :student_user_exists
@@ -10,6 +12,11 @@ class StudentPerformance < ActiveRecord::Base
 	validate :scored_performance_within_range
 	validate :completed_performance_not_nil
 	validates :completed_performance, inclusion: { in: [true, false, nil] }
+
+	default_scope {includes(:activity)}
+	default_scope {includes(:activity_level)}
+	default_scope {includes(:classroom_activity_pairing)}
+	after_find :set_pretty_properties
 
 	##################################################################################################
   #
@@ -52,6 +59,14 @@ class StudentPerformance < ActiveRecord::Base
 		end
 	end
 
+	def as_json(options = { })
+      # just in case someone says as_json(nil) and bypasses
+      # our default...
+      super((options || { }).merge({
+          :methods => [:performance_color, :performance_pretty]
+      })).merge({"activity" => activity.as_json, "activity_level" => activity_level.as_json, "classroom_activity_pairing" => classroom_activity_pairing.as_json})
+  end
+
 	##################################################################################################
   #
   # Pretty Properties
@@ -59,14 +74,71 @@ class StudentPerformance < ActiveRecord::Base
   ##################################################################################################
 
   # set the pretty performance and color given an activity (should be a hash with the activity properties)
-  def set_pretty_properties(activity_hash)
-  	@performance_color = StudentPerformance.performance_color_no_active_record(activity["activity_type"],activity["benchmark1_score"],activity["benchmark2_score"],activity["min_score"],activity["max_score"],self.scored_performance, self.completed_performance)
-  	@performance_pretty = StudentPerformance.performance_pretty_no_active_record(activity["activity_type"],self.scored_performance, self.completed_performance)
+  def set_pretty_properties
+
+		if activity.activity_type.eql?('scored')
+			if scored_performance.nil? || (activity.benchmark1_score.nil? && activity.benchmark2_score.nil?) || activity.min_score.nil? || activity.max_score.nil?
+				@performance_color = 'none'
+			elsif !activity.benchmark2_score.nil? && activity.benchmark1_score.nil?
+				if activity.scored_performance <= activity.max_score && scored_performance >= activity.benchmark2_score
+					@@performance_color = 'success-sown'
+				else
+					@performance_color = 'warning-sown'
+				end
+			elsif !activity.benchmark1_score.nil? && activity.benchmark2_score.nil?
+				if scored_performance <= activity.max_score && scored_performance >= activity.benchmark1_score
+					@performance_color = 'success-sown'
+				else
+					@performance_color = 'danger-sown'
+				end
+			elsif !activity.benchmark1_score.nil? && !activity.benchmark2_score.nil?
+				if scored_performance <= activity.max_score && scored_performance >= activity.benchmark2_score
+					@performance_color = 'success-sown'
+				elsif scored_performance < activity.benchmark2_score && scored_performance >= activity.benchmark1_score
+					@performance_color = 'warning-sown'
+				else					
+					@performance_color = 'danger-sown'
+				end
+			end
+		elsif activity.activity_type.eql?('completion')
+			if completed_performance.nil? || completed_performance.eql?('')
+				@performance_color = 'none'
+			elsif completed_performance == true || completed_performance.eql?('t')
+				@performance_color = 'success-sown'
+			else
+				@performance_color = 'danger-sown'
+			end
+		end
+
+
+		activity_level_name_abbreviated = ''
+		if !activity_level.nil? && activity_level.name_abbreviated.length > 0
+			activity_level_name_abbreviated = activity_level.name_abbreviated + ': '
+		end
+		
+		if activity.activity_type.eql?('scored')
+
+			@performance_pretty = activity_level_name_abbreviated + (scored_performance.to_i == scored_performance ? scored_performance.to_i : scored_performance).to_s
+		
+		elsif activity.activity_type.eql?('completion')
+			
+			case 
+			when completed_performance == true || completed_performance.eql?('t')
+				@performance_pretty = activity_level_name_abbreviated + 'Completed'
+			when completed_performance == false || completed_performance.eql?('f')
+				@performance_pretty = activity_level_name_abbreviated + 'Not Completed'
+			when nil
+				@performance_pretty = activity_level_name_abbreviated + 'Not Attempted'
+			end
+
+		else
+			@performance_pretty = nil
+		end		
+
   end
 
   def performance_color
-		@activity = self.activity
-		StudentPerformance.performance_color_no_active_record(@activity.activity_type, @activity.benchmark1_score, @activity.benchmark2_score, @activity.min_score, @activity.max_score, self.scored_performance, self.completed_performance)
+		@performance_color
 	end
 
 	def self.performance_color_no_active_record(activity_type, benchmark1_score, benchmark2_score, min_score, max_score, scored_performance, completed_performance)
@@ -126,26 +198,30 @@ class StudentPerformance < ActiveRecord::Base
 	end
 
 	def performance_pretty
-		
-		return StudentPerformance.performance_pretty_no_active_record(self.classroom_activity_pairing.activity.activity_type, self.scored_performance, self.completed_performance)
-		
+
+		@performance_pretty
+
 	end
 
 	def self.performance_pretty_no_active_record(activity_type, scored_performance, completed_performance)
 
+		# level abbreviation
+    
+ 		name_abbreviated = ''
+
 		if activity_type.eql?('scored')
 
-			return scored_performance.to_i == scored_performance ? scored_performance.to_i : scored_performance
+			return name_abbreviated + (scored_performance.to_i == scored_performance ? scored_performance.to_i : scored_performance).to_s
 		
 		elsif activity_type.eql?('completion')
 			
 			case 
 			when completed_performance == true || completed_performance.eql?('t')
-				return 'Completed'
+				return name_abbreviated + 'Completed'
 			when completed_performance == false || completed_performance.eql?('f')
-				return 'Not Completed'
+				return name_abbreviated +' Not Completed'
 			when nil
-				return 'Not Attempted'
+				return name_abbreviated + 'Not Attempted'
 			end
 
 		else
@@ -187,9 +263,9 @@ class StudentPerformance < ActiveRecord::Base
 
   # Returns the activity associated with the Student Performance
   # Returns nil if the Classroom Activity Pairing is invalid
-  def activity
-		self.classroom_activity_pairing ? self.classroom_activity_pairing.activity : nil
-	end
+ #  def activity
+	# 	self.classroom_activity_pairing ? self.classroom_activity_pairing.activity : nil
+	# end
 
 	# Returns the activity associated with the Student Performance
   # Returns nil if the Classroom Activity Pairing is invalid
@@ -201,6 +277,7 @@ class StudentPerformance < ActiveRecord::Base
 		return !StudentPerformanceVerification.where({student_user_id: student_user_id, classroom_activity_pairing_id: classroom_activity_pairing_id}).empty?
 	end
 
+	
 
 	# Returns an Array of Hashes representing Student Performances for the Classroom with id = classroomId
   # In addition to all activity fields, all Hashes in the Array also include:
@@ -232,18 +309,60 @@ class StudentPerformance < ActiveRecord::Base
 			tag_array = nil
 		end
 
+		classroom_activity_pairings = ClassroomActivityPairing.joins(:activity).joins("left join activity_tag_pairings atp on atp.activity_id = activities.id").joins("left join activity_tags tags on atp.activity_tag_id = tags.id")
+			.where(classroom_id: classroomId)
+		
+		if !tag_array.nil?
+			classroom_activity_pairings = classroom_activity_pairings.where("tags.name in (?)", tag_array)
+		elsif searchTerm && tag_array.nil?
+			classroom_activity_pairings = classroom_activity_pairings.where("(lower(tags.name) like ? or lower(activities.name) like ? or lower(activities.description) like ?)", "%#{searchTerm.downcase}%", "%#{searchTerm.downcase}%", "%#{searchTerm.downcase}%")
+		elsif tagIds
+			classroom_activity_pairings = classroom_activity_pairings.where("tags.id in (?)", tagIds)
+		end
+
+		if !includeHidden
+			classroom_activity_pairings = classroom_activity_pairings.where('classroom_activity_pairings.hidden = false')
+		end
+
+		if !includeArchived
+			classroom_activity_pairings = classroom_activity_pairings.where('classroom_activity_pairings.archived= false')
+		end
+
+		cap_ids = classroom_activity_pairings.pluck(:id)
+
+		# performances = StudentPerformance.where(classroom_activity_pairing_id: cap_ids)
+		# performances_json = performances.as_json
+
+		# verifications = StudentPerformanceVerification.where(classroom_activity_pairing_id: cap_ids)
+		# verifications_hash = {}
+		# verifications.each do |verification|
+		# 	verifications_hash[verification["student_user_id"].to_s + "," + verification["classroom_activity_pairing_id"].to_s] = true
+		# end
+
+		# performances.each do |performance|
+			# performance["requires_verification"] = verifications[performance["student_user_id"].to_s + "," + performance["classroom_activity_pairing_id"].to_s].nil?
+			# performance["display_name"] = performance.student_user.display_name
+		# 	performance.as_json
+		# end
+
 		arguments = [nil, classroomId]
 		
 		sql = 'SELECT distinct spv.student_user_id is not null as requires_verification, 
 						student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, 
 						a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, 
 						classroom_activity_pairings.sort_order, classroom_activity_pairings.hidden, classroom_activity_pairings.due_date, 
+						al.name, 
+						case 
+							when position(\':\' in al.name) between 1 and 3 then substring(al.name from 0 for least(3, position(\':\' in al.name))) 
+							when length(al.name) <= 2 then al.name
+						end as name_abbreviated,
 						student_performances.*
 					FROM "student_performances" 
 					INNER JOIN "student_users" ON "student_users"."id" = "student_performances"."student_user_id" 
 					INNER JOIN "classroom_student_users" ON "classroom_student_users"."student_user_id" = "student_users"."id" and "classroom_student_users"."classroom_id" = ?
 					INNER JOIN "classroom_activity_pairings" ON "classroom_activity_pairings"."id" = "student_performances"."classroom_activity_pairing_id" 
 					INNER JOIN activities a on a.id =  classroom_activity_pairings.activity_id 
+					LEFT JOIN activity_levels al on "student_performances".activity_level_id = al.id
 					LEFT JOIN activity_tag_pairings atp on atp.activity_id = a.id'
 
 

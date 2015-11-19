@@ -124,7 +124,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 	Classroom.TrackModalView = Marionette.LayoutView.extend({
 		template: JST ["student/templates/StudentApp_Classroom_TrackModal"],
-		className: "modal-dialog",
+		className: "modal-dialog modal-dialog_wide",
 
 		regions:{
 			graphRegion: "[ui-bar-graph-region]",
@@ -222,6 +222,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		},
 
 		showScoresRegion: function(trackModalView){
+			console.log("hello");
 			var collection = new Backbone.Collection(this.model.get("performances"));
 			var scoresTableCompositeView = new Classroom.ScoresTableCompositeView({model: this.model, collection: collection});
 			trackModalView.scoresRegion.show(scoresTableCompositeView);
@@ -232,6 +233,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			var collection = new Backbone.Collection(this.model.get("performances"));
 			var completionTableCompositeView = new Classroom.CompletionTableCompositeView({model: this.model, collection: collection});
 			trackModalView.scoresRegion.show(completionTableCompositeView);
+
 		},
 
 		onChildviewSavePerformance: function(scoresTableCompositeView){
@@ -634,14 +636,13 @@ Classroom.PerformanceBarGraphView = Marionette.ItemView.extend({
 		},
 
 		initialize: function(options){
-			this.model.set("name", options.activity_name);
+			this.model.set("activity", options.activity);
 			this.model.set("editOrShow", options.editOrShow);
 			this.model.set("errors", options.errors);
 		},
 
 		onShow: function(){
 			this.toggleView(this.model.get("editOrShow"));
-			console.log(this.model);
 		},
 
 		toggleView: function(editOrShow){
@@ -700,7 +701,7 @@ Classroom.PerformanceBarGraphView = Marionette.ItemView.extend({
 		
 		childViewOptions: function(model, index){
 			return {
-				activity_name: this.model.get("activity").name,
+				activity: this.model.get("activity"),
 				editOrShow: this.model.get("editOrShow"),
 				errors: this.model.get("errors")[model.get("id")] ? this.model.get("errors")[model.get("id")] : null
 			};
@@ -768,7 +769,7 @@ Classroom.PerformanceBarGraphView = Marionette.ItemView.extend({
 		},
 
 		initialize: function(options){
-			this.model.set("name", options.activity_name);
+			this.model.set("activity", options.activity);
 			this.model.set("editOrShow", options.editOrShow);
 			this.model.set("errors", options.errors);
 		},
@@ -835,12 +836,12 @@ Classroom.PerformanceBarGraphView = Marionette.ItemView.extend({
 		
 		childViewOptions: function(model, index){
 			return {
-				activity_name: this.model.get("activity").name,
+				activity: this.model.get("activity"),
 				editOrShow: this.model.get("editOrShow"),
 				errors: this.model.get("errors")[model.get("id")] ? this.model.get("errors")[model.get("id")] : null
 			};
 		},
-
+		
 		showNewPerformanceRow: function(){
 			this.ui.newPerformanceRow.remove();
 			this.ui.newPerformanceRow.appendTo(this.ui.performanceTableTbody);

@@ -67,7 +67,7 @@
 
 	<% if(student_performances[0]){ %>
 		<td class="center <%= student_performances[0].performance_color %>">
-			<a href="#" class="enter-score-link" style="color:white">
+			<a href="#" class="enter-score-link" style="">
 				<%= student_performances[0].performance_pretty %>
 			</a>
 			<% if(student_performances[0].requires_verification == 't'  && student_performances[0].verified != 't'){ %> 

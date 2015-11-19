@@ -1,7 +1,19 @@
 <td>
-	<%= name %>
-	<input type="hidden" name="levels[<%= index %>]" value="<%= _.escape(name) %>">
+	<span class="ui-show"><%= name %></span>
+	<input type="text" class="form-control ui-edit" name="activity_levels[<%= id %>][name]" value="<%= name %>" style="display:none">
+
+	<% if(errors){ %> 
+		<% if(errors.name){ %>
+			<br>
+			<span style="color:red">Name <%= errors.name[0] %></span>
+		<% } %>
+		<% if(errors.performance_date){ %>
+			<br>
+			<span style="color:red">Date <%= errors.performance_date %></span>
+		<% } %>
+	<% } %>
+
 </td>
 <td>
-	<a href="#" class="btn btn-danger" ui-delete-button>X</a>
+	<a href="#" class="btn btn-danger ui-edit" ui-delete-button style="display:none">X</a>
 </td>

@@ -348,7 +348,25 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		initialize : function (options) {
 	    this.model.set("index",options.index);
-	  }
+	    this.model.set("editOrShow", options.editOrShow);
+			this.model.set("errors", options.errors);	    
+	  },
+
+	  onShow: function(){
+			this.toggleView(this.model.get("editOrShow"));
+			console.log(this.model);
+		},
+
+		toggleView: function(editOrShow){
+			if(editOrShow == 'show'){
+				$('.ui-edit').css("display", "none");
+				$('.ui-show').css("display", "");
+			}
+			else if(editOrShow == 'edit'){
+				$('.ui-show').css("display", "none");
+				$('.ui-edit').css("display", "");
+			}
+		}
 
 	});
 
@@ -356,51 +374,94 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		template: JST["teacher/templates/Activities/TeacherApp_Activities_EditActivityLevelsCompositeView"],
 		tagName: "div",
 		childView: Activities.EditActivityLevelView,
-		childViewContainer: "tbody",
+		childViewContainer: "[ui-level-table-tbody]",
 
 		ui:{
 			addLevelButton: "[ui-add-level-button]", 
 			levelInput: "[ui-level-input]",
-			levelInputDiv: "[ui-level-input-div]",
-			tableHead: "[ui-table-head]"
+			levelTableForm: "[ui-level-table-form]",
+			levelTableTbody: "[ui-level-table-tbody]",
+			addLevelButton: "[ui-add-level-button]",
+			editButton: "[ui-edit-button]",
+			levelsSaveButton: "[ui-levels-save-button]",
+			newLevelRow: "[ui-new-level-row]",
+			hiddenTable: "[ui-hidden-table]"
+		},
+
+		triggers:{
+			"click @ui.addLevelButton": "add:level",
 		},
 
 		events:{
-			"click @ui.addLevelButton": "addLevel",
+			"click @ui.editButton": "showEditView",
+			"click @ui.levelsSaveButton": "saveAllLevels",
+			"click @ui.cancelButton": "cancelEdit"
 		},
 
-		childViewOptions: function(model, index){			
+		initialize: function(){
+			if(this.model.get("editOrShow") == null){
+				this.model.set("editOrShow", "show");
+			}
+		},
+
+		childViewOptions: function(model, index){		
+		console.log(this.model);	
 			return {
+				editOrShow: this.model.get("editOrShow"),
+				errors: this.model.get("errors")[model.get("id")] ? this.model.get("errors")[model.get("id")] : null,				
 				index: index,
 			}
 		},
 
-		onShow: function(){
-			if(this.collection.length > 0 ){
-				this.ui.tableHead.css("display", "table-header-group");
+		onRender: function(){
+			this.toggleEditSaveButton();
+		},
+
+		showNewLevelRow: function(){
+			this.ui.newLevelRow.remove();
+			this.ui.newLevelRow.appendTo(this.ui.levelTableTbody);
+		},
+
+		hideNewLevelRow: function(){
+			this.ui.newLevelRow.remove();
+			this.ui.newLevelRow.appendTo(this.ui.hiddenTable);
+		},
+
+		toggleEditSaveButton: function(){
+			if(this.model.get("editOrShow") == 'show'){
+				this.ui.editButton.css("display", "");
+				this.ui.levelsSaveButton.css("display", "none");
+				this.showNewLevelRow();
+			}
+			else if(this.model.get("editOrShow") == 'edit'){
+				this.ui.editButton.css("display", "none");
+				this.ui.levelsSaveButton.css("display", "");
+				this.hideNewLevelRow();
 			}
 		},
 
-		addLevel: function(e){
-			if(e != null){
-				e.preventDefault();
-			}
-			if(this.ui.levelInput.val().trim() != ""){
-				var levelModel = {name: this.ui.levelInput.val(), index: this.model.get("levelCount")};
-				this.collection.push(levelModel);
-				this.model.set("levelCount", this.model.get("levelCount") +1);
-			}
-			this.ui.levelInput.val("");
-
-			this.ui.tableHead.css("display", "table-header-group");
+		showEditView: function(e){
+			e.preventDefault();
+			this.model.set("editOrShow", "edit");
+			this.triggerMethod("hide:modal:save:and:cancel:buttons");
+			this.render();
 		},
+
+		saveAllLevels: function(e){
+			e.preventDefault();
+			this.triggerMethod("update:activity:levels");
+		},
+
+		cancelEdit: function(e){
+			e.preventDefault();
+			this.model.set("editOrShow", "show");
+			this.render();			
+		},
+
+		
 
 		onChildviewRemoveLevelFromCollection: function(view){
 			this.collection.remove(view.model);
-
-			if(this.collection.length == 0 ){
-				this.ui.tableHead.css("display", "none");
-			}
 		},
 		
 	});
@@ -434,6 +495,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			benchmark2ScoreInput: "[ui-benchmark-two-score-input]",
 			assignmentForm: "[ui-assignment-form]",
 			saveButton: "[ui-save-button]",
+			cancelButton: "[ui-cancel-button]",
 			tagInputDiv: "[ui-tag-input-div]",
 			copyButton: "[ui-copy-button]",
 			copyInput: "[ui-copy-input]",
@@ -486,7 +548,8 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			var editActivityTagsCompositeView = new Activities.EditActivityTagsCompositeView({collection: this.model.get("activity_tags"), model: tagsModel});
 			this.tagsRegion.show(editActivityTagsCompositeView);
 
-			var levelsModel = new Backbone.Model({levelCount: this.model.get("levelCount")});
+
+			var levelsModel = new Backbone.Model({levelCount: this.model.get("levelCount"), activity_id: this.model.get("id"), errors: {}});
 			var editActivityLevelsCompositeView = new Activities.EditActivityLevelsCompositeView({collection: this.model.get("activity_levels"), model: levelsModel});
 			this.levelsRegion.show(editActivityLevelsCompositeView);
 			
@@ -564,6 +627,27 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 				}
 			}
 
+		},
+
+		onChildviewHideModalSaveAndCancelButtons: function(){
+			this.ui.saveButton.css("display", "none")
+			this.ui.cancelButton.css("display", "none");
+		},
+
+		onChildviewShowModalSaveAndCancelButtons: function(){
+			console.log("helo");
+			this.ui.saveButton.css("display", "")
+			this.ui.cancelButton.css("display", "");
+		},
+
+		onChildviewAddLevel: function(editActivityLevelsCompositeView){
+			if(editActivityLevelsCompositeView.ui.levelInput.val().trim().length > 0){
+				TeacherAccount.TeacherApp.Activities.Controller.addActivityLevel(this, editActivityLevelsCompositeView);
+			}
+		},
+
+		onChildviewUpdateActivityLevels: function(editActivityLevelsCompositeView){
+			TeacherAccount.TeacherApp.Activities.Controller.updateActivityLevels(this, editActivityLevelsCompositeView);
 		}
 
 	});

@@ -94,7 +94,7 @@ class Activity < ActiveRecord::Base
       # just in case someone says as_json(nil) and bypasses
       # our default...
       super((options || { }).merge({
-          :methods => [:description_abbreviated, :instructions_abbreviated, :activity_type_pretty]
+          :methods => [:description_abbreviated, :instructions_abbreviated, :activity_type_pretty, :activity_levels]
       }))
   end
 

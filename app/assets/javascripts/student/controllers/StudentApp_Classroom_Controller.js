@@ -116,6 +116,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 				console.log('get request for classroom model');
 			})
 			.done(function(data) {
+				console.log(data);
 	     	if(data.status == "success"){
 	     		
 	     		var model = new Backbone.Model({activity: data.activity, classroom_activity_pairing: data.classroom_activity_pairing, performances: data.performances, errors:{}});

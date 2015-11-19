@@ -13,7 +13,7 @@
         <thead>
           <tr>
             <th style="width:50%">
-              <%= activity.levels == null ? 'Activity' : 'Activity Level' %>
+              <%= activity.activity_levels.length == 0 ? 'Activity' : 'Activity Level' %>
             </th>
             <th style="width:15%">
               Date
@@ -33,7 +33,27 @@
       <table ui-hidden-table style="display:none">
         <tr ui-new-performance-row> 
           <td> 
-            <%= activity.name %> <input type="hidden" name="student_performance[classroom_activity_pairing_id]" value="<%= classroom_activity_pairing.id %>">
+            
+            <input type="hidden" name="student_performance[classroom_activity_pairing_id]" value="<%= classroom_activity_pairing.id %>">
+
+            <% if(activity.activity_levels.length == 0){ %> 
+
+              <%= activity.name %> 
+
+            <% } else { %>
+
+              <select name="student_performance[activity_level_id]" class="form-control">
+
+                <option></option>
+                <% for(var i = 0; i < activity.activity_levels.length; i++){ %>
+                  <option value="<%= activity.activity_levels[i].id %>">
+                    <%= activity.activity_levels[i].name %>
+                  </option>
+                <% } %>
+              </select>
+
+            <% } %>
+
             <% if(student_performance_errors){ %>
               <% if(student_performance_errors.completed_performance){ %>
                 <br>

@@ -212,9 +212,6 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 						else{
 							//show an error message
 						}
-
-						
-						
 						
 				  })
 				  .fail(function() {
@@ -223,8 +220,6 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 				  .always(function() {
 				   
 					});	
-
-
 					
 				}
 				else{
@@ -232,9 +227,6 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 					editActivityModalLayoutView.showErrors(data.errors);
 
 				}
-
-				
-				
 				
 		  })
 		  .fail(function() {
@@ -429,9 +421,6 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 					
 				}
 
-
-				
-				
 		  })
 		  .fail(function() {
 		  	console.log("error");
@@ -442,6 +431,72 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		},
 
+		addActivityLevel: function(editActivityModalLayoutView, editActivityLevelsCompositeView){
+			var postUrl = "/teacher/add_activity_level"
+			var jqxhr = $.post(postUrl, editActivityModalLayoutView.ui.activityForm.serialize(), function(){
+				console.log('post request to assign activities');
+			})
+			.done(function(data) {
+				console.log(data)
+				if(data.status == "success"){
+
+					var levelsModel = new Backbone.Model({levelCount: data.activity.activity_levels.length, activity_id: data.activity.id});
+					var levelsCollections = new Backbone.Collection( data.activity.activity_levels);
+					editActivityLevelsCompositeView.collection = levelsCollections;
+					editActivityLevelsCompositeView.render();
+				}
+				else{
+					//show an error message
+					editActivityLevelsCompositeView.model.set("errors", data.errors);
+					editActivityLevelsCompositeView.render();
+				}
+
+
+
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});	
+		},
+
+		updateActivityLevels: function(editActivityModalLayoutView, editActivityLevelsCompositeView){
+			var postUrl = "/teacher/update_activity_levels"
+			var jqxhr = $.post(postUrl, editActivityModalLayoutView.ui.activityForm.serialize(), function(){
+				console.log('post request to assign activities');
+			})
+			.done(function(data) {
+				console.log(data)
+				if(data.status == "success"){
+
+					var levelsModel = new Backbone.Model({levelCount: data.activity.activity_levels.length, activity_id: data.activity.id});
+					var levelsCollections = new Backbone.Collection( data.activity.activity_levels)
+					editActivityLevelsCompositeView.collection = levelsCollections;
+					editActivityLevelsCompositeView.model.set("editOrShow", "show");
+					editActivityLevelsCompositeView.model.set("errors", {});
+					editActivityLevelsCompositeView.render();
+
+					editActivityModalLayoutView.onChildviewShowModalSaveAndCancelButtons();
+
+				}
+				else{
+					//show an error message
+					editActivityLevelsCompositeView.model.set("errors", data.errors);
+					editActivityLevelsCompositeView.render();
+				}
+
+
+
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});	
+		}
 		
 
 	}

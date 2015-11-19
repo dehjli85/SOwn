@@ -383,7 +383,9 @@
 			student_activity_performances.each do |student_user_id, performance| 
 				
 				# If the Student has existing Student Performances, retrieve the most recent
-				stored_performance = StudentPerformance.where({student_user_id: student_user_id, classroom_activity_pairing_id: cap.id}).order("created_at DESC").first
+				stored_performance = StudentPerformance.where({student_user_id: student_user_id, classroom_activity_pairing_id: cap.id})
+					.order("created_at DESC")
+					.first
 
 				if activity.activity_type.eql?('scored')
 					
@@ -450,7 +452,7 @@
 
 	def student_performance
 
-		student_performance = StudentPerformance.where(id: params[:student_performance_id]).first
+		student_performance = StudentPerformance.where(id: params[:student_performance_id]).includes(:activity_level).first
 
 		if student_performance 
 			
@@ -463,11 +465,8 @@
 
 				activity = Activity.joins(:classroom_activity_pairings).where("classroom_activity_pairings.id = ?", student_performance.classroom_activity_pairing_id).first
 
-				student_performance_hash = student_performance.serializable_hash
-				#fix the performance_date field
-				student_performance_hash["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activity.activity_type, student_performance_hash["scored_performance"], student_performance_hash["completed_performance"])
-
-				render json: {status: "success", activity: activity, student: student, student_performance: student_performance_hash}
+				
+				render json: {status: "success", activity: activity, student: student, student_performance: student_performance.as_json}
 
 			else
 
@@ -680,8 +679,6 @@
 	end
 
 
-
-
 	def teacher_activities_and_classroom_assignment
 
 		@classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
@@ -698,8 +695,6 @@
 		render json: {status: "success", activities: @activities, activity: @activity, pairing: @classroom_activity_pairing}
 		
 	end
-
-
 
 
 	# Given an Activity ID, returns a JSON object representing the Activity.  
@@ -1158,24 +1153,7 @@
 				end
 
 
-				#go through all the submitted levels and add/delete as necessary				
-				params[:levels] ||=  {} 
-				params[:levels].each do |index, value| 
-
-					#check if the level exists, if it doesn't create it
-					level = ActivityLevel.where({name: value, activity_id: @activity.id}).first_or_initialize({name: value, activity_id: @activity.id})
-					if(!level.save)
-						level_errors.push(level.errors)
-					end
-					
-				end
-
-				#delete all levels from the database if they aren't in the submitted list
-				@activity.activity_levels.each do |existing_level|
-					if !params[:levels].has_value?(existing_level.name)
-						existing_level.destroy
-					end
-				end
+				
 
 				activity_hash = @activity.serializable_hash
 				activity_hash["tags"] = @activity.activity_tags.to_a.map(&:serializable_hash)
@@ -1384,6 +1362,101 @@
 		
 	end
 
+
+	# adds and activity level to a specified activity
+	# returns the activity
+	# expects the following parameters:
+	# => activity_id
+	# => activity_level_name
+	def add_activity_level
+
+		# check that the activity id passed is valid
+		activity = Activity.where(id: params[:activity_id]).first
+		if activity
+			
+			activity_level = ActivityLevel.new({activity_id: params[:activity_id], name: params[:activity_level_name]})
+			if activity_level.save
+				render json: {status: "success", activity: activity.as_json}
+			else
+				render json: {status: "error", errors: activity_level.errors}
+			end
+
+		else
+			render json: {status: "error", error: "invalid-activity-id"}
+		end
+	end
+
+	# updates the set of activity levels for the specified activity
+	# returns the activity
+	# expects the following parameters:
+	# => activity_id
+	# => activity_levels
+	#
+	# activity_levels is a hash where 
+	# => the key is the id of the activity_level
+	# => the value is another hash with the key "name"
+	def update_activity_levels
+		
+		# set param variables
+		activity_levels =	params[:activity_levels] || {} 
+		activity = Activity.where(id: params[:activity_id]).first
+		
+
+		# first check if the Activity id passed is valid
+		if(!activity.nil?)
+		
+			all_valid = true
+			levels_to_save = Array.new
+			errors = Hash.new
+
+			activity_levels.each do |id, hash| 
+
+				# check if the level exists (and matches the activity id)
+				level = ActivityLevel.where({id: id, activity_id: activity.id}).first
+
+				# update the name
+				level.name = hash["name"]
+
+				# check to make sure it is valid
+				if(level.valid?)
+					levels_to_save.push(level)
+				else
+					all_valid = false
+					errors[id] = level.errors
+				end
+				
+			end
+
+			if all_valid
+
+				levels_to_save.each do |level|
+					level.save
+				end
+
+				# delete all levels from the database if they aren't in the submitted list
+				activity.activity_levels.each do |existing_level|
+					if !activity_levels.has_key?(existing_level.id.to_s)
+						puts "deleting activity level #{existing_level.id}"
+						existing_level.destroy
+					end
+				end
+
+				activity = Activity.where(id: params[:activity_id]).first
+				render json: {status: "success", activity: activity.as_json}
+
+			else
+				render json: {status: "error", errors: errors}
+			end
+
+		else
+
+			render json: {status: "error", error: "invalid-activity_id"}
+
+		end
+
+		
+	end
+
 	#################################################################################
 	#
 	# Students App Methods
@@ -1520,12 +1593,6 @@
         activity = classroom_activity_pairing.activity
 
         performances = StudentPerformance.where({classroom_activity_pairing_id: classroom_activity_pairing.id, student_user_id: params[:student_user_id]}).order("created_at ASC").as_json
-
-        performances.each do |performance|
-          performance["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activity.activity_type, performance["scored_performance"], performance["completed_performance"])
-          performance["performance_color"] = StudentPerformance.performance_color_no_active_record(activity.activity_type, activity.benchmark1_score, activity.benchmark2_score, activity.min_score, activity.max_score, performance["scored_performance"], performance["completed_performance"])
-
-        end
 
         activity_goal = ActivityGoal.where(student_user_id: params[:student_user_id]).where(classroom_activity_pairing_id: classroom_activity_pairing.id).order("id DESC").first.as_json
         if activity_goal

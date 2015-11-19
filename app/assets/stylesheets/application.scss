@@ -70,13 +70,25 @@
   color:#FFFFFF;
 }
 
+.success-sown a{
+  color:#FFFFFF;
+}
+
 .danger-sown{
 	background-color:#B14F51;
   color:#FFFFFF;
 }
 
+.danger-sown a{
+  color:#FFFFFF;
+}
+
 .warning-sown{
 	background-color:#EACD46;
+  color:#FFFFFF;
+}
+
+.warning-sown a{
   color:#FFFFFF;
 }
 
@@ -338,3 +350,14 @@ h1.homepage-callout{
   line-height: 30px;
   margin-bottom: 10px;
 }
+
+
+/****
+ BOOTSTRAP OVERIDES
+ ****/
+ @media (min-width: 900px){
+  .modal-dialog_wide{
+    width: 800px;
+  }
+
+ }
