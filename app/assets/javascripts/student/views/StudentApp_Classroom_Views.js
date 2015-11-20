@@ -132,13 +132,8 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		},
 
 		ui:{
-			saveButton: "[ui-save-button]",
 			performanceForm: "[ui-performance-form]",
 			dateInput: "[ui-date-input]"
-		},
-
-		triggers:{
-			"click @ui.saveButton": "save:performance"
 		},
 
 		initialize: function(options){
@@ -204,7 +199,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 					}
 					dates.push(moment(item.performance_date).format("MM/DD"));
 
-					modelData.push({x: next, y: item.performance_pretty, color: color})
+					modelData.push({x: next, y: item.scored_performance, color: color})
 					index++;
 
 				});	 
@@ -241,7 +236,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		},
 
 		onChildviewSaveAllPerformances: function(scoresTableCompositeView){
-			console.log("trackmodalview: triggering save all performances");
 			this.triggerMethod("classroom:layout:save:all:performances", scoresTableCompositeView);
 		}
 

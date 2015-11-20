@@ -665,6 +665,125 @@
 
 	end
 
+	# Save a submitted student performance
+  # Expects the following parameters:
+  # student_performance
+  # => classroom_activity_pairing_id
+  # => scored_performance
+  # => completed_performance
+  # => performance_date
+  # => notes
+  # => student_user_id
+	def save_student_performance
+
+		# check to make sure the student_user_id passed is an actual student of the teacher
+		classroom_ids = @current_teacher_user.classrooms.pluck(:id)
+		student = StudentUser.where(id: params[:student_user_id]).first
+		student_valid = !student.nil? && !ClassroomStudentUser.where({student_user_id: student.id, classroom_id: classroom_ids}).first.nil?
+		if !student_valid
+      render json: {status: "error", error: "invalid-student-user-id"}
+      return
+		end
+
+		# check to make sure the classroom_activity_paiaring_id matched one of the teacher's activities
+		cap = ClassroomActivityPairing.where(id: params[:classroom_activity_pairing_id]).first
+		cap_valid = !cap.nil? && cap.classroom.teacher_user_id.eql?(@current_teacher_user.id)
+		if !cap_valid
+      render json: {status: "error", error: "invalid-classroom-activity-pairing-id"}
+      return
+		end
+
+		@student_performance = StudentPerformance.new(params.require(:student_performance).permit(:classroom_activity_pairing_id, :scored_performance, :completed_performance, :performance_date, :activity_level_id, :notes, :student_user_id))    
+    @student_performance.student_user_id = params[:student_user_id]
+
+    if(@student_performance.save)
+
+      render json: {status: "success"}
+
+    else
+    
+      render json: {status: "error", student_performance_errors: @student_performance.errors}
+
+    end
+	end
+
+	# Save all submitted student performances
+  # Expects the following parameters:
+  # student_performances: an Array where each item has the following fields
+  # => id (student_performance_id)
+  # => scored_performance
+  # => completed_performance
+  # => performance_date
+  # classroom_activity_pairing_id: an integer that should match every student performance that is submitted
+  # student_user_id
+  def save_all_student_performances
+
+    #set param variables
+    student_performances = params[:student_performances]
+    classroom_activity_pairing_id = params[:classroom_activity_pairing_id].to_i
+
+    # iterate through all submitted performances and make sure they are all valid 
+    all_valid = true
+    student_performances_ids = Array.new
+    student_performances_to_save = Array.new
+    errors = Hash.new
+
+    student_performances.each do |id, student_performance_hash|
+      student_performance = StudentPerformance.where(id: id).first
+      if student_performance && 
+          student_performance.classroom_activity_pairing_id.eql?(classroom_activity_pairing_id) &&
+          student_performance.student_user_id.eql?(params[:student_user_id].to_i)
+
+        student_performance.scored_performance = student_performance_hash["scored_performance"]
+        student_performance.completed_performance = student_performance_hash["completed_performance"]
+        student_performance.performance_date = student_performance_hash["performance_date"]
+        student_performance.activity_level_id = student_performance_hash["activity_level_id"]
+        student_performance.notes = student_performance_hash["notes"]
+
+        if student_performance.valid?
+          student_performances_to_save.push(student_performance)
+          student_performances_ids.push(student_performance.id)
+        else
+          errors[student_performance.id] = student_performance.errors
+          all_valid = false
+        end
+
+      else
+        all_valid = false
+        if !student_performance
+          errors["student_performance_id"] = "invalid student_performance_id submitted"
+        else
+          errors["classroom_activity_pairing_id"] = "classroom_activity_pairing_id does not match student performances submitted"
+        end
+      end
+
+    end
+
+    # if all the submitted performacnes are valid save them
+    if all_valid
+      student_performances_to_save.each do |student_performance|
+        student_performance.save
+      end
+
+      # identify performances that were not passed and delete them
+      student_performances_to_delete = StudentPerformance.where({classroom_activity_pairing_id: classroom_activity_pairing_id, student_user_id: params[:student_user_id]})
+        .where("id not in (?)", student_performances_ids)
+      student_performances_to_delete.each do |student_performance|
+        student_performance.destroy
+      end
+
+      render json: {status: "success"}
+
+    else
+
+      render json: {status: "error", errors: errors}
+
+
+    end
+
+    
+  end
+
 	#################################################################################
 	#
 	# Activities App Methods
@@ -1509,6 +1628,15 @@
 		
 	end
 
+	# returns a json object with the following fields:
+	# => activities
+	# 	 the activities includes performance data
+	# => student
+	# => classroom
+	# 
+	# expects the following parameters:
+	# => student_user_id
+	# => classroom_id
 	def student_activities_and_performances
 
 		classroom = Classroom.joins(:classroom_student_users)

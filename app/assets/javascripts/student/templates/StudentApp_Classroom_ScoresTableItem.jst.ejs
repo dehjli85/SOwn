@@ -33,7 +33,7 @@
 	<input type="date" class="form-control ui-edit" name="student_performances[<%= id %>][performance_date]" value="<%= moment(performance_date).format('YYYY-MM-DD') %>" style="display:none">
 </td>
 <td>
-	<span class="ui-show"><%= performance_pretty %></span>
+	<span class="ui-show"><%= scored_performance %></span>
 	<input type="text" class="form-control ui-edit" name="student_performances[<%= id %>][scored_performance]" value="<%= scored_performance %>" style="display:none">
 </td>
 <td>

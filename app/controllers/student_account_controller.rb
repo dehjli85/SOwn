@@ -253,8 +253,6 @@ class StudentAccountController < ApplicationController
 
     @student_performance = StudentPerformance.new(params.require(:student_performance).permit(:classroom_activity_pairing_id, :scored_performance, :completed_performance, :performance_date, :activity_level_id, :notes))    
     @student_performance.student_user_id = @current_student_user.id
-    
-    puts "student_performance: #{@student_performance}"
 
     if(@student_performance.save)
 
@@ -282,9 +280,6 @@ class StudentAccountController < ApplicationController
     student_performances = params[:student_performances]
     classroom_activity_pairing_id = params[:classroom_activity_pairing_id].to_i
 
-    puts student_performances
-    puts classroom_activity_pairing_id
-
     # iterate through all submitted performances and make sure they are all valid 
     all_valid = true
     student_performances_ids = Array.new
@@ -293,7 +288,10 @@ class StudentAccountController < ApplicationController
 
     student_performances.each do |id, student_performance_hash|
       student_performance = StudentPerformance.where(id: id).first
-      if student_performance && student_performance.classroom_activity_pairing_id.eql?(classroom_activity_pairing_id)
+      if student_performance && 
+          student_performance.classroom_activity_pairing_id.eql?(classroom_activity_pairing_id) &&
+          student_performance.student_user_id.eql?(@current_student_user.id)
+
         student_performance.scored_performance = student_performance_hash["scored_performance"]
         student_performance.completed_performance = student_performance_hash["completed_performance"]
         student_performance.performance_date = student_performance_hash["performance_date"]
@@ -326,7 +324,9 @@ class StudentAccountController < ApplicationController
       end
 
       # identify performances that were not passed and delete them
-      student_performances_to_delete = StudentPerformance.where(classroom_activity_pairing_id: classroom_activity_pairing_id).where("id not in (?)", student_performances_ids)
+      student_performances_to_delete = StudentPerformance.where({classroom_activity_pairing_id: classroom_activity_pairing_id, student_user_id: @current_student_user.id})
+        .where("id not in (?)", student_performances_ids)
+
       student_performances_to_delete.each do |student_performance|
         student_performance.destroy
       end

@@ -120,7 +120,11 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			var scoresLayoutView = this.mainRegion.currentView;
 			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveReflection(this, scoresLayoutView, setGoalModalView);
 
-		}
+		},
+		
+
+		
+
 
 		
 

@@ -14,10 +14,10 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 			Scores.Controller.showClassroomScoresHeader(scoresLayoutView, classroomId);
 
-			if (scoresLayoutView.model.attributes.readOrEdit == "read"){
+			if (scoresLayoutView.model.get("readOrEdit") == "read"){
 				Scores.Controller.showClassroomScores(scoresLayoutView, classroomId, null, null);
 			}
-			else if(scoresLayoutView.model.attributes.readOrEdit == "edit"){
+			else if(scoresLayoutView.model.get("readOrEdit") == "edit"){
 				Scores.Controller.showClassroomEditScores(scoresLayoutView, classroomId, null, null);
 			}
 
@@ -660,6 +660,38 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			
 		},
 
+		showTrackModal: function(scoresLayoutView, classroomActivityPairingId, studentUserId){
+			
+			var getURL = "/teacher/activity_and_performances?classroom_activity_pairing_id=" + classroomActivityPairingId + "&student_user_id=" + studentUserId;
+			var jqxhr = $.get(getURL, function(){
+				console.log('get request for classroom model');
+			})
+			.done(function(data) {
+				console.log(data);
+	     	if(data.status == "success"){
+	     		
+	     		var model = new Backbone.Model({activity: data.activity, 
+	     			classroom_activity_pairing: data.classroom_activity_pairing, 
+	     			performances: data.performances, 
+	     			errors:{},
+	     			student_user_id: studentUserId
+	     		});
+	     		var trackModal = new StudentAccount.StudentApp.Classroom.TrackModalView({model: model});
+	     		scoresLayoutView.modalRegion.show(trackModal);
+	     		scoresLayoutView.ui.modalRegion.modal("show");
+					
+	     	}
+	     	
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+
+		},
+
 		saveReflection: function(classroomLayoutView, scoresLayoutView, setGoalModalView){
 
 			var alertModel = new Backbone.Model({message: "Saving Activity Goal...", alertClass: "alert-warning"})
@@ -698,7 +730,75 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		   
 			});		
 
-		}
+		},
+
+		savePerformance: function(scoresLayoutView, trackModalView, performanceTableCompositeView){
+
+			var postUrl = "/teacher/save_student_performance";
+			var postData = performanceTableCompositeView.ui.performanceTableForm.serialize();
+			postData += "&student_user_id=" + trackModalView.model.get("student_user_id");
+
+			var jqxhr = $.post(postUrl, postData, function(){
+				console.log('get request to save new performances');
+			})
+			.done(function(data) {
+				console.log(data);
+	     	if(data.status == "success"){
+	     		
+	     		Scores.Controller.showClassroomScores(scoresLayoutView, scoresLayoutView.model.get("classroomId"), scoresLayoutView.model.get("searchTerm"), scoresLayoutView.model.get("tagIds"));
+	     		Scores.Controller.showTrackModal(scoresLayoutView, performanceTableCompositeView.model.get("classroom_activity_pairing").id, trackModalView.model.get("student_user_id"));
+
+	     	}
+	     	else if(data.status == "error"){
+	     		performanceTableCompositeView.model.set("student_performance_errors", data.student_performance_errors);
+	     		performanceTableCompositeView.render();
+
+	     	}
+	     	
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+
+		},
+
+		saveAllPerformances: function(scoresLayoutView, trackModalView, performanceTableCompositeView){
+
+			var postUrl = "/teacher/save_all_student_performances";
+			var postData = performanceTableCompositeView.ui.performanceTableForm.serialize();
+			postData += "&student_user_id=" + trackModalView.model.get("student_user_id");
+			var jqxhr = $.post(postUrl, postData, function(){
+				console.log('post request to save all performances');
+			})
+			.done(function(data) {
+     		console.log(data);
+
+	     	if(data.status == "success"){
+	     		Scores.Controller.showClassroomScores(scoresLayoutView, scoresLayoutView.model.get("classroomId"), scoresLayoutView.model.get("searchTerm"), scoresLayoutView.model.get("tagIds"));
+	     		Scores.Controller.showTrackModal(scoresLayoutView, performanceTableCompositeView.model.get("classroom_activity_pairing").id, trackModalView.model.get("student_user_id"));
+
+	     	}
+	     	else if(data.status == "error"){
+	     		performanceTableCompositeView.model.set("errors", data.errors);
+	     		performanceTableCompositeView.render();
+
+	     	}
+	     	
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+		},
+
 	}
+
+	
+
 
 })

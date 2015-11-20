@@ -43,12 +43,14 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	  ui:{
 	  	verifyLink: "[ui-verify-a]",
 	  	studentLink: "[ui-student-link]",
-	  	goalLink: "[ui-goal-a]"
+	  	goalLink: "[ui-goal-a]",
+	  	trackModalLink: "[ui-track-modal-link]"
 	  },
 
 	  events:{
 	  	"click @ui.verifyLink": "triggerOpenVerifyModal",
-	  	"click @ui.goalLink": "triggerClassroomScoresShowGoalModal"
+	  	"click @ui.goalLink": "triggerClassroomScoresShowGoalModal",
+	  	"click @ui.trackModalLink": "showTrackModal"
 	  },
 
 	  triggers:{
@@ -69,6 +71,12 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 	  onDomRefresh: function(){
 	  	this.triggerMethod("student:performance:view:dom:rendered");
+	  },
+
+	  showTrackModal: function(e){
+	  	e.preventDefault();
+	  	this.model.set("classroom_activity_pairing_id", $(e.target).attr("name"));
+	  	this.triggerMethod("show:track:modal");
 	  }
 
 	});
@@ -531,6 +539,18 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			// Need to trigger a method to get the classroom layout view 
 			this.triggerMethod("classroom:layout:show:goal:modal", studentPerformanceView);
 
+		},
+
+		onChildviewShowTrackModal: function(studentPerformanceView){
+			Scores.Controller.showTrackModal(this, studentPerformanceView.model.get("classroom_activity_pairing_id"), studentPerformanceView.model.get("id"));
+		},
+
+		onChildviewClassroomLayoutSavePerformance: function(trackModalView, scoresTableCompositeView){
+			Scores.Controller.savePerformance(this, trackModalView, scoresTableCompositeView);
+		},
+
+		onChildviewClassroomLayoutSaveAllPerformances: function(trackModalView, scoresTableCompositeView){
+			Scores.Controller.saveAllPerformances(this, trackModalView, scoresTableCompositeView);
 		},
 
 		

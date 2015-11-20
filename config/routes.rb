@@ -100,6 +100,8 @@ Rails.application.routes.draw do
   post 'teacher/save_activities_sort_order' => 'teacher_account#save_activities_sort_order'
   get 'teacher/export_data' => 'teacher_account#export_data'
   post 'teacher/save_reflection' => 'teacher_account#save_reflection'
+  post 'teacher/save_student_performance' => 'teacher_account#save_student_performance'
+  post 'teacher/save_all_student_performances' => 'teacher_account#save_all_student_performances'
 
   # teacher/activities app routes
   get 'teacher/activities_tags' => 'teacher_account#activities_tags'
