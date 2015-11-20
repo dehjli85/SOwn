@@ -613,18 +613,10 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 				this.ui.benchmark1ScoreInput.val(activity.benchmark1_score);
 				this.ui.benchmark2ScoreInput.val(activity.benchmark2_score);
 
-				console.log(activity.tags);
 
-				this.collection.reset();
 				this.model.set("tagCount", 0);
 
-				if(activity.tags != null){
-					for(var j = 0; j < activity.tags.length; j++){
-						this.ui.tagInput.val(activity.tags[j].name);
-						this.addTag(null);
-					}
 
-				}
 			}
 
 		},

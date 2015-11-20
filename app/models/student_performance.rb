@@ -16,7 +16,7 @@ class StudentPerformance < ActiveRecord::Base
 	default_scope {includes(:activity)}
 	default_scope {includes(:activity_level)}
 	default_scope {includes(:classroom_activity_pairing)}
-	after_find :set_pretty_properties
+	
 
 	##################################################################################################
   #
@@ -63,7 +63,7 @@ class StudentPerformance < ActiveRecord::Base
       # just in case someone says as_json(nil) and bypasses
       # our default...
       super((options || { }).merge({
-          :methods => [:performance_color, :performance_pretty]
+          :methods => [:set_pretty_properties, :performance_color, :performance_pretty]
       })).merge({"activity" => activity.as_json, "activity_level" => activity_level.as_json, "classroom_activity_pairing" => classroom_activity_pairing.as_json})
   end
 
@@ -76,7 +76,7 @@ class StudentPerformance < ActiveRecord::Base
   # set the pretty performance and color given an activity (should be a hash with the activity properties)
   def set_pretty_properties
 
-		if activity.activity_type.eql?('scored')
+		if activity && activity.activity_type.eql?('scored')
 			if scored_performance.nil? || (activity.benchmark1_score.nil? && activity.benchmark2_score.nil?) || activity.min_score.nil? || activity.max_score.nil?
 				@performance_color = 'none'
 			elsif !activity.benchmark2_score.nil? && activity.benchmark1_score.nil?
@@ -100,7 +100,7 @@ class StudentPerformance < ActiveRecord::Base
 					@performance_color = 'danger-sown'
 				end
 			end
-		elsif activity.activity_type.eql?('completion')
+		elsif activity && activity.activity_type.eql?('completion')
 			if completed_performance.nil? || completed_performance.eql?('')
 				@performance_color = 'none'
 			elsif completed_performance == true || completed_performance.eql?('t')
@@ -116,11 +116,11 @@ class StudentPerformance < ActiveRecord::Base
 			activity_level_name_abbreviated = activity_level.name_abbreviated + ': '
 		end
 		
-		if activity.activity_type.eql?('scored')
+		if activity && activity.activity_type.eql?('scored')
 
 			@performance_pretty = activity_level_name_abbreviated + (scored_performance.to_i == scored_performance ? scored_performance.to_i : scored_performance).to_s
 		
-		elsif activity.activity_type.eql?('completion')
+		elsif activity && activity.activity_type.eql?('completion')
 			
 			case 
 			when completed_performance == true || completed_performance.eql?('t')
@@ -269,9 +269,9 @@ class StudentPerformance < ActiveRecord::Base
 
 	# Returns the activity associated with the Student Performance
   # Returns nil if the Classroom Activity Pairing is invalid
-	def activity_type
-		self.classroom_activity_pairing && self.classroom_activity_pairing.activity ? self.classroom_activity_pairing.activity.activity_type : nil
-	end
+	# def activity_type
+	# 	self.classroom_activity_pairing && self.classroom_activity_pairing.activity ? self.classroom_activity_pairing.activity.activity_type : nil
+	# end
 
 	def requires_verification?
 		return !StudentPerformanceVerification.where({student_user_id: student_user_id, classroom_activity_pairing_id: classroom_activity_pairing_id}).empty?
@@ -309,26 +309,26 @@ class StudentPerformance < ActiveRecord::Base
 			tag_array = nil
 		end
 
-		classroom_activity_pairings = ClassroomActivityPairing.joins(:activity).joins("left join activity_tag_pairings atp on atp.activity_id = activities.id").joins("left join activity_tags tags on atp.activity_tag_id = tags.id")
-			.where(classroom_id: classroomId)
+		# classroom_activity_pairings = ClassroomActivityPairing.joins(:activity).joins("left join activity_tag_pairings atp on atp.activity_id = activities.id").joins("left join activity_tags tags on atp.activity_tag_id = tags.id")
+		# 	.where(classroom_id: classroomId)
 		
-		if !tag_array.nil?
-			classroom_activity_pairings = classroom_activity_pairings.where("tags.name in (?)", tag_array)
-		elsif searchTerm && tag_array.nil?
-			classroom_activity_pairings = classroom_activity_pairings.where("(lower(tags.name) like ? or lower(activities.name) like ? or lower(activities.description) like ?)", "%#{searchTerm.downcase}%", "%#{searchTerm.downcase}%", "%#{searchTerm.downcase}%")
-		elsif tagIds
-			classroom_activity_pairings = classroom_activity_pairings.where("tags.id in (?)", tagIds)
-		end
+		# if !tag_array.nil?
+		# 	classroom_activity_pairings = classroom_activity_pairings.where("tags.name in (?)", tag_array)
+		# elsif searchTerm && tag_array.nil?
+		# 	classroom_activity_pairings = classroom_activity_pairings.where("(lower(tags.name) like ? or lower(activities.name) like ? or lower(activities.description) like ?)", "%#{searchTerm.downcase}%", "%#{searchTerm.downcase}%", "%#{searchTerm.downcase}%")
+		# elsif tagIds
+		# 	classroom_activity_pairings = classroom_activity_pairings.where("tags.id in (?)", tagIds)
+		# end
 
-		if !includeHidden
-			classroom_activity_pairings = classroom_activity_pairings.where('classroom_activity_pairings.hidden = false')
-		end
+		# if !includeHidden
+		# 	classroom_activity_pairings = classroom_activity_pairings.where('classroom_activity_pairings.hidden = false')
+		# end
 
-		if !includeArchived
-			classroom_activity_pairings = classroom_activity_pairings.where('classroom_activity_pairings.archived= false')
-		end
+		# if !includeArchived
+		# 	classroom_activity_pairings = classroom_activity_pairings.where('classroom_activity_pairings.archived= false')
+		# end
 
-		cap_ids = classroom_activity_pairings.pluck(:id)
+		# cap_ids = classroom_activity_pairings.pluck(:id)
 
 		# performances = StudentPerformance.where(classroom_activity_pairing_id: cap_ids)
 		# performances_json = performances.as_json
@@ -569,6 +569,7 @@ class StudentPerformance < ActiveRecord::Base
 
     hash = {}
     performances.each do |performance|
+    	performance.set_pretty_properties
       year = performance.created_at.strftime('%Y')
       week = performance.created_at.strftime('%W')
       if !hash[year]
