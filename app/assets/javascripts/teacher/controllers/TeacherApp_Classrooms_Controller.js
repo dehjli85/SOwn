@@ -17,8 +17,9 @@ TeacherAccount.module("TeacherApp.Classrooms", function(Classrooms, TeacherAccou
 				console.log(data);
 	     	
 	     	if(data.status == "success"){
-	     		
-	     		var classroomWidgetRowView = new TeacherAccount.TeacherApp.Classrooms.ClassroomWidgetRowView({collection: new Backbone.Collection(data.classrooms)});					     	
+	     		var collection = new Backbone.Collection(data.classrooms);
+	     		var model = new Backbone.Model(data);
+	     		var classroomWidgetRowView = new TeacherAccount.TeacherApp.Classrooms.ClassroomWidgetRowView({collection: collection, model: model});					     	
 	  	   	TeacherAccount.rootView.mainRegion.show(classroomWidgetRowView);
 		
 	     	}

@@ -1,3 +1,23 @@
+<% if(classrooms.length == 0){ %> 
+    <div class="jumbotron">
+        <h1>Welcome to Sown To Grow!</h1>
+        <p>
+            We can't wait to help you get started and started building mastery and mindset with  your students.
+        </p> 
+
+        <p>
+            Your first step should be to create a classroom.  Click on the "Add Class" button below to create your first class!
+        </p>
+    </div>
+<% } else if(activities.length == 0){ %>
+    <div class="jumbotron">
+        <h2>Great job creating your classroom!</h2>
+        <p>
+            Your next step is to create your first activity.  Let's start by clicking on your new classroom below!
+        </p> 
+    </div>
+<% } %>
+
 <div class="row">
 	<div class="col-sm-5" style="text-align:left">
 		<span class="header">My Classrooms</span>

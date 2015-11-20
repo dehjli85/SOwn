@@ -67,11 +67,26 @@
   </form>
 </div>
 
+<% if(activities.length == 0){ %>
+  <div class="jumbotron">
+    <h2>Your next step: Create an Activity</h2>
+    <p>
+      Now that you've created your classroom, it's time to create your first activity.  Get started by clicking on the "New Activity" button above.
+    </p>
+  </div>
 
-
-<% if(collectionSize == null || collectionSize == 0){ %> 
-  <div class="alert alert-warning">
-    No students have joined your classroom yet.  When they log in, have them use classroom code &quot;<b><%= classroom.classroom_code %></b>&quot; to join this class!
+<%} else if(collectionSize == null || collectionSize == 0){ %> 
+  <div class="jumbotron">
+    <h2>Last step: Get your students signed up!</h2>
+    <p>
+      You're almost done!  If you want, you can keep creating more activities, but the final step to getting started is to get your students signed up!  
+    </p>
+    <p>When you're ready, have them go to <a href="http://www.sowntogrow.com">www.sowntogrow.com</a> and sign up for a student account.
+    </p>
+    <p>
+      After they've signed up, they can join this classroom using the classroom code you chose when you created this class: <b><%= classroom.classroom_code %></b>
+    </p>
+    <p>If you're curious about what your students will see you can always create a student account for yourself, and join your own classroom!</p>
   </div>
 <% } %>
 

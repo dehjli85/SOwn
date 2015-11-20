@@ -188,7 +188,9 @@
 				a.push({id: classroom.id, name: classroom.name, student_count: classroom.student_users.length, percent_proficient: (classroom.percent_proficient_activities*100).to_i})
 			end
 
-			render json: {status: "success", classrooms: a}
+			activities = @current_teacher_user.activities
+
+			render json: {status: "success", classrooms: a, activities: activities}
 		else
 			render json: {status: "error", message: "user-not-logged-in"}
 
