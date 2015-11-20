@@ -117,8 +117,6 @@ Rails.application.routes.draw do
   get 'teacher/student_performance_count' => 'teacher_account#student_performance_count'
   post 'teacher/delete_activity' => 'teacher_account#delete_activity'
   post 'teacher/save_activity_assignments' => 'teacher_account#save_activity_assignments'
-  post 'teacher/add_activity_level' => 'teacher_account#add_activity_level'
-  post 'teacher/update_activity_levels' => 'teacher_account#update_activity_levels'
 
   # teacher/students app routes
   get 'teacher/students' => 'teacher_account#students'

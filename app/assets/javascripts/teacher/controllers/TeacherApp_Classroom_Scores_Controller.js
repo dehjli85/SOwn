@@ -506,7 +506,11 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 				}
 				else{
 					//show an error message
-					editActivityModalLayoutView.showErrors(data.errors);
+					editActivityModalLayoutView.model.set("errors", data.errors);
+					editActivityModalLayoutView.model.set("level_errors", data.level_errors);
+					editActivityModalLayoutView.model.set("tag_errors", data.tag_errors);
+					editActivityModalLayoutView.model.set("tag_pairing_errors", data.tag_pairing_errors);
+					editActivityModalLayoutView.showErrors();
 
 				}
 				

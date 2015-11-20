@@ -821,6 +821,7 @@
 	# => Classroom
 	# => Classroom Activivty Pairing (use to indicated if activity is assigned to which classrooms)
 	# => Activity Tag data
+	# => Activity Levels data
 	#
 	# If an invalid activity ID is passed, then a blank activity is returned
 	def activity
@@ -830,7 +831,7 @@
 		if(!@activity.nil?)
 			
 			# get Hash representing Activity
-			activity_hash = @activity.serializable_hash
+			activity_hash = @activity.as_json
 			
 			# get Activity Tags for associated Activity
 			activity_hash["tags"] = @activity.activity_tags.to_a.map(&:serializable_hash)
@@ -1177,9 +1178,9 @@
 		if(@activity.save)
 
 			#save the tags
-			params[:tags] ||=  {} 
+			tags = params[:tags] ||  {} 
 			# params[:tags] = params[:tags].nil? ? {} : params[:tags]
-			params[:tags].each do |index, value| 
+			tags.each do |id, value| 
 
 				#check if the tag exists, if it doesn't create it
 				tag = ActivityTag.where({name: value}).first_or_initialize({name: value})
@@ -1196,11 +1197,12 @@
 			end
 
 			#save the levels
-			params[:levels] ||=  {} 
-			params[:levels].each do |index, value| 
+			activity_levels = params[:activity_levels] ||  {} 
+			activity_levels.each do |id, hash| 
 
-				#check if the tag exists, if it doesn't create it
-				level = ActivityLevel.where({name: value, activity_id: @activity.id}).first_or_initialize({name: value, activity_id: @activity.id})
+				# check if the level exists (and matches the activity id)
+				level = ActivityLevel.where({name: hash["name"], activity_id: @activity.id}).first_or_initialize({name: hash["name"], activity_id: @activity.id})
+
 				if(!level.save)
 					level_errors.push(level.errors)
 				end
@@ -1241,44 +1243,130 @@
 		if !@activity.nil?
 			@activity.update(params.require(:activity).permit(:name, :description, :instructions, :activity_type, :min_score, :max_score, :benchmark1_score, :benchmark2_score, :link))
 
-			if(@activity.save)
+			if(@activity.valid?)
 
 				tag_errors = Array.new
 				pairing_errors = Array.new
 				level_errors = Array.new
 
-				#go through all the submitted tags and add/delete as necessary				
-				params[:tags] ||=  {} 
-				params[:tags].each do |index, value| 
+				# go through all the submitted tags and add/delete as necessary				
+				# set param variables
+				tags = params[:tags] ||  {} 
+
+				all_tags_valid = true
+				all_tag_pairings_valid = true
+				tags_to_save = Array.new
+				tag_pairings_to_save = Array.new
+				tag_errors = Hash.new
+				tag_pairing_errors = Hash.new
+
+				tags.each do |id, value| 
 
 					#check if the tag exists, if it doesn't create it
 					tag = ActivityTag.where({name: value}).first_or_initialize({name: value})
-					if(!tag.save)
-						tag_errors.push(tag.errors)
+					if(tag.save)
+						tags_to_save.push(tag)
+					else
+						all_tags_valid = false
+						tag_errors[id] = tag.errors
 					end
 
 					#create a new activity tag pair if it doesn't exist
 					atp = ActivityTagPairing.where({activity_id: @activity.id, activity_tag_id: tag.id}).first_or_initialize					
-					if !atp.save
-						pairing_errors.push(atp.errors)
+					if atp.valid?
+						tag_pairings_to_save.push(atp) 
+					else
+						all_tag_pairings_valid = false
+						tag_pairing_errors[id] = atp.errors
 					end
+
 				end
 
-				#delete all tag pairings from the database if they aren't in the submitted list
-				@activity.activity_tag_pairings.each do |existing_atp|
-					if !params[:tags].has_value?(existing_atp.activity_tag.name)
-						existing_atp.destroy
+				# set param variables
+				activity_levels =	params[:activity_levels] || {} 
+
+				all_levels_valid = true
+				levels_to_save = Array.new
+				level_errors = Hash.new
+				new_activity_levels = {}
+
+				activity_levels.each do |id, hash| 
+
+					# check if it is a new activity
+					if id.include?("new")
+						
+						# check if the level exists (and matches the activity id)
+						level = ActivityLevel.where({name: hash["name"], activity_id: @activity.id}).first_or_initialize({name: hash["name"], activity_id: @activity.id})
+						
+					else
+					# check if the level exists (and matches the activity id)
+						level = ActivityLevel.where({id: id, activity_id: @activity.id}).first
+
+						# update the name
+						level.name = hash["name"]
+
 					end
+
+					# check to make sure it is valid
+					if(level.valid?)
+						levels_to_save.push(level)
+					else
+						all_levels_valid = false
+						level_errors[id] = level.errors
+					end
+					
 				end
 
+				# if all the changes to levels are valid, save them all
+				if all_levels_valid && all_tags_valid && all_tag_pairings_valid
 
+					# save activity, tags, pairing, and levels
+					@activity.save
+
+					tags_to_save.each do |tag|
+						tag.save
+					end
+
+					tag_pairings_to_save.each do |atp|
+						atp.save
+					end
+
+					levels_to_save.each do |level|
+						if(level.id.nil?)
+							level.save
+							new_activity_levels[level.id] = level
+						else
+							level.save
+						end
+					end
+
+					# delete all levels from the database if they aren't in the submitted list
+					@activity.activity_levels.each do |existing_level|
+						if !activity_levels.has_key?(existing_level.id.to_s) && !new_activity_levels.has_key?(existing_level.id)
+							puts "destroying level"
+							existing_level.destroy
+						end
+					end
+
+					#delete all tag pairings from the database if they aren't in the submitted list
+					@activity.activity_tag_pairings.each do |existing_atp|
+						if !tags.has_value?(existing_atp.activity_tag.name)
+							existing_atp.destroy
+						end
+					end
+
+					# prepare the activity hash to return
+					activity_hash = @activity.as_json
+
+					render json: {status: "success", activity: activity_hash}
+
+				else
+
+					render json: {status: "error", message: "error-with-tag-pairing-or-level", level_errors: level_errors, tag_errors: tag_errors, tag_pairing_errors: tag_pairing_errors}
+				end
 				
 
-				activity_hash = @activity.serializable_hash
-				activity_hash["tags"] = @activity.activity_tags.to_a.map(&:serializable_hash)
-				activity_hash["levels"] = @activity.activity_levels.to_a.map(&:serializable_hash)
-
-				render json: {status: "success", activity: activity_hash, tag_errors: tag_errors, pairing_errors: pairing_errors, level_errors: level_errors}
+				
 				
 			else				
 
@@ -1482,99 +1570,7 @@
 	end
 
 
-	# adds and activity level to a specified activity
-	# returns the activity
-	# expects the following parameters:
-	# => activity_id
-	# => activity_level_name
-	def add_activity_level
-
-		# check that the activity id passed is valid
-		activity = Activity.where(id: params[:activity_id]).first
-		if activity
-			
-			activity_level = ActivityLevel.new({activity_id: params[:activity_id], name: params[:activity_level_name]})
-			if activity_level.save
-				render json: {status: "success", activity: activity.as_json}
-			else
-				render json: {status: "error", errors: activity_level.errors}
-			end
-
-		else
-			render json: {status: "error", error: "invalid-activity-id"}
-		end
-	end
-
-	# updates the set of activity levels for the specified activity
-	# returns the activity
-	# expects the following parameters:
-	# => activity_id
-	# => activity_levels
-	#
-	# activity_levels is a hash where 
-	# => the key is the id of the activity_level
-	# => the value is another hash with the key "name"
-	def update_activity_levels
-		
-		# set param variables
-		activity_levels =	params[:activity_levels] || {} 
-		activity = Activity.where(id: params[:activity_id]).first
-		
-
-		# first check if the Activity id passed is valid
-		if(!activity.nil?)
-		
-			all_valid = true
-			levels_to_save = Array.new
-			errors = Hash.new
-
-			activity_levels.each do |id, hash| 
-
-				# check if the level exists (and matches the activity id)
-				level = ActivityLevel.where({id: id, activity_id: activity.id}).first
-
-				# update the name
-				level.name = hash["name"]
-
-				# check to make sure it is valid
-				if(level.valid?)
-					levels_to_save.push(level)
-				else
-					all_valid = false
-					errors[id] = level.errors
-				end
-				
-			end
-
-			if all_valid
-
-				levels_to_save.each do |level|
-					level.save
-				end
-
-				# delete all levels from the database if they aren't in the submitted list
-				activity.activity_levels.each do |existing_level|
-					if !activity_levels.has_key?(existing_level.id.to_s)
-						puts "deleting activity level #{existing_level.id}"
-						existing_level.destroy
-					end
-				end
-
-				activity = Activity.where(id: params[:activity_id]).first
-				render json: {status: "success", activity: activity.as_json}
-
-			else
-				render json: {status: "error", errors: errors}
-			end
-
-		else
-
-			render json: {status: "error", error: "invalid-activity_id"}
-
-		end
-
-		
-	end
+	
 
 	#################################################################################
 	#
