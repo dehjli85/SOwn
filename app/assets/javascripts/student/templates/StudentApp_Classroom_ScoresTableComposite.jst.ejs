@@ -12,16 +12,19 @@
       <table class="table">
         <thead>
           <tr>
-            <th style="width:70%">
+            <th style="width:25%">
               <%= activity.activity_levels.length == 0 ? 'Activity' : 'Activity Level' %>
             </th>
-            <th style="width:15%">
+            <th style="width:1%">
               Date
             </th>
-            <th style="width:15%">
+            <th style="width:10%">
               Score
             </th>
-            <th>
+            <th style="width:25%">
+              Notes
+            </th>
+            <th style="width:1%">
               <a href="#" ui-edit-button>Edit</a>
             </th>
           </tr>
@@ -65,8 +68,15 @@
               <% } %>
             <% } %>
           </td>
-          <td><input type="date" class="form-control" name="student_performance[performance_date]" value="<%= moment().format('YYYY-MM-DD') %>"></td>
-          <td><input type="text" class="form-control" name="student_performance[scored_performance]"></td>
+          <td>
+            <input type="date" class="form-control" name="student_performance[performance_date]" value="<%= moment().format('YYYY-MM-DD') %>">
+          </td>
+          <td>
+            <input type="text" class="form-control" name="student_performance[scored_performance]">
+          </td>
+          <td>
+            <textarea class="form-control" name="student_performance[notes]"></textarea>
+          </td>
           <td><a href="#" class="btn btn-primary" ui-add-performance-button>+</a></td>
       </tr>
         

@@ -248,9 +248,10 @@ class StudentAccountController < ApplicationController
   # => scored_performance
   # => completed_performance
   # => performance_date
+  # => notes
   def save_student_performance
 
-    @student_performance = StudentPerformance.new(params.require(:student_performance).permit(:classroom_activity_pairing_id, :scored_performance, :completed_performance, :performance_date, :activity_level_id))    
+    @student_performance = StudentPerformance.new(params.require(:student_performance).permit(:classroom_activity_pairing_id, :scored_performance, :completed_performance, :performance_date, :activity_level_id, :notes))    
     @student_performance.student_user_id = @current_student_user.id
     
     puts "student_performance: #{@student_performance}"
@@ -297,6 +298,7 @@ class StudentAccountController < ApplicationController
         student_performance.completed_performance = student_performance_hash["completed_performance"]
         student_performance.performance_date = student_performance_hash["performance_date"]
         student_performance.activity_level_id = student_performance_hash["activity_level_id"]
+        student_performance.notes = student_performance_hash["notes"]
 
         if student_performance.valid?
           student_performances_to_save.push(student_performance)
