@@ -277,7 +277,7 @@ class StudentAccountController < ApplicationController
   def save_all_student_performances
 
     #set param variables
-    student_performances = params[:student_performances]
+    student_performances = params[:student_performances] || {}
     classroom_activity_pairing_id = params[:classroom_activity_pairing_id].to_i
 
     # iterate through all submitted performances and make sure they are all valid 
@@ -325,7 +325,9 @@ class StudentAccountController < ApplicationController
 
       # identify performances that were not passed and delete them
       student_performances_to_delete = StudentPerformance.where({classroom_activity_pairing_id: classroom_activity_pairing_id, student_user_id: @current_student_user.id})
-        .where("id not in (?)", student_performances_ids)
+      if !student_performances_ids.empty?
+        student_performances_to_delete = student_performances_to_delete.where("id not in (?)", student_performances_ids)
+      end
 
       student_performances_to_delete.each do |student_performance|
         student_performance.destroy

@@ -5,11 +5,11 @@
     </div>
     <div class="modal-body">
       <form class="form form-horizontal" ui-activity-form>
-        <% if(activity_status == "New" && activities != null){ %> 
+        <% if(activity_status == "New" && activities != null && activities.length != 0){ %> 
           <div class="form-group">
             <label class="col-md-4 control-label">Copy Activity:</label>
             <div class="col-md-6">
-              <input class="form-control input-xs typeahead" id="inputName" placeholder="" type="text" ui-copy-input>
+              <input class="form-control input-xs typeahead" id="inputName" placeholder="Type the name of the activity to copy..." type="text" ui-copy-input>
             </div>
             <div class="col-md-2">
               <a href="#" class="btn btn-primary" ui-copy-button>Copy</a>
