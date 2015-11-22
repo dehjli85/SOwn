@@ -61,7 +61,7 @@
     
       <td class="scores-table__score <%= student_performance[i].performance_color %>">
         <a href="#" name="<%= student_performance[i].classroom_activity_pairing_id %>" ui-track-modal-link>
-          <%= student_performance[i].name_abbreviated ? student_performance[i].name_abbreviated + ':' : '' %>
+          <%= student_performance[i].abbreviation ? student_performance[i].abbreviation + ':' : '' %>
           <%= student_performance[i].performance_pretty %>
         </a>
 

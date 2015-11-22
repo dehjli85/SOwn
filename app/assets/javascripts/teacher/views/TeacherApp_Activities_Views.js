@@ -340,7 +340,9 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		tagName: "tr",
 
 		ui:{
-			deleteButton: "[ui-delete-button]"
+			deleteButton: "[ui-delete-button]",
+			nameInput: "[ui-name-input]",
+			abbreviationInput: "[ui-abbreviation-input]"
 		},
 
 		events:{
@@ -383,7 +385,8 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		ui:{
 			addLevelButton: "[ui-add-level-button]", 
-			levelInput: "[ui-level-input]",
+			levelNameInput: "[ui-level-name-input]",
+			levelAbbreviationInput: "[ui-level-abbreviation-input]",
 			levelTableForm: "[ui-level-table-form]",
 			levelTableTbody: "[ui-level-table-tbody]",
 			addLevelButton: "[ui-add-level-button]",
@@ -461,9 +464,10 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 				e.preventDefault();
 			}
 
-			if(this.ui.levelInput.val().trim().length > 0){
+			if(this.ui.levelNameInput.val().trim().length > 0 && this.ui.levelAbbreviationInput.val().trim().length > 0){
 				var levelModel = new Backbone.Model({
-					name: this.ui.levelInput.val().trim(),
+					name: this.ui.levelNameInput.val().trim(),
+					abbreviation: this.ui.levelAbbreviationInput.val().trim(),
 					id: "new" + this.model.get("newLevelIndex")
 				});
 				this.model.set("newLevelIndex", this.model.get("newLevelIndex") + 1);
@@ -475,7 +479,14 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		saveAllLevels: function(e){
 			e.preventDefault();
+
+			this.children.each(function(view){
+				view.model.set("name", view.ui.nameInput.val());
+				view.model.set("abbreviation", view.ui.abbreviationInput.val());
+			});
+
 			this.model.set("editOrShow", "show");
+			this.render();
 			this.toggleEditSaveButton();
 			this.triggerMethod("show:modal:save:and:cancel:buttons");
 
@@ -495,7 +506,8 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 		copyActivityLevels: function(activity_levels){
 			for(var i = 0; i < activity_levels.length; i++){
-				this.ui.levelInput.val(activity_levels[i].name);
+				this.ui.levelNameInput.val(activity_levels[i].name);
+				this.ui.levelAbbreviationInput.val(activity_levels[i].abbreviation);
 				this.addLevel();
 			}
 		},
@@ -582,10 +594,10 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			if(this.model.get("level_errors") != null){
 				this.levelsRegion.currentView.showErrors(this.model.get("level_errors"));
 			}
-			if(this.model.get("tag_errors") != null){
+			if(this.model.get("tag_errors") != null && this.model.get("tag_errors").length > 0){
 				this.tagsRegion.currentView.showErrors(this.model.get("tag_errors"));
 			}
-			if(this.model.get("tag_pairing_errors") != null){
+			if(this.model.get("tag_pairing_errors") != null && this.model.get("tag_pairing_errors").length > 0){
 				this.tagsRegion.currentView.showErrors(this.model.get("tag_pairing_errors"));
 			}
 

@@ -112,8 +112,8 @@ class StudentPerformance < ActiveRecord::Base
 
 
 		activity_level_name_abbreviated = ''
-		if !activity_level.nil? && activity_level.name_abbreviated.length > 0
-			activity_level_name_abbreviated = activity_level.name_abbreviated + ': '
+		if !activity_level.nil? && activity_level.abbreviation
+			activity_level_name_abbreviated = activity_level.abbreviation + ': '
 		end
 		
 		if activity && activity.activity_type.eql?('scored')
@@ -351,11 +351,7 @@ class StudentPerformance < ActiveRecord::Base
 						student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, 
 						a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, 
 						classroom_activity_pairings.sort_order, classroom_activity_pairings.hidden, classroom_activity_pairings.due_date, 
-						al.name, 
-						case 
-							when position(\':\' in al.name) between 1 and 3 then substring(al.name from 0 for least(3, position(\':\' in al.name))) 
-							when length(al.name) <= 2 then al.name
-						end as name_abbreviated,
+						al.name, al.abbreviation,
 						student_performances.*
 					FROM "student_performances" 
 					INNER JOIN "student_users" ON "student_users"."id" = "student_performances"."student_user_id" 

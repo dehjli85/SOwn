@@ -1203,7 +1203,7 @@
 			activity_levels.each do |id, hash| 
 
 				# check if the level exists (and matches the activity id)
-				level = ActivityLevel.where({name: hash["name"], activity_id: @activity.id}).first_or_initialize({name: hash["name"], activity_id: @activity.id})
+				level = ActivityLevel.where({name: hash["name"], activity_id: @activity.id}).first_or_initialize({name: hash["name"], abbreviation: hash["abbreviation"], activity_id: @activity.id})
 
 				if(!level.save)
 					level_errors.push(level.errors)
@@ -1298,7 +1298,7 @@
 					if id.include?("new")
 						
 						# check if the level exists (and matches the activity id)
-						level = ActivityLevel.where({name: hash["name"], activity_id: @activity.id}).first_or_initialize({name: hash["name"], activity_id: @activity.id})
+						level = ActivityLevel.where({name: hash["name"], activity_id: @activity.id}).first_or_initialize({name: hash["name"], abbreviation: hash["abbreviation"], activity_id: @activity.id})
 						
 					else
 					# check if the level exists (and matches the activity id)
@@ -1306,7 +1306,7 @@
 
 						# update the name
 						level.name = hash["name"]
-
+						level.abbreviation = hash["abbreviation"]		
 					end
 
 					# check to make sure it is valid
