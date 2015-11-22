@@ -69,9 +69,10 @@
 
 <% if(activities.length == 0){ %>
   <div class="jumbotron">
-    <h2>Your next step: Create an Activity</h2>
+    <h2>Your next step: Create learning activities for your students to track</h2>
     <p>
-      Now that you've created your classroom, it's time to create your first activity.  Get started by clicking on the <a class="btn btn-primary" ui-new-activity-button>New Activity</a> button above.
+      Click on the <a class="btn btn-primary" ui-new-activity-button>New Activity</a> button above.
+      Here’s a 1-minute <a href="#" target="_blank">video</a> to help!
     </p>
   </div>
 
@@ -79,14 +80,15 @@
   <div class="jumbotron">
     <h2>Last step: Get your students signed up!</h2>
     <p>
-      You're almost done!  If you want, you can keep creating more activities, but the final step to getting started is to get your students signed up!  
-    </p>
-    <p>When you're ready, have them go to <a href="http://www.sowntogrow.com">www.sowntogrow.com</a> and sign up for a student account.
+      You’re almost done!  You can create more activities at any time, and reorder them later as needed.
     </p>
     <p>
-      After they've signed up, they can join this classroom using the classroom code you chose when you created this class: <b><%= classroom.classroom_code %></b>
+      When you’re ready, have your students go to <a href="http://www.sowntogrow.com">www.sowntogrow.com</a> and click “I’m a new student”.  Once they have signed up, they can join your classroom using the code you created: <b><%= classroom.classroom_code %></b>
     </p>
-    <p>If you're curious about what your students will see you can always create a student account for yourself, and join your own classroom!</p>
+    <p>
+      Click <a href="#" target="_blank">here</a> for a presentation that you can use with your students.  It’s will orient them to the tool and show them how to get started.
+    </p>
+    <p>If you're curious about what your students will see you can always create a student account for yourself (even with the same email address), and join your own classroom!</p>
   </div>
 <% } %>
 
