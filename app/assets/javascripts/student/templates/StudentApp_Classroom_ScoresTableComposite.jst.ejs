@@ -50,7 +50,7 @@
                 <option></option>
                 <% for(var i = 0; i < activity.activity_levels.length; i++){ %>
                   <option value="<%= activity.activity_levels[i].id %>">
-                    <%= activity.activity_levels[i].name %>
+                    <%= activity.activity_levels[i].abbreviation %><%= activity.activity_levels[i].name ? ': ' + activity.activity_levels[i].name : '' %>
                   </option>
                 <% } %>
               </select>

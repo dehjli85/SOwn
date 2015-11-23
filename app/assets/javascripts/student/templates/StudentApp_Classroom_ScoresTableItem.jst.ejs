@@ -4,13 +4,13 @@
 		<%= activity.name %>
 	
 	<% } else { %>
-		<span class="ui-show"><%= activity_level ? activity_level.name : '' %></span>
+		<span class="ui-show"><%= activity_level ? (activity_level.abbreviation + (activity_level.name ? ': ' + activity_level.name : ''))	: '' %></span>
 
 		<select name="student_performances[<%= id %>][activity_level_id]" class="form-control ui-edit">
 			<option></option>
       <% for(var i = 0; i < activity.activity_levels.length; i++){ %>
         <option value="<%= activity.activity_levels[i].id %>" <%= activity_level && activity_level.id == activity.activity_levels[i].id ? 'selected' : '' %>>
-          <%= activity.activity_levels[i].name %>
+          <%= activity.activity_levels[i].abbreviation %><%= activity.activity_levels[i].name ? ': ' + activity.activity_levels[i].name : '' %>
         </option>
       <% } %>
     </select>

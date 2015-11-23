@@ -464,7 +464,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 				e.preventDefault();
 			}
 
-			if(this.ui.levelNameInput.val().trim().length > 0 && this.ui.levelAbbreviationInput.val().trim().length > 0){
+			if(this.ui.levelAbbreviationInput.val().trim().length > 0){
 				var levelModel = new Backbone.Model({
 					name: this.ui.levelNameInput.val().trim(),
 					abbreviation: this.ui.levelAbbreviationInput.val().trim(),

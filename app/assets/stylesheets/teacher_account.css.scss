@@ -26,7 +26,22 @@
   background-color: #4C5254;
 }
 
+/* 
+ * Help Banner
+ */
 
+ #help-banner{
+  position: fixed; 
+  bottom: 0px; 
+  background-color: black; 
+  color: white; 
+  height: 25px;
+  font-size: 16px;
+}
+
+#help-banner a{
+  color:white;
+}
 
 /* 
  * Sub Nav

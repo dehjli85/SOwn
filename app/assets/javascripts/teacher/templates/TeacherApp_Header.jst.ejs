@@ -6,14 +6,13 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="" href="/"><img src="assets/logo_dark2.png" alt="SOWN TO GROW" style="height:50px;"></a>
+    <a class="" href="#"><img src="assets/logo_dark2.png" alt="SOWN TO GROW" style="height:50px;" ui-home-link></a>
   </div>
   <div id="navbar" class="navbar-collapse collapse">
     <ul class="nav navbar-nav navbar-right">
       <% if(student != null){ %>
         <li><a href="#" ui-switch-account-link>Switch to Student Account</a></li>
       <% } %>
-      <li><a href="#" ui-home-link>Home</a></li>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">Classrooms</a>
         <% if(classrooms){ %>
@@ -26,8 +25,13 @@
         
       </li>
       <li><a href="#" ui-activities-link>Activities</a></li>
-      <li><a href="#" ui-settings-link><%= teacher.display_name %></a></li>
-      <li><a href="/signout">Sign Out</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown"><%= teacher.display_name %></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" ui-settings-link>Settings</a></li>
+          <li><a href="/signout">Sign Out</a></li>
+        </ul>
+      </li>
       <li class="social-nav"><a href="https://www.facebook.com/Sown-To-Grow-1071075539569635/" target="_blank"><i class="ion-social-facebook"></i></a></li>
       <li class="social-nav"><a href="https://twitter.com/sowntogrow" target="_blank"><i class="ion-social-twitter"></i></a></li>
 

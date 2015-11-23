@@ -190,7 +190,9 @@
 
 			activities = @current_teacher_user.activities
 
-			render json: {status: "success", classrooms: a, activities: activities}
+			student_count = ClassroomStudentUser.where(classroom_id: @classrooms.pluck(:id)).count
+
+			render json: {status: "success", classrooms: a, activities: activities, student_count: student_count}
 		else
 			render json: {status: "error", message: "user-not-logged-in"}
 
