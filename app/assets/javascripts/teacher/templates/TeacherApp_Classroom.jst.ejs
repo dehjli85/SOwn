@@ -42,11 +42,16 @@
 
 
         <div class="form-group <% if(errors.classroom_code != null){%>has-error<%}%>">
-          <label for="inputClassroomCode" class="col-sm-4 control-label">Classroom Code</label>    
+          <label for="inputClassroomCode" class="col-sm-4 control-label">
+            Classroom Code<br>
+            <i class="ion-help-circled" data-toggle="tooltip" data-placement="bottom" title="This is what your students will enter to join your class."></i>
+          </label>    
           <div class="col-sm-8">  
           <% if(errors.classroom_code != null){%><div class="field_with_errors"><%}%>    
             <input class="form-control" id="inputClassroomCode" name="classroom[classroom_code]" placeholder="smith-1-history" type="text"  value="<%= classroom_code %>" ui-classroom-code-input>
-            <label class="control-label" for="inputName"><span class="small" style="font-style:italic">Case-sensitive: only letters, numbers, and dashes</span></label>
+            <label class="control-label" for="inputName">
+              <span class="small" style="font-style:italic">Case sensitive: letters, numbers, and dashes (no spaces)</span>
+            </label>
             
 
             <% if(errors.classroom_code != null){%>

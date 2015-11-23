@@ -206,6 +206,10 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			
 		},
 
+		onShow: function(){
+		  $('[data-toggle="tooltip"]').tooltip();
+		},
+
 		saveClassroom: function(e){
 			e.preventDefault();
 			this.setModelAttributes();
