@@ -561,35 +561,28 @@ class StudentPerformance < ActiveRecord::Base
 	# return the number of performances from "real" Student Users by week
   def self.create_count_by_week
     exclude_student_user_ids = StudentUser.where("email like '%@sowntogrow.com%'").pluck(:id)
-    performances = StudentPerformance.where("student_user_id not in (?)", exclude_student_user_ids)
-
-    hash = {}
-    performances.each do |performance|
-    	performance.set_pretty_properties
-      year = performance.created_at.strftime('%Y')
-      week = performance.created_at.strftime('%W')
-      if !hash[year]
-        hash[year] = {}
-      end
-
-      if hash[year][week]
-        hash[year][week] += 1
-      else
-        hash[year][week] = 1
-      end
-
-    end
 
     array = []
-    years = hash.keys.sort
-    years.each_with_index do |year, i|
-      weeks = hash[year].keys.sort
-      weeks.each_with_index do |week, j|
-        array.push({year: years[i], week: weeks[j], count: hash[years[i]][weeks[j]]})
-      end
-    end
 
-    array
+    sql = "select date_part('week',sp.created_at) as week, date_part('year', sp.created_at) as year, count(*) as performances 
+    	from student_performances sp
+    	inner join student_users s on s.id = sp.student_user_id and s.id not in (?)  
+    	group by date_part('week',sp.created_at), date_part('year', sp.created_at) 
+    	order by date_part('year',sp.created_at) ASC, date_part('week',sp.created_at) ASC"
+
+    arguments = Array.new
+    arguments[0] = sql
+    arguments[1] = exclude_student_user_ids
+    sanitized_query = ActiveRecord::Base.send(:sanitize_sql_array, arguments)
+		counts = ActiveRecord::Base.connection.execute(sanitized_query).to_a
+
+		counts.each do |count|
+			puts count["performances"]
+			array.push({year: count["year"], week: count["week"], count: count["performances"].to_i})
+		end
+
+		return array
+
   end
 	
 	# return the cumulative number of performances from "real" Student Users by week
