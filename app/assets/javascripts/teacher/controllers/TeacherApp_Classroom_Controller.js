@@ -22,7 +22,7 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			})
 			.done(function(data) {
 
-				
+				console.log(data);
 	     	
 	     	if(data.status == "success"){
 	     		
@@ -87,11 +87,12 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 				if(data.status == "success"){
 
 					var classroom = new Backbone.Model(data.classroom);
-					classroom.attributes.errors = {};
-					classroom.attributes.editOrNew = "edit";
+					classroom.set("errors",{});
+					classroom.set("editOrNew", "edit");
 					
 					var classroomView = new TeacherAccount.TeacherApp.ClassroomView({model:classroom});
-					classroomLayoutView.mainRegion.show(classroomView);
+					classroomLayoutView.modalRegion.show(classroomView);
+					classroomLayoutView.ui.modalRegion.modal("show");
 					
 				}
 				else{

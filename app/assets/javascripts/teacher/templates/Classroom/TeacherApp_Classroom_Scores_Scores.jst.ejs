@@ -67,11 +67,28 @@
   </form>
 </div>
 
+<% if(activities.length == 0){ %>
+  <div class="jumbotron">
+    <h2>Your next step: Create learning activities for your students to track</h2>
+    <p>
+      Click on the <a class="btn btn-primary" ui-new-activity-button>New Activity</a> button above.
+      Here’s a 1-minute <a href="#" target="_blank">video</a> to help!
+    </p>
+  </div>
 
-
-<% if(collectionSize == null || collectionSize == 0){ %> 
-  <div class="alert alert-warning">
-    No students have joined your classroom yet.  When they log in, have them use classroom code &quot;<b><%= classroom.classroom_code %></b>&quot; to join this class!
+<%} else if(collectionSize == null || collectionSize == 0){ %> 
+  <div class="jumbotron">
+    <h2>Last step: Get your students signed up!</h2>
+    <p>
+      You’re almost done!  You can create more activities at any time, and reorder them later as needed.
+    </p>
+    <p>
+      When you’re ready, have your students go to <a href="http://www.sowntogrow.com">www.sowntogrow.com</a> and click “I’m a new student”.  Once they have signed up, they can join your classroom using the code you created: <b><%= classroom.classroom_code %></b>
+    </p>
+    <p>
+      Click <a href="#" target="_blank">here</a> for a presentation that you can use with your students.  It’s will orient them to the tool and show them how to get started.
+    </p>
+    <p>If you're curious about what your students will see you can always create a student account for yourself (even with the same email address), and join your own classroom!</p>
   </div>
 <% } %>
 

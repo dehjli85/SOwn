@@ -1,0 +1,23 @@
+<td>
+	<span class="ui-show"><%= abbreviation %></span>
+	<input type="text" class="form-control ui-edit" name="activity_levels[<%= id %>][abbreviation]" value="<%= abbreviation %>" maxlength="2" style="display:none" ui-abbreviation-input>
+</td>
+<td>
+	<span class="ui-show"><%= name %></span>
+	<input type="text" class="form-control ui-edit" name="activity_levels[<%= id %>][name]" value="<%= name %>" style="display:none" ui-name-input>
+
+	<% if(errors){ %> 
+		<% if(errors.name){ %>
+			<br>
+			<span style="color:red">Name <%= errors.name[0] %></span>
+		<% } %>
+		<% if(errors.abbreviation){ %>
+			<br>
+			<span style="color:red">Abbreviation <%= errors.abbreviation[0] %></span>
+		<% } %>
+	<% } %>
+
+</td>
+<td>
+	<a href="#" class="btn btn-danger ui-edit" ui-delete-button style="display:none">X</a>
+</td>

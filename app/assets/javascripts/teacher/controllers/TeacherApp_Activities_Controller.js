@@ -90,35 +90,78 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 				console.log('get request made');
 			})
 			.done(function(data) {
+				console.log(data);
 
 				if(data.status == "success"){
 
-					var model = new Backbone.Model(data.activity);
-					model.set("errors", {});
-					model.set("tagCount", 0);
-					model.set("classroomId", null);
-
+					var layoutModel = new Backbone.Model(data.activity);
+					layoutModel.set("errors", {});
+					layoutModel.set("classroomId", indexLayoutView.model.get("classroomId"));
+					
 					var teacher_tags = [];
 					data.activity_tags.map(function(i){teacher_tags.push(i.name)});
-					model.set("teacher_tags", teacher_tags);
+					layoutModel.set("teacher_tags", teacher_tags);
 					
-					var collection = new Backbone.Collection();
+					var activityTagsCollection = new Backbone.Collection();
+					var activityLevelsCollection = new Backbone.Collection();
 
 					// This is a new Activity
 					if(activityId == null){
-						model.set("activity_status", "New");
-						model.set("activity_type", "scored");
+						layoutModel.set("activity_status", "New");
+						layoutModel.set("activity_type", "scored");
+						layoutModel.set("activity_tags", activityTagsCollection);
+						layoutModel.set("tagCount", 0);
+						layoutModel.set("activity_levels", activityLevelsCollection);
+						layoutModel.set("levelCount", 0);
+
+						// make a get request to get all the teacher's activities to use for the typeahead for copying activities
+						getUrl = "/teacher/teacher_activities_and_tags";
+						var jqxhr2 = $.get(getUrl, function(){
+							console.log('get request made');
+						})
+						.done(function(data) {
+							console.log(data);
+
+
+							if(data.status == "success"){
+								layoutModel.set("activities", data.activities);
+
+								var activity_names = [];
+								data.activities.map(function(i){activity_names.push(i.name)});
+								layoutModel.set("activity_names", activity_names);
+
+							}
+							
+							var editActivityModalLayoutView = new TeacherAccount.TeacherApp.Activities.EditActivityModalLayoutView({model: layoutModel});
+
+							indexLayoutView.modalRegion.show(editActivityModalLayoutView);
+							indexLayoutView.ui.modalRegion.modal("show");
+							
+					  })
+					  .fail(function() {
+					  	console.log("error");
+					  })
+					  .always(function() {
+					   
+						});	
+
 					}
 					// This is an existing activity
 					else{
-						model.set("activity_status", "Edit");
-						collection = new Backbone.Collection(data.activity.tags);
+						layoutModel.set("activity_status", "Edit");
+						activityTagsCollection = new Backbone.Collection(data.activity.tags);
+						activityLevelsCollection = new Backbone.Collection(data.activity.levels);
+						layoutModel.set("activity_tags", activityTagsCollection);
+						layoutModel.set("tagCount", activityTagsCollection.length);
+						layoutModel.set("activity_levels", activityLevelsCollection);
+						layoutModel.set("levelCount", activityLevelsCollection.length);
+
+						var editActivityModalLayoutView = new TeacherAccount.TeacherApp.Activities.EditActivityModalLayoutView({model: layoutModel});
+						
+						indexLayoutView.modalRegion.show(editActivityModalLayoutView);
+						indexLayoutView.ui.modalRegion.modal("show");
 					}
 
-					var editActivityModalCompositeView = new TeacherAccount.TeacherApp.Activities.EditActivityModalCompositeView({model: model, collection: collection});
-					
-					indexLayoutView.modalRegion.show(editActivityModalCompositeView);
-					indexLayoutView.ui.modalRegion.modal("show");
 						
 				}
 				
@@ -128,13 +171,15 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		  })
 		  .always(function() {
 		   
-			});
+			});	
+
+			
 		
 		},
 
-		saveNewActivity: function(indexLayoutView, editActivityModalCompositeView){
+		saveNewActivity: function(indexLayoutView, editActivityModalLayoutView){
 			var postUrl = "/teacher/save_new_activity";
-			var jqxhr = $.post(postUrl, editActivityModalCompositeView.ui.activityForm.serialize(), function(){
+			var jqxhr = $.post(postUrl, editActivityModalLayoutView.ui.activityForm.serialize(), function(){
 				console.log('post request to save new activity');
 			})
 			.done(function(data) {
@@ -145,7 +190,7 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 					// assign to classes
 					var postUrl = "/teacher/assign_activities"
-					var jqxhr = $.post(postUrl, editActivityModalCompositeView.ui.activityForm.serialize() + "&activity_id=" + data.activity.id, function(){
+					var jqxhr = $.post(postUrl, editActivityModalLayoutView.ui.activityForm.serialize() + "&activity_id=" + data.activity.id, function(){
 						console.log('post request to assign activities');
 					})
 					.done(function(data2) {
@@ -167,9 +212,6 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 						else{
 							//show an error message
 						}
-
-						
-						
 						
 				  })
 				  .fail(function() {
@@ -178,18 +220,13 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 				  .always(function() {
 				   
 					});	
-
-
 					
 				}
 				else{
 					//show an error message
-					editActivityModalCompositeView.showErrors(data.errors);
+					editActivityModalLayoutView.showErrors(data.errors);
 
 				}
-
-				
-				
 				
 		  })
 		  .fail(function() {
@@ -201,20 +238,22 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 		},
 
 
-		updateActivity: function(indexLayoutView, editActivityModalCompositeView){
-			var postUrl = "/teacher/update_activity/" + editActivityModalCompositeView.model.get("id");
-			var jqxhr = $.post(postUrl, editActivityModalCompositeView.ui.activityForm.serialize(), function(){
+		updateActivity: function(indexLayoutView, editActivityModalLayoutView){
+			var postUrl = "/teacher/update_activity/" + editActivityModalLayoutView.model.get("id");
+			var jqxhr = $.post(postUrl, editActivityModalLayoutView.ui.activityForm.serialize(), function(){
 				console.log('post request to save new activity');
 			})
 			.done(function(data) {
 
 				console.log(data);
 
+				console.log("hello");
+
 				if(data.status == "success"){
 
 					// assign to classes
 					var postUrl = "/teacher/assign_activities"
-					var jqxhr = $.post(postUrl, editActivityModalCompositeView.ui.activityForm.serialize() + "&activity_id=" + data.activity.id, function(){
+					var jqxhr = $.post(postUrl, editActivityModalLayoutView.ui.activityForm.serialize() + "&activity_id=" + data.activity.id, function(){
 						console.log('post request to assign activities');
 					})
 					.done(function(data2) {
@@ -248,7 +287,11 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 				}
 				else{
 					//show an error message
-					editActivityModalCompositeView.showErrors(data.errors);
+					editActivityModalLayoutView.model.set("errors", data.errors);
+					editActivityModalLayoutView.model.set("level_errors", data.level_errors);
+					editActivityModalLayoutView.model.set("tag_errors", data.tag_errors);
+					editActivityModalLayoutView.model.set("tag_pairing_errors", data.tag_pairing_errors);
+					editActivityModalLayoutView.showErrors();
 
 				}
 
@@ -384,9 +427,6 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 					
 				}
 
-
-				
-				
 		  })
 		  .fail(function() {
 		  	console.log("error");
@@ -396,8 +436,6 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 			});	
 
 		},
-
-		
 
 	}
 

@@ -1,0 +1,45 @@
+<td>
+	<% if(activity.activity_levels.length == 0){ %> 
+	
+		<%= activity.name %>
+	
+	<% } else { %>
+		<span class="ui-show"><%= activity_level ? activity_level.name : '' %></span>
+
+		<select name="student_performances[<%= id %>][activity_level_id]" class="form-control ui-edit">
+			<option></option>
+      <% for(var i = 0; i < activity.activity_levels.length; i++){ %>
+        <option value="<%= activity.activity_levels[i].id %>" <%= activity_level && activity_level.id == activity.activity_levels[i].id ? 'selected' : '' %>>
+          <%= activity.activity_levels[i].name %>
+        </option>
+      <% } %>
+    </select>
+
+	<% } %>
+
+	<% if(errors){ %> 
+		<% if(errors.scored_performance){ %>
+			<br>
+			<span style="color:red">Score <%= errors.scored_performance %></span>
+		<% } %>
+		<% if(errors.performance_date){ %>
+			<br>
+			<span style="color:red">Date <%= errors.performance_date %></span>
+		<% } %>
+	<% } %>
+</td>
+<td>
+	<span class="ui-show"><%= moment(performance_date).format("MM/DD/YY") %></span>
+	<input type="date" class="form-control ui-edit" name="student_performances[<%= id %>][performance_date]" value="<%= moment(performance_date).format('YYYY-MM-DD') %>" style="display:none">
+</td>
+<td>
+	<span class="ui-show"><%= scored_performance %></span>
+	<input type="text" class="form-control ui-edit" name="student_performances[<%= id %>][scored_performance]" value="<%= scored_performance %>" style="display:none">
+</td>
+<td>
+	<span class="ui-show"><%= notes %></span>
+  <textarea class="form-control ui-edit" name="student_performances[<%= id %>][notes]" style="display:none"><%= notes %></textarea>
+</td>
+<td>
+	<a href="#" class="btn btn-danger ui-edit" style="display:none" ui-delete-button>X</a>
+</td>

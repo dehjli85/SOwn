@@ -60,8 +60,10 @@
     <% } else { %>
     
       <td class="scores-table__score <%= student_performance[i].performance_color %>">
-
-        <%= student_performance[i].performance_pretty %>
+        <a href="#" name="<%= student_performance[i].classroom_activity_pairing_id %>" ui-track-modal-link>
+          <%= student_performance[i].abbreviation ? student_performance[i].abbreviation + ':' : '' %>
+          <%= student_performance[i].performance_pretty %>
+        </a>
 
         <% if(student_performance[i].requires_verification == 't' && student_performance[i].verified != 't') {%>
 

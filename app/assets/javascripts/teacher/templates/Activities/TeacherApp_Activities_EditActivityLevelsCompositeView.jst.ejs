@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-sm-12">
+    <!-- <form ui-level-table-form> -->
+      <input type="hidden" name="activity_id", value="<%= activity_id %>">
+    	<table class="table">
+    		<thead>
+          <tr>
+      			<th style="width:20%">Abbreviation<span style="vertical-align: super">*</span></th>
+            <th style="width:60%">Name</th>
+      			<th style="width:20%">
+              <a href="#" ui-edit-button>Edit</a>
+              <a href="#" ui-levels-done-button>Done</a>
+
+            </th>
+          </tr>
+    		</thead>
+    		<tbody ui-level-table-tbody>
+
+    		</tbody>
+    	</table>
+
+      <table ui-hidden-table style="display:none">
+        <tr ui-new-level-row> 
+          <td> 
+            <input type="text" name="activity_level[abbrevation]" class="form-control" id="newlevel" maxlength="2" ui-level-abbreviation-input>            
+          </td>
+          <td> 
+            <input type="text" name="activity_level[name]" class="form-control" id="newlevel" ui-level-name-input>
+          </td>
+          <td><a href="#" class="btn btn-primary" ui-add-level-button>+</a></td>
+        </tr>
+        
+      </table>
+      <div>
+        <span style="vertical-align: super">*</span>Abbreviation will show in your dashboard
+      </div>
+
+    <!-- </form> -->
+  </div>
+</div>

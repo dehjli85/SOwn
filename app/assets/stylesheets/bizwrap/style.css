@@ -414,7 +414,7 @@ h3.heading-sec {
   -moz-border-radius: 0px;
   -ms-border-radius: 0px;
   border-radius: 0px;
-  border-top: 2px solid #239236 !important;
+  border-top: 2px solid #49883F !important;
 }
 
 .navbar .dropdown-menu li a {
@@ -432,7 +432,7 @@ h3.heading-sec {
 }
 
 .navbar .dropdown-menu li a:hover {
-  background: #239236;
+  background: #49883F;
   color: #fff;
 }
 
@@ -1883,13 +1883,13 @@ a.carousel-control i {
 }
 
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
-  color: #239236;
+  color: #000000;
   background-color: transparent;
 }
 
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
   background-color: transparent;
-  color: #239236;
+  color: #000000;
 }
 
 /******Version v1.2 css here********/

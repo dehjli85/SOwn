@@ -100,6 +100,8 @@ Rails.application.routes.draw do
   post 'teacher/save_activities_sort_order' => 'teacher_account#save_activities_sort_order'
   get 'teacher/export_data' => 'teacher_account#export_data'
   post 'teacher/save_reflection' => 'teacher_account#save_reflection'
+  post 'teacher/save_student_performance' => 'teacher_account#save_student_performance'
+  post 'teacher/save_all_student_performances' => 'teacher_account#save_all_student_performances'
 
   # teacher/activities app routes
   get 'teacher/activities_tags' => 'teacher_account#activities_tags'
@@ -140,6 +142,7 @@ Rails.application.routes.draw do
   get 'student/classroom_activities_and_performances' => 'student_account#classroom_activities_and_performances'
   get 'student/activity' => 'student_account#activity'
   post 'student/save_student_performance' => 'student_account#save_student_performance'
+  post 'student/save_all_student_performances' => 'student_account#save_all_student_performances'
   get 'student/activity_and_performances' => 'student_account#activity_and_performances'
   post 'student/save_new_activity_goal' => 'student_account#save_new_activity_goal'
 

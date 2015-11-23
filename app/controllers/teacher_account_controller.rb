@@ -188,7 +188,9 @@
 				a.push({id: classroom.id, name: classroom.name, student_count: classroom.student_users.length, percent_proficient: (classroom.percent_proficient_activities*100).to_i})
 			end
 
-			render json: {status: "success", classrooms: a}
+			activities = @current_teacher_user.activities
+
+			render json: {status: "success", classrooms: a, activities: activities}
 		else
 			render json: {status: "error", message: "user-not-logged-in"}
 
@@ -391,7 +393,9 @@
 			student_activity_performances.each do |student_user_id, performance| 
 				
 				# If the Student has existing Student Performances, retrieve the most recent
-				stored_performance = StudentPerformance.where({student_user_id: student_user_id, classroom_activity_pairing_id: cap.id}).order("created_at DESC").first
+				stored_performance = StudentPerformance.where({student_user_id: student_user_id, classroom_activity_pairing_id: cap.id})
+					.order("created_at DESC")
+					.first
 
 				if activity.activity_type.eql?('scored')
 					
@@ -458,7 +462,7 @@
 
 	def student_performance
 
-		student_performance = StudentPerformance.where(id: params[:student_performance_id]).first
+		student_performance = StudentPerformance.where(id: params[:student_performance_id]).includes(:activity_level).first
 
 		if student_performance 
 			
@@ -471,11 +475,8 @@
 
 				activity = Activity.joins(:classroom_activity_pairings).where("classroom_activity_pairings.id = ?", student_performance.classroom_activity_pairing_id).first
 
-				student_performance_hash = student_performance.serializable_hash
-				#fix the performance_date field
-				student_performance_hash["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activity.activity_type, student_performance_hash["scored_performance"], student_performance_hash["completed_performance"])
-
-				render json: {status: "success", activity: activity, student: student, student_performance: student_performance_hash}
+				
+				render json: {status: "success", activity: activity, student: student, student_performance: student_performance.as_json}
 
 			else
 
@@ -674,6 +675,125 @@
 
 	end
 
+	# Save a submitted student performance
+  # Expects the following parameters:
+  # student_performance
+  # => classroom_activity_pairing_id
+  # => scored_performance
+  # => completed_performance
+  # => performance_date
+  # => notes
+  # => student_user_id
+	def save_student_performance
+
+		# check to make sure the student_user_id passed is an actual student of the teacher
+		classroom_ids = @current_teacher_user.classrooms.pluck(:id)
+		student = StudentUser.where(id: params[:student_user_id]).first
+		student_valid = !student.nil? && !ClassroomStudentUser.where({student_user_id: student.id, classroom_id: classroom_ids}).first.nil?
+		if !student_valid
+      render json: {status: "error", error: "invalid-student-user-id"}
+      return
+		end
+
+		# check to make sure the classroom_activity_paiaring_id matched one of the teacher's activities
+		cap = ClassroomActivityPairing.where(id: params[:classroom_activity_pairing_id]).first
+		cap_valid = !cap.nil? && cap.classroom.teacher_user_id.eql?(@current_teacher_user.id)
+		if !cap_valid
+      render json: {status: "error", error: "invalid-classroom-activity-pairing-id"}
+      return
+		end
+
+		@student_performance = StudentPerformance.new(params.require(:student_performance).permit(:classroom_activity_pairing_id, :scored_performance, :completed_performance, :performance_date, :activity_level_id, :notes, :student_user_id))    
+    @student_performance.student_user_id = params[:student_user_id]
+
+    if(@student_performance.save)
+
+      render json: {status: "success"}
+
+    else
+    
+      render json: {status: "error", student_performance_errors: @student_performance.errors}
+
+    end
+	end
+
+	# Save all submitted student performances
+  # Expects the following parameters:
+  # student_performances: an Array where each item has the following fields
+  # => id (student_performance_id)
+  # => scored_performance
+  # => completed_performance
+  # => performance_date
+  # classroom_activity_pairing_id: an integer that should match every student performance that is submitted
+  # student_user_id
+  def save_all_student_performances
+
+    #set param variables
+    student_performances = params[:student_performances]
+    classroom_activity_pairing_id = params[:classroom_activity_pairing_id].to_i
+
+    # iterate through all submitted performances and make sure they are all valid 
+    all_valid = true
+    student_performances_ids = Array.new
+    student_performances_to_save = Array.new
+    errors = Hash.new
+
+    student_performances.each do |id, student_performance_hash|
+      student_performance = StudentPerformance.where(id: id).first
+      if student_performance && 
+          student_performance.classroom_activity_pairing_id.eql?(classroom_activity_pairing_id) &&
+          student_performance.student_user_id.eql?(params[:student_user_id].to_i)
+
+        student_performance.scored_performance = student_performance_hash["scored_performance"]
+        student_performance.completed_performance = student_performance_hash["completed_performance"]
+        student_performance.performance_date = student_performance_hash["performance_date"]
+        student_performance.activity_level_id = student_performance_hash["activity_level_id"]
+        student_performance.notes = student_performance_hash["notes"]
+
+        if student_performance.valid?
+          student_performances_to_save.push(student_performance)
+          student_performances_ids.push(student_performance.id)
+        else
+          errors[student_performance.id] = student_performance.errors
+          all_valid = false
+        end
+
+      else
+        all_valid = false
+        if !student_performance
+          errors["student_performance_id"] = "invalid student_performance_id submitted"
+        else
+          errors["classroom_activity_pairing_id"] = "classroom_activity_pairing_id does not match student performances submitted"
+        end
+      end
+
+    end
+
+    # if all the submitted performacnes are valid save them
+    if all_valid
+      student_performances_to_save.each do |student_performance|
+        student_performance.save
+      end
+
+      # identify performances that were not passed and delete them
+      student_performances_to_delete = StudentPerformance.where({classroom_activity_pairing_id: classroom_activity_pairing_id, student_user_id: params[:student_user_id]})
+        .where("id not in (?)", student_performances_ids)
+      student_performances_to_delete.each do |student_performance|
+        student_performance.destroy
+      end
+
+      render json: {status: "success"}
+
+    else
+
+      render json: {status: "error", errors: errors}
+
+
+    end
+
+    
+  end
+
 	#################################################################################
 	#
 	# Activities App Methods
@@ -686,6 +806,7 @@
 
 		render json: {status: "success" , tags: tags}
 	end
+
 
 	def teacher_activities_and_classroom_assignment
 
@@ -704,8 +825,68 @@
 		
 	end
 
-	def activities
+
+	# Given an Activity ID, returns a JSON object representing the Activity.  
+	# Return JSON object also includes 
+	# => Classroom
+	# => Classroom Activivty Pairing (use to indicated if activity is assigned to which classrooms)
+	# => Activity Tag data
+	# => Activity Levels data
+	#
+	# If an invalid activity ID is passed, then a blank activity is returned
+	def activity
+
+		@activity = Activity.where({teacher_user_id: @current_teacher_user.id, id: params[:activity_id]}).first
 		
+		if(!@activity.nil?)
+			
+			# get Hash representing Activity
+			activity_hash = @activity.as_json
+			
+			# get Activity Tags for associated Activity
+			activity_hash["tags"] = @activity.activity_tags.to_a.map(&:serializable_hash)
+
+			# get Activity Levels for associated Activity
+			activity_hash["levels"] = @activity.activity_levels.to_a.map(&:serializable_hash)
+
+		else
+
+			activity_hash = Activity.new.serializable_hash
+			activity_hash["tags"] = Array.new
+			activity_hash["levels"] = Array.new
+
+
+		end
+
+		# get all Classrooms and respective IDs
+		classrooms = Classroom.where(teacher_user_id: @current_teacher_user.id).as_json
+		classroom_ids = Classroom.where(teacher_user_id: @current_teacher_user.id).pluck(:id)
+		
+		# get all Classroom Activity pairings
+		pairings_hash = ClassroomActivityPairing.where("classroom_id" => classroom_ids)
+			.where("activity_id" => activity_hash["id"]).as_json
+
+		# create a lookup Hash to get for the Classroom ID
+		classroom_indices = Hash.new
+		classrooms.each_with_index do |classroom, index|
+			classroom_indices[classroom["id"]] = index
+		end
+
+		# Use the lookup Hash to associate each Classroom Activity Pairing to the matching Classroom
+		pairings_hash.each do |pairing|
+			index = classroom_indices[pairing["classroom_id"]]
+			classrooms[index]["classroom_activity_pairing"] = pairing
+		end
+
+		# Set the Classrooms key in the Activity Hash
+		activity_hash["classrooms"] = classrooms
+
+		# get all the tags for the user
+		all_tags = ActivityTag.tags_for_teacher(@current_teacher_user.id)
+
+
+		render json: {status: "success", activity: activity_hash, activity_tags: all_tags}
+
 	end
 
 	def teacher_activities_options
@@ -982,6 +1163,19 @@
 
 	end
 
+	# creates a new Activity with Activity Tags and Activity Levels using the parameters passed.  The following paramteres are expected:
+	# activity
+	# => name
+	# => description
+	# => instructions
+	# => activity_type
+	# => min_score
+	# => max_score
+	# => benchmark1_score
+	# => benchmark2_score
+	# => link
+	# tags
+	# levels
 	def save_new_activity
 
 		@activity = Activity.new(params.require(:activity).permit(:name, :description, :instructions, :activity_type, :min_score, :max_score, :benchmark1_score, :benchmark2_score, :link))
@@ -989,12 +1183,14 @@
 
 		tag_errors = Array.new
 		pairing_errors = Array.new
+		level_errors = Array.new
 
 		if(@activity.save)
 
 			#save the tags
-			params[:tags] = params[:tags].nil? ? {} : params[:tags]
-			params[:tags].each do |index, value| 
+			tags = params[:tags] ||  {} 
+			# params[:tags] = params[:tags].nil? ? {} : params[:tags]
+			tags.each do |id, value| 
 
 				#check if the tag exists, if it doesn't create it
 				tag = ActivityTag.where({name: value}).first_or_initialize({name: value})
@@ -1010,10 +1206,24 @@
 
 			end
 
+			#save the levels
+			activity_levels = params[:activity_levels] ||  {} 
+			activity_levels.each do |id, hash| 
+
+				# check if the level exists (and matches the activity id)
+				level = ActivityLevel.where({name: hash["name"], activity_id: @activity.id}).first_or_initialize({name: hash["name"], abbreviation: hash["abbreviation"], activity_id: @activity.id})
+
+				if(!level.save)
+					level_errors.push(level.errors)
+				end
+
+			end
+
 			activity_hash = @activity.serializable_hash
 			activity_hash["tags"] = @activity.activity_tags.to_a.map(&:serializable_hash)
+			activity_hash["levels"] = @activity.activity_levels.to_a.map(&:serializable_hash)
 
-			render json: {status: "success", activity: activity_hash, tag_errors: tag_errors, pairing_errors: pairing_errors}
+			render json: {status: "success", activity: activity_hash, tag_errors: tag_errors, pairing_errors: pairing_errors, level_errors: level_errors}
 		else
 
 			render json: {status: "error", errors: @activity.errors}
@@ -1022,65 +1232,20 @@
 	end
 
 
-	# Given an Activity ID, returns a JSON object representing the Activity.  
-	# Return JSON object also includes 
-	# => Classroom
-	# => Classroom Activivty Pairing (use to indicated if activity is assigned to which classrooms)
-	# => Activity Tag data
-	#
-	# If an invalid activity ID is passed, then a blank activity is returned
-	def activity
-
-		@activity = Activity.where({teacher_user_id: @current_teacher_user.id, id: params[:activity_id]}).first
-		
-		if(!@activity.nil?)
-			
-			# get Hash representing Activity
-			activity_hash = @activity.serializable_hash
-			
-			# get Activity Tags for associated Activity
-			activity_hash["tags"] = @activity.activity_tags.to_a.map(&:serializable_hash)
-
-		else
-
-			activity_hash = Activity.new.serializable_hash
-			activity_hash["tags"] = Array.new
-
-
-		end
-
-		# get all Classrooms and respective IDs
-		classrooms = Classroom.where(teacher_user_id: @current_teacher_user.id).as_json
-		classroom_ids = Classroom.where(teacher_user_id: @current_teacher_user.id).pluck(:id)
-		
-		# get all Classroom Activity pairings
-		pairings_hash = ClassroomActivityPairing.where("classroom_id" => classroom_ids)
-			.where("activity_id" => activity_hash["id"]).as_json
-
-		# create a lookup Hash to get for the Classroom ID
-		classroom_indices = Hash.new
-		classrooms.each_with_index do |classroom, index|
-			classroom_indices[classroom["id"]] = index
-		end
-
-		# Use the lookup Hash to associate each Classroom Activity Pairing to the matching Classroom
-		pairings_hash.each do |pairing|
-			index = classroom_indices[pairing["classroom_id"]]
-			classrooms[index]["classroom_activity_pairing"] = pairing
-		end
-
-		# Set the Classrooms key in the Activity Hash
-		activity_hash["classrooms"] = classrooms
-
-		# get all the tags for the user
-		all_tags = ActivityTag.tags_for_teacher(@current_teacher_user.id)
-
-
-		render json: {status: "success", activity: activity_hash, activity_tags: all_tags}
-
-
-	end
-
+	
+	# updates a new Activity with Activity Tags and Activity Levels using the parameters passed.  The following paramteres are expected:
+	# activity
+	# => name
+	# => description
+	# => instructions
+	# => activity_type
+	# => min_score
+	# => max_score
+	# => benchmark1_score
+	# => benchmark2_score
+	# => link
+	# tags
+	# levels
 	def update_activity
 
 		@activity = Activity.where({teacher_user_id: @current_teacher_user.id, id: params[:id]}).first
@@ -1088,39 +1253,130 @@
 		if !@activity.nil?
 			@activity.update(params.require(:activity).permit(:name, :description, :instructions, :activity_type, :min_score, :max_score, :benchmark1_score, :benchmark2_score, :link))
 
-			if(@activity.save)
+			if(@activity.valid?)
 
-				#go through all the submitted tags and add/delete as necessary				
-				params[:tags] ||=  {} 
 				tag_errors = Array.new
 				pairing_errors = Array.new
+				level_errors = Array.new
 
-				params[:tags].each do |index, value| 
+				# go through all the submitted tags and add/delete as necessary				
+				# set param variables
+				tags = params[:tags] ||  {} 
+
+				all_tags_valid = true
+				all_tag_pairings_valid = true
+				tags_to_save = Array.new
+				tag_pairings_to_save = Array.new
+				tag_errors = Hash.new
+				tag_pairing_errors = Hash.new
+
+				tags.each do |id, value| 
 
 					#check if the tag exists, if it doesn't create it
 					tag = ActivityTag.where({name: value}).first_or_initialize({name: value})
-					if(!tag.save)
-						tag_errors.push(tag.errors)
+					if(tag.save)
+						tags_to_save.push(tag)
+					else
+						all_tags_valid = false
+						tag_errors[id] = tag.errors
 					end
 
 					#create a new activity tag pair if it doesn't exist
 					atp = ActivityTagPairing.where({activity_id: @activity.id, activity_tag_id: tag.id}).first_or_initialize					
-					if !atp.save
-						pairing_errors.push(atp.errors)
+					if atp.valid?
+						tag_pairings_to_save.push(atp) 
+					else
+						all_tag_pairings_valid = false
+						tag_pairing_errors[id] = atp.errors
 					end
+
 				end
 
-				#delete all tag pairings from the database if they aren't in the submitted list
-				@activity.activity_tag_pairings.each do |existing_atp|
-					if !params[:tags].has_value?(existing_atp.activity_tag.name)
-						existing_atp.destroy
+				# set param variables
+				activity_levels =	params[:activity_levels] || {} 
+
+				all_levels_valid = true
+				levels_to_save = Array.new
+				level_errors = Hash.new
+				new_activity_levels = {}
+
+				activity_levels.each do |id, hash| 
+
+					# check if it is a new activity
+					if id.include?("new")
+						
+						# check if the level exists (and matches the activity id)
+						level = ActivityLevel.where({name: hash["name"], activity_id: @activity.id}).first_or_initialize({name: hash["name"], abbreviation: hash["abbreviation"], activity_id: @activity.id})
+						
+					else
+					# check if the level exists (and matches the activity id)
+						level = ActivityLevel.where({id: id, activity_id: @activity.id}).first
+
+						# update the name
+						level.name = hash["name"]
+						level.abbreviation = hash["abbreviation"]		
 					end
+
+					# check to make sure it is valid
+					if(level.valid?)
+						levels_to_save.push(level)
+					else
+						all_levels_valid = false
+						level_errors[id] = level.errors
+					end
+					
 				end
 
-				activity_hash = @activity.serializable_hash
-				activity_hash["tags"] = @activity.activity_tags.to_a.map(&:serializable_hash)
+				# if all the changes to levels are valid, save them all
+				if all_levels_valid && all_tags_valid && all_tag_pairings_valid
 
-				render json: {status: "success", activity: activity_hash, tag_errors: tag_errors, pairing_errors: pairing_errors}
+					# save activity, tags, pairing, and levels
+					@activity.save
+
+					tags_to_save.each do |tag|
+						tag.save
+					end
+
+					tag_pairings_to_save.each do |atp|
+						atp.save
+					end
+
+					levels_to_save.each do |level|
+						if(level.id.nil?)
+							level.save
+							new_activity_levels[level.id] = level
+						else
+							level.save
+						end
+					end
+
+					# delete all levels from the database if they aren't in the submitted list
+					@activity.activity_levels.each do |existing_level|
+						if !activity_levels.has_key?(existing_level.id.to_s) && !new_activity_levels.has_key?(existing_level.id)
+							puts "destroying level"
+							existing_level.destroy
+						end
+					end
+
+					#delete all tag pairings from the database if they aren't in the submitted list
+					@activity.activity_tag_pairings.each do |existing_atp|
+						if !tags.has_value?(existing_atp.activity_tag.name)
+							existing_atp.destroy
+						end
+					end
+
+					# prepare the activity hash to return
+					activity_hash = @activity.as_json
+
+					render json: {status: "success", activity: activity_hash}
+
+				else
+
+					render json: {status: "error", message: "error-with-tag-pairing-or-level", level_errors: level_errors, tag_errors: tag_errors, tag_pairing_errors: tag_pairing_errors}
+				end
+				
+
+				
 				
 			else				
 
@@ -1323,6 +1579,9 @@
 		
 	end
 
+
+	
+
 	#################################################################################
 	#
 	# Students App Methods
@@ -1375,6 +1634,15 @@
 		
 	end
 
+	# returns a json object with the following fields:
+	# => activities
+	# 	 the activities includes performance data
+	# => student
+	# => classroom
+	# 
+	# expects the following parameters:
+	# => student_user_id
+	# => classroom_id
 	def student_activities_and_performances
 
 		classroom = Classroom.joins(:classroom_student_users)
@@ -1459,12 +1727,6 @@
         activity = classroom_activity_pairing.activity
 
         performances = StudentPerformance.where({classroom_activity_pairing_id: classroom_activity_pairing.id, student_user_id: params[:student_user_id]}).order("created_at ASC").as_json
-
-        performances.each do |performance|
-          performance["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activity.activity_type, performance["scored_performance"], performance["completed_performance"])
-          performance["performance_color"] = StudentPerformance.performance_color_no_active_record(activity.activity_type, activity.benchmark1_score, activity.benchmark2_score, activity.min_score, activity.max_score, performance["scored_performance"], performance["completed_performance"])
-
-        end
 
         activity_goal = ActivityGoal.where(student_user_id: params[:student_user_id]).where(classroom_activity_pairing_id: classroom_activity_pairing.id).order("id DESC").first.as_json
         if activity_goal

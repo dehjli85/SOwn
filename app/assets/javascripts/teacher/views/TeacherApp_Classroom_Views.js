@@ -25,9 +25,9 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			editDataLink: "[ui-edit-data-a]",
 			editActivitiesLink: "[ui-edit-activities-a]",			
 			classroomCodeLink: "[ui-show-classroom-code-a]",
-			editClassroomLink: "[ui-edit-classroom-a]",
 			exportData: "[ui-export-data-a]",
 			lis: "li",
+			editClassroomLink: "[ui-edit-classroom-link]"
 		},
 
 		makeTabActive: function(e){
@@ -100,7 +100,7 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 
 		onChildviewClassroomShowEditClassroom: function(view){
 
-			TeacherAccount.navigate("classroom/edit_classroom/" + view.model.attributes.id);
+			// TeacherAccount.navigate("classroom/edit_classroom/" + view.model.attributes.id);
 			TeacherAccount.TeacherApp.Classroom.Controller.showEditClassroom(this, view.model.attributes.id);
 
 		},
@@ -111,12 +111,20 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 
 		},
 
+		onChildviewSaveClassroom: function(classroomView){
+			TeacherAccount.TeacherApp.Main.Controller.saveClassroom(classroomView, this);			
+		},
+
 		
 		onChildviewSaveReflection: function(setGoalModalView){
 			var scoresLayoutView = this.mainRegion.currentView;
 			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveReflection(this, scoresLayoutView, setGoalModalView);
 
-		}
+		},
+		
+
+		
+
 
 		
 

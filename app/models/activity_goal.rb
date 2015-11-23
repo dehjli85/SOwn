@@ -66,7 +66,6 @@ class ActivityGoal < ActiveRecord::Base
     	@goal_met = false
     	if(!performances.empty?)
 		  	performances.each do |performance|
-		  		puts "#{performance.completed_performance}, #{performance.performance_date}, #{goal_date}"
 		  		if performance.completed_performance && performance.performance_date <= goal_date
 		  			@goal_met = @goal_met || true
 		  		end

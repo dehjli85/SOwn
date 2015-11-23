@@ -1,0 +1,93 @@
+<div class="row">
+  <div class="col-sm-2 col-sm-offset-10">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <form ui-performance-table-form>
+
+      <input type="hidden" name="classroom_activity_pairing_id" value="<%= classroom_activity_pairing.id %>">
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width:25%">
+              <%= activity.activity_levels.length == 0 ? 'Activity' : 'Activity Level' %>
+            </th>
+            <th style="width:1%">
+              Date
+            </th>
+            <th style="width:10%">
+              Score
+            </th>
+            <th style="width:25%">
+              Notes
+            </th>
+            <th style="width:1%">
+              <a href="#" ui-edit-button>Edit</a>
+            </th>
+          </tr>
+        </thead>
+        <tbody ui-performance-table-tbody>
+        </tbody>
+      </table>
+      
+      <table ui-hidden-table style="display:none">
+        <tr ui-new-performance-row> 
+          <td> 
+
+            <input type="hidden" name="student_performance[classroom_activity_pairing_id]" value="<%= classroom_activity_pairing.id %>">
+
+           <% if(activity.activity_levels.length == 0){ %> 
+
+              <%= activity.name %> 
+
+            <% } else { %>
+
+              <select name="student_performance[activity_level_id]" class="form-control">
+
+                <option></option>
+                <% for(var i = 0; i < activity.activity_levels.length; i++){ %>
+                  <option value="<%= activity.activity_levels[i].id %>">
+                    <%= activity.activity_levels[i].name %>
+                  </option>
+                <% } %>
+              </select>
+
+            <% } %>
+
+            <% if(student_performance_errors){ %>
+              <% if(student_performance_errors.scored_performance){ %>
+                <br>
+                <span style="color:red">Score <%= student_performance_errors.scored_performance %></span>
+              <% } %>
+              <% if(student_performance_errors.performance_date){ %>
+                <br>
+                <span style="color:red">Date <%= student_performance_errors.performance_date %></span>
+              <% } %>
+            <% } %>
+          </td>
+          <td>
+            <input type="date" class="form-control" name="student_performance[performance_date]" value="<%= moment().format('YYYY-MM-DD') %>">
+          </td>
+          <td>
+            <input type="text" class="form-control" name="student_performance[scored_performance]">
+          </td>
+          <td>
+            <textarea class="form-control" name="student_performance[notes]"></textarea>
+          </td>
+          <td><a href="#" class="btn btn-primary" ui-add-performance-button>+</a></td>
+      </tr>
+        
+      </table>
+
+      <div style="display:flex; justify-content: flex-end">
+          <a href="#" class="btn btn-default" ui-cancel-button style="display:none">Cancel</a>
+          <a href="#" class="btn btn-primary" ui-save-button style="display:none; margin-left: 15px;">Save</a>
+      </div>
+
+    </form>
+  </div>
+
+</div>

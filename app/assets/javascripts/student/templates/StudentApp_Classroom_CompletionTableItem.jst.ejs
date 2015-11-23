@@ -1,0 +1,53 @@
+<td>
+	
+	<% if(activity.activity_levels.length == 0){ %> 
+	
+		<%= activity.name %>
+	
+	<% } else { %>
+		<span class="ui-show"><%= activity_level ? activity_level.name : '' %></span>
+
+		<select name="student_performances[<%= id %>][activity_level_id]" class="form-control ui-edit">
+			<option></option>
+      <% for(var i = 0; i < activity.activity_levels.length; i++){ %>
+        <option value="<%= activity.activity_levels[i].id %>" <%= activity_level && activity_level.id == activity.activity_levels[i].id ? 'selected' : '' %>>
+          <%= activity.activity_levels[i].name %>
+        </option>
+      <% } %>
+    </select>
+
+	<% } %>
+
+	<% if(errors){ %> 
+		<% if(errors.completed_performance){ %>
+			<br>
+			<span style="color:red">Status <%= errors.completed_performance %></span>
+		<% } %>
+		<% if(errors.performance_date){ %>
+			<br>
+			<span style="color:red">Date <%= errors.performance_date %></span>
+		<% } %>
+	<% } %>
+	
+</td>
+<td>
+	<span class="ui-show"><%= moment(performance_date).format("MM/DD/YY") %></span>
+	<input type="date" class="form-control ui-edit" name="student_performances[<%= id %>][performance_date]" value="<%= moment(performance_date).format('YYYY-MM-DD') %>" style="display:none">
+</td>
+<td>
+	<span class="ui-show">
+		<% if(completed_performance){ %>
+			<i class="ion-checkmark-circled success-icon-sown" style="font-size:20px"></i>
+		<% }else{ %>
+			<i class="ion-close-circled" style="font-size:20px"></i>
+		<% } %>  
+	</span>
+	<select class="ui-edit form-control" name="student_performances[<%= id %>][completed_performance]">
+    <option value="true" <%= completed_performance ? 'selected' : '' %>>Completed</option>
+    <option value="false" <%= !completed_performance ? 'selected' : '' %>>Not Completed</option>
+    <option></option>
+	</select>
+</td>
+<td>
+	<a href="#" class="btn btn-danger ui-edit" style="display:none" ui-delete-button>X</a>
+</td>

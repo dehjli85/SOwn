@@ -5,6 +5,18 @@
     </div>
     <div class="modal-body">
       <form class="form form-horizontal" ui-activity-form>
+        <% if(activity_status == "New" && activities != null && activities.length != 0){ %> 
+          <div class="form-group">
+            <label class="col-md-4 control-label">Copy Activity:</label>
+            <div class="col-md-6">
+              <input class="form-control input-xs typeahead" id="inputName" placeholder="Type the name of the activity to copy..." type="text" ui-copy-input>
+            </div>
+            <div class="col-md-2">
+              <a href="#" class="btn btn-primary" ui-copy-button>Copy</a>
+
+            </div>
+          </div>
+        <% } %>
         <div class="form-group <% if(errors.name != null){%>has-error<%}%>">
           <label class="col-md-4 control-label">Activity Name:</label>
           <div class="col-md-8">
@@ -30,6 +42,7 @@
           <ul class="nav nav-tabs" ui-activity-tabs>
               <li class="ui-tab-header <% if(activity_type == "scored") {%> active <%}%>" <% if(activity_type == "completion") {%> style="display:none" <%}%> ui-score-color-tab-header><a href="#score_colors" data-toggle="tab">Score Colors</a></li>
               <li class="ui-tab-header <% if(activity_type == "completion") {%> active <%}%>"><a href="#optional_fields" data-toggle="tab" ui-optional-fields-tab-header>Optional Fields</a></li>
+              <li class="ui-tab-header"><a href="#activity_levels" data-toggle="tab">Levels</a></li>
               <li class="ui-tab-header"><a href="#activity_tags" data-toggle="tab">Tags</a></li>
               <li class="ui-tab-header"><a href="#assign" data-toggle="tab">Assign</a></li>
           </ul>
@@ -136,17 +149,14 @@
             </div>
             
             <div class="tab-pane" id="activity_tags">
-              <div class="tab-desc animated fadeInUp">
-                <div class="form-group">
-                  <label for="inputTags" class="col-sm-2 control-label">Tag:</label>
-                  <div class="col-sm-6" ui-tag-input-div><input type="text" name="newtag" class="form-control typeahead" id="newTag" ui-tag-input></div>
-                  <div class="col-sm-2">
-                    <input type="submit" class="btn btn-sm btn-primary" value="Add" ui-add-tags-button>      
-                  </div>          
-                </div>
-                <div class="row">
-                  <ul id="tagDisplayList" class="list-inline col-sm-10 col-sm-offset-2"></ul>
-                </div>
+              <div class="tab-desc animated fadeInUp" id="tags_region">
+              
+              </div>
+            </div>
+
+            <div class="tab-pane" id="activity_levels">
+              <div class="tab-desc animated fadeInUp" id="levels_region">
+                
               </div>
             </div>
 
@@ -172,7 +182,7 @@
       </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal" ui-cancel-button>Cancel</button>
       <button type="button" class="btn btn-primary" data-dismiss="modal" ui-save-button>Save</button>
     </div>
   </div><!-- /.modal-content -->

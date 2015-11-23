@@ -169,6 +169,8 @@ class StudentAccountController < ApplicationController
       if classroom_student_users
 
         activity = classroom_activity_pairing.activity
+        activity_hash = activity.serializable_hash
+        activity_hash["levels"] = activity.activity_levels.as_json
 
         render json: {status: "success", activity: activity, classroom_activity_pairing: classroom_activity_pairing}
 
@@ -204,12 +206,17 @@ class StudentAccountController < ApplicationController
 
         activity = classroom_activity_pairing.activity
 
-        performances = StudentPerformance.where({classroom_activity_pairing_id: classroom_activity_pairing.id, student_user_id: @current_student_user.id}).order("created_at ASC").as_json
-        performances.each do |performance|
-          performance["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activity.activity_type, performance["scored_performance"], performance["completed_performance"])
-          performance["performance_color"] = StudentPerformance.performance_color_no_active_record(activity.activity_type, activity.benchmark1_score, activity.benchmark2_score, activity.min_score, activity.max_score, performance["scored_performance"], performance["completed_performance"])
+        # performances = StudentPerformance.where({classroom_activity_pairing_id: classroom_activity_pairing.id, student_user_id: @current_student_user.id})
+        #   .order("created_at ASC")
+        #   .as_json
 
-        end
+        # performances.each do |performance|
+        #   performance["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activity.activity_type, performance["scored_performance"], performance["completed_performance"], performance.activity_level ? performance.activity_level.name : nil)
+        #   performance["performance_color"] = StudentPerformance.performance_color_no_active_record(activity.activity_type, activity.benchmark1_score, activity.benchmark2_score, activity.min_score, activity.max_score, performance["scored_performance"], performance["completed_performance"])
+
+        # end
+
+        performances = StudentPerformance.where({classroom_activity_pairing_id: classroom_activity_pairing.id, student_user_id: @current_student_user.id}).order("created_at ASC").as_json
 
         activity_goal = ActivityGoal.where(student_user_id: @current_student_user.id).where(classroom_activity_pairing_id: classroom_activity_pairing.id).order("id DESC").first.as_json
         if activity_goal
@@ -234,12 +241,18 @@ class StudentAccountController < ApplicationController
 
   end
 
+  # Save a submitted student performance
+  # Expects the following parameters:
+  # student_performance
+  # => classroom_activity_pairing_id
+  # => scored_performance
+  # => completed_performance
+  # => performance_date
+  # => notes
   def save_student_performance
 
-    @student_performance = StudentPerformance.new(params.require(:student_performance).permit(:classroom_activity_pairing_id, :scored_performance, :completed_performance, :performance_date))    
+    @student_performance = StudentPerformance.new(params.require(:student_performance).permit(:classroom_activity_pairing_id, :scored_performance, :completed_performance, :performance_date, :activity_level_id, :notes))    
     @student_performance.student_user_id = @current_student_user.id
-    
-    puts "student_performance: #{@student_performance}"
 
     if(@student_performance.save)
 
@@ -250,6 +263,85 @@ class StudentAccountController < ApplicationController
       render json: {status: "error", student_performance_errors: @student_performance.errors}
 
     end
+    
+  end
+
+  # Save all submitted student performances
+  # Expects the following parameters:
+  # student_performances: an Array where each item has the following fields
+  # => id (student_performance_id)
+  # => scored_performance
+  # => completed_performance
+  # => performance_date
+  # classroom_activity_pairing_id: an integer that should match every student performance that is submitted
+  def save_all_student_performances
+
+    #set param variables
+    student_performances = params[:student_performances] || {}
+    classroom_activity_pairing_id = params[:classroom_activity_pairing_id].to_i
+
+    # iterate through all submitted performances and make sure they are all valid 
+    all_valid = true
+    student_performances_ids = Array.new
+    student_performances_to_save = Array.new
+    errors = Hash.new
+
+    student_performances.each do |id, student_performance_hash|
+      student_performance = StudentPerformance.where(id: id).first
+      if student_performance && 
+          student_performance.classroom_activity_pairing_id.eql?(classroom_activity_pairing_id) &&
+          student_performance.student_user_id.eql?(@current_student_user.id)
+
+        student_performance.scored_performance = student_performance_hash["scored_performance"]
+        student_performance.completed_performance = student_performance_hash["completed_performance"]
+        student_performance.performance_date = student_performance_hash["performance_date"]
+        student_performance.activity_level_id = student_performance_hash["activity_level_id"]
+        student_performance.notes = student_performance_hash["notes"]
+
+        if student_performance.valid?
+          student_performances_to_save.push(student_performance)
+          student_performances_ids.push(student_performance.id)
+        else
+          errors[student_performance.id] = student_performance.errors
+          all_valid = false
+        end
+
+      else
+        all_valid = false
+        if !student_performance
+          errors["student_performance_id"] = "invalid student_performance_id submitted"
+        else
+          errors["classroom_activity_pairing_id"] = "classroom_activity_pairing_id does not match student performances submitted"
+        end
+      end
+
+    end
+
+    # if all the submitted performacnes are valid save them
+    if all_valid
+      student_performances_to_save.each do |student_performance|
+        student_performance.save
+      end
+
+      # identify performances that were not passed and delete them
+      student_performances_to_delete = StudentPerformance.where({classroom_activity_pairing_id: classroom_activity_pairing_id, student_user_id: @current_student_user.id})
+      if !student_performances_ids.empty?
+        student_performances_to_delete = student_performances_to_delete.where("id not in (?)", student_performances_ids)
+      end
+
+      student_performances_to_delete.each do |student_performance|
+        student_performance.destroy
+      end
+
+      render json: {status: "success"}
+
+    else
+
+      render json: {status: "error", errors: errors}
+
+
+    end
+
     
   end
 

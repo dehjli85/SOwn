@@ -67,41 +67,20 @@
 
 	<% if(student_performances[0]){ %>
 		<td class="center <%= student_performances[0].performance_color %>">
-			<%= student_performances[0].performance_pretty %>
-			<% if(student_performances[0].requires_verification == 't'  && student_performances[0].verified != 't'){ %> <i class="ion-checkmark-circled"></i>
+			<a href="#" class="enter-score-link" style="">
+				<%= student_performances[0].performance_pretty %>
+			</a>
+			<% if(student_performances[0].requires_verification == 't'  && student_performances[0].verified != 't'){ %> 
+				<i class="ion-checkmark-circled"></i>
 			<% } %>
+
 		</td>
 	<%}else{%>
-		<td></td>
-	<%}%>
-
-	<% if(student_performances[1]){ %>
-	<td class="center <%= student_performances[1].performance_color %>">
-		<%= student_performances[1].performance_pretty %>
-		<% if(student_performances[1].requires_verification == 't' && student_performances[1].verified != 't'){%> <i class="ion-checkmark-circled">
-		<% } %>
-	</td>
-	<%}else{%>
-		<td></td>
-	<%}%>
-
-	<% if(student_performances[2]){ %>
-	<td class="center <%= student_performances[2].performance_color %>">
-		<%= student_performances[2].performance_pretty %>
-		<% if (student_performances[2].requires_verification == 't' && student_performances[2].verified != 't'){ %> <i class="ion-checkmark-circled">
-		<% } %>
-	</td>
-	<%}else{%>
-		<td></td>
+		<td class="center">
+			<a href="#" class="enter-score-link">Enter Score</a>
+		</td>
 	<%}%>
 
 	<td class="student-scores-table__action-cell" >
-		<ul style="display:inline; list-style-type: none; padding:0px;">
-			<li style="display:inline; margin: 0px 5px;">
-				<a class="btn btn-primary btn-xs" href="#" ui-track-button>Track</a>
-			</li>
-			<li style="display:inline; margin: 0px 5px;">
-				<a class="btn btn-primary btn-xs" href="#" ui-see-all-a>See All</a>
-			</li>
-		</ul>
+		<a class="btn btn-primary btn-xs enter-score-link" href="#" ui-track-button>Track</a>
 	</td>

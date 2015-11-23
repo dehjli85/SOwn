@@ -9,6 +9,7 @@ class Activity < ActiveRecord::Base
   has_many :classrooms, :through => :classroom_activity_pairings
   has_many :activity_tag_pairings
   has_many :activity_tags, :through => :activity_tag_pairings
+  has_many :activity_levels
   
 
 	validates :activity_type, inclusion: { in: %w(completion scored),
@@ -93,7 +94,7 @@ class Activity < ActiveRecord::Base
       # just in case someone says as_json(nil) and bypasses
       # our default...
       super((options || { }).merge({
-          :methods => [:description_abbreviated, :instructions_abbreviated, :activity_type_pretty]
+          :methods => [:description_abbreviated, :instructions_abbreviated, :activity_type_pretty, :activity_levels]
       }))
   end
 

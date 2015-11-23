@@ -1,3 +1,25 @@
+<% if(classrooms.length == 0){ %> 
+    <div class="jumbotron">
+        <h1>Welcome to Sown To Grow!</h1>
+        <p>
+            We can get you started in just a few minutes.  
+        </p>
+        <p>
+            Your first step is to create a classroom.  Click on the “Add Class” button below to create your first class.
+        </p> 
+    </div>
+<% } else if(activities.length == 0){ %>
+    <div class="jumbotron">
+        <h2>Great job creating your classroom!</h2>
+        <p>
+            You can add additional classes in the same way.  Your next step is to create your first learning activity for students to track.  Start by clicking on your new classroom below.
+        </p> 
+        <p>
+            Wondering what type of learning activities make sense?  Click <a href="https://docs.google.com/presentation/d/1poywZv72jYOBBkDRXUolJOkEPspFsLPYQ4OY6J5THa0/pub?start=false&amp;loop=false&amp;delayms=3000" target="_blank">here</a> to learn more.
+        </p>
+    </div>
+<% } %>
+
 <div class="row">
 	<div class="col-sm-5" style="text-align:left">
 		<span class="header">My Classrooms</span>
