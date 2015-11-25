@@ -22,9 +22,10 @@ StudentAccount.on("start", function(){
 		Backbone.history.start();	
 	}
 
-	StudentAccount.trigger("header-and-leftnav"); //trigger target is the router
 
 	if(this.getCurrentRoute() === ""){		
+		StudentAccount.trigger("header-and-leftnav"); //trigger target is the router
+
 		StudentAccount.trigger("classrooms");	//trigger target is the router
 	}
 	

@@ -76,69 +76,107 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 
 	});	
 
-	Students.ShowActivityView = Marionette.ItemView.extend({
-		template: JST["teacher/templates/Students/TeacherApp_Students_ShowActivity"],
-		tagName: "tr",
-
-		ui:{
-			seeAllButton: "[ui-see-all-a]",
-			nameLink: "[ui-name-a]"
-		},
-
-		triggers:{
-			"click @ui.seeAllButton": "students:layout:show:see:all:modal",
-			"click @ui.nameLink": "students:layout:show:activity:details:modal"
-		}
-
-	});
-
-	Students.ShowStudentCompositeView = Marionette.CompositeView.extend({
-		template: JST["teacher/templates/Students/TeacherApp_Students_ShowStudentComposite"],
-		childViewContainer: "tbody",
-		childView: TeacherAccount.TeacherApp.Students.ShowActivityView,
-		className: "col-md-12",
-
-
-		
-
-	});
 
 	Students.StudentsLayoutView = Marionette.LayoutView.extend({
 		template: JST["teacher/templates/Students/TeacherApp_Students_StudentsLayout"],
 		regions: { 
-			mainRegion: "#show_layout_main_region",
-			modalRegion: "#show_layout_modal_region"
+			viewAsRegion: "#view_as_region",
+			studentViewRegion: "#student_view_region",
+			modalRegion: "#student_layout_modal_region"
 		},
 
 		className: "col-md-12",
 
 		ui:{
-			modalRegion: "#show_layout_modal_region"
+			modalRegion: "#student_layout_modal_region"
 		},
 
-		onChildviewStudentsLayoutShowSeeAllModal: function(view){
-			this.ui.modalRegion.modal("show");
-			TeacherAccount.TeacherApp.Students.Controller.openSeeAllModal(this,view.model.get("classroom_activity_pairing_id"), this.model.attributes.student.id);
+		onChildviewLayoutSearchStudent: function(studentsViewAsSearchView){
+			Students.Controller.showStudentView(studentsViewAsSearchView.model.get("searchStudentUserId"), studentsViewAsSearchView.model.get("searchClassroomId"));
 		},
 
-		onChildviewStudentsLayoutShowActivityDetailsModal: function(view){
-			this.ui.modalRegion.modal("show");
-			TeacherAccount.TeacherApp.Students.Controller.openActivityDetailsModal(this, view.model.get("classroom_activity_pairing_id"), this.model.attributes.student.id);
+		onChildviewOpenRemoveStudentModal: function(studentsViewAsSearchView){
+			Students.Controller.openRemoveStudentModal(this, studentsViewAsSearchView.model.get("searchStudentUserId"), studentsViewAsSearchView.model.get("searchClassroomId"));
 		},
 
-		onChildviewShowStudentView: function(view){
-			TeacherAccount.TeacherApp.Students.Controller.showStudentView(this, view.model.attributes.id, view.model.attributes.classroomId);			
-		},
-
-		onChildviewShowRemoveModal: function(view){
-			this.ui.modalRegion.modal("show");
-			TeacherAccount.TeacherApp.Students.Controller.openRemoveStudentModal(this, view.model.attributes.id, view.model.attributes.classroomId);
-		},
-
-		onChildviewRemoveStudent: function(view){
-			this.ui.modalRegion.modal("hide");			
-			TeacherAccount.TeacherApp.Students.Controller.removeStudent(view.model.attributes.id, view.model.attributes.student_user_id, view.model.attributes.classroom_id)
+		onChildviewRemoveStudent: function(removeStudentConfirmationModalView){
+			Studens.Controller.removeStudent(this, removeStudentConfirmationModalView.model.get("id"), removeStudentConfirmationModalView.model.get("student_user_id"), removeStudentConfirmationModalView.model.get("classroom_id"));
 		}
+
+	});
+
+	Students.StudentsViewAsSearchView = Marionette.ItemView.extend({
+		template: JST["teacher/templates/Students/TeacherApp_Students_StudentsViewAsSearch"],
+		className: "col-sm-12 view-as-div",
+		ui:{
+			studentSearchForm: "[ui-student-search-form]",
+			studentSearchInput: "[ui-student-search-input]",
+			studentSearchButton: "[ui-student-search-button]",
+			removeStudentLink: "[ui-remove-student-link]"
+		},
+
+		events:{
+			"submit @ui.studentSearchForm": "searchStudent"
+		},
+
+		triggers:{
+			"click @ui.removeStudentLink": "open:remove:student:modal"
+		},
+
+		onShow: function(){
+			this.ui.studentSearchInput.typeahead({
+			  hint: true,
+			  highlight: true,
+			  minLength: 1
+			},
+			{
+			  name: 'student_names_classrooms',
+			  source: this.substringMatcher(this.model.get("student_names_classrooms"))
+			});
+
+			$('.twitter-typeahead').css("display", "");
+
+		},
+
+		searchStudent: function(e){
+			e.preventDefault();
+
+			// find the students/classroom matching the input
+			var students = this.model.get("students");
+			for(var i = 0; i < students.length; i++){
+				for(var j = 0; j < students[i].classrooms.length; j++){
+					if(students[i].display_name + ': ' + students[i].classrooms[j].name == this.ui.studentSearchInput.val()){
+						this.model.set("searchStudentUserId", students[i].id);
+						this.model.set("searchClassroomId", students[i].classrooms[j].id);
+						this.triggerMethod("layout:search:student")
+					}
+				}
+			}
+
+
+		},
+
+		substringMatcher: function(strs) {
+		  return function findMatches(q, cb) {
+		    var matches, substringRegex;
+
+		    // an array that will be populated with substring matches
+		    matches = [];
+
+		    // regex used to determine if a string contains the substring `q`
+		    substrRegex = new RegExp(q, 'i');
+
+		    // iterate through the pool of strings and for any string that
+		    // contains the substring `q`, add it to the `matches` array
+		    $.each(strs, function(i, str) {
+		      if (substrRegex.test(str)) {
+		        matches.push(str);
+		      }
+		    });
+
+		    cb(matches);
+		  }
+		},
 
 	});
 

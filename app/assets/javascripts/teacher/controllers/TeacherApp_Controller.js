@@ -268,7 +268,7 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 				var studentsLayoutView = new TeacherAccount.TeacherApp.Students.StudentsLayoutView({model:model});
 				TeacherAccount.rootView.mainRegion.show(studentsLayoutView);
 
-				TeacherAccount.TeacherApp.Students.Controller.showStudentView(studentsLayoutView, student_user_id, classroom_id);
+				TeacherAccount.TeacherApp.Students.Controller.showStudentView(student_user_id, classroom_id);
 			}
 			
 

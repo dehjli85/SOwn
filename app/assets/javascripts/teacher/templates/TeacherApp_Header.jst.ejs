@@ -10,7 +10,7 @@
   </div>
   <div id="navbar" class="navbar-collapse collapse">
     <ul class="nav navbar-nav navbar-right">
-      <% if(student != null){ %>
+      <% if(student != null && student.email == teacher.email){ %>
         <li><a href="#" ui-switch-account-link>Switch to Student Account</a></li>
       <% } %>
       <li class="dropdown">

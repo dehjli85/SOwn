@@ -277,6 +277,17 @@ ul.scores-button-ul > li{
  * TeacherApp Students CSS
  */
 
+.view-as-div{
+  border: 1px solid rgb(204, 204, 204);
+  padding:10px;
+  margin: 10px 10px 25px 10px;
+  background-color: #FFFFFF;
+}
+
+.current-view-div{
+  padding: 10px;
+}
+
 .students_search_form{
   padding: 10px 0px 10px 0px;
 }

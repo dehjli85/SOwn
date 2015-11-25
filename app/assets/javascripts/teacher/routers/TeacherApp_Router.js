@@ -14,6 +14,7 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			"activities/:id/edit": "showActivitiesEdit",
 			"students/index": "showStudentsIndex",
 			"students/show/:student_user_id/:classroom_id": "showStudent",
+			"students/show/": "showStudent",
 			"settings": "showSettings"
 		}
 	});

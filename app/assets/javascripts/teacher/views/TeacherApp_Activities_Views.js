@@ -282,7 +282,6 @@ TeacherAccount.module("TeacherApp.Activities", function(Activities, TeacherAccou
 
 			$('.twitter-typeahead').css("display", "block");
 
-
 		},
 
 		onChildviewRemoveTagFromCollection: function(view){

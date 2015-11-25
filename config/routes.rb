@@ -126,6 +126,7 @@ Rails.application.routes.draw do
   get 'teacher/activity_and_performances' => 'teacher_account#activity_and_performances'
   get 'teacher/classroom_student_user' => 'teacher_account#classroom_student_user'
   post 'teacher/classroom_remove_student' => 'teacher_account#classroom_remove_student'
+  post 'teacher/become_student' => 'teacher_account#become_student'
 
   # student routes
   get 'student_home' => 'student_account#index'

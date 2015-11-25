@@ -6,7 +6,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 		showClassroomLayout: function(classroomId){
 			var classroom = new Backbone.Model({classroomId: classroomId, tags: []})
-			var layoutView = new StudentAccount.StudentApp.Classroom.LayoutView({model: classroom});			
+			var layoutView = new Classroom.LayoutView({model: classroom});			
 			StudentAccount.rootView.mainRegion.show(layoutView);
 
 			return layoutView;
@@ -21,9 +21,9 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 	     	if(data.status == "success"){
 	     		
-					var classroom = new StudentAccount.StudentApp.Classroom.Models.Classroom(data.classroom);
+					var classroom = new Classroom.Models.Classroom(data.classroom);
 					
-		     	var headerView = new StudentAccount.StudentApp.Classroom.HeaderView({model:classroom});			
+		     	var headerView = new Classroom.HeaderView({model:classroom});			
 					classroomLayoutView.headerRegion.show(headerView);	
 	     	}
 	     	
@@ -44,7 +44,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 		showClassroomSearchBarView: function(classroomLayoutView, searchTerm){
 			var searchBarModel = new Backbone.Model({searchTerm: searchTerm})
-   		var searchBarView = new StudentAccount.StudentApp.Classroom.SearchBarView({model: searchBarModel});
+   		var searchBarView = new Classroom.SearchBarView({model: searchBarModel});
    		classroomLayoutView.searchRegion.show(searchBarView);
 
 		},
@@ -58,7 +58,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 				
 				var tagCollection = new Backbone.Collection(data);
 
-				var tagCollectionView = new StudentAccount.StudentApp.Classroom.TagCollectionView({collection: tagCollection});	     	
+				var tagCollectionView = new Classroom.TagCollectionView({collection: tagCollection});	     	
 				classroomLayoutView.tagsRegion.show(tagCollectionView);
 				
 		  })
@@ -92,8 +92,8 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			.done(function(data) {
 	     	if(data.status == "success"){
 
-					var activities = new StudentAccount.StudentApp.Classroom.Models.ActivityCollection(data.activities);
-					var activityCompositeView = new StudentAccount.StudentApp.Classroom.ActivitiesCompositeView({collection:activities});
+					var activities = new Classroom.Models.ActivityCollection(data.activities);
+					var activityCompositeView = new Classroom.ActivitiesCompositeView({collection:activities});
 
 					classroomLayoutView.scoresRegion.show(activityCompositeView);
 	     	}
@@ -120,7 +120,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	     	if(data.status == "success"){
 	     		
 	     		var model = new Backbone.Model({activity: data.activity, classroom_activity_pairing: data.classroom_activity_pairing, performances: data.performances, errors:{}});
-	     		var trackModal = new StudentAccount.StudentApp.Classroom.TrackModalView({model: model});
+	     		var trackModal = new Classroom.TrackModalView({model: model});
 	     		classroomLayoutView.modalRegion.show(trackModal);
 					
 	     	}
@@ -204,7 +204,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	     	if(data.status == "success"){
 
 	     		var activity_pairing_performances = new Backbone.Model({activity: data.activity});
-	     		var seeAllModal = new StudentAccount.StudentApp.Classroom.SeeAllModalView({model: activity_pairing_performances});
+	     		var seeAllModal = new Classroom.SeeAllModalView({model: activity_pairing_performances});
 	     		classroomLayoutView.modalRegion.show(seeAllModal);
 
 					if (data.activity.activity_type == 'scored'){
@@ -245,7 +245,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 						var model = new Backbone.Model({data:modelData, labels: modelLabels, score_range: scoreRangeObj});
 
-						var barGraphView = new StudentAccount.StudentApp.Classroom.PerformanceBarGraphView({model: model});
+						var barGraphView = new Classroom.PerformanceBarGraphView({model: model});
 
 						seeAllModal.graphRegion.show(barGraphView);
 
@@ -253,7 +253,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 					else if (data.activity.activity_type == 'completion'){
 						
 						var model = new Backbone.Model({performances: data.performances});
-						var completionTableView = new StudentAccount.StudentApp.Classroom.CompletionTableView({model: model});
+						var completionTableView = new Classroom.CompletionTableView({model: model});
 
 						seeAllModal.graphRegion.show(completionTableView);
 
@@ -282,7 +282,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 	     	if(data.status == "success"){
 
 	     		var model = new Backbone.Model({activity: data.activity, classroom_activity_pairing: data.classroom_activity_pairing, activity_goal: data.activity_goal});
-	     		var setGoalModalView = new StudentAccount.StudentApp.Classroom.GoalModalView({model: model});
+	     		var setGoalModalView = new Classroom.GoalModalView({model: model});
 	     		classroomLayoutView.modalRegion.show(setGoalModalView);
 
 
@@ -324,7 +324,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 							var model = new Backbone.Model({data:modelData, labels: modelLabels, score_range: scoreRangeObj});
 
-							var barGraphView = new StudentAccount.StudentApp.Classroom.PerformanceBarGraphView({model: model});
+							var barGraphView = new Classroom.PerformanceBarGraphView({model: model});
 
 							setGoalModalView.graphRegion.show(barGraphView);
 						}
@@ -334,7 +334,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 							if(data.performances.length != 0){
 								var model = new Backbone.Model({performances: data.performances});
 									
-								var completionTableView = new StudentAccount.StudentApp.Classroom.CompletionTableView({model: model});
+								var completionTableView = new Classroom.CompletionTableView({model: model});
 
 								setGoalModalView.graphRegion.show(completionTableView);
 							}
@@ -364,7 +364,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 	     		var activityModel = new Backbone.Model(data.activity);
 	     		activityModel.set("classroom_activity_pairing", data.classroom_activity_pairing);
-	     		var activityDetailsModalView = new StudentAccount.StudentApp.Classroom.ActivityDetailsModalView({model: activityModel});
+	     		var activityDetailsModalView = new Classroom.ActivityDetailsModalView({model: activityModel});
 	     		classroomLayoutView.modalRegion.show(activityDetailsModalView);
 
 					

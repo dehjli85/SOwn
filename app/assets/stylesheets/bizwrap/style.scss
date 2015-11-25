@@ -802,6 +802,7 @@ h4.portfolio-post-title{
      @include box-shadow (none);
     display: inline-block;
     letter-spacing: 1px;
+    height: 40px;
 }
 .btn:hover,.btn:focus{
     color:#fff;
@@ -846,6 +847,7 @@ h4.portfolio-post-title{
 .btn-sweet-alert{
     margin: 5px;
 }
+
 /***btn radius***/
 .btn-radius{
     padding: 12px 50px;

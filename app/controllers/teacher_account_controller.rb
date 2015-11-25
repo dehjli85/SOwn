@@ -1590,6 +1590,20 @@
 	#
 	#################################################################################
 
+	# Sets the student_user_id session variable, if the the passed student_user_id and classroom_id are valid for the logged in teacher
+	# Expects the following parameters:
+	# => student_user_id
+	# => classroom_id
+	def become_student
+		classroom_ids = @current_teacher_user.classrooms.pluck(:id)
+		if !ClassroomStudentUser.where({student_user_id: params[:student_user_id], classroom_id: classroom_ids}).first.nil?
+			session[:student_user_id] = params[:student_user_id]
+			render json: {status: "success"}
+		else
+			render json: {status: "error", error: "invalid-student-user-id-or-classroom-id"}
+		end
+	end
+
 	def students
 
 		searchTerm = params[:searchTerm].nil? ? "" : params[:searchTerm].downcase 
@@ -1626,13 +1640,41 @@
 
 	end
 
+
+	# Returns JSON object representing a student for a classroom
+	# Expects following parameters:
+	# => classroom_id
+	# => student_user_id
 	def student
 
-		student = StudentUser.joins(:classrooms)
-			.joins("inner join teacher_users t on classrooms.teacher_user_id = t.id")
-			.where("t.id = ?", @current_teacher_user.id)
-			.where("student_users.id = ?" , params[:studentId])
-			.first
+		if(params[:student_user_id].eql?('null') || params[:classroom_id].eql?('null') )
+			render json: {status: "error", error: "invalid-student-user-or-classroom"}
+		else
+			student = StudentUser.joins(:classrooms)
+				.joins("inner join teacher_users t on classrooms.teacher_user_id = t.id")
+				.where("t.id = ?", @current_teacher_user.id)
+				.where("classrooms.id = ?", params[:classroom_id])
+				.where("student_users.id = ?" , params[:student_user_id])
+				.first
+
+			if(!student.nil?)
+				student = student.as_json
+				student.delete("salt")
+		    student.delete("password_digest")
+		    student.delete("oauth_expires_at")
+		    student.delete("oauth_token")
+		    student.delete("updated_at")
+		    student.delete("create_at")
+
+				render json: {status: "success", student: student}
+			
+			else
+
+				render json: {status: "error", error: "invalid-student-user-or-classroom"}
+
+			end
+		end
+		
 		
 	end
 

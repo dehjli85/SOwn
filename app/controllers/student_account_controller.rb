@@ -15,6 +15,8 @@ class StudentAccountController < ApplicationController
 
   def index
     require_student_login
+
+    
   end
 
   def current_student_user

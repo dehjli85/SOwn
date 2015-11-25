@@ -47,14 +47,11 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	  	trackModalLink: "[ui-track-modal-link]"
 	  },
 
+
 	  events:{
 	  	"click @ui.verifyLink": "triggerOpenVerifyModal",
 	  	"click @ui.goalLink": "triggerClassroomScoresShowGoalModal",
-	  	"click @ui.trackModalLink": "showTrackModal"
-	  },
-
-	  triggers:{
-	  	"click @ui.studentLink": "show:student:page",
+	  	"click @ui.trackModalLink": "showTrackModal",
 	  },
 
 	  triggerClassroomScoresShowGoalModal: function(e){
@@ -77,6 +74,11 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 	  	e.preventDefault();
 	  	this.model.set("classroom_activity_pairing_id", $(e.target).attr("name"));
 	  	this.triggerMethod("show:track:modal");
+	  },
+
+	  onShowStudentPage: function(e){
+	  	e.preventDefault();
+	  	console.log("hello 2");
 	  }
 
 	});
@@ -414,16 +416,6 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			}
 
 		},
-
-		onChildviewShowStudentPage: function(view){
-
-			var model = new Backbone.Model({searchTerm: null});
-			var studentsLayoutView = new TeacherAccount.TeacherApp.Students.StudentsLayoutView({model:model});
-			TeacherAccount.rootView.mainRegion.show(studentsLayoutView);
-
-			TeacherAccount.TeacherApp.Students.Controller.showStudentView(studentsLayoutView, view.model.get("id"), this.model.get("classroom").id);
-
-	  },
 
 	  openEditActivityDialog:function(e){
 	  	

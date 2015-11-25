@@ -1,0 +1,14 @@
+<form class="form-inline" ui-student-search-form>
+	<div class="form-group">
+		<input type="text" placeholder="Start typing a student's name..." class="form-control" style="width: 700px;" ui-student-search-input>
+		<button type="submit" class="btn btn-primary" ui-student-search-button>View As</button>
+	</div>
+</form>
+
+<div class="current-view-div">
+	<% if(student){ %> 
+		<b>Currently viewing as: <%= student.display_name%></b>
+		<a href="#" class="btn btn-sm btn-danger" ui-remove-student-link>Remove</a>
+	<% } %>
+	
+</div>
