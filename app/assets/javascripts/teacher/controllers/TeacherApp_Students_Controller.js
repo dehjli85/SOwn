@@ -3,7 +3,6 @@
 TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, Backbone, Marionette, $, _){
 
 	Students.Controller = {
-	
 
 		/*
 		 * THIS IS LIKELY TO BE DEPRECATED. DON'T USE
@@ -43,7 +42,8 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 
 		},
 
-		showStudentView: function(studentUserId, classroomId){
+
+		showStudentView: function(studentUserId, classroomId, oldStudentsLayout){
 
 			TeacherAccount.navigate("students/show/" + (studentUserId ? studentUserId : 'null') + "/" + (classroomId ? classroomId : 'null'));
 
@@ -59,11 +59,22 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 
 					// Create a Layout Container and render it
 					var studentsLayoutModel = new Backbone.Model({student: data.student});
-					studentsLayout = new Students.StudentsLayoutView({model: studentsLayoutModel});
+
+					if(oldStudentsLayout){
+						oldStudentsLayout.model = studentsLayoutModel;
+						studentsLayout = oldStudentsLayout;
+					}else{
+						studentsLayout = new Students.StudentsLayoutView({model: studentsLayoutModel});
+					}
 
 					TeacherAccount.rootView.mainRegion.show(studentsLayout);
 				}else{
-					studentsLayout = new Students.StudentsLayoutView();
+					
+					if(oldStudentsLayout){
+						studentsLayout = oldStudentsLayout;
+					}else{
+						studentsLayoutModel = new Students.StudentsLayoutView();
+					}
 					TeacherAccount.rootView.mainRegion.show(studentsLayout);
 				}
 
@@ -127,6 +138,9 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 						StudentAccount.StudentApp.Classroom.Controller.showClassroomScores(classroomLayout,classroomId);	
 
 		     	}
+		     	else{
+		     		studentsLayout.studentViewRegion.empty();
+		     	}
 		     	
 			  })
 			  .fail(function() {
@@ -135,8 +149,6 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 			  .always(function() {
 			   
 				});
-
-	     	
 	     	
 		  })
 		  .fail(function() {
@@ -165,10 +177,8 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 	     		var removeStudentConfirmationModalView = new TeacherAccount.TeacherApp.Students.RemoveStudentConfirmationModalView({model: classroomStudentUserModel});
 	     		layoutView.modalRegion.show(removeStudentConfirmationModalView);
 	     		layoutView.ui.modalRegion.modal("show");
-
 					
 	     	}
-	     	
 	     	
 		  })
 		  .fail(function() {
@@ -190,8 +200,8 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 			})
 			.done(function(data) {
 
-				this.layoutView.ui.modalRegion.modal("hide");
-				Students.Controller.showStudentView(null, null);
+				layoutView.ui.modalRegion.modal("hide");
+				Students.Controller.showStudentView(null, null, layoutView);
 
 	     	if(data.status == "success"){
 

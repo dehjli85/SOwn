@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_student_login
-    unless !@current_student_user.nil? && (@current_teacher_user && @current_teacher_user.email.eql?(@current_student_user.email))
+    unless !@current_student_user.nil? && (@current_teacher_user.nil? || (@current_teacher_user && @current_teacher_user.email.eql?(@current_student_user.email)))
       session[:student_user_id] = nil   
       session[:teacher_user_id] = nil
       redirect_to '/#login'

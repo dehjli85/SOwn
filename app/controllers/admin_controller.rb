@@ -98,7 +98,6 @@ class AdminController < ApplicationController
 
 	def become_user
 
-
 			if(params[:user_type].eql?("teacher"))
 
 				#set the session value for the teacher id
@@ -112,7 +111,6 @@ class AdminController < ApplicationController
 				else
 					session[:student_user_id] = nil
 				end
-
 
 			elsif(params[:user_type].eql?("student"))
 

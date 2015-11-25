@@ -100,7 +100,7 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 		},
 
 		onChildviewRemoveStudent: function(removeStudentConfirmationModalView){
-			Studens.Controller.removeStudent(this, removeStudentConfirmationModalView.model.get("id"), removeStudentConfirmationModalView.model.get("student_user_id"), removeStudentConfirmationModalView.model.get("classroom_id"));
+			Students.Controller.removeStudent(this, removeStudentConfirmationModalView.model.get("id"), removeStudentConfirmationModalView.model.get("student_user_id"), removeStudentConfirmationModalView.model.get("classroom_id"));
 		}
 
 	});
