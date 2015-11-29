@@ -12,16 +12,19 @@
       <table class="table">
         <thead>
           <tr>
-            <th style="width:50%">
+            <th style="width:25%">
               <%= activity.activity_levels.length == 0 ? 'Activity' : 'Activity Level' %>
             </th>
-            <th style="width:15%">
+            <th style="width:1%">
               Date
             </th>
-            <th style="width:35%">
+            <th style="width:10%">
               Status
             </th>
-            <th>
+            <th style="width:25%">
+              Notes
+            </th>
+            <th style="width:1%">
               <a href="#" ui-edit-button>Edit</a>
             </th>
           </tr>
@@ -73,6 +76,9 @@
               <option value="false">Not Completed</option>
               <option></option>
             </select>
+          </td>
+          <td>
+            <textarea class="form-control" name="student_performance[notes]"></textarea>
           </td>
           <td><a href="#" class="btn btn-primary" ui-add-performance-button>+</a></td>
       </tr>

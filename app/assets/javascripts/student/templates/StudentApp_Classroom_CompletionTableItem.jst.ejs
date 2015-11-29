@@ -49,5 +49,9 @@
 	</select>
 </td>
 <td>
+	<span class="ui-show"><%= notes %></span>
+  <textarea class="form-control ui-edit" name="student_performances[<%= id %>][notes]" style="display:none"><%= notes %></textarea>
+</td>
+<td>
 	<a href="#" class="btn btn-danger ui-edit" style="display:none" ui-delete-button>X</a>
 </td>
