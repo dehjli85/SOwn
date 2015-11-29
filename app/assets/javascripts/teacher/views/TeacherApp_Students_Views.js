@@ -72,7 +72,6 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 			TeacherAccount.TeacherApp.Students.Controller.showIndexCompositeView(this.ui.searchInput.val())
 		},
 
-		
 
 	});	
 
@@ -92,7 +91,7 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 		},
 
 		onChildviewLayoutSearchStudent: function(studentsViewAsSearchView){
-			Students.Controller.showStudentView(studentsViewAsSearchView.model.get("searchStudentUserId"), studentsViewAsSearchView.model.get("searchClassroomId"));
+			Students.Controller.showStudentView(studentsViewAsSearchView.model.get("searchStudentUserId"), studentsViewAsSearchView.model.get("searchClassroomId"), this, studentsViewAsSearchView);
 		},
 
 		onChildviewOpenRemoveStudentModal: function(studentsViewAsSearchView){
@@ -101,6 +100,10 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 
 		onChildviewRemoveStudent: function(removeStudentConfirmationModalView){
 			Students.Controller.removeStudent(this, removeStudentConfirmationModalView.model.get("id"), removeStudentConfirmationModalView.model.get("student_user_id"), removeStudentConfirmationModalView.model.get("classroom_id"));
+		},
+
+		onChildviewLayoutClearScreen: function(studentsViewAsSearchView){
+			Students.Controller.clearScreen(this, studentsViewAsSearchView);
 		}
 
 	});
@@ -112,18 +115,22 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 			studentSearchForm: "[ui-student-search-form]",
 			studentSearchInput: "[ui-student-search-input]",
 			studentSearchButton: "[ui-student-search-button]",
-			removeStudentLink: "[ui-remove-student-link]"
+			removeStudentLink: "[ui-remove-student-link]",
+			clearScreenLink: "[ui-clear-screen-link]"
 		},
 
 		events:{
-			"submit @ui.studentSearchForm": "searchStudent"
+			"submit @ui.studentSearchForm": "searchStudent",
+			"click @ui.clearScreenLink": "clearScreen"
 		},
 
 		triggers:{
-			"click @ui.removeStudentLink": "open:remove:student:modal"
+			"click @ui.removeStudentLink": "open:remove:student:modal",
 		},
 
 		onShow: function(){
+
+			console.log("set up typeahead");
 			this.ui.studentSearchInput.typeahead({
 			  hint: true,
 			  highlight: true,
@@ -177,6 +184,11 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 		    cb(matches);
 		  }
 		},
+
+		clearScreen: function(e){
+			e.preventDefault();
+			this.triggerMethod("layout:clear:screen");
+		}
 
 	});
 

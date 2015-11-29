@@ -13,6 +13,7 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			"click @ui.editActivitiesLink": "classroom:show:edit:activities",
 			"click @ui.classroomCodeLink": "classroom:show:classroom:code",
 			"click @ui.editClassroomLink": "classroom:show:edit:classroom",
+			"click @ui.kioskLink" : "classroom:show:kiosk:mode"
 		},
 
 		events:{
@@ -27,7 +28,8 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			classroomCodeLink: "[ui-show-classroom-code-a]",
 			exportData: "[ui-export-data-a]",
 			lis: "li",
-			editClassroomLink: "[ui-edit-classroom-link]"
+			editClassroomLink: "[ui-edit-classroom-link]",
+			kioskLink: "[ui-kiosk-a]"
 		},
 
 		makeTabActive: function(e){
@@ -121,6 +123,10 @@ TeacherAccount.module("TeacherApp.Classroom", function(Classroom, TeacherAccount
 			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveReflection(this, scoresLayoutView, setGoalModalView);
 
 		},
+
+		onChildviewClassroomShowKioskMode: function(classroomHeaderView){
+			TeacherAccount.TeacherApp.Students.Controller.showKioskMode();
+		}
 		
 
 		

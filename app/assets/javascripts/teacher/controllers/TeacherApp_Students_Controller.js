@@ -43,7 +43,7 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 		},
 
 
-		showStudentView: function(studentUserId, classroomId, oldStudentsLayout){
+		showStudentView: function(studentUserId, classroomId, oldStudentsLayout, studentsViewAsSearchView){
 
 			TeacherAccount.navigate("students/show/" + (studentUserId ? studentUserId : 'null') + "/" + (classroomId ? classroomId : 'null'));
 
@@ -67,56 +67,66 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 						studentsLayout = new Students.StudentsLayoutView({model: studentsLayoutModel});
 					}
 
-					TeacherAccount.rootView.mainRegion.show(studentsLayout);
 				}else{
 					
 					if(oldStudentsLayout){
 						studentsLayout = oldStudentsLayout;
 					}else{
-						studentsLayoutModel = new Students.StudentsLayoutView();
+						studentsLayout = new Students.StudentsLayoutView();
 					}
-					TeacherAccount.rootView.mainRegion.show(studentsLayout);
+
 				}
 
-				// Create the search view
-				var jqxhr2 = $.get("/teacher/students", function(){
-					console.log('get request for classroom model');
-				})
-				.done(function(data2) {
-					console.log(data2);
+				TeacherAccount.rootView.mainRegion.show(studentsLayout);
 
-		     	if(data2.status == "success"){
+				if(studentsViewAsSearchView){
 
-		     		var studentsViewAsSearchModel = new Backbone.Model({
-		     			student: data.student, 
-		     			students: data2.students,
-		     			searchStudentUserId: studentUserId,
-		     			searchClassroomId: classroomId
-		     		});
+					studentsViewAsSearchView.model.set("student", data.student);
+					studentsViewAsSearchView.render();
+					studentsViewAsSearchView.onShow(); //typeahead set up
 
-		     		var students = [];
-		     		data2.students.map(function(s){
-		     			for(var i = 0; i < s.classrooms.length; i++){
-		     				students.push(s.display_name + ': ' + s.classrooms[i].name);
+				}else{
+					// Create the search view
+					var jqxhr2 = $.get("/teacher/students", function(){
+						console.log('get request for classroom model');
+					})
+					.done(function(data2) {
+						console.log(data2);
 
-		     			}
-		     		});
+			     	if(data2.status == "success"){
 
-		     		studentsViewAsSearchModel.set("student_names_classrooms", students);
+			     		var studentsViewAsSearchModel = new Backbone.Model({
+			     			student: data.student, 
+			     			students: data2.students,
+			     			searchStudentUserId: studentUserId,
+			     			searchClassroomId: classroomId,
+		     				kioskMode: false,
+			     		});
 
-						var studentsViewAsSearchView = new Students.StudentsViewAsSearchView({model: studentsViewAsSearchModel});
+			     		var students = [];
+			     		data2.students.map(function(s){
+			     			for(var i = 0; i < s.classrooms.length; i++){
+			     				students.push(s.display_name + ': ' + s.classrooms[i].name);
 
-						studentsLayout.viewAsRegion.show(studentsViewAsSearchView);
+			     			}
+			     		});
 
-		     	}
-		     	
-			  })
-			  .fail(function() {
-			  	console.log("error");
-			  })
-			  .always(function() {
-			   
-				});
+			     		studentsViewAsSearchModel.set("student_names_classrooms", students);
+
+							var studentsViewAsSearchView = new Students.StudentsViewAsSearchView({model: studentsViewAsSearchModel});
+
+							studentsLayout.viewAsRegion.show(studentsViewAsSearchView);
+
+			     	}
+			     	
+				  })
+				  .fail(function() {
+				  	console.log("error");
+				  })
+				  .always(function() {
+				   
+					});
+				}
 
 				// Post request to set the student_user_id session variable
 				var postData = "student_user_id=" + studentUserId + "&classroom_id=" + classroomId;
@@ -228,6 +238,64 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 		   
 			});	
 
+		},
+
+		showKioskMode: function(){
+
+			TeacherAccount.navigate("students/kiosk/");
+
+			var studentsLayout =  new Students.StudentsLayoutView();
+			TeacherAccount.rootView.mainRegion.show(studentsLayout);
+
+
+				// Create the search view
+			var jqxhr2 = $.get("/teacher/students", function(){
+				console.log('get request for classroom model');
+			})
+			.done(function(data2) {
+				console.log(data2);
+
+	     	if(data2.status == "success"){
+
+	     		var studentsViewAsSearchModel = new Backbone.Model({
+	     			student: null,
+	     			students: data2.students,
+	     			searchStudentUserId: '' ,
+	     			searchClassroomId: '',
+	     			kioskMode: true
+	     		});
+
+	     		var students = [];
+	     		data2.students.map(function(s){
+	     			for(var i = 0; i < s.classrooms.length; i++){
+	     				students.push(s.display_name + ': ' + s.classrooms[i].name);
+
+	     			}
+	     		});
+
+	     		studentsViewAsSearchModel.set("student_names_classrooms", students);
+
+					var studentsViewAsSearchView = new Students.StudentsViewAsSearchView({model: studentsViewAsSearchModel});
+
+					studentsLayout.viewAsRegion.show(studentsViewAsSearchView);
+
+	     	}
+	     	
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});
+
+		},
+
+		clearScreen: function(studentsLayoutView, studentsViewAsSearchView){
+			studentsLayoutView.studentViewRegion.empty();
+			studentsViewAsSearchView.model.set("student", null);
+			studentsViewAsSearchView.render();
+			studentsViewAsSearchView.onShow();
 		}
 
 
