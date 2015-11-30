@@ -26,6 +26,8 @@
 									
 									<%= activity_goals[0].score_goal %> 
 
+									<%= activity_goals[0].abbreviation != null ? 'on ' + activity_goals[0].abbreviation : '' %>
+
 									<%= activity_goals[0].goal_date ? ' by ' +  moment(activity_goals[0].goal_date).format("MM/DD") : '' %> 
 
 								<% } %>
@@ -38,7 +40,11 @@
 			
 								<% } else { %>
 			
-									Complete by <%= moment(activity_goals[0].goal_date).format("MM/DD") %> 					
+									Complete 
+
+									<%= activity_goals[0].abbreviation != null ? activity_goals[0].abbreviation : '' %>
+
+									by <%= moment(activity_goals[0].goal_date).format("MM/DD") %> 					
 
 								<% } %>
 

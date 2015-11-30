@@ -274,6 +274,8 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			scoreGoalLink: "[ui-score-goal-link]",
 			goalDateInput: "[ui-goal-date-input]",
 			goalDateLink: "[ui-goal-date-link]",
+			activityLevelLink: "[ui-activity-level-link]",
+			activityLevelInput: "[ui-activity-level-input]",
 			errorMessageDiv: "[ui-error-message-div]"
 		},
 
@@ -281,6 +283,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			"click @ui.addReflectionLink": "revealReflectionDiv",
 			"click @ui.scoreGoalLink": "revealScoreGoalInput",
 			"click @ui.goalDateLink": "revealGoalDateInput",
+			"click @ui.activityLevelLink": "revealActivityLevelInput",
 			"click @ui.saveButton": "saveActivityGoal"
 		},
 
@@ -304,6 +307,12 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			e.preventDefault();
 			this.ui.goalDateLink.css("display", "none");
 			this.ui.goalDateInput.css("display", "inline");
+		},
+
+		revealActivityLevelInput: function(e){
+			e.preventDefault();
+			this.ui.activityLevelLink.css("display", "none");
+			this.ui.activityLevelInput.css("display", "inline");
 		},
 
 		validate: function(){

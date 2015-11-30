@@ -350,9 +350,9 @@ class StudentAccountController < ApplicationController
     # find the Activity Goal if it exists, if it doesn't, create a new one with the passed parameters
     activity_goal = ActivityGoal.where({student_user_id: @current_student_user.id, classroom_activity_pairing_id: params[:activity_goal][:classroom_activity_pairing_id]}).first 
     if !activity_goal 
-      activity_goal = ActivityGoal.new(params.require(:activity_goal).permit(:score_goal, :goal_date, :classroom_activity_pairing_id))
+      activity_goal = ActivityGoal.new(params.require(:activity_goal).permit(:score_goal, :goal_date, :classroom_activity_pairing_id, :activity_level_id))
     else
-      activity_goal.update_attributes({score_goal: params[:activity_goal][:score_goal], goal_date: params[:activity_goal][:goal_date], score_goal: params[:activity_goal][:score_goal]})
+      activity_goal.update_attributes({score_goal: params[:activity_goal][:score_goal], goal_date: params[:activity_goal][:goal_date], score_goal: params[:activity_goal][:score_goal], activity_level_id: params[:activity_goal][:activity_level_id]})
     end
     
 

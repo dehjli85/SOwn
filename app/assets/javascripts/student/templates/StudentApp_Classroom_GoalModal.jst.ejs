@@ -33,6 +33,34 @@
                   <% }else{ %>
                     complete 
                   <% } %>
+
+                  <% if(activity.activity_levels.length > 0){ %> 
+
+                    <% if(activity_goal.activity_level_id != null){ %> 
+                      <a href="#" ui-activity-level-link>
+                        <% for(var i = 0; i < activity.activity_levels.length; i++){ %>
+                          <% if(activity_goal.activity_level_id == activity.activity_levels[i].id){ %> 
+                            <%= activity.activity_levels[i].abbreviation + ': ' + activity. activity_levels[i].name %>
+                          <% } %>
+                        <% } %>
+                      </a>
+                    <% } %>
+                    
+
+                    <select name="activity_goal[activity_level_id]" class="form-control" style="display:none" ui-activity-level-input>
+
+                      <option></option>
+                      <% for(var i = 0; i < activity.activity_levels.length; i++){ %>
+                        <option value="<%= activity.activity_levels[i].id %>" <%= activity_goal.activity_level_id == activity.activity_levels[i].id ? 'selected' : '' %>>
+                          <%= activity.activity_levels[i].abbreviation %><%= activity.activity_levels[i].name ? ': ' + activity.activity_levels[i].name : '' %>
+                        </option>
+                      <% } %>
+                    </select>
+
+                    of
+
+                  <% } %>
+
                   
                   <b><%= activity.name %></b> by 
 
@@ -113,6 +141,21 @@
 
                   <% }else{ %>
                     complete 
+                  <% } %>
+
+                  <% if(activity.activity_levels.length > 0){ %> 
+                    <select name="activity_goal[activity_level_id]" class="form-control">
+
+                      <option></option>
+                      <% for(var i = 0; i < activity.activity_levels.length; i++){ %>
+                        <option value="<%= activity.activity_levels[i].id %>">
+                          <%= activity.activity_levels[i].abbreviation %><%= activity.activity_levels[i].name ? ': ' + activity.activity_levels[i].name : '' %>
+                        </option>
+                      <% } %>
+                    </select>
+
+                    of
+
                   <% } %>
                   
                   <b><%= activity.name %></b> by 

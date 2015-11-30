@@ -90,6 +90,9 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 				console.log('get request for classroom model');
 			})
 			.done(function(data) {
+
+				console.log(data);
+				
 	     	if(data.status == "success"){
 
 					var activities = new Classroom.Models.ActivityCollection(data.activities);
@@ -278,6 +281,8 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 				console.log('get request for data for goal modal');
 			})
 			.done(function(data) {
+
+				console.log(data);
 
 	     	if(data.status == "success"){
 

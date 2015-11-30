@@ -55,7 +55,9 @@ class ActivityGoal < ActiveRecord::Base
     	@goal_met = false
     	if(!performances.empty?)
 	    	performances.each do |performance|
-	    		if (performance.scored_performance && score_goal && performance.scored_performance >= score_goal) && (goal_date.nil? || performance.performance_date <= goal_date)
+	    		if (performance.scored_performance && score_goal && performance.scored_performance >= score_goal) && 
+	    			(goal_date.nil? || performance.performance_date <= goal_date) &&
+		  			(activity_level_id.nil? || activity_level_id.eql?(performance.activity_level_id))
 	    			@goal_met = @goal_met || true
 	    		end
 	    	end
@@ -66,7 +68,9 @@ class ActivityGoal < ActiveRecord::Base
     	@goal_met = false
     	if(!performances.empty?)
 		  	performances.each do |performance|
-		  		if performance.completed_performance && performance.performance_date <= goal_date
+		  		if performance.completed_performance && 
+		  			performance.performance_date <= goal_date && 
+		  			(activity_level_id.nil? || activity_level_id.eql?(performance.activity_level_id))
 		  			@goal_met = @goal_met || true
 		  		end
 		  	end
@@ -114,12 +118,14 @@ class ActivityGoal < ActiveRecord::Base
 						student_users.id as student_user_id, student_users.display_name as student_display_name, student_users.last_name as student_last_name, 
 						a.name as activity_name, a.id as activity_id, a.activity_type, a.benchmark1_score, a.benchmark2_score, a.max_score, a.min_score, 
 						classroom_activity_pairings.sort_order, classroom_activity_pairings.hidden, classroom_activity_pairings.due_date, 
+						al.*,
 						activity_goals.*
 					FROM "activity_goals" 
 					INNER JOIN "student_users" ON "student_users"."id" = "activity_goals"."student_user_id" 
 					INNER JOIN "classroom_student_users" ON "classroom_student_users"."student_user_id" = "student_users"."id" and "classroom_student_users"."classroom_id" = ?
 					INNER JOIN "classroom_activity_pairings" ON "classroom_activity_pairings"."id" = "activity_goals"."classroom_activity_pairing_id" 
 					INNER JOIN activities a on a.id =  classroom_activity_pairings.activity_id 
+					LEFT JOIN activity_levels al on al.id = "activity_goals".activity_level_id
 					LEFT JOIN activity_tag_pairings atp on atp.activity_id = a.id'
 
 
