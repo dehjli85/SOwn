@@ -27,6 +27,7 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 		 */
 
 		showClassroomScores: function(id){
+			StudentApp.Main.Controller.showHeaderAndLeftNavViews();			
 			StudentApp.Main.Controller.startClassroomApp(id, "scores");			
 		},
 
@@ -35,6 +36,7 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 		 */
 
 		startSettingsApp: function(){
+			StudentApp.Main.Controller.showHeaderAndLeftNavViews();			
 			StudentApp.Settings.Controller.showSettingsOptions();
 		}
 

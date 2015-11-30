@@ -19,6 +19,8 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			})
 			.done(function(data) {
 
+				console.log(data);
+
 	     	if(data.status == "success"){
 	     		
 					var classroom = new Classroom.Models.Classroom(data.classroom);
