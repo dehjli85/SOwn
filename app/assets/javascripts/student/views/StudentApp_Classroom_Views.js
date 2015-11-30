@@ -13,6 +13,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		template: JST["student/templates/StudentApp_Classroom_Layout"],		
 		className: "col-md-12",
 		regions:{
+			alertRegion: "#classroom_alert_region",
 			headerRegion: "#classroom_header_region",
 			mainRegion: '#classroom_main_region',
 			modalRegion: '#classroom_modal_region',
@@ -42,11 +43,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		onChildviewClassroomLayoutSaveAllPerformances: function(trackModalView, scoresTableCompositeView){
 			console.log("classroomlayoutview: save all performances");
 			Classroom.Controller.saveAllPerformances(this, trackModalView, scoresTableCompositeView);
-		},
-
-		onChildviewActivitiesLayoutShowSeeAllModal: function(view){
-			this.ui.modalRegion.modal("show");
-			StudentAccount.StudentApp.Classroom.Controller.openSeeAllModal(this,view.model.get("classroom_activity_pairing_id"));
 		},
 
 		onChildviewActivitiesLayoutShowActivityDetailsModal: function(view){
@@ -103,7 +99,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		triggers:{
 			"click @ui.trackButton": "activities:layout:show:track:modal",
 			"click .enter-score-link": "activities:layout:show:track:modal",
-			"click @ui.seeAllButton": "activities:layout:show:see:all:modal",
 			"click @ui.nameLink": "activities:layout:show:activity:details:modal",
 			"click @ui.setGoalLink": "activities:layout:show:goal:modal",
 		}
@@ -241,21 +236,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 	});
 
-	Classroom.SeeAllModalView = Marionette.LayoutView.extend({
-		template: JST ["student/templates/StudentApp_Classroom_SeeAllModal"],
-		className: "modal-dialog",
-		
-		regions:{
-			graphRegion: "[ui-bar-graph-region]"
-		},
-
-		initialize: function(options){
-			this.$el.attr("role","document");			
-		},
-
-
-	});
-
 	Classroom.GoalModalView = Marionette.LayoutView.extend({
 		template: JST ["student/templates/StudentApp_Classroom_GoalModal"],
 		className: "modal-dialog",
@@ -364,6 +344,9 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		},
 
 		onShow:function(){
+
+			this.showBarGraphRegion(this);
+
 			// deal with if HTML5 date input not supported
       if (!Modernizr.inputtypes.date) {
       	// If not native HTML5 support, fallback to jQuery datePicker
@@ -375,7 +358,65 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
             $.datepicker.regional['en']
         );
       }
-		}
+		},
+
+		showBarGraphRegion: function(goalModalView){
+
+			if (this.model.get("activity").activity_type == 'scored'){
+
+	   		var modelData = [];
+	   		var index = 1;
+
+	   		var dates = [];
+	   		var counter = 1;
+				this.model.get("performances").map(function(item){
+
+	   			//set color of bars
+					var color = "#49883F";
+					if(item.performance_color == "danger-sown")
+						color = "#B14F51";
+					else if(item.performance_color == 'warning-sown')
+						color = "#EACD46";
+
+					//set data depending on activity type
+					var next = moment(item.performance_date).format("MM/DD");
+					if($.inArray(moment(item.performance_date).format("MM/DD"), dates) >=  0){
+						counter++;
+						next += " (" + counter + ")";
+					}
+					else{
+						counter = 1;
+					}
+					dates.push(moment(item.performance_date).format("MM/DD"));
+
+					modelData.push({x: next, y: item.scored_performance, color: color})
+					index++;
+
+				});	 
+
+				var modelLabels = {x: "Attempt", y: "Score"};
+
+				var scoreRangeObj = {min_score: this.model.get("activity").min_score, benchmark1_score: this.model.get("activity").benchmark1_score, benchmark2_score: this.model.get("activity").benchmark2_score, max_score: this.model.get("activity").max_score};
+
+				var model = new Backbone.Model({data:modelData, labels: modelLabels, score_range: scoreRangeObj});
+
+				var barGraphView = new StudentAccount.StudentApp.Classroom.PerformanceBarGraphView({model: model});
+				goalModalView.graphRegion.show(barGraphView);
+			}
+			else if (this.model.get("activity").activity_type == 'completion'){
+
+				if(this.model.get("performances").length != 0){
+					var model = new Backbone.Model({performances: this.model.get("performances")});
+						
+					var completionTableView = new Classroom.CompletionTableView({model: model});
+
+					goalModalView.graphRegion.show(completionTableView);
+				}
+
+			}	
+
+		 
+		},
 
 
 	});

@@ -4,10 +4,16 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 	Classroom.Controller = {
 
-		showClassroomLayout: function(classroomId){
+
+		showClassroomLayout: function(classroomId, showRegion){
 			var classroom = new Backbone.Model({classroomId: classroomId, tags: []})
 			var layoutView = new Classroom.LayoutView({model: classroom});			
-			StudentAccount.rootView.mainRegion.show(layoutView);
+			if(showRegion == null){
+				StudentAccount.rootView.mainRegion.show(layoutView);
+			}
+			else{
+				showRegion.show(layoutView);
+			}
 
 			return layoutView;
 		},
@@ -199,83 +205,6 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			});
 		},
 
-		openSeeAllModal: function(classroomLayoutView, classroomActivityPairingId){
-
-			var getURL = "/student/activity_and_performances?classroom_activity_pairing_id=" + classroomActivityPairingId;
-			var jqxhr = $.get(getURL, function(){
-				console.log('get request for classroom model');
-			})
-			.done(function(data) {
-	     	if(data.status == "success"){
-
-	     		var activity_pairing_performances = new Backbone.Model({activity: data.activity});
-	     		var seeAllModal = new Classroom.SeeAllModalView({model: activity_pairing_performances});
-	     		classroomLayoutView.modalRegion.show(seeAllModal);
-
-					if (data.activity.activity_type == 'scored'){
-
-		     		var modelData = [];
-		     		var index = 1;
-
-		     		var dates = [];
-		     		var counter = 1;
-						data.performances.map(function(item){
-
-		     			//set color of bars
-							var color = "#49883F";
-							if(item.performance_color == "danger-sown")
-								color = "#B14F51";
-							else if(item.performance_color == 'warning-sown')
-								color = "#EACD46";
-
-							//set data depending on activity type
-							var next = moment(item.performance_date).format("MM/DD");
-							if($.inArray(moment(item.performance_date).format("MM/DD"), dates) >=  0){
-								counter++;
-								next += " (" + counter + ")";
-							}
-							else{
-								counter = 1;
-							}
-							dates.push(moment(item.performance_date).format("MM/DD"));
-
-							modelData.push({x: next, y: item.performance_pretty, color: color})
-							index++;
-
-						});	 
-
-						var modelLabels = {x: "Attempt", y: "Score"};
-
-						var scoreRangeObj = {min_score: data.activity.min_score, benchmark1_score: data.activity.benchmark1_score, benchmark2_score: data.activity.benchmark2_score, max_score: data.activity.max_score};
-
-						var model = new Backbone.Model({data:modelData, labels: modelLabels, score_range: scoreRangeObj});
-
-						var barGraphView = new Classroom.PerformanceBarGraphView({model: model});
-
-						seeAllModal.graphRegion.show(barGraphView);
-
-					}
-					else if (data.activity.activity_type == 'completion'){
-						
-						var model = new Backbone.Model({performances: data.performances});
-						var completionTableView = new Classroom.CompletionTableView({model: model});
-
-						seeAllModal.graphRegion.show(completionTableView);
-
-					}
-					
-	     	}
-	     	
-		  })
-		  .fail(function() {
-		  	console.log("error");
-		  })
-		  .always(function() {
-		   
-			});
-
-		},
-
 		openGoalModal: function(classroomLayoutView, classroomActivityPairingId){
 
 			var getURL = "/student/activity_and_performances?classroom_activity_pairing_id=" + classroomActivityPairingId;
@@ -288,65 +217,9 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 	     	if(data.status == "success"){
 
-	     		var model = new Backbone.Model({activity: data.activity, classroom_activity_pairing: data.classroom_activity_pairing, activity_goal: data.activity_goal});
+	     		var model = new Backbone.Model({activity: data.activity, classroom_activity_pairing: data.classroom_activity_pairing, activity_goal: data.activity_goal, performances: data.performances});
 	     		var setGoalModalView = new Classroom.GoalModalView({model: model});
 	     		classroomLayoutView.modalRegion.show(setGoalModalView);
-
-
-	     			if (data.activity.activity_type == 'scored'){
-
-			     		var modelData = [];
-			     		var index = 1;
-
-			     		var dates = [];
-			     		var counter = 1;
-							data.performances.map(function(item){
-
-			     			//set color of bars
-								var color = "#49883F";
-								if(item.performance_color == "danger-sown")
-									color = "#B14F51";
-								else if(item.performance_color == 'warning-sown')
-									color = "#EACD46";
-
-								//set data depending on activity type
-								var next = moment(item.performance_date).format("MM/DD");
-								if($.inArray(moment(item.performance_date).format("MM/DD"), dates) >=  0){
-									counter++;
-									next += " (" + counter + ")";
-								}
-								else{
-									counter = 1;
-								}
-								dates.push(moment(item.performance_date).format("MM/DD"));
-
-								modelData.push({x: next, y: item.performance_pretty, color: color})
-								index++;
-
-							});	 
-
-							var modelLabels = {x: "Attempt", y: "Score"};
-
-							var scoreRangeObj = {min_score: data.activity.min_score, benchmark1_score: data.activity.benchmark1_score, benchmark2_score: data.activity.benchmark2_score, max_score: data.activity.max_score};
-
-							var model = new Backbone.Model({data:modelData, labels: modelLabels, score_range: scoreRangeObj});
-
-							var barGraphView = new Classroom.PerformanceBarGraphView({model: model});
-
-							setGoalModalView.graphRegion.show(barGraphView);
-						}
-						else if (data.activity.activity_type == 'completion'){
-							
-
-							if(data.performances.length != 0){
-								var model = new Backbone.Model({performances: data.performances});
-									
-								var completionTableView = new Classroom.CompletionTableView({model: model});
-
-								setGoalModalView.graphRegion.show(completionTableView);
-							}
-
-						}	
 					
 	     	}
 	     	
@@ -392,7 +265,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 			var alertModel = new Backbone.Model({message: "Saving Activity Goal...", alertClass: "alert-warning"})
 			var alertView = new StudentAccount.StudentApp.AlertView({model: alertModel});
-			StudentAccount.rootView.alertRegion.show(alertView);
+			classroomLayoutView.alertRegion.show(alertView);
 
 			var postURL = "/student/save_activity_goal";
 			var postData = goalForm.serialize();
@@ -405,14 +278,14 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 					var alertModel = new Backbone.Model({message: "Activity Goal Saved!", alertClass: "alert-success"});
 					var alertView = new StudentAccount.StudentApp.AlertView({model: alertModel});
-					StudentAccount.rootView.alertRegion.show(alertView);					
+					classroomLayoutView.alertRegion.show(alertView);					
 
 					Classroom.Controller.showClassroomScores(classroomLayoutView, classroomLayoutView.model.get("classroomId"), null, null);					
 	     	}else{
 					
 					var alertModel = new Backbone.Model({message: "Error Saving Activity Goal!", alertClass: "alert-danger"});
 					var alertView = new StudentAccount.StudentApp.AlertView({model: alertModel});
-					StudentAccount.rootView.alertRegion.show(alertView);						     		
+					classroomLayoutView.alertRegion.show(alertView);						     		
 	     	}
 	     	
 	     	

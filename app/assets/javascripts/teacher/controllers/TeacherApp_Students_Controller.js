@@ -140,10 +140,11 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 
 		     	if(data.status == "success"){
 
-						var classroom = new Backbone.Model({classroomId: classroomId, tags: []})
-						var classroomLayout = new StudentAccount.StudentApp.Classroom.LayoutView({model: classroom});			
+		     		var classroomLayout = StudentAccount.StudentApp.Classroom.Controller.showClassroomLayout(classroomId, studentsLayout.studentViewRegion);
+						// var classroom = new Backbone.Model({classroomId: classroomId, tags: []})
+						// var classroomLayout = new StudentAccount.StudentApp.Classroom.LayoutView({model: classroom});			
 
-						studentsLayout.studentViewRegion.show(classroomLayout);
+						// studentsLayout.studentViewRegion.show(classroomLayout);
 
 						StudentAccount.StudentApp.Classroom.Controller.showClassroomHeader(classroomLayout,classroomId, 'scores');
 
