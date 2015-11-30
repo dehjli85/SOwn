@@ -270,6 +270,10 @@ TeacherAccount.module("TeacherApp.Main", function(Main, TeacherAccount, Backbone
 
 				TeacherAccount.TeacherApp.Students.Controller.showStudentView(student_user_id, classroom_id);
 			}
+			else if(subapp === 'kiosk'){
+				console.log("kiosk mode");
+				TeacherAccount.TeacherApp.Students.Controller.showKioskMode();
+			}
 			
 
 		},

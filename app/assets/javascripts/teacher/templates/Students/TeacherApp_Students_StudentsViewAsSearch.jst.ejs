@@ -1,3 +1,15 @@
+<% if(kioskMode){ %> 
+	<div class="well">
+		<h3>Directions for Students</h3>
+		<ol>
+			<li>In the text box below, start typing your name</li>
+			<li>When you see your full name appear, use the mouse to click on it.</li>
+			<li>Click the <a href="#" ui-student-search-button>View As</a> button and your data will appear below.</li>
+			<li>When you're done setting goals and tracking your data, click the "Clear" link next to your name below the text box.</li>
+		</ol>
+	</div>
+<% } %>
+
 <form class="form-inline" ui-student-search-form>
 	<div class="form-group">
 		<input type="text" placeholder="Start typing a student's name..." class="form-control" style="width: 700px;" ui-student-search-input>

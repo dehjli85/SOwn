@@ -45,7 +45,9 @@ TeacherAccount.module("TeacherApp.Students", function(Students, TeacherAccount, 
 
 		showStudentView: function(studentUserId, classroomId, oldStudentsLayout, studentsViewAsSearchView){
 
-			TeacherAccount.navigate("students/show/" + (studentUserId ? studentUserId : 'null') + "/" + (classroomId ? classroomId : 'null'));
+			if(studentsViewAsSearchView && !studentsViewAsSearchView.model.get("kioskMode")){
+				TeacherAccount.navigate("students/show/" + (studentUserId ? studentUserId : 'null') + "/" + (classroomId ? classroomId : 'null'));
+			}
 
 			var studentsLayout;
 

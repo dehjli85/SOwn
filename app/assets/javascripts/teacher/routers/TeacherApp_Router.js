@@ -15,7 +15,8 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 			"students/index": "showStudentsIndex",
 			"students/show/:student_user_id/:classroom_id": "showStudent",
 			"students/show/": "showStudent",
-			"settings": "showSettings"
+			"settings": "showSettings",
+			"students/kiosk/": "showKioskMode"
 		}
 	});
 
@@ -101,6 +102,12 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 
 		 showStudent: function(student_user_id, classroom_id){
 		 	TeacherApp.Main.Controller.startStudentsApp("show", student_user_id, classroom_id);
+		 },
+
+		 showKioskMode: function(){
+		 	TeacherApp.Main.Controller.startStudentsApp("kiosk");
+			console.log("kiosk mode 1");
+
 		 }
 
 
