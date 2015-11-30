@@ -345,7 +345,7 @@ class StudentAccountController < ApplicationController
     
   end
 
-  def save_new_activity_goal
+  def save_activity_goal
 
     # find the Activity Goal if it exists, if it doesn't, create a new one with the passed parameters
     activity_goal = ActivityGoal.where({student_user_id: @current_student_user.id, classroom_activity_pairing_id: params[:activity_goal][:classroom_activity_pairing_id]}).first 

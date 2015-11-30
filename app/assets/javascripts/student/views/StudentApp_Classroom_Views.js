@@ -79,7 +79,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		},
 
 		onChildviewSaveActivityGoal: function(setGoalModalView){
-			StudentAccount.StudentApp.Classroom.Controller.saveNewActivityGoal(this, setGoalModalView.ui.goalForm);
+			StudentAccount.StudentApp.Classroom.Controller.saveActivityGoal(this, setGoalModalView.ui.goalForm);
 		}
 
 

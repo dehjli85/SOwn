@@ -388,13 +388,13 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 		},
 
-		saveNewActivityGoal: function(classroomLayoutView, goalForm){
+		saveActivityGoal: function(classroomLayoutView, goalForm){
 
 			var alertModel = new Backbone.Model({message: "Saving Activity Goal...", alertClass: "alert-warning"})
 			var alertView = new StudentAccount.StudentApp.AlertView({model: alertModel});
 			StudentAccount.rootView.alertRegion.show(alertView);
 
-			var postURL = "/student/save_new_activity_goal";
+			var postURL = "/student/save_activity_goal";
 			var postData = goalForm.serialize();
 			var jqxhr = $.post(postURL, postData, function(){
 				console.log('post request for saving new activity goal');
