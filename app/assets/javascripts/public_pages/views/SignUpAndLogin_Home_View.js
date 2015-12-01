@@ -6,6 +6,11 @@ PublicPages.module("SignUpAndLoginApp.Home", function(Home, PublicPages, Backbon
 			template: JST["public_pages/templates/SignUpAndLogin_Home"],
 			className: "",
 
+			events:{
+				"click @ui.videoDiv1": "inspirationVideoPlayed",
+				"click @ui.videoDiv2": "howItWorksVideoPlayed",
+			},
+
 			triggers: {
 				"click @ui.teacherSignUpButton" : "home:teacher:sign:up",
 				"click @ui.studentSignUpButton" : "home:student:sign:up",
@@ -18,10 +23,14 @@ PublicPages.module("SignUpAndLoginApp.Home", function(Home, PublicPages, Backbon
 				videoDiv2: "[ui-video-div-two]",
 			},
 
-			events: {
+			howItWorksVideoPlayed: function(e){
+    		ga('send', 'event', 'public_pages', 'video_played', 'how_it_works');
 			},
 
-			
+			inspirationVideoPlayed: function(e){
+    		ga('send', 'event', 'public_pages', 'video_played', 'inspiration');
+			}
+
 	});
 
 	Home.TermsOfServiceView = Marionette.ItemView.extend({

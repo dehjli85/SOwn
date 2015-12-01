@@ -14,6 +14,7 @@ PublicPages.module("SignUpAndLoginApp", function(SignUpAndLoginApp, PublicPages,
 				loginButton: "[ui-login-button]",				
 				teacherSignUpButton: "[ui-teacher-sign-up-button]",
 				studentSignUpButton: "[ui-student-sign-up-button]",
+
 			},
 
 			triggers:{
@@ -22,7 +23,8 @@ PublicPages.module("SignUpAndLoginApp", function(SignUpAndLoginApp, PublicPages,
 
 			events:{
 				"click @ui.teacherSignUpButton": "onChildviewHomeTeacherSignUp",
-				"click @ui.studentSignUpButton": "onChildviewHomeStudentSignUp"
+				"click @ui.studentSignUpButton": "onChildviewHomeStudentSignUp",
+				"click .ui-social": "socialLinkClick"
 			},
 
 
@@ -46,6 +48,10 @@ PublicPages.module("SignUpAndLoginApp", function(SignUpAndLoginApp, PublicPages,
 			onChildviewShowPrivacyPolicy:function(view){
 				PublicPages.SignUpAndLoginApp.Home.Controller.showPrivacyPolicy();
 			},
+
+			socialLinkClick: function(e){
+    		ga('send', 'event', 'public_pages', 'social_link_click', $(e.target).attr("name"));
+			}
 
 	});
 

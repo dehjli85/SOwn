@@ -17,7 +17,8 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 		events:{
 			"click .ui-classroom-link": "showClassroom",
 			"click @ui.homeLink": "showClassrooms",
-			"click @ui.activitiesLink": "showActivities"
+			"click @ui.activitiesLink": "showActivities",
+			"click .ui-social": "socialLinkClick"
 		},
 
 		triggers:{
@@ -53,6 +54,10 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
    		ga('send', 'event', 'teacher_app', 'header_show_activities_index', '');
 
 			TeacherAccount.TeacherApp.Main.Controller.startActivitiesApp("index");
+		},
+
+		socialLinkClick: function(e){
+  		ga('send', 'event', 'public_pages', 'social_link_click', $(e.target).attr("name"));
 		}
 			
 	});
