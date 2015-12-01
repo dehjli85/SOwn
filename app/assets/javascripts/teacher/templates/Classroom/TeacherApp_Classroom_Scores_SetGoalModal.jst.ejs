@@ -41,6 +41,16 @@
                   <% } %>
                 </p>
 
+                <% if(activity_goal.notes != null && activity_goal.notes.trim() != ""){ %>
+                  <div>
+                    <span><b>Notes:</b></span><br>
+                    <p>
+                      <%= activity_goal.notes %>
+                    </p>
+
+                  </div>
+                <% } %>
+
               </div>
 
               <% if( ( activity_goal.goal_date != null && moment(activity_goal.goal_date) < moment()) || activity_goal.goal_met ){%>

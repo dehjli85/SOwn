@@ -72,7 +72,22 @@
                   <% } %>
                 </p>
 
+                <% if(activity_goal.notes != null && activity_goal.notes.trim() != ""){ %>
+                <div>
+                  <span><b>Notes:</b></span><br>
+                  <p>
+                    <a href="#" ui-goal-notes-link>
+                      <%= activity_goal.notes %>
+                    </a>
+                    <textarea name="activity_goal[notes]" class="form-control" style="width:100%; display:none" ui-goal-notes-input><%= activity_goal.notes %></textarea>
+                  </p>
+
+                </div>
+              <% } %>
+
               </div>
+
+
 
               <% if( ( activity_goal.goal_date != null && moment(activity_goal.goal_date) < moment()) || activity_goal.goal_met ){%>
                 
@@ -163,6 +178,10 @@
                   <input type="date" name="activity_goal[goal_date]" ui-goal-date-input>.
 
                  </p>
+            </div>
+            <div style="margin-top:20px;">
+              Notes <span style="font-style:italic">(optional)</span>:<br>
+              <textarea name="activity_goal[notes]" class="form-control" style="width:100%"></textarea>
             </div>
 
           <% } %>
