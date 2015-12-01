@@ -433,6 +433,8 @@ h3.heading-sec{
 .services-box{
     text-align: center;
     margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #eee;
 }
 .services-box i{
     color:$skincolor;
@@ -802,7 +804,7 @@ h4.portfolio-post-title{
      @include box-shadow (none);
     display: inline-block;
     letter-spacing: 1px;
-    height: 40px;
+    // height: 40px;
 }
 .btn:hover,.btn:focus{
     color:#fff;

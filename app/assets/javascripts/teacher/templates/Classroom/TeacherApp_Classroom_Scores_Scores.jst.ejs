@@ -7,7 +7,9 @@
       <button class="btn btn-primary" ui-assign-activities-button>Assign Activities</button>
     </li>
     <li>
-      <a href="/teacher/export_data?classroom_id=<%= classroom.id %>" class="btn btn-primary" target="_blank" data-toggle="modal" ui-export-data-a>Export Data</a>
+      <a href="/teacher/export_data?classroom_id=<%= classroom.id %>" class="btn btn-primary" target="_blank" data-toggle="modal" ui-export-data-a>
+        <span>Export Data</span>
+      </a>
     </li>
   </ul>
   
@@ -72,23 +74,60 @@
     <h2>Your next step: Create learning activities for your students to track</h2>
     <p>
       Click on the <a class="btn btn-primary" ui-new-activity-button>New Activity</a> button above.
-      Here’s a 1-minute <a href="#" target="_blank">video</a> to help!
     </p>
   </div>
 
 <%} else if(collectionSize == null || collectionSize == 0){ %> 
   <div class="jumbotron">
-    <h2>Last step: Get your students signed up!</h2>
-    <p>
-      You’re almost done!  You can create more activities at any time, and reorder them later as needed.
-    </p>
-    <p>
-      When you’re ready, have your students go to <a href="http://www.sowntogrow.com">www.sowntogrow.com</a> and click “I’m a new student”.  Once they have signed up, they can join your classroom using the code you created: <b><%= classroom.classroom_code %></b>
-    </p>
-    <p>
-      <a href="https://docs.google.com/presentation/d/14L-EV-LmSlZkZGneBOrULBCmBq-Pf-m2ZWj_Ch-7lgY/edit#slide=id.gd517b2663_0_169" target="_blank">Click here</a> for a presentation that you can use with your students.  It will orient them to the tool and show them how to get started.
-    </p>
-    <p>If you're curious about what your students will see you can always create a student account for yourself (even with the same email address), and join your own classroom!</p>
+    <div class="row">
+      <div class="col-sm-12">
+        <h2>Last step: Get your students signed up!</h2>
+        <p>
+          You’re almost done!  You can create more activities at any time, and reorder them later as needed.
+        </p>
+
+        <p>
+          Now you just need to get your students ready to sign up.  Choose from one of the options below:
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="jumbotron-box">
+          <h4>My classroom is 1:1 (or pretty close)</h4>
+          <p>
+            When you’re ready, have your students go to <a href="http://www.sowntogrow.com">www.sowntogrow.com</a> and click “I’m a new student”.  Once they have signed up, they can join your classroom using the code you created: <b><%= classroom.classroom_code %></b>
+          </p>
+          <p>
+            <a href="https://docs.google.com/presentation/d/14L-EV-LmSlZkZGneBOrULBCmBq-Pf-m2ZWj_Ch-7lgY/edit#slide=id.gd517b2663_0_169" target="_blank">Click here</a> for a presentation that you can use with your students.  It will orient them to the tool and show them how to get started.
+          </p>
+          <p>If you're curious about what your students will see you can always create a student account for yourself (even with the same email address), and join your own classroom!</p>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="jumbotron-box">
+
+          <h4>My students will need to share computers</h4>
+          <p>
+            Setting up accounts for each of your students can be tedious, but we'd love to help you.  
+          </p>
+          <ol>
+            <li>
+              <a href="/assets/roster.csv" target="_blank">Click here</a> to download an Excel sheet to populate your roster.  
+            </li>
+            <li>
+              When you're done, email me at <a href="mailto:rupa@sowntogrow.com">rupa@sowntogrow.com</a> and I'll help get your roster set.
+            </li>
+            <li>
+              Once your roster is set, you can use the "Kiosk Mode" to have your students set goals, enter their scores, and reflect to grow!
+            </li>
+          </ol>
+        </div>
+      </div>
+
+    </div>
+    
   </div>
 <% } %>
 
