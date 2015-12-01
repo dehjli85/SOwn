@@ -21,13 +21,16 @@ class AdminController < ApplicationController
 
 		begin
 			
-			authorization = ga.exchange_code(params[:authorization_code])
-			user_info = ga.get_user_info(authorization)
+			# authorization = ga.exchange_code(params[:authorization_code])
+			# user_info = ga.get_user_info(authorization)
 
-			puts "User Info: #{user_info}"
+			userinfo = ga.get_userinfo_from_id_token(params[:id_token])
 
-			if user_info.email.match(/.*@sowntogrow.com/)
-				session[:admin_user_id] = user_info.id							
+
+			puts "User Info: #{userinfo}"
+
+			if userinfo["email"].match(/.*@sowntogrow.com/)
+				session[:admin_user_id] = userinfo["email"]							
 			end			
 
 			respond_to do |format|

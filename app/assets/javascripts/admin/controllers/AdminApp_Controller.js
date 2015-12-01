@@ -27,26 +27,35 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 		},
 
 		logInWithGoogle: function(layoutView){
-			
-			console.log("requesting google sign in ");
-			auth2.signIn({
-				'prompt': 'select_account',
-			}).then(function(){
-				console.log("requesting offline access");
 
-				auth2.currentUser.get().grantOfflineAccess().then(function(authResult){
-					console.log("offline access granted");
-					AdminApp.Controller.logInWithGoogleCallback(authResult, layoutView);
-				});
+			console.log("requesting google sign in ");
+
+			auth2.signIn({
+					'prompt': 'select_account',
+			}).then(function(){
+
+				AdminApp.Controller.logInWithGoogleCallback(auth2.currentUser.get().getAuthResponse().id_token, layoutView);
+
 			})
+			
+			// auth2.signIn({
+			// 	'prompt': 'select_account',
+			// }).then(function(){
+			// 	console.log("requesting offline access");
+
+			// 	auth2.currentUser.get().grantOfflineAccess().then(function(authResult){
+			// 		console.log("offline access granted");
+			// 		AdminApp.Controller.logInWithGoogleCallback(authResult, layoutView);
+			// 	});
+			// })
 
 		},
 
-		logInWithGoogleCallback: function(authResult, layoutView){
+		logInWithGoogleCallback: function(idToken, layoutView){
 
 			var postUrl = "/admin/google_login_post"			
 
-			var postData = "authorization_code=" + authResult.code;
+			var postData = "id_token=" + idToken;
 
 			var jqxhr = $.post(postUrl, postData, function(){
 
