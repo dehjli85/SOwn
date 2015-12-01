@@ -37,10 +37,16 @@ PublicPages.module("SignUpAndLoginApp.Login", function(Login, PublicPages, Backb
 		  .done(function(data) {
 		    if (data.login_response === 'success'){
 		    	if (data.user_type === 'teacher') {
+
+		    		ga('send', 'event', 'public_pages', 'stg_login', 'teacher');
+
 		    		//redirect to teacher homepage
 		    		window.location.replace("teacher_home");
 		    	}
 		    	else if (data.user_type === 'student') {
+
+		    		ga('send', 'event', 'public_pages', 'stg_login', 'student');
+
 		    		//redirect to the student homepage
 		    		window.location.replace("student_home");
 		    	}

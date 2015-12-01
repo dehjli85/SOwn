@@ -27,35 +27,55 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		},
 
 		onChildviewActivitiesLayoutShowTrackModal: function(view){
+
+   		ga('send', 'event', 'student_app', 'classroom_show_track_modal', '');
+
 			this.ui.modalRegion.modal("show");
 			StudentAccount.StudentApp.Classroom.Controller.openTrackModal(this,view.model.get("classroom_activity_pairing_id"));
 		},
 
 		onChildviewActivitiesLayoutShowGoalModal: function(view){
+
+   		ga('send', 'event', 'student_app', 'classroom_show_goal_modal', '');
+
 			this.ui.modalRegion.modal("show");
 			StudentAccount.StudentApp.Classroom.Controller.openGoalModal(this, view.model.get("classroom_activity_pairing_id"));
 		},
 
 		onChildviewClassroomLayoutSavePerformance: function(trackModalView, scoresTableCompositeView){
+   		
+   		ga('send', 'event', 'student_app', 'classroom_save_performance', '');
+			
 			Classroom.Controller.savePerformance(this, trackModalView, scoresTableCompositeView);
 		},
 
 		onChildviewClassroomLayoutSaveAllPerformances: function(trackModalView, scoresTableCompositeView){
-			console.log("classroomlayoutview: save all performances");
+   		
+   		ga('send', 'event', 'student_app', 'classroom_save_all_performances', '');
+			
 			Classroom.Controller.saveAllPerformances(this, trackModalView, scoresTableCompositeView);
 		},
 
 		onChildviewActivitiesLayoutShowActivityDetailsModal: function(view){
+   		
+   		ga('send', 'event', 'student_app', 'show_activity_details_modal', '');
+			
 			this.ui.modalRegion.modal("show");
+			
 			StudentAccount.StudentApp.Classroom.Controller.openActivityDetailsModal(this, view.model.get("classroom_activity_pairing_id"));
 		},
 
 		onChildviewFilterSearchClassroomView: function(view){
+   		
+   		ga('send', 'event', 'student_app', 'filter_activities_search', '');
+
 			this.model.attributes.searchTerm = view.ui.searchInput.val();
 			StudentAccount.StudentApp.Classroom.Controller.showClassroomScores(this, this.model.attributes.classroomId, view.ui.searchInput.val(), null);
 		},
 
 		onChildviewFilterTagClassroomView: function(view){
+
+   		ga('send', 'event', 'student_app', 'filter_activities_tags', '');
 
 			if(view.ui.label.hasClass("selected_tag")){
 				view.ui.label.removeClass("selected_tag");
@@ -75,6 +95,9 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 		},
 
 		onChildviewSaveActivityGoal: function(setGoalModalView){
+   		
+   		ga('send', 'event', 'student_app', 'save_activity_goal', '');
+
 			StudentAccount.StudentApp.Classroom.Controller.saveActivityGoal(this, setGoalModalView.ui.goalForm);
 		}
 

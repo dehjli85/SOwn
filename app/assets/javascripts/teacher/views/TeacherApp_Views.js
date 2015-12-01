@@ -27,21 +27,31 @@ TeacherAccount.module("TeacherApp", function(TeacherApp, TeacherAccount, Backbon
 
 		onShowStudentView: function(){
 			TeacherApp.Main.Controller.showStudentView();
+   		ga('send', 'event', 'teacher_app', 'switch_account', '');
+
 		},
 
 		showClassroom: function(e){
-			console.log("classroom link clicked");
 			e.preventDefault();
+   		
+   		ga('send', 'event', 'teacher_app', 'header_show_classroom', '');
+
 			TeacherAccount.TeacherApp.Main.Controller.startClassroomApp($(e.target).attr("id").replace("classroom_",""), "scores");
 		},
 
 		showClassrooms: function(e){
+
+   		ga('send', 'event', 'teacher_app', 'header_show_overviews', '');
+
 			e.preventDefault();
 			TeacherAccount.TeacherApp.Classrooms.Controller.showClassroomOverviews();
 		},
 
 		showActivities: function(e){
 			e.preventDefault();
+
+   		ga('send', 'event', 'teacher_app', 'header_show_activities_index', '');
+
 			TeacherAccount.TeacherApp.Main.Controller.startActivitiesApp("index");
 		}
 			

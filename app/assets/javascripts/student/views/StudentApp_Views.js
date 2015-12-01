@@ -18,6 +18,9 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 		},
 
 		onShowTeacherView: function(){
+   		
+   		ga('send', 'event', 'student_app', 'header_switch_account_clicked', '');
+
 			StudentApp.Main.Controller.showTeacherView();
 		}
 			
@@ -48,10 +51,18 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 			e.preventDefault();
 
 			if(this.ui.classroomsToggleArrow.hasClass("ion-arrow-left-b")){
+     		
+     		ga('send', 'event', 'student_app', 'left_nav_classrooms_opened', '');
+				
 				this.openClassroomSubmenu();
+
 			}
 			else if(this.ui.classroomsToggleArrow.hasClass("ion-arrow-down-b")){
+     		
+     		ga('send', 'event', 'student_app', 'left_nav_classrooms_closed', '');
+				
 				this.closeClassroomSubmenu();
+
 			}
 
 		},
@@ -80,7 +91,9 @@ StudentAccount.module("StudentApp", function(StudentApp, StudentAccount, Backbon
 
 		showClassroom: function(e){
 			e.preventDefault();
-			console.log($(e.target).attr("id"));
+
+   		ga('send', 'event', 'student_app', 'left_nav_classroom_clicked', '');
+
 			StudentAccount.StudentApp.Main.Controller.startClassroomApp($(e.target).attr("id").replace("classroom_",""), "scores");
 		},
 

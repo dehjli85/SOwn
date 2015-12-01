@@ -246,6 +246,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		sortByMastery: function(e){
 			e.preventDefault();
+
+   		ga('send', 'event', 'teacher_app', 'scores_sort_by_mastery', '');
+
 			this.collection.comparator = function(item){
 				return -[parseInt(item.get("proficiency"))];
 				
@@ -257,6 +260,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		sortActivityHeader: function(e){
 			console.log(e);
 			e.preventDefault();
+
+   		ga('send', 'event', 'teacher_app', 'scores_sort_activity_header', '');
+
 
 			index = parseInt($(e.target).parent().attr("id").replace("header_",""));
 			
@@ -450,7 +456,9 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		onChildviewFilterSearchClassroomScoresView: function(view){
-			
+
+   		ga('send', 'event', 'teacher_app', 'filter_activities_search', '');
+
 			//re-render the header to clear any tags
 			TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomTagCollectionView(this, this.model.attributes.classroomId);
 
@@ -461,6 +469,8 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		onChildviewFilterTagClassroomScoresView: function(view){
+
+   		ga('send', 'event', 'teacher_app', 'filter_activities_tag', '');
 
 			//change the color of the tag
 			if(view.ui.label.hasClass("selected_tag")){
@@ -485,10 +495,16 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		},
 
 		onChildviewScoresLayoutOpenVerifyModal: function(view){
+
+   		ga('send', 'event', 'teacher_app', 'open_verify_modal', '');
+
 			TeacherAccount.TeacherApp.Classroom.Scores.Controller.showVerifyModal(this, view.model.get("studentPerformanceId"));
 		},
 
 		onChildviewScoresLayoutSaveVerify: function(view){
+
+   		ga('send', 'event', 'teacher_app', 'save_verification', '');
+
 			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveVerify(this, view.ui.verifyForm);
 		},
 
