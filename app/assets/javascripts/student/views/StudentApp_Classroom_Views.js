@@ -217,7 +217,12 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 					}
 					dates.push(moment(item.performance_date).format("MM/DD"));
 
-					modelData.push({x: next, y: item.scored_performance, color: color})
+					modelData.push({
+						x: next, 
+						y: item.scored_performance, 
+						color: color, 
+						activity_level_abbreviation: item.activity_level != null ? item.activity_level.abbreviation : null
+					})
 					index++;
 
 				});	 
@@ -261,7 +266,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 
 	Classroom.GoalModalView = Marionette.LayoutView.extend({
 		template: JST ["student/templates/StudentApp_Classroom_GoalModal"],
-		className: "modal-dialog",
+		className: "modal-dialog modal-dialog_wide",
 		
 		regions:{
 			graphRegion: "[ui-bar-graph-region]",
@@ -421,7 +426,14 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 					}
 					dates.push(moment(item.performance_date).format("MM/DD"));
 
-					modelData.push({x: next, y: item.scored_performance, color: color})
+					console.log(item);
+
+					modelData.push({
+						x: next, 
+						y: item.scored_performance, 
+						color: color, 
+						activity_level_abbreviation: item.activity_level != null ? item.activity_level.abbreviation : null
+					})
 					index++;
 
 				});	 
@@ -612,7 +624,7 @@ Classroom.PerformanceBarGraphView = Marionette.ItemView.extend({
 
 		  if(data.length > 0){
 		  	var margin = {top: 20, right: 20, bottom: 30, left: 40},
-				    width = (config_obj && config_obj.width ? config_obj.width : 450) - margin.left - margin.right,
+				    width = (config_obj && config_obj.width ? config_obj.width : 550) - margin.left - margin.right,
 				    height = (config_obj && config_obj.height ? config_obj.height : 200) - margin.top - margin.bottom;
 
 				var x = d3.scale.ordinal()
@@ -682,7 +694,10 @@ Classroom.PerformanceBarGraphView = Marionette.ItemView.extend({
 			      .attr("height", function(d) { return height - y(d.y); });
 					
 					bar.append("text")
-			    	.text(function(d){return d.y})
+			    	.text(function(d){
+			    		var text = d.activity_level_abbreviation != null ? d.activity_level_abbreviation + ': ' + d.y : d.y
+			    		return text;
+			    	})
 			      .attr("x", function(d) { return x(d.x) + x.rangeBand()/2; })
 			      .attr("y", function(d) { return y(d.y) + 5; })
 			      .attr("dy", ".71em")

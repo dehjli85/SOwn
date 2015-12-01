@@ -206,17 +206,10 @@ class StudentAccountController < ApplicationController
 
         activity = classroom_activity_pairing.activity
 
-        # performances = StudentPerformance.where({classroom_activity_pairing_id: classroom_activity_pairing.id, student_user_id: @current_student_user.id})
-        #   .order("created_at ASC")
-        #   .as_json
-
-        # performances.each do |performance|
-        #   performance["performance_pretty"] = StudentPerformance.performance_pretty_no_active_record(activity.activity_type, performance["scored_performance"], performance["completed_performance"], performance.activity_level ? performance.activity_level.name : nil)
-        #   performance["performance_color"] = StudentPerformance.performance_color_no_active_record(activity.activity_type, activity.benchmark1_score, activity.benchmark2_score, activity.min_score, activity.max_score, performance["scored_performance"], performance["completed_performance"])
-
-        # end
-
-        performances = StudentPerformance.where({classroom_activity_pairing_id: classroom_activity_pairing.id, student_user_id: @current_student_user.id}).order("created_at ASC").as_json
+        performances = StudentPerformance.joins("left join activity_levels on student_performances.activity_level_id = activity_levels.id")
+          .where({classroom_activity_pairing_id: classroom_activity_pairing.id, student_user_id: @current_student_user.id})
+          .order("activity_levels.name ASC, student_performances.created_at ASC")
+          .as_json
 
         activity_goal = ActivityGoal.where(student_user_id: @current_student_user.id).where(classroom_activity_pairing_id: classroom_activity_pairing.id).order("id DESC").first.as_json
         if activity_goal
