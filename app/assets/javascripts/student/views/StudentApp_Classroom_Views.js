@@ -69,8 +69,8 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
    		
    		ga('send', 'event', 'student_app', 'filter_activities_search', '');
 
-			this.model.attributes.searchTerm = view.ui.searchInput.val();
-			StudentAccount.StudentApp.Classroom.Controller.showClassroomScores(this, this.model.attributes.classroomId, view.ui.searchInput.val(), null);
+			this.model.set("searchTerm", view.ui.searchInput.val());
+			StudentAccount.StudentApp.Classroom.Controller.showClassroomScores(this, this.model.get("classroomId"), view.ui.searchInput.val(), null);
 		},
 
 		onChildviewFilterTagClassroomView: function(view){
@@ -80,18 +80,18 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 			if(view.ui.label.hasClass("selected_tag")){
 				view.ui.label.removeClass("selected_tag");
 				
-				var index = $.inArray(view.model.attributes.id, this.model.attributes.tags);
-				this.model.attributes.tags.splice(index, 1);
+				var index = $.inArray(view.model.get("id"), this.model.get("tags"));
+				this.model.get("tags").splice(index, 1);
 
 			}
 			else{
 
 				view.ui.label.addClass("selected_tag");
-				this.model.attributes.tags.push(view.model.attributes.id);
+				this.model.get("tags").push(view.model.get("id"));
 
 			}
 
-			StudentAccount.StudentApp.Classroom.Controller.showClassroomScores(this, this.model.attributes.classroomId, null, this.model.attributes.tags);
+			StudentAccount.StudentApp.Classroom.Controller.showClassroomScores(this, this.model.get("classroomId"), null, this.model.get("tags"));
 		},
 
 		onChildviewSaveActivityGoal: function(setGoalModalView){

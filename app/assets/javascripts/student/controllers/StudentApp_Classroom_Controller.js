@@ -280,7 +280,7 @@ StudentAccount.module("StudentApp.Classroom", function(Classroom, StudentAccount
 					var alertView = new StudentAccount.StudentApp.AlertView({model: alertModel});
 					classroomLayoutView.alertRegion.show(alertView);					
 
-					Classroom.Controller.showClassroomScores(classroomLayoutView, classroomLayoutView.model.get("classroomId"), null, null);					
+					Classroom.Controller.showClassroomScores(classroomLayoutView, classroomLayoutView.model.get("classroomId"), classroomLayoutView.model.get("searchTerm"), classroomLayoutView.model.get("tags"));					
 	     	}else{
 					
 					var alertModel = new Backbone.Model({message: "Error Saving Activity Goal!", alertClass: "alert-danger"});
