@@ -2,6 +2,15 @@
 
 	<div class="row">
 		<div class="col-sm-12">
+			<div class="well">
+				<p>
+					Instructions: Become the teacher for whom you want to upload the roster.  Navigate to the classroom that needs to be populated (create it if necessary).  When you get to the classroom, note the Classroom ID that should be in the URL.  You will need to populate the template below using that ID.
+				</p>
+				<div class="alert alert-warning">
+
+					Warning: This upload feature only works for new creating new students.  If you try to upload a roster for a classroom, but the students already have accounts, this will fail.
+				</div>
+			</div>
 			<form class="form-horizontal" method="post" action="/admin/upload_roster" ui-roster-form>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Fill out this template:</label>

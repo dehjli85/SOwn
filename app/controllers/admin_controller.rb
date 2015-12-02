@@ -281,7 +281,7 @@ class AdminController < ApplicationController
   			ClassroomStudentUser.new({student_user_id: student.id, classroom_id: classroom_ids[index]}).save
   		end
 
-  		render json: {status: "success"}
+  		render json: {status: "success", student_count: new_students.length}
 
   	else
   		render json: {status: "error", student_errors: student_errors, classroom_errors: classroom_errors}

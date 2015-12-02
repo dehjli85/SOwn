@@ -175,6 +175,12 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			AdminApp.Controller.showUserMetrics(this, view.model.attributes.user_type, view.model.attributes.id);
 		},
 
+		onChildviewUploadRoster: function(uploadRosterView){
+
+			AdminApp.Controller.uploadRoster(uploadRosterView, this);
+
+		},
+
 		flashMessage: function(object){
 			var model = new Backbone.Model(object);
 			var view = new AdminApp.AlertView({model: model});
@@ -232,23 +238,18 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 		},
 
 		events:{
-			"submit @ui.rosterForm": "uploadRoster",
 			"change @ui.fileInput": "prepareUpload"
 		},
 
+		triggers: {
+			"submit @ui.rosterForm": "upload:roster",
+		},
+		
 		prepareUpload: function(e){
 			console.log("files prepared");
 			this.model.set("files", e.target.files)
 		},
 
-		uploadRoster: function(e){
-			e.preventDefault();
-
-			files = e.target.files;
-
-			AdminApp.Controller.uploadRoster(this);
-
-		}
 
 
 	});

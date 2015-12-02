@@ -199,7 +199,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			adminHomeLayoutView.mainAdminHomeRegion.show(uploadRosterView);
 		},
 
-		uploadRoster: function(uploadRosterView){
+		uploadRoster: function(uploadRosterView, adminHomeLayoutView){
 			var postUrl = "/admin/upload_roster";						
 			// var postData = uploadRosterView.ui.rosterForm.serialize();
 			var postData = new FormData();
@@ -221,8 +221,7 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 					console.log(data);
 
           if (data.status === 'success'){		    
-
-
+		    		adminHomeLayoutView.flashMessage({message_type: "success", message: "Roster successfully uploaded. " + data.student_count + " student accounts created."});
 			    }
 			    else if (data.status == "error"){
 			    	
