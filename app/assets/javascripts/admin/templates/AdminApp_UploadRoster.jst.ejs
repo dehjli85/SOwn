@@ -1,0 +1,67 @@
+<div class="col-sm-12">
+
+	<div class="row">
+		<div class="col-sm-12">
+			<form class="form-horizontal" method="post" action="/admin/upload_roster" ui-roster-form>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Fill out this template:</label>
+					<label class="col-sm-9" style="padding-top:7px">		
+						<a href="/assets/roster.csv" target="_blank">roster.csv</a>
+					</label>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Upload File:</label>
+					<div class="col-sm-9">
+						<input type="file" name="roster_file" class="form-control" ui-file-input>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-9 col-sm-offset-3">
+						<button class="btn btn-primary">Submit</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<% if(student_errors != null || classroom_errors != null ){%>
+				<div ui-error-div class="alert alert-danger">
+					Please correct the following errors in your file
+				</div>
+
+				<% if(student_errors != null){%>
+
+					<% for(var i = 0; i < student_errors.length; i++){ %>
+						<div>
+							<% if(student_errors[i].errors.email){ %>
+								<b><%= student_errors[i].display_name %>:</b>
+
+								<%= student_errors[i].email %> <%= student_errors[i].errors.email[0] %>
+							<% } %>
+						</div>
+					<% } %>
+
+				<% } %>
+
+			<% } %>
+
+
+
+			<% if(classroom_errors != null){%>
+
+				<% for(var i = 0; i < classroom_errors.length; i++){ %>
+					<div>
+						<b><%= classroom_errors[i] %>:</b>
+
+						Not a valid classroom id
+					</div>
+				<% } %>
+
+			<% } %>
+
+		</div>
+	</div>	
+</div>
+

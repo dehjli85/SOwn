@@ -1,4 +1,4 @@
-	class TeacherAccountController < ApplicationController
+class TeacherAccountController < ApplicationController
 
 	require 'json'
 	require 'csv'

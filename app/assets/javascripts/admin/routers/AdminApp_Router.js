@@ -5,7 +5,8 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			"users_index": "showUsersIndex",
 			"users_index?query": "showUsersIndex",
 			"metrics": "showMetrics",
-			"user_metrics/:userType/:id": "showUserMetrics"
+			"user_metrics/:userType/:id": "showUserMetrics",
+			"upload_roster": "showUploadRoster"
 		}		
 	});
 
@@ -33,6 +34,12 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 		showUserMetrics: function(userType, id){
 			Admin.navigate("user_metrics/" + userType + "/" + id);
 			this.checkLoggedIn(function(){AdminApp.Controller.startAdminApp("user_metrics", userType, id)});
+		},
+
+		showUploadRoster: function(){
+
+			this.checkLoggedIn(function(){AdminApp.Controller.startAdminApp("upload_roster")});
+
 		},
 
 		checkLoggedIn: function(handler){

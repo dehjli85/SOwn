@@ -142,11 +142,13 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 		ui:{
 			usersIndexLink: "[ui-users-index-link]",
 			metricsLink: "[ui-metrics-link]",
+			uploadRosterLink: "[ui-upload-roster-link]"
 		},
 
 		events:{
 			"click @ui.usersIndexLink": "showUsersIndex",
 			"click @ui.metricsLink": "showMetrics",
+			"click @ui.uploadRosterLink": "showUploadRoster",
 		},
 
 		showUsersIndex: function(){
@@ -155,6 +157,10 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 
 		showMetrics: function(){
 			AdminApp.Controller.showMetrics(this);
+		},
+
+		showUploadRoster: function(){
+			AdminApp.Controller.showUploadRoster(this);
 		},
 
 		onChildviewBecomeUser: function(view){
@@ -214,7 +220,38 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			}
 		}
 
-	})
+	});
+
+	AdminApp.UploadRosterView = Marionette.ItemView.extend({
+		template: JST["admin/templates/AdminApp_UploadRoster"],
+		className: "row",
+
+		ui:{
+			fileInput: "[ui-file-input]",
+			rosterForm: "[ui-roster-form]"
+		},
+
+		events:{
+			"submit @ui.rosterForm": "uploadRoster",
+			"change @ui.fileInput": "prepareUpload"
+		},
+
+		prepareUpload: function(e){
+			console.log("files prepared");
+			this.model.set("files", e.target.files)
+		},
+
+		uploadRoster: function(e){
+			e.preventDefault();
+
+			files = e.target.files;
+
+			AdminApp.Controller.uploadRoster(this);
+
+		}
+
+
+	});
 
 
 

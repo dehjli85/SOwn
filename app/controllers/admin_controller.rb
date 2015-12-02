@@ -1,5 +1,7 @@
 class AdminController < ApplicationController
 
+	require 'csv'
+
 	skip_before_action :require_login
 
 	before_filter :verify_admin_login, :except => [:home, :google_login_post, :logged_in]
@@ -229,6 +231,66 @@ class AdminController < ApplicationController
     
 
     
+  end
+
+  def upload_roster
+
+  	# read the csv file
+  	File.read(params[:roster_file].tempfile)
+
+  	new_students = Array.new
+  	classroom_ids = Array.new
+  	student_errors = Array.new
+  	classroom_errors = Array.new
+  	header_row = true
+  	CSV.foreach(params[:roster_file].tempfile) do |row|
+	  	
+	  	# skip the header row
+	  	if header_row
+	  		header_row = false
+
+  		# loop through all other rows
+	  	else
+
+		  	# create a student
+	  		new_student = StudentUser.new({first_name: row[0], last_name: row[1], display_name: row[0] + " " + row[1], username: row[2], email: row[2], password: row[3]})
+
+	  		if(new_student.valid?)
+	  			new_students.push(new_student)
+	  		else
+	  			student_hash = new_student.as_json
+	  			student_hash["errors"] = new_student.errors
+	  			student_errors.push(student_hash)
+	  		end
+
+	  		if Classroom.where(id: row[4]).first.nil?
+	  			classroom_errors.push(row[4])
+	  		else
+	  			classroom_ids.push(row[4])
+	  		end
+
+	  	end
+  	end
+
+  	# check all students are valid
+  	if student_errors.empty? && classroom_errors.empty? && classroom_ids.length.eql?(new_students.length)
+
+  		#s save each student and pairing
+  		new_students.each_with_index do |student, index|
+  			student.save
+  			ClassroomStudentUser.new({student_user_id: student.id, classroom_id: classroom_ids[index]}).save
+  		end
+
+  		render json: {status: "success"}
+
+  	else
+  		render json: {status: "error", student_errors: student_errors, classroom_errors: classroom_errors}
+  		
+
+  	end
+
+
+
   end
 
 

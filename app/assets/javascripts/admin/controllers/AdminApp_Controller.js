@@ -16,6 +16,9 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			else if(subapp == "user_metrics"){
 				AdminApp.Controller.showUserMetrics(adminHomeLayoutView, userType, id);
 			}
+			else if(subapp == "upload_roster"){
+				AdminApp.Controller.showUploadRoster(adminHomeLayoutView);
+			}
 		},
 
 		showLoginButton: function(){
@@ -185,6 +188,55 @@ Admin.module("AdminApp", function(AdminApp, Admin, Backbone, Marionette, $, _){
 			});
 
 			
+		},
+
+		showUploadRoster: function(adminHomeLayoutView){
+			var model = new Backbone.Model({
+				student_errors: null,
+				classroom_errors: null
+			});
+			var uploadRosterView = new AdminApp.UploadRosterView({model: model});
+			adminHomeLayoutView.mainAdminHomeRegion.show(uploadRosterView);
+		},
+
+		uploadRoster: function(uploadRosterView){
+			var postUrl = "/admin/upload_roster";						
+			// var postData = uploadRosterView.ui.rosterForm.serialize();
+			var postData = new FormData();
+			postData.append("roster_file", uploadRosterView.model.get("files")[0])
+			// $.each(uploadRosterView.model.get("files"), function(key, value)
+	  //   {
+	  //       postData.append(key, value);
+	  //   });
+
+	    $.ajax({
+        url: postUrl,
+        type: 'POST',
+        data: postData,
+        cache: false,
+        dataType: 'json',
+        processData: false, // Don't process the files
+        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+        success: function(data, textStatus, jqXHR){
+					console.log(data);
+
+          if (data.status === 'success'){		    
+
+
+			    }
+			    else if (data.status == "error"){
+			    	
+			    	uploadRosterView.model.set("student_errors", data.student_errors);
+			    	uploadRosterView.model.set("classroom_errors", data.classroom_errors);
+			    	uploadRosterView.render();
+
+			    }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+		  		console.log("error");
+        }
+    	});
+
 		},
 
 		searchUsers: function(userIndexComposite, searchForm, adminHomeLayoutView){

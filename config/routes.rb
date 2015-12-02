@@ -162,6 +162,7 @@ Rails.application.routes.draw do
   get 'admin/summary_metrics' => 'admin#summary_metrics'
   get 'admin/user_metrics' => 'admin#user_metrics'
   post 'admin/update_password' => 'admin#update_password'
+  post 'admin/upload_roster' => 'admin#upload_roster'
 
   root to: "public_pages#home"
   # root to: "public_pages#index"
