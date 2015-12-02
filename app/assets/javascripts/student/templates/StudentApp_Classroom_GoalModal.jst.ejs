@@ -79,7 +79,7 @@
                     <a href="#" ui-goal-notes-link>
                       <%= activity_goal.notes %>
                     </a>
-                    <textarea name="activity_goal[notes]" class="form-control" style="width:100%; display:none" ui-goal-notes-input><%= activity_goal.notes %></textarea>
+                    <textarea name="activity_goal[notes]" class="form-control" style="width:100%; display:none" maxlength="1000" ui-goal-notes-input><%= activity_goal.notes %></textarea>
                   </p>
 
                 </div>
@@ -136,7 +136,7 @@
                     <p>
                         Add a reflection on why you <%= activity_goal.goal_met ? 'met' : 'did not meet' %> your goal.  What would you do the same next time?  What would you do differently next time?
                     </p>
-                    <textarea class="form-control" rows="3" name="reflection" style="width:100%;"></textarea>
+                    <textarea class="form-control" rows="3" name="reflection" style="width:100%;" maxlength="1000" ></textarea>
                   </div>
                 </div>
 
@@ -181,7 +181,7 @@
             </div>
             <div style="margin-top:20px;">
               Notes <span style="font-style:italic">(optional)</span>:<br>
-              <textarea name="activity_goal[notes]" class="form-control" style="width:100%"></textarea>
+              <textarea name="activity_goal[notes]" class="form-control" style="width:100%" maxlength="1000"></textarea>
             </div>
 
           <% } %>
