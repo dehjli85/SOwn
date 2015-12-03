@@ -13,7 +13,7 @@ namespace :app do
 		puts "ActivityGoal count: #{ActivityGoal.count}"
 		puts "ActivityGoalReflection count: #{ActivityGoalReflection.count}"
 
-		teacher_user_id = TeacherUser.where(email: 'demoteacher@school.org').first.id
+		teacher_user_id = TeacherUser.where(email: 'rupa@sowntogrow.com').first.id
 		control_teacher_user_id = TeacherUser.where(email: 'rverma@sjusd.org').first.id
 		
 		puts "deleting classrooms..."
@@ -137,6 +137,10 @@ namespace :app do
 		ClassroomStudentUser.new({student_user_id: 61, classroom_id: c2.id}).save
 		ClassroomStudentUser.new({student_user_id: 62, classroom_id: c2.id}).save
 		ClassroomStudentUser.new({student_user_id: 63, classroom_id: c2.id}).save
+
+		# add self to classroom
+		self_student = StudentUser.where(email: "rupa@sowntogrow.com").first
+		ClassroomStudentUser.new({student_user_id: self_student.id, classroom_id: c1.id}).save		
 
 		puts "adding activities...."
 		a1 = Activity.new({name:"(2) Multiplication 1-12", description: "thatquiz link with 100 multiplication questions, numbers 1-12", instructions: "90% correct", teacher_user_id: teacher_user_id, activity_type: "scored", min_score: 0 ,max_score: 100, benchmark1_score: 69, benchmark2_score: 89,link: "http://www.thatquiz.org/tq/practicetest?rx6aka5wlgr2" })
@@ -1423,6 +1427,18 @@ namespace :app do
 		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap27.id ,scored_performance: 5, completed_performance: nil, performance_date: "2015/10/22"}).save
 		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap11.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/27"}).save
 		StudentPerformance.new({student_user_id: 63, classroom_activity_pairing_id: cap12.id ,scored_performance: 100, completed_performance: nil, performance_date: "2015/10/28"}).save
+
+		StudentPerformance.new({student_user_id: self_student.id, classroom_activity_pairing_id: cap6.id ,scored_performance: 4.5, completed_performance: nil, performance_date: "2015/11/13"}).save
+		StudentPerformance.new({student_user_id: self_student.id, classroom_activity_pairing_id: cap7.id ,scored_performance: 55, completed_performance: nil, performance_date: "2015/11/13"}).save
+		StudentPerformance.new({student_user_id: self_student.id, classroom_activity_pairing_id: cap7.id ,scored_performance: 75, completed_performance: nil, performance_date: "2015/11/13"}).save
+		StudentPerformance.new({student_user_id: self_student.id, classroom_activity_pairing_id: cap7.id ,scored_performance: 95, completed_performance: nil, performance_date: "2015/11/13"}).save
+		StudentPerformance.new({student_user_id: self_student.id, classroom_activity_pairing_id: cap42.id ,scored_performance: 70, completed_performance: nil, performance_date: "2015/11/13"}).save
+		StudentPerformance.new({student_user_id: self_student.id, classroom_activity_pairing_id: cap42.id ,scored_performance: 90, completed_performance: nil, performance_date: "2015/11/13"}).save
+		StudentPerformance.new({student_user_id: self_student.id, classroom_activity_pairing_id: cap43.id ,scored_performance: 85, completed_performance: nil, performance_date: "2015/11/13"}).save
+		StudentPerformance.new({student_user_id: self_student.id, classroom_activity_pairing_id: cap8.id ,scored_performance: 65, completed_performance: nil, performance_date: "2015/11/13"}).save
+		StudentPerformance.new({student_user_id: self_student.id, classroom_activity_pairing_id: cap8.id ,scored_performance: 75, completed_performance: nil, performance_date: "2015/11/13"}).save
+		StudentPerformance.new({student_user_id: self_student.id, classroom_activity_pairing_id: cap16.id ,scored_performance: 65, completed_performance: nil, performance_date: "2015/11/13"}).save
+		StudentPerformance.new({student_user_id: self_student.id, classroom_activity_pairing_id: cap9.id ,scored_performance: 3, completed_performance: nil, performance_date: "2015/11/13"}).save
 		puts "adding student performance verifications..."
 		puts "NO STUDENT VERIFICATIONS ADDED"
 
@@ -1524,6 +1540,14 @@ namespace :app do
 		ag95 = ActivityGoal.new({classroom_activity_pairing_id: cap22.id ,student_user_id: 61, score_goal: 100, goal_date: "2015/11/02"})
 		ag96 = ActivityGoal.new({classroom_activity_pairing_id: cap2.id ,student_user_id: 62, score_goal: 7, goal_date: "nil"})
 		ag97 = ActivityGoal.new({classroom_activity_pairing_id: cap3.id ,student_user_id: 63, score_goal: 7, goal_date: "2015/11/04"})
+
+		ag98 = ActivityGoal.new({classroom_activity_pairing_id: cap6.id ,student_user_id: self_student.id, score_goal: 6.5, goal_date: "2015/12/18"})
+		ag99 = ActivityGoal.new({classroom_activity_pairing_id: cap7.id ,student_user_id: self_student.id, score_goal: 90, goal_date: "2015/11/13"})
+		ag100 = ActivityGoal.new({classroom_activity_pairing_id: cap42.id ,student_user_id: self_student.id, score_goal: 80, goal_date: "2015/11/13"})
+		ag101 = ActivityGoal.new({classroom_activity_pairing_id: cap8.id ,student_user_id: self_student.id, score_goal: 80, goal_date: "2015/11/13"})
+		ag102 = ActivityGoal.new({classroom_activity_pairing_id: cap43.id ,student_user_id: self_student.id, score_goal: 80, goal_date: "2015/11/13"})
+		ag103 = ActivityGoal.new({classroom_activity_pairing_id: cap16.id ,student_user_id: self_student.id, score_goal: 80, goal_date: "2015/11/20"})
+		ag104 = ActivityGoal.new({classroom_activity_pairing_id: cap9.id ,student_user_id: self_student.id, score_goal: 5, goal_date: "2015/11/25"})
 		
 		ag1.save
 		ag2.save
@@ -1623,55 +1647,66 @@ namespace :app do
 		ag96.save
 		ag97.save
 
-		puts "adding activity goal reflections..."
-		ActivityGoalReflection.new({activity_goal_id: ag5.id , student_user_id:263, teacher_user_id: nil, reflection:"  I stay focus that is way i pass", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag6.id , student_user_id:263, teacher_user_id: nil, reflection:"  I will be fuocus    ", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag7.id , student_user_id:263, teacher_user_id: nil, reflection:"  Show my work", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag8.id , student_user_id:263, teacher_user_id: nil, reflection:"  I meet my goal", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag9.id , student_user_id:263, teacher_user_id: nil, reflection:"  Stay more focus", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag9.id , student_user_id:263, teacher_user_id: nil, reflection:"  I know table and stay focus and start to study", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag12.id , student_user_id:277, teacher_user_id: nil, reflection:"  I didnt meet my goal because i still wasnt sure if i knew how to multiply two digits by two digits right", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag14.id , student_user_id:287, teacher_user_id: nil, reflection:"  I didnt reach my goal because i didnt know almost all of the anwsers on the test and i will do better to make it to 80% on my goal.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag14.id , student_user_id:287, teacher_user_id: nil, reflection:"  Today i got 80% on multiplication 1-12 idid all of the anwsers correct.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag14.id , student_user_id:287, teacher_user_id: nil, reflection:"  I did the work right and did my best on the ones i didnt know even if i kinda knew the anwser", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag15.id , student_user_id:287, teacher_user_id: nil, reflection:"  I did all of the multiplication problems right even the ones i didnt know. I will practes my multiplication more to remember the ones i dont know. I will do a higher score and less time.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag16.id , student_user_id:287, teacher_user_id: nil, reflection:"  I meet my goal by working hard and practesing. I will practec more and try my best. I will not use the answers that are on the end of the test.", reflection_date:" 2015/11/03"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag21.id , student_user_id:334, teacher_user_id: nil, reflection:"  I would use my notes to help me with this topic next time.Next time I would be a little bit more focused than I was today.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag25.id , student_user_id:376, teacher_user_id: nil, reflection:"  I met my goal by knowing how to do multiplication and i love multiplication.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag27.id , student_user_id:376, teacher_user_id: nil, reflection:"  I met goal by knowing how to do this i learn this in 4th grade so i kept practicing.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag28.id , student_user_id:376, teacher_user_id: nil, reflection:"  I met my goal by doing the problems amd taking my time ", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag29.id , student_user_id:376, teacher_user_id: nil, reflection:"  I met my goal by having a good attitude today and i had a good sleep😀. I would do the same thing.I would study with long divison and have a good attittude.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag30.id , student_user_id:376, teacher_user_id: nil, reflection:"  I met my goal by knowing how to do this and i was practicing.the thing i will do the same thing is by practicing. I would do differentely by doing a quiz by my own ", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag31.id , student_user_id:376, teacher_user_id: nil, reflection:"  I met my goal by doing my long division problems and knowing how to do this. I would do the same thing practicing ans quizing my self. I would do differently by like do this every day.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag32.id , student_user_id:376, teacher_user_id: nil, reflection:"  I met my goal by by practicing knowing how to do this stuff.yes i would do the same thing and and practice more to not forget.i would do nothing", reflection_date:" 2015/11/03"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag35.id , student_user_id:377, teacher_user_id: nil, reflection:"  Next time i will do more work so I can under stand what to do.What I would do differently next time is to study more.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag36.id , student_user_id:377, teacher_user_id: nil, reflection:"  Next time I will take my time. Something I would do differently is to take my time again.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag37.id , student_user_id:377, teacher_user_id: nil, reflection:"  Next time i will take my time. Next time i will do differently is I would do my work ", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag38.id , student_user_id:377, teacher_user_id: nil, reflection:"  Next time I will take my time like last time. What I will do differently is doing work at the same time as im takeing my time.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag47.id , student_user_id:457, teacher_user_id: nil, reflection:"  I am proud that I met my goal because I was focus on my work", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag48.id , student_user_id:457, teacher_user_id: nil, reflection:"  I am proud that I met my goal because I was focus.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag48.id , student_user_id:457, teacher_user_id: nil, reflection:"  I met my goal because I was focus and on task.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag51.id , student_user_id:457, teacher_user_id: nil, reflection:"  I met my goal because i wanted to good grade.I would stay focus the same.I will work on my timing.", reflection_date:" 2015/10/29"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag60.id , student_user_id:723, teacher_user_id: nil, reflection:"  I got a five because i practiced. I will stay focus as i did.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag61.id , student_user_id:723, teacher_user_id: nil, reflection:"  I passed my goal because i practiced on it", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag64.id , student_user_id:723, teacher_user_id: nil, reflection:"  I met my goal because i practiced on long division. I will stay ficus next time", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag65.id , student_user_id:723, teacher_user_id: nil, reflection:"  I met my goal because i knew all of the questions. I will focus as i did today. I will do the questions quicker.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag66.id , student_user_id:723, teacher_user_id: nil, reflection:"  I met my goal because i learned this from 5th grade. I will stay focus as i did today. I will work on timing next time.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag68.id , student_user_id:723, teacher_user_id: nil, reflection:"  I met my goal because even though i was confused at first i still tried. i will stay focus as i did today. I will work on timing.", reflection_date:" 2015/11/02"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag75.id , student_user_id:726, teacher_user_id: nil, reflection:"  I will stay the same by practicing at home. I will be on task and by working my hard.", reflection_date:" 2015/11/02"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag76.id , student_user_id:727, teacher_user_id: nil, reflection:"  I met my goal by getting 5 out of 5and I got thisscore  because I stayed focused.I will do the same next time is Iwill stay focuse.I will do the different next time is that I wont make mistakes.", reflection_date:" 2015/11/02"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag77.id , student_user_id:728, teacher_user_id: nil, reflection:"  I meet my goal because i stuied my multiplication and i tried my best. Next time ill do the same but try to get 100%.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag78.id , student_user_id:728, teacher_user_id: nil, reflection:"  I met my goal because i studied my multipilaction.", reflection_date:" 2015/10/29"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag80.id , student_user_id:731, teacher_user_id: nil, reflection:"  I did not met my goal that much because I expected to get a 90% or higher but i got a 80%.. Next time I will use my multiplication chart to study more.😀", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag81.id , student_user_id:734, teacher_user_id: nil, reflection:"  I meet my goal because I took my time on the questions. I will do the same next time. ", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag82.id , student_user_id:734, teacher_user_id: nil, reflection:"  I took my time in each problem and next time I will do the same.", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag83.id , student_user_id:734, teacher_user_id: nil, reflection:"  I meet my goal because i was taking my time. Next time i wil do the same thing. Next time i will get them all right. ", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag84.id , student_user_id:734, teacher_user_id: nil, reflection:"  I think i meet my goal because i took my time . Next tima i will do the same. Also, next time i will get less answers wrong ", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag91.id , student_user_id:737, teacher_user_id: nil, reflection:"  I met my goal because im smart and found out how to do this with mrs.h's help.😀👍🏻", reflection_date:" 2015/11/04"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag92.id , student_user_id:738, teacher_user_id: nil, reflection:"  I met my goal by doing my best and i tryed my hardest .i will do my best next time. ", reflection_date:" 2015/10/27"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag93.id , student_user_id:738, teacher_user_id: nil, reflection:"  I did meet my goal but it didnt let me track it.", reflection_date:" 2015/10/28"}).save
-		ActivityGoalReflection.new({activity_goal_id: ag95.id , student_user_id:738, teacher_user_id: nil, reflection:"  I met my goal buy trying by best and focusing. I will keep focusing next time.", reflection_date:" 2015/11/03"}).save
+		ag98.save
+		ag99.save
+		ag100.save
+		ag101.save
+		ag102.save
+		ag103.save
+		ag104.save
 
+		puts "adding activity goal reflections..."
+		ActivityGoalReflection.new({activity_goal_id: ag5.id , student_user_id:7, teacher_user_id: nil, reflection:"  I stay focus that is way i pass", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag6.id , student_user_id:7, teacher_user_id: nil, reflection:"  I will be fuocus    ", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag7.id , student_user_id:7, teacher_user_id: nil, reflection:"  Show my work", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag8.id , student_user_id:7, teacher_user_id: nil, reflection:"  I meet my goal", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag9.id , student_user_id:7, teacher_user_id: nil, reflection:"  Stay more focus", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag9.id , student_user_id:7, teacher_user_id: nil, reflection:"  I know table and stay focus and start to study", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag12.id , student_user_id:8, teacher_user_id: nil, reflection:"  I didnt meet my goal because i still wasnt sure if i knew how to multiply two digits by two digits right", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag14.id , student_user_id:9, teacher_user_id: nil, reflection:"  I didnt reach my goal because i didnt know almost all of the anwsers on the test and i will do better to make it to 80% on my goal.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag14.id , student_user_id:9, teacher_user_id: nil, reflection:"  Today i got 80% on multiplication 1-12 idid all of the anwsers correct.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag14.id , student_user_id:9, teacher_user_id: nil, reflection:"  I did the work right and did my best on the ones i didnt know even if i kinda knew the anwser", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag15.id , student_user_id:9, teacher_user_id: nil, reflection:"  I did all of the multiplication problems right even the ones i didnt know. I will practes my multiplication more to remember the ones i dont know. I will do a higher score and less time.", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag16.id , student_user_id:9, teacher_user_id: nil, reflection:"  I meet my goal by working hard and practesing. I will practec more and try my best. I will not use the answers that are on the end of the test.", reflection_date:" 2015/11/03"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag21.id , student_user_id:12, teacher_user_id: nil, reflection:"  I would use my notes to help me with this topic next time.Next time I would be a little bit more focused than I was today.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag25.id , student_user_id:16, teacher_user_id: nil, reflection:"  I met my goal by knowing how to do multiplication and i love multiplication.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag27.id , student_user_id:16, teacher_user_id: nil, reflection:"  I met goal by knowing how to do this i learn this in 4th grade so i kept practicing.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag28.id , student_user_id:16, teacher_user_id: nil, reflection:"  I met my goal by doing the problems amd taking my time ", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag29.id , student_user_id:16, teacher_user_id: nil, reflection:"  I met my goal by having a good attitude today and i had a good sleep😀. I would do the same thing.I would study with long divison and have a good attittude.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag30.id , student_user_id:16, teacher_user_id: nil, reflection:"  I met my goal by knowing how to do this and i was practicing.the thing i will do the same thing is by practicing. I would do differentely by doing a quiz by my own ", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag31.id , student_user_id:16, teacher_user_id: nil, reflection:"  I met my goal by doing my long division problems and knowing how to do this. I would do the same thing practicing ans quizing my self. I would do differently by like do this every day.", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag32.id , student_user_id:16, teacher_user_id: nil, reflection:"  I met my goal by by practicing knowing how to do this stuff.yes i would do the same thing and and practice more to not forget.i would do nothing", reflection_date:" 2015/11/03"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag35.id , student_user_id:17, teacher_user_id: nil, reflection:"  Next time i will do more work so I can under stand what to do.What I would do differently next time is to study more.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag36.id , student_user_id:17, teacher_user_id: nil, reflection:"  Next time I will take my time. Something I would do differently is to take my time again.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag37.id , student_user_id:17, teacher_user_id: nil, reflection:"  Next time i will take my time. Next time i will do differently is I would do my work ", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag38.id , student_user_id:17, teacher_user_id: nil, reflection:"  Next time I will take my time like last time. What I will do differently is doing work at the same time as im takeing my time.", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag47.id , student_user_id:19, teacher_user_id: nil, reflection:"  I am proud that I met my goal because I was focus on my work", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag48.id , student_user_id:19, teacher_user_id: nil, reflection:"  I am proud that I met my goal because I was focus.", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag48.id , student_user_id:19, teacher_user_id: nil, reflection:"  I met my goal because I was focus and on task.", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag51.id , student_user_id:19, teacher_user_id: nil, reflection:"  I met my goal because i wanted to good grade.I would stay focus the same.I will work on my timing.", reflection_date:" 2015/10/29"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag60.id , student_user_id:51, teacher_user_id: nil, reflection:"  I got a five because i practiced. I will stay focus as i did.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag61.id , student_user_id:51, teacher_user_id: nil, reflection:"  I passed my goal because i practiced on it", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag64.id , student_user_id:51, teacher_user_id: nil, reflection:"  I met my goal because i practiced on long division. I will stay ficus next time", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag65.id , student_user_id:51, teacher_user_id: nil, reflection:"  I met my goal because i knew all of the questions. I will focus as i did today. I will do the questions quicker.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag66.id , student_user_id:51, teacher_user_id: nil, reflection:"  I met my goal because i learned this from 5th grade. I will stay focus as i did today. I will work on timing next time.", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag68.id , student_user_id:51, teacher_user_id: nil, reflection:"  I met my goal because even though i was confused at first i still tried. i will stay focus as i did today. I will work on timing.", reflection_date:" 2015/11/02"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag75.id , student_user_id:52, teacher_user_id: nil, reflection:"  I will stay the same by practicing at home. I will be on task and by working my hard.", reflection_date:" 2015/11/02"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag76.id , student_user_id:53, teacher_user_id: nil, reflection:"  I met my goal by getting 5 out of 5and I got thisscore  because I stayed focused.I will do the same next time is Iwill stay focuse.I will do the different next time is that I wont make mistakes.", reflection_date:" 2015/11/02"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag77.id , student_user_id:54, teacher_user_id: nil, reflection:"  I meet my goal because i stuied my multiplication and i tried my best. Next time ill do the same but try to get 100%.", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag78.id , student_user_id:54, teacher_user_id: nil, reflection:"  I met my goal because i studied my multipilaction.", reflection_date:" 2015/10/29"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag80.id , student_user_id:56, teacher_user_id: nil, reflection:"  I did not met my goal that much because I expected to get a 90% or higher but i got a 80%.. Next time I will use my multiplication chart to study more.😀", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag81.id , student_user_id:57, teacher_user_id: nil, reflection:"  I meet my goal because I took my time on the questions. I will do the same next time. ", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag82.id , student_user_id:57, teacher_user_id: nil, reflection:"  I took my time in each problem and next time I will do the same.", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag83.id , student_user_id:57, teacher_user_id: nil, reflection:"  I meet my goal because i was taking my time. Next time i wil do the same thing. Next time i will get them all right. ", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag84.id , student_user_id:57, teacher_user_id: nil, reflection:"  I think i meet my goal because i took my time . Next tima i will do the same. Also, next time i will get less answers wrong ", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag91.id , student_user_id:60, teacher_user_id: nil, reflection:"  I met my goal because im smart and found out how to do this with mrs.h's help.😀👍🏻", reflection_date:" 2015/11/04"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag92.id , student_user_id:61, teacher_user_id: nil, reflection:"  I met my goal by doing my best and i tryed my hardest .i will do my best next time. ", reflection_date:" 2015/10/27"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag93.id , student_user_id:61, teacher_user_id: nil, reflection:"  I did meet my goal but it didnt let me track it.", reflection_date:" 2015/10/28"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag95.id , student_user_id:61, teacher_user_id: nil, reflection:"  I met my goal buy trying by best and focusing. I will keep focusing next time.", reflection_date:" 2015/11/03"}).save
+
+		ActivityGoalReflection.new({activity_goal_id: ag99.id , student_user_id:self_student.id, teacher_user_id: nil, reflection:" I practiced for 20 min at home yesterday - yay!", reflection_date:" 2015/11/13"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag99.id , student_user_id:self_student.id, teacher_user_id: nil, reflection:" I'm not sure I know how to get better at this...  :(", reflection_date:" 2015/11/13"}).save
+		ActivityGoalReflection.new({activity_goal_id: ag99.id , student_user_id:nil, teacher_user_id: teacher_user_id, reflection:" Excellent reflection - it seems like this strategy works well for you!", reflection_date:" 2015/11/13"}).save
 		puts "----------------AFTER ADDITION----------------------------------"
 
 		puts "Classroom count: #{Classroom.count}"
