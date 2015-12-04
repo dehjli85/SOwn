@@ -1,0 +1,78 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title" id="myModalLabel" ui-title>Add a New Student</b></h5>
+  </div>
+  <div class="modal-body" ui-body-div>
+    
+        <form class="form-horizontal" ui-student-form>
+
+          <input type="hidden" name="classroom_id" value="<%= classroomId%>">
+          <p>
+            Generally, we recommend that you have your students sign up for an account through our homepage, and then join your classroom.  However, under certain circumstances (such as having limited technology, or a new student joining your classroom), we understand you may want to create accounts for your students yourself.  You can use this form to create accounts for them.
+          </p>
+
+          <div class="form-group <%= errors.first_name ? 'has-error' : ''%>">
+            <label class="col-sm-4 control-label">Student First Name:</label>
+            <div class="col-sm-6">
+              <input type="text" name="student_user[first_name]" class="form-control" value="<%= first_name %>" ui-first-name-input>
+              <% if(errors.first_name){ %>
+                <label>First Name <%= errors.first_name[0] %></label>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="form-group <%= errors.last_name ? 'has-error' : ''%>">
+            <label class="col-sm-4 control-label">Student Last Name:</label>
+            <div class="col-sm-6">
+              <input type="text" name="student_user[last_name]" class="form-control" value="<%= last_name %>" ui-last-name-input>
+              <% if(errors.last_name){ %>
+                <label>Last name <%= errors.last_name[0] %></label>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="form-group <%= errors.email ? 'has-error' : ''%>">
+            <label class="col-sm-4 control-label">Student Email:</label>
+            <div class="col-sm-6">
+              <input type="text" name="student_user[email]" class="form-control" value="<%= email %>" ui-email-input><br>
+              <span style="font-size: 10px; font-style: italics;">*Optional</span>
+              <% if(errors.email){ %>
+                <br><label>Email <%= errors.email[0] %></label>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="form-group <%= errors.password ? 'has-error' : ''%>">
+            <label class="col-sm-4 control-label">Student Password:</label>
+            <div class="col-sm-6">
+              <input type="password" name="student_user[password]" class="form-control" value="<%= password %>" ui-password-input>
+              <span style="font-size: 10px; font-style: italics;">*Optional</span>
+              <% if(errors.password){ %>
+                <br><label>Password <%= errors.password[0] %></label>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="form-group <%= errors.password_confirmation ? 'has-error' : ''%>">
+            <label class="col-sm-4 control-label">Student Password Confirmation:</label>
+            <div class="col-sm-6">
+              <input type="password" name="student_user[password_confirmation]" class="form-control" value="<%= password_confirmation %>" ui-password-confirmation-input>
+              <% if(errors.password_confirmation){ %>
+                <label>Password confirmation <%= errors.password_confirmation[0] %></label>
+              <% } %>
+            </div>
+          </div>
+
+          <div>
+            <span style="font-size: 10px;">* If email and password aren't provided, we will automatically generate them.  If you ever need to access these generated credentials, just email us, and we can provide credentials so students can log in using them.</span>
+          </div>
+
+        </form>
+
+  </div>
+  <div class="modal-footer" ui-footer-div>    
+    <button class="btn btn-primary" ui-save-button>Save</button>
+    <button class="btn btn-default" data-dismiss="modal">Close</button>	        
+  </div>
+</div>

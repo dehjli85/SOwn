@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20151202004515) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "activity_level_id"
-    t.string   "notes",                         limit: 1000
+    t.string   "notes"
   end
 
   create_table "activity_levels", force: true do |t|

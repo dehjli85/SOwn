@@ -218,6 +218,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 			masteryHeader: "[ui-mastery-header]",
 			newActivityButton: "[ui-new-activity-button]",
 			assignActivitiesButton: "[ui-assign-activities-button]",
+			addStudentButton: "[ui-add-student-button]",
 			newActivityForm: "[ui-new-activity-form]",
 			scoresTable: "[ui-scores-table]",
 			tableContainer: "[ui-table-container]",
@@ -234,6 +235,7 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		triggers:{
 			"click @ui.newActivityButton": "open:new:activity:dialog",
 			"click @ui.assignActivitiesButton": "open:assign:activities:dialog",
+			"click @ui.addStudentButton": "open:add:students:dialog"
 		},
 
 		sortByName: function(){
@@ -460,12 +462,12 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
    		ga('send', 'event', 'teacher_app', 'filter_activities_search', '');
 
 			//re-render the header to clear any tags
-			TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomTagCollectionView(this, this.model.attributes.classroomId);
+			Scores.Controller.showClassroomTagCollectionView(this, this.model.attributes.classroomId);
 
 			if(this.model.get("readOrEdit") == "read")
-				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomScores(this, this.model.attributes.classroomId, view.ui.searchInput.val(), null);
+				Scores.Controller.showClassroomScores(this, this.model.attributes.classroomId, view.ui.searchInput.val(), null);
 			else if(this.model.get("readOrEdit") == "edit")
-				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomEditScores(this, this.model.attributes.classroomId, view.ui.searchInput.val(), null);
+				Scores.Controller.showClassroomEditScores(this, this.model.attributes.classroomId, view.ui.searchInput.val(), null);
 		},
 
 		onChildviewFilterTagClassroomScoresView: function(view){
@@ -489,47 +491,55 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 			console.log(this.model.attributes.tags);
 			if(this.model.get("readOrEdit") == "read")
-				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomScores(this, this.model.attributes.classroomId, null, this.model.attributes.tags);
+				Scores.Controller.showClassroomScores(this, this.model.attributes.classroomId, null, this.model.attributes.tags);
 			else if(this.model.get("readOrEdit") == "edit")
-				TeacherAccount.TeacherApp.Classroom.Scores.Controller.showClassroomEditScores(this, this.model.attributes.classroomId, null, this.model.attributes.tags);
+				Scores.Controller.showClassroomEditScores(this, this.model.attributes.classroomId, null, this.model.attributes.tags);
 		},
 
 		onChildviewScoresLayoutOpenVerifyModal: function(view){
 
    		ga('send', 'event', 'teacher_app', 'open_verify_modal', '');
 
-			TeacherAccount.TeacherApp.Classroom.Scores.Controller.showVerifyModal(this, view.model.get("studentPerformanceId"));
+			Scores.Controller.showVerifyModal(this, view.model.get("studentPerformanceId"));
 		},
 
 		onChildviewScoresLayoutSaveVerify: function(view){
 
    		ga('send', 'event', 'teacher_app', 'save_verification', '');
 
-			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveVerify(this, view.ui.verifyForm);
+			Scores.Controller.saveVerify(this, view.ui.verifyForm);
 		},
 
 		onChildviewSaveClassroomScores: function(view){			
-			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveClassroomScores(this, view.ui.studentPerformanceForm);
+			Scores.Controller.saveClassroomScores(this, view.ui.studentPerformanceForm);
 		},
 
 		onChildviewSaveActivitiesSortOrder: function(view){
-	    	TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveActivitiesSortOrder(this, view, view.model.get("activitiesSortOrder"));
+	    Scores.Controller.saveActivitiesSortOrder(this, view, view.model.get("activitiesSortOrder"));
 		},
 
 		onChildviewSaveClassroomActivityAssignments: function(view){
-			TeacherAccount.TeacherApp.Classroom.Scores.Controller.saveClassroomActivityAssignments(this, view.ui.assignmentForm);
+			Scores.Controller.saveClassroomActivityAssignments(this, view.ui.assignmentForm);
 		},
 
 		onChildviewOpenNewActivityDialog: function(view){
-			TeacherAccount.TeacherApp.Classroom.Scores.Controller.openEditActivityDialog(this);
+			Scores.Controller.openEditActivityDialog(this);
 		},
 
 		onChildviewOpenEditActivityDialog: function(view){
-			TeacherAccount.TeacherApp.Classroom.Scores.Controller.openEditActivityDialog(this, view.model.get("activityId"));
+			Scores.Controller.openEditActivityDialog(this, view.model.get("activityId"));
 		},
 
 		onChildviewOpenAssignActivitiesDialog: function(view){
-			TeacherAccount.TeacherApp.Classroom.Scores.Controller.openAssignActivitiesDialog(this);
+			Scores.Controller.openAssignActivitiesDialog(this);
+		},
+
+		onChildviewOpenAddStudentsDialog: function(scoresView){
+			Scores.Controller.openAddStudentsDialog(this);
+		},
+
+		onChildviewLayoutSaveStudent: function(addStudentsModalView){
+			Scores.Controller.saveStudent(addStudentsModalView, this);
 		},
 
 		onChildviewSaveActivity: function(view){
@@ -581,6 +591,65 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 		initialize: function(options){
 			this.$el.attr("role","document");
 		},
+
+	});
+
+	Scores.AddStudentsModalView = Marionette.ItemView.extend({
+		template: JST["teacher/templates/Classroom/TeacherApp_Classroom_Scores_AddStudentsModal"],
+		className: "modal-dialog modal-dialog_wide",
+
+		ui:{
+			firstNameInput: "[ui-first-name-input]",
+			lastNameInput: "[ui-last-name-input]",
+			emailInput: "[ui-email-input]",
+			passwordInput: "[ui-password-input]",
+			passwordConfirmationInput: "[ui-password-confirmation-input]",
+			studentForm: "[ui-student-form]",
+			saveButton: "[ui-save-button]"
+		},
+
+		events: {
+			"submit @ui.studentForm": "saveStudent",
+			"click @ui.saveButton": "saveStudent"
+		},
+
+		saveStudent: function(e){
+			e.preventDefault();
+
+			this.setModelAttributes();
+
+			console.log(this.model);
+
+
+			// Do some validation
+			this.model.set("errors", {});
+
+			if(this.ui.emailInput.val().trim() == "" && this.ui.passwordInput.val().trim() != ""){
+				this.model.get("errors").password = ["must be blank if email is blank"]
+			}
+
+			if(this.ui.passwordInput.val() != this.ui.passwordConfirmationInput.val()){
+				this.model.get("errors").password_confirmation = ["does not match password"]
+			}
+
+			// If there are errors, re-render the view
+			if(!$.isEmptyObject(this.model.get("errors"))){
+				this.render();
+			}
+			// Otherwise try to save the student
+			else{
+				this.triggerMethod("layout:save:student");
+			}
+
+		},
+
+		setModelAttributes: function(){
+			this.model.set("first_name", this.ui.firstNameInput.val());
+			this.model.set("last_name", this.ui.lastNameInput.val());
+			this.model.set("email", this.ui.emailInput.val());
+			this.model.set("password", this.ui.passwordInput.val());
+			this.model.set("password_confirmation", this.ui.passwordConfirmationInput.val());
+		}
 
 	});
 

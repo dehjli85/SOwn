@@ -23,9 +23,7 @@ default: &default
 
 development:
   <<: *default
-  # database: SOwn_test_copy
-  database: sown_new_version
-  # database: SOwn_development
+  database: SOwn_development
   # database: sown_debug
 
   # The specified database role being used to connect to postgres.

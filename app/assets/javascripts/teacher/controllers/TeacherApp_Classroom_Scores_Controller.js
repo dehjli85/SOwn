@@ -398,6 +398,61 @@ TeacherAccount.module("TeacherApp.Classroom.Scores", function(Scores, TeacherAcc
 
 		},
 
+		openAddStudentsDialog: function(scoresLayoutView){
+
+			var model = new Backbone.Model({
+				first_name: "",
+				last_name: "",
+				email: "",
+				password: "",
+				password_confirmation: "",
+				classroomId: scoresLayoutView.model.get("classroomId"),
+				errors:{}
+			});
+
+			var addStudentsModalView = new Scores.AddStudentsModalView({model: model});
+			scoresLayoutView.modalRegion.show(addStudentsModalView);
+			scoresLayoutView.ui.modalRegion.modal("show");
+
+		},
+
+		saveStudent: function(addStudentsModalView, scoresLayoutView){
+
+			var postUrl = "/teacher/save_student";
+			var jqxhr = $.post(postUrl, addStudentsModalView.ui.studentForm.serialize(), function(){
+				console.log('post request to save new student');
+			})
+			.done(function(data) {
+
+				console.log(data);
+
+				if(data.status == "success"){
+					var alertModel = new TeacherAccount.Models.Alert({alertClass: "alert-success", message: "Student account successfully created!"});
+					var alertView = new TeacherAccount.TeacherApp.AlertView({model: alertModel});
+					
+					TeacherAccount.rootView.alertRegion.show(alertView);
+
+					Scores.Controller.showClassroomScores(scoresLayoutView, scoresLayoutView.model.get("classroomId"), null, []);
+
+					scoresLayoutView.ui.modalRegion.modal("hide");
+					scoresLayoutView.modalRegion.empty();
+				}
+				else{
+					
+					addStudentsModalView.model.set("errors", data.errors);
+					addStudentsModalView.render();
+
+				}
+
+		  })
+		  .fail(function() {
+		  	console.log("error");
+		  })
+		  .always(function() {
+		   
+			});	
+		},
+
 		saveNewActivity: function(scoresLayoutView, editActivityModalLayoutView){
 			var postUrl = "/teacher/save_new_activity";
 			var jqxhr = $.post(postUrl, editActivityModalLayoutView.ui.activityForm.serialize(), function(){

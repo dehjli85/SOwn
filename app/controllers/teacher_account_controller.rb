@@ -796,6 +796,68 @@ class TeacherAccountController < ApplicationController
     
   end
 
+  # creates a new student and adds the student to the specified classroom
+  # expects the following parameters:
+  # => classroom_id
+  # => student
+  #
+  # student has the following properties
+  # => first_name
+  # => last_name
+  # => email
+  # => password    
+  def save_student
+
+  	# check to make sure it is a valid classroom
+  	classroom = Classroom.where({teacher_user_id: @current_teacher_user.id, id: params[:classroom_id]}).first
+  	if classroom.nil?
+
+  		render json: {status: "error", error: "invalid-classroom-id"}
+
+  	else
+
+  		student_user = StudentUser.new(params.require(:student_user).permit(:first_name, :last_name, :password, :email))
+  		student_user.display_name = student_user.first_name + " " + student_user.last_name
+
+  		# generate an email and password if one isn't provided
+  		if (student_user.email.nil? || student_user.email.eql?("") &&
+  			student_user.password.nil? || student_user.password.eql?(""))
+
+  			teacher_user_email_domain = /^[a-z0-9_\.-]+@([\da-z\.-]+\.[a-z\.]{2,6})$/.match(@current_teacher_user.email).captures[0]
+  			
+  			student_user.email = student_user.first_name + "." + student_user.last_name +  "@students." + teacher_user_email_domain
+  			student_user.username = student_user.email
+  			student_user.password = @current_teacher_user.last_name.downcase
+
+  		end
+
+  		if student_user.valid?
+
+  			student_user.save
+
+  			ClassroomStudentUser.new({classroom_id: classroom.id, student_user_id: student_user.id}).save
+
+  			render json: {status: "success"}
+  		else
+  			student_user_hash = student_user.serializable_hash
+  			student_user_hash.delete("password_digest")
+  			student_user_hash.delete("salt")
+  			student_user_hash.delete("local_id")
+  			student_user_hash.delete("oauth_token")
+  			student_user_hash.delete("oauth_expires_at")
+  			student_user_hash.delete("uid")
+  			student_user_hash.delete("provider")
+  			student_user_hash.delete("created_at")
+  			student_user_hash.delete("updated_at")
+	  		render json: {status: "error", student: student_user_hash, errors: student_user.errors}
+  		end
+
+  	end
+
+
+  end
+
+
 	#################################################################################
 	#
 	# Activities App Methods
